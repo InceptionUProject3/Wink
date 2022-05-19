@@ -1,9 +1,21 @@
-import React from 'react'
-
-const Navbar = () => {
+import React from 'react';
+import { Link } from "react-router-dom";
+const navbar= () =>{
   return (
-    <div>Navbar</div>
-  )
-}
+  <div>
+    <li>
+      <Link to="/Calendar.jsx">Calendar</Link>
+    </li>
+    <li>
+      <Link to="/Messaging.jsx">Messaging</Link>
+    </li>
+    <li>
+      <Link to="/Training.jsx">Training</Link>
+    </li>
+    <li>
+    <Link to="/ProgressTracking.jsx">Progress Tracking</Link>
+    </li>
+  </div>
+)}
 
-export default Navbar
+  //This is a NavBar
