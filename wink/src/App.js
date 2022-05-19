@@ -1,4 +1,4 @@
-import logo from './wink_logo.jpg';
+import logo from './wink.logo.jpg';
 import './App.css';
 import Messaging from './Messaging';
 import Calendar from './Calendar';
