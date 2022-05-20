@@ -1,5 +1,8 @@
-import logo from './logo.svg';
+import logo from './wink.logo.jpg';
 import './App.css';
+import Messaging from './Messaging';
+import Calendar from './Calendar';
+import Training from './Training';
 
 function App() {
   return (
@@ -7,18 +10,22 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          This is our project for Wink Optical Software.
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://www.downloadwink.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn more about Wink
         </a>
       </header>
+      <Messaging/> 
+      <Calendar/>
+      <Training/>
     </div>
+    
   );
 }
 
