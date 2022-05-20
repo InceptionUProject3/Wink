@@ -1,21 +1,30 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-const navbar= () =>{
-  return (
-  <div>
-    <li>
-      <Link to="/Calendar.jsx">Calendar</Link>
-    </li>
-    <li>
-      <Link to="/Messaging.jsx">Messaging</Link>
-    </li>
-    <li>
-      <Link to="/Training.jsx">Training</Link>
-    </li>
-    <li>
-    <Link to="/ProgressTracking.jsx">Progress Tracking</Link>
-    </li>
-  </div>
-)}
+import React from 'react'
 
-  //This is a NavBar
+const Navbar = () => {
+  return (
+    <div className='navbar'>
+      <div className="container">
+        <h1>
+          Wink Scheduling System
+        </h1>
+
+        <ul>
+        <li>
+            <p>
+              <a className="menu" href="/">Home</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a className="menu" href="/messaging">Messaging</a>
+            </p>
+          </li>
+
+          </ul>
+        </div>
+        </div>
+
+  )
+}
+
+export default Navbar
