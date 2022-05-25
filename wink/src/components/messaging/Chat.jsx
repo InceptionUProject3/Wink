@@ -1,5 +1,5 @@
 import React from "react";
-// import useChat from "../useChat";
+import useChat from "./useChat";
 import { useState } from "react";
 
 const Chat = (props) => {
