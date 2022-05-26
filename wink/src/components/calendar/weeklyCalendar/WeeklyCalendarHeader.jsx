@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 // import moment from 'moment';
 
 const WeeklyCalendarHeader = (props) => {
@@ -13,7 +13,7 @@ const WeeklyCalendarHeader = (props) => {
         setSelectedDay((pre)=>pre.clone().add(7,'days'))
     }
   return (
-    <div className='WeeklyCalHeader'>
+    <div className='WeeklyCal-header'>
         <button onClick={moveToPreWeek}>&lt;</button>
         <div className='DayInHeader'>{selectDayInHeader}</div>
         <button onClick={moveToNextWeek}>&gt;</button>

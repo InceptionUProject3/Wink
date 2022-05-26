@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
-
+import "./WeeklyCalendar.css";
 const WeeklyCalendar = () => {
   //selectedDay is a standard day
   const [selectedDay, setSelectedDay] = useState(moment());
@@ -17,13 +17,21 @@ const WeeklyCalendar = () => {
     }
     setDaysInWeek(weekCalArray);
   }, [selectedDay]);
-
+console.log('timeStamp', new Date())
   return (
-    <div>
-      <WeeklyCalendarHeader selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
-      {daysInWeek?.map((day, index) => (
-        <div key={`daysInWeek ${index}`}>{day}</div>
-      ))}
+    <div className="Weekly-calendar">
+     
+        
+          <WeeklyCalendarHeader
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
+          />
+          <div className="WeeklyCal-dates">
+            {daysInWeek?.map((day, index) => (
+              <div className="WeeklyCal-date" key={`daysInWeek ${index}`}>{day}</div>
+            ))}
+          </div>
+        
     </div>
   );
 };

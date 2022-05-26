@@ -1,0 +1,25 @@
+.Weekly-calendar{
+    display: grid;
+    
+    grid-template-columns: repeat(8,1fr);
+    grid-auto-rows: auto;
+    border: 0.5px solid #c3c3c3;
+}
+.Weekly-calendar >div{
+    border: 0.5px solid #c3c3c3;
+}
+.WeeklyCal-header{
+    grid-column: 2/-1;
+    display: flex;
+    justify-content: center;
+    gap: 4rem
+}
+.WeeklyCal-dates{
+    grid-column: 2/-1;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+}
+.WeeklyCal-dates>div{
+    justify-self: start;
+    border-left: 0.5px solid #c3c3c3;
+}
