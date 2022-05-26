@@ -7,6 +7,7 @@ import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import socketClient from "socket.io-client";
 import Chat from "./components/messaging/Chat";
+import WeeklyCalendar from "./components/calendar/weeklyCalendar/WeeklyCalendar";
 
 const SERVER = "http://localhost:4000";
 
@@ -39,6 +40,7 @@ function App() {
           />
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/:roomId" element={<Chat />} />
+          <Route path="/weeklyCalender" element={<WeeklyCalendar/>}/>
         </Routes>
       </BrowserRouter>
     </div>
