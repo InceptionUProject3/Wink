@@ -1,4 +1,4 @@
-import monthlyCalender from "../monthlyCalender/monthlyCalender"
+import monthlyCalender from "./monthlyCalender"
 
 export default function monthlyCalenderPage(){
     return <monthlyCalender />
