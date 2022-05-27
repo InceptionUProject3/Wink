@@ -1,6 +1,7 @@
 import logo from "./images/wink.logo.jpg";
 import "./App.css";
 import Messaging from "./components/messaging/Messaging";
+import MonthlyCalender from "./components/calendar/monthlyCalender/monthlyCalender";
 import Calendar from "./components/calendar/Calendar";
 import Training from "./components/training/Training";
 import Navbar from "./components/navbar/Navbar";
@@ -40,7 +41,8 @@ function App() {
           />
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/:roomId" element={<Chat />} />
-          <Route path="/weeklyCalender" element={<WeeklyCalendar/>}/>
+          <Route path="/weeklyCalender" element={<WeeklyCalendar />}/>
+          <Route path="/monthlyCalender" element={<MonthlyCalender />}/>
         </Routes>
       </BrowserRouter>
     </div>
