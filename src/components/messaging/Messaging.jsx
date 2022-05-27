@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./Home.css";
+import "./Messaging.css";
 
-const Home = () => {
-  const [roomName, setRoomName] = React.useState("");
+const Messaging = () => {
+  const [roomName, setRoomName] = useState("");
 
   const handleRoomNameChange = (event) => {
     setRoomName(event.target.value);
   };
 
   return (
-    <div className="home-container">
+    <div className="Messaging-container">
       <input
         type="text"
         placeholder="Room"
@@ -26,4 +26,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Messaging;
