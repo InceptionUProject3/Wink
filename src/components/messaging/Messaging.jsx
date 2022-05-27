@@ -1,17 +1,17 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
-// import "./Home.css";
 
-const Messaging = () => {
-  const [roomName, setRoomName] = useState("");
+import "./Home.css";
+
+const Home = () => {
+  const [roomName, setRoomName] = React.useState("");
 
   const handleRoomNameChange = (event) => {
     setRoomName(event.target.value);
   };
+
   return (
-    <div className='messaging'>
-      
+    <div className="home-container">
       <input
         type="text"
         placeholder="Room"
@@ -22,8 +22,8 @@ const Messaging = () => {
       <Link to={`/${roomName}`} className="enter-room-button">
         Join room
       </Link>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Messaging
+export default Home;
