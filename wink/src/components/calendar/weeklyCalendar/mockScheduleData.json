@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "employeeId": 1,
+    "name": "Ann",
+    "position": "Store Manager",
+    "date": "May 29 2022",
+    "from": "9:00",
+    "to": "16:00",
+    "workCode": "Working"
+  },
+  {
+    "id": 2,
+    "employeeId": 1,
+    "name": "Ann",
+    "position": "Store Manager",
+    "date": "May 28 2022",
+    "from": "9:00",
+    "to": "16:00",
+    "workCode": "Working"
+  },
+  {
+    "id": 3,
+    "employeeId": 2,
+    "name": "John",
+    "position": "Supervisor",
+    "date": "May 26 2022",
+    "from": "9:00",
+    "to": "15:00",
+    "workCode": "Working"
+  },
+  {
+    "id": 4,
+    "employeeId": 2,
+    "name": "John",
+    "position": "Supervisor",
+    "date": "May 27 2022",
+    "from": "15:00",
+    "to": "21:00",
+    "workCode": "Working"
+  },{
+    "id": 5,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "date": "May 26 2022",
+    "from": "15:00",
+    "to": "21:00",
+    "workCode": "Working"
+  }
+]

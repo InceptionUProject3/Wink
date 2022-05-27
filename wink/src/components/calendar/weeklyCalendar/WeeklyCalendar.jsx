@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
 import "./WeeklyCalendar.css";
+import WeeklyCalendarBody from "./WeeklyCalendarBody";
+
 const WeeklyCalendar = () => {
   //selectedDay is a standard day
   const [selectedDay, setSelectedDay] = useState(moment());
@@ -17,21 +19,21 @@ const WeeklyCalendar = () => {
     }
     setDaysInWeek(weekCalArray);
   }, [selectedDay]);
-console.log('timeStamp', new Date())
+
   return (
     <div className="Weekly-calendar">
-     
-        
-          <WeeklyCalendarHeader
-            selectedDay={selectedDay}
-            setSelectedDay={setSelectedDay}
-          />
-          <div className="WeeklyCal-dates">
-            {daysInWeek?.map((day, index) => (
-              <div className="WeeklyCal-date" key={`daysInWeek ${index}`}>{day}</div>
-            ))}
+      <WeeklyCalendarHeader
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+      />
+      <div className="WeeklyCal-dates">
+        {daysInWeek?.map((day, index) => (
+          <div className="WeeklyCal-date" key={`daysInWeek ${index}`}>
+            {day}
           </div>
-        
+        ))}
+      </div>
+      <WeeklyCalendarBody selectedDay={selectedDay} />
     </div>
   );
 };
