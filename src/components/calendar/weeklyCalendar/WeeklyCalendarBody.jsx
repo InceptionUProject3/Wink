@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import mockScheduleData from "./mockScheduleData.json";
 import moment from "moment";
 
+import DisplayOthersSched from "./scheduleBody/DisplayOthersSched";
+import DisplayMySched from "./scheduleBody/DisplayMySched";
+
 const WeeklyCalendarBody = (props) => {
   const { selectedDay } = props;
 
@@ -37,13 +40,6 @@ const WeeklyCalendarBody = (props) => {
     );
     return currentUserData;
   };
-  const setPositionList = () => {
-    let positionLists = [];
-    cowokerProfs?.forEach((prof) => positionLists.push(prof.position));
-    const positionList = Array.from(new Set(positionLists));
-    // console.log("positions", positionList)
-    return positionList;
-  };
 
   useEffect(() => {
     const setAllProfiles = () => {
@@ -53,7 +49,6 @@ const WeeklyCalendarBody = (props) => {
       //set coworkers' profiles
       const otherProfs = filterOutMy(mockEmployeeData);
       setCowokerProfs(otherProfs);
-      // console.log("current", myProfile);
     };
     setAllProfiles();
   }, []);
@@ -85,13 +80,6 @@ const WeeklyCalendarBody = (props) => {
     return weekScheds;
   };
 
-  // const groupByPosition = (prof)=>{
-  //   const positions = setPositionList(cowokerProfs);
-  //   return positions.map((position)=>{
-  //     if(pr)
-  //   })
-  // }
-
   const displaySched = (ForWhom) => {
     //  console.log("filtered", filterWeekScheds(ForWhom));
     return week?.map((day) => {
@@ -112,37 +100,19 @@ const WeeklyCalendarBody = (props) => {
     });
   };
 
-  const displayOthers = () => {
-    const positions = setPositionList();
-    return positions.map((position) => {
-      return cowokerProfs?.map((prof) => {
-        if (prof.position === position) {
-          const schedsForOne = cowerkerScheds?.filter(
-            (sched) => sched.name === prof.name
-          );
-          return (
-            <>
-              <div className="coworker-profile">
-                <div>{prof.name}</div>
-                <div>{prof.position}</div>
-              </div>
-              {displaySched(schedsForOne)}
-            </>
-          );
-        }
-      });
-    });
-  };
-
   return (
     <>
-      <div className="myProfile">
-        <div>{myProfile?.name}</div>
-        <div>{myProfile?.position}</div>
-        <div>Me</div>
-      </div>
-      {mySched && displaySched(mySched)}
-      {displayOthers()}
+      <DisplayMySched
+        myProfile={myProfile}
+        mySched={mySched}
+        displaySched={displaySched}
+      />
+
+      <DisplayOthersSched
+        cowokerProfs={cowokerProfs}
+        cowerkerScheds={cowerkerScheds}
+        displaySched={displaySched}
+      />
     </>
   );
 };
