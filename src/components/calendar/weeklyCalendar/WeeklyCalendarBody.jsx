@@ -15,9 +15,10 @@ const WeeklyCalendarBody = (props) => {
   const endDay = selectedDay.clone().add(6, "days").endOf("day");
   //need to fetch employee profiles from server.
   const mockEmployeeData = [
-    { name: "Hana" },
-    { name: "John" },
-    { name: "Ann" },
+    { name: "Hana", position: "Supervisor" },
+    { name: "Ann", position: "Store Manager" },
+    { name: "Patrick", position: "Receptionist" },
+    { name: "John", position: "Supervisor" },
   ];
   //need to fetch current logged in user
   const currentUser = { name: "Ann" };
@@ -36,14 +37,23 @@ const WeeklyCalendarBody = (props) => {
     );
     return currentUserData;
   };
+  const setPositionList = () => {
+    let positionLists = [];
+    cowokerProfs?.forEach((prof) => positionLists.push(prof.position));
+    const positionList = Array.from(new Set(positionLists));
+    // console.log("positions", positionList)
+    return positionList;
+  };
 
   useEffect(() => {
     const setAllProfiles = () => {
+      //set my profile
       const currentUserProf = findMy(mockEmployeeData);
-      const otherProfs = filterOutMy(mockEmployeeData);
       setMyProfile(currentUserProf[0]);
+      //set coworkers' profiles
+      const otherProfs = filterOutMy(mockEmployeeData);
       setCowokerProfs(otherProfs);
-      console.log("current", myProfile);
+      // console.log("current", myProfile);
     };
     setAllProfiles();
   }, []);
@@ -75,6 +85,13 @@ const WeeklyCalendarBody = (props) => {
     return weekScheds;
   };
 
+  // const groupByPosition = (prof)=>{
+  //   const positions = setPositionList(cowokerProfs);
+  //   return positions.map((position)=>{
+  //     if(pr)
+  //   })
+  // }
+
   const displaySched = (ForWhom) => {
     //  console.log("filtered", filterWeekScheds(ForWhom));
     return week?.map((day) => {
@@ -95,24 +112,37 @@ const WeeklyCalendarBody = (props) => {
     });
   };
 
+  const displayOthers = () => {
+    const positions = setPositionList();
+    return positions.map((position) => {
+      return cowokerProfs?.map((prof) => {
+        if (prof.position === position) {
+          const schedsForOne = cowerkerScheds?.filter(
+            (sched) => sched.name === prof.name
+          );
+          return (
+            <>
+              <div className="coworker-profile">
+                <div>{prof.name}</div>
+                <div>{prof.position}</div>
+              </div>
+              {displaySched(schedsForOne)}
+            </>
+          );
+        }
+      });
+    });
+  };
+
   return (
     <>
-      <div>
+      <div className="myProfile">
         <div>{myProfile?.name}</div>
+        <div>{myProfile?.position}</div>
         <div>Me</div>
       </div>
       {mySched && displaySched(mySched)}
-      {cowokerProfs?.map((prof) => {
-        const schedsForOne = cowerkerScheds?.filter(
-          (sched) => sched.name === prof.name
-        );
-        return (
-          <>
-            <div>{prof.name}</div>
-            {displaySched(schedsForOne)}
-          </>
-        );
-      })}
+      {displayOthers()}
     </>
   );
 };
