@@ -40,11 +40,11 @@
     padding: 12px 8px;
     word-break: break-word;
     border-radius: 4px;
-    color: white;
+    color: #00b3b4
 }
 
 .my-message {
-    background-color: #00b3b4;
+    background-color: white;
     margin-left: auto;
 }
 

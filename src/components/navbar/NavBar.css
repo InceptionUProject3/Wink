@@ -1,0 +1,59 @@
+.text {
+    font-family: Heebo; 
+    font-size: 3em;
+    color: darkcyan;
+}
+
+.Home {
+    background-color: #23a5a5;
+    font-family: Heebo;
+    font-size: 1.21em;
+    color: white;
+    border-radius: 0.3cm;
+    border-color: #23a5a5;
+    border-bottom: #23a5a5;
+    border-right: #23a5a5;
+    padding: 1px 90.5px;
+    float: left;
+    cursor: pointer;
+    
+    
+}
+
+.Messaging {
+    background-color: #23a5a5;
+    font-family: Heebo;
+    font-size: 1.21em;
+    color: white;
+    border-radius: 0.3cm;
+    border-color: #23a5a5;
+    border-bottom: #23a5a5;
+    border-right: #23a5a5;
+    padding: 1px 65px;
+    float: left;
+    cursor: pointer;
+
+}
+
+.Calendar {
+    background-color: #23a5a5;
+    font-family: Heebo;
+    font-size: 1.21em;
+    color: white;
+    border-radius: 0.3cm;
+    border-color: #23a5a5;
+    border-bottom: #23a5a5;
+    border-right: #23a5a5;
+    padding: 1px 70px;
+    float: left;
+    cursor: pointer;
+}
+
+.training {
+    color: rgb(119, 246, 239);
+    background-color: rgb(119, 246, 239);
+    border-color: rgb(119, 246, 239);
+    border-bottom: rgb(119, 246, 239);
+    border-right: rgb(119, 246, 239);
+    float: bottom;
+}
