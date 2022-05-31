@@ -1,25 +1,76 @@
+:root {
+    --wink-color: #23A5A5;
+    --wink-color-light: #71C8C8;
+    --grid-color: #bec6c67f;
+    --font-darkgrey: #5a5a5a;
+    --font-black: #000000;
+    --weekend-color: #bd4a31;
+    --background-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.Weekly-calendar-container{
+    /* width: 100%;*/
+    height: 100vh; 
+    background-color: white;
+    margin: 5rem 3rem;
+    padding: 5rem;
+    border-radius: 3.5rem;
+    box-shadow: var(--background-shadow);
+}
+
 .Weekly-calendar{
     display: grid;
-    
-    grid-template-columns: repeat(8,1fr);
-    grid-auto-rows: auto;
-    border: 0.5px solid #c3c3c3;
+    color: var(--font-darkgrey);
+    grid-template-columns: 1fr repeat(7,1fr);
+    grid-template-rows:repeat(2,minmax(1rem,1.5rem)) repeat(auto-fit,minmax(3rem,1fr));
+    border-top: 0.5px solid var(--grid-color);
+    /* border-right: 0.5px solid var(--grid-color); */
 }
 .Weekly-calendar >div{
-    border: 0.5px solid #c3c3c3;
+    border-bottom: 0.5px solid var(--grid-color);
+    border-left: 0.5px solid var(--grid-color);
 }
 .WeeklyCal-header{
     grid-column: 2/-1;
     display: flex;
     justify-content: center;
-    gap: 4rem
+    gap: 4rem;
+    align-items: center;
 }
-.WeeklyCal-dates{
-    grid-column: 2/-1;
-    display: grid;
-    grid-template-columns: repeat(7,1fr);
+
+.WeeklyCal-header>.buttons{
+    background: none;
+    border: none;
+    color: var(--wink-color);
+    font-weight:900;
 }
-.WeeklyCal-dates>div{
-    justify-self: start;
-    border-left: 0.5px solid #c3c3c3;
+.WeeklyCal-header>.DayInHeader{
+    width:7rem;
+}
+
+.WeeklyCal-date{
+    justify-self: stretch;
+    text-align: start;
+    padding: 3px;
+    /* text-indent: 5px; */
+}
+.WeeklyCal-date.Weekend{
+    color: var(--weekend-color)
+}
+.WeeklyCal-date.Today{
+    color: var(--wink-color);
+    font-weight: bold;
+}
+
+
+.WeeklyCal-Profiles{
+    grid-column: 1;
+}
+.WeeklyCal-Profiles> .title{
+    border-bottom: 0.5px solid var(--grid-color);
+}
+#myProfile{
+    grid-row: 1/4;
+}
+.Profile-icon{
+    width: 1rem;
 }

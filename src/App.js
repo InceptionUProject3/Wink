@@ -9,6 +9,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import socketClient from "socket.io-client";
 import Chat from "./components/messaging/Chat";
 import WeeklyCalendar from "./components/calendar/weeklyCalendar/WeeklyCalendar";
+import LoginForm from "./components/authentication/LoginForm";
+import Logout from "./components/authentication/Logout";
 
 const SERVER = "http://localhost:4000";
 
@@ -43,6 +45,8 @@ function App() {
           <Route path="/:roomId" element={<Chat />} />
           <Route path="/weeklyCalender" element={<WeeklyCalendar />}/>
           <Route path="/monthlyCalender" element={<MonthlyCalender />}/>
+          <Route path="/login" element={<LoginForm/>}/>
+          <Route path="/logout" element={<Logout/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,4 +1,6 @@
 import React from 'react'
+import { IconContext } from 'react-icons';
+import {MdOutlineArrowBackIos,MdOutlineArrowForwardIos} from 'react-icons/md'
 // import moment from 'moment';
 
 const WeeklyCalendarHeader = (props) => {
@@ -14,9 +16,11 @@ const WeeklyCalendarHeader = (props) => {
     }
   return (
     <div className='WeeklyCal-header'>
-        <button onClick={moveToPreWeek}>&lt;</button>
+      <IconContext.Provider value={{className:"buttons"}}>
+        <MdOutlineArrowBackIos onClick={moveToPreWeek}/>
         <div className='DayInHeader'>{selectDayInHeader}</div>
-        <button onClick={moveToNextWeek}>&gt;</button>
+        <MdOutlineArrowForwardIos onClick={moveToNextWeek}/>
+        </IconContext.Provider>
     </div>
   )
 }
