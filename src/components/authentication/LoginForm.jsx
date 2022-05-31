@@ -3,7 +3,6 @@ import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./AuthContext";
-import { red } from '@mui/material/colors';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../utils/muiTheme';
 
