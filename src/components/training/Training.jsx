@@ -1,11 +1,9 @@
 import React from 'react'
 
-const Training = () => {
+const MonthlyCalender = () => {
   return (
-    <div>Training</div>
+    <div>Monthly Calender</div>
   )
 }
 
-export default Training
-
-//This is our training component.jsx
+export default training

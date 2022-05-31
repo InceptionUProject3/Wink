@@ -1,9 +1,9 @@
-import logo from "./images/wink.logo.jpg";
+import logo from "./images/wink.logo.png";
 import "./App.css";
 import Messaging from "./components/messaging/Messaging";
 import MonthlyCalender from "./components/calendar/monthlyCalender/monthlyCalender";
 import Calendar from "./components/calendar/Calendar";
-import Training from "./components/training/Training";
+// import Training from "./components/training/Training";
 import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import socketClient from "socket.io-client";
