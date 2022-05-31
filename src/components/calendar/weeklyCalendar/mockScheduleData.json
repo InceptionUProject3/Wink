@@ -6,7 +6,7 @@
     "position": "Store Manager",
     "date": "May 29 2022",
     "from": "9:00",
-    "to": "16:00",
+    "to": "15:00",
     "workCode": "Working"
   },
   {
@@ -47,5 +47,50 @@
     "from": "15:00",
     "to": "21:00",
     "workCode": "Working"
+  },{
+    "id": 6,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "date": "May 30 2022",
+    "from": "9:00",
+    "to": "16:00",
+    "workCode": "Working"
+  },{
+    "id": 7,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "date": "May 31 2022",
+    "from": "9:00",
+    "to": "16:00",
+    "workCode": "Working"
+  },{
+    "id": 8,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "date": "Jun 01 2022",
+    "from": "9:00",
+    "to": "16:00",
+    "workCode": "Working"
+  },{
+    "id": 9,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "date": "Jun 02 2022",
+    "from": "15:00",
+    "to": "21:00",
+    "workCode": "Working"
+  },{
+    "id": 9,
+    "employeeId": 4,
+    "name": "Tim",
+    "position": "Receptionist",
+    "date": "Jun 02 2022",
+    "from": "15:00",
+    "to": "21:00",
+    "workCode": "vacation"
   }
 ]
