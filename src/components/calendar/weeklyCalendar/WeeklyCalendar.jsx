@@ -22,6 +22,7 @@ const WeeklyCalendar = () => {
   }, [selectedDay]);
 
   return (
+    <div className="Weekly-calendar-container">
     <div className="Weekly-calendar">
       <WeeklyCalendarHeader
         selectedDay={selectedDay}
@@ -46,6 +47,7 @@ const WeeklyCalendar = () => {
         })}
       </>
       <WeeklyCalendarBody selectedDay={selectedDay} />
+    </div>
     </div>
   );
 };
