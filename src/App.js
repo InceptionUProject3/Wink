@@ -29,14 +29,14 @@ function App() {
             element={
               <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <p>This is our project for Wink Optical Software.</p>
+                <p>WINK Optical Software PROJECT</p>
                 <a
-                  className="App-link"
+                  class="App-link"
                   href="https://www.downloadwink.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Learn more about Wink
+                  Learn more about WINK
                 </a>
               </header>
             }

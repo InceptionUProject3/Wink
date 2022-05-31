@@ -49,11 +49,49 @@
     cursor: pointer;
 }
 
-.training {
-    color: rgb(119, 246, 239);
-    background-color: rgb(119, 246, 239);
-    border-color: rgb(119, 246, 239);
-    border-bottom: rgb(119, 246, 239);
-    border-right: rgb(119, 246, 239);
-    float: bottom;
+.Training {
+    background-color: #23a5a5;
+    font-family: Heebo;
+    font-size: 1.21em;
+    color: white;
+    border-radius: 0.3cm;
+    border-color: #23a5a5;
+    border-bottom: #23a5a5;
+    border-right: #23a5a5;
+    padding: 1px 70px;
+    float: left;
+    cursor: pointer;
+}
+
+.Employee {
+    background-color: #23a5a5;
+    font-family: Heebo;
+    font-size: 1.21em;
+    color: white;
+    border-radius: 0.3cm;
+    border-color: #23a5a5;
+    border-bottom: #23a5a5;
+    border-right: #23a5a5;
+    padding: 1px 70px;
+    float: left;
+    cursor: pointer;
+}
+
+.Employeer {
+    background-color: #23a5a5;
+    font-family: Heebo;
+    font-size: 1.21em;
+    color: white;
+    border-radius: 0.3cm;
+    border-color: #23a5a5;
+    border-bottom: #23a5a5;
+    border-right: #23a5a5;
+    padding: 1px 70px;
+    float: left;
+    cursor: pointer;
+}
+
+.App-link {
+    font-family: Heebo;
+    font-style: italic;
 }
