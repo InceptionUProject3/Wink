@@ -25,6 +25,9 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    bottom: 1rem;
+    position: relative;
+    right: 1rem;
   }
   li {
     margin-right: 1rem;
@@ -33,5 +36,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin: 5px;
-    padding: 0;
+    bottom: 1rem;
+    position: relative;
+    
   }

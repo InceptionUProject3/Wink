@@ -72,7 +72,7 @@ const LoginForm = () => {
         </Button>
         
       </Box>
-      </ThemeProvider>;
+      </ThemeProvider>
     </Container>
   );
 };
