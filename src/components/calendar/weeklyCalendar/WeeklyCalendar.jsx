@@ -8,6 +8,7 @@ const WeeklyCalendar = () => {
   //selectedDay is a standard day
   const [selectedDay, setSelectedDay] = useState(moment());
   const [daysInWeek, setDaysInWeek] = useState();
+  
   useEffect(() => {
     const startDayOfWeek = selectedDay.clone().startOf("day");
     const endDayOfWeek = startDayOfWeek.clone().add(6, "days");

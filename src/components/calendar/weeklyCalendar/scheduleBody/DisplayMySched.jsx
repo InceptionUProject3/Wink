@@ -7,7 +7,7 @@ const DisplayMySched = (props) => {
   return (
     <>
     <div className="WeeklyCal-Profiles" id="myProfile">
-        {myProfile?.picture?<div>{myProfile.picture}</div>:<FaUserCircle fontSize="3rem"/>}
+        {myProfile?.picture?<div>{myProfile.picture}</div>:<FaUserCircle fontSize="40px"/>}
         <div>{myProfile?.name}</div>
         <div>{myProfile?.position}</div>
         <div>Me</div>

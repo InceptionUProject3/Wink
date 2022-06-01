@@ -21,7 +21,7 @@
     display: grid;
     color: var(--font-darkgrey);
     grid-template-columns: 1fr repeat(7,1fr);
-    grid-template-rows:repeat(2,minmax(1rem,1.5rem)) repeat(auto-fit,minmax(3rem,1fr));
+    grid-template-rows:repeat(2,minmax(20px,25px)) repeat(auto-fit,minmax(100px,1fr));
     border-top: 0.5px solid var(--grid-color);
     /* border-right: 0.5px solid var(--grid-color); */
 }
@@ -64,13 +64,16 @@
 
 .WeeklyCal-Profiles{
     grid-column: 1;
+    padding: 10px 0;
 }
 .WeeklyCal-Profiles> .title{
     border-bottom: 0.5px solid var(--grid-color);
+    min-height: 25px;
 }
 #myProfile{
     grid-row: 1/4;
 }
-.Profile-icon{
-    width: 1rem;
+
+.Weekly-calendar>.Schedule{
+    min-height: 100px;
 }
