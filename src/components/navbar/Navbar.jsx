@@ -5,21 +5,35 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className="container">
-        <h1 class="text">WINK Scheduling System</h1>
-        <ul>
+        <h1>WINK SYSTEM</h1>
+  <ul>
+            <li>
             <p>
-              <a className="menu" href="/"><button class ="Home">HOME</button></a>
+              <a className="menu" href="/">HOME</a>
             </p>
+            </li> 
+            <li>
             <p>
-              <a className="menu" href="/messaging"><button class="Messaging">MESSAGING</button></a>
+              <a className="menu" href="/messaging">MESSAGING</a>
             </p>
+            </li> 
+            <li>  
             <p>
-              <a className="menu" href="/"><button class="Calendar">CALENDAR</button></a>
+              <a className="menu" href="/">CALENDAR</a>
             </p>
+            </li>
+            <li>
             <p>
-            <a className="menu" href="/"><button class="Training"></button></a>
+            <a  className="menu" href="/">TRAINING</a>
             </p>
-          </ul>
+            </li> 
+            <li>
+            <p>
+            <button className="btn" href="/login">Login</button>
+            </p>
+            </li>
+            
+            </ul>
         </div>
         </div>
 
