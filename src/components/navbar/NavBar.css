@@ -52,3 +52,36 @@
     position: relative; */
     
   }
+
+  .btn {
+    background-color: #00b3b4;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 22px;
+    display: flex;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: 0.5s;
+    position: relative;
+    top: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar. */
+    bottom: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
+  }
+
+  .btn:hover {
+    background-color: #007d7d;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 22px;
+    display: flex;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: relative;
+    top: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
+    bottom: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
+  }
