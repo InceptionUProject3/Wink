@@ -20,12 +20,23 @@
     display: block;
   }
 
-  .chat-btn {
-    background-color: #23a5a5;
-    color: white;
+  .chat-btn-active {
+    background-color: white;
+    color: #23a5a5;
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  .chat-btn {
+    background-color: white;
+    color: #007d7d;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;

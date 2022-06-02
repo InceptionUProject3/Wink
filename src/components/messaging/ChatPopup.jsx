@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Messaging from './Messaging';
 import "./ChatPopup.css";
-import { FaGrinWink } from 'react-icons/fa';
-const winkLogo = '../images/wink.logo.png'
+import { AiFillMessage } from 'react-icons/ai';
+
 
 const ChatPopup = () => {
     const [show, setShow] = useState(false);
@@ -11,7 +11,7 @@ const ChatPopup = () => {
         <Messaging show={show} />
         
         </div>
-        <button className='chat-btn' onClick={() => setShow(prevCheck => !prevCheck)} src={winkLogo}> </button>
+        <button className={show ? 'chat-btn' : "chat-btn-active"} onClick={() => setShow(prevCheck => !prevCheck)} > <AiFillMessage size={70}/> </button>
         </div>
   )
 }
