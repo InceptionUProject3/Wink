@@ -80,12 +80,12 @@
 .Schedule>.Full-bar{
     height: 24px;
     width: 100%;
-    display: flex;
+    display:grid;
 }
 .Schedule>.Full-bar>.Percentage-bar{
     height: 100%;
     width: 100%;
 }
-.Schedule>.Full-bar>.Percentage-bar.filled{
+.Schedule>.Full-bar>.Percentage-bar{
     background-color: var(--wink-color-light);
 }

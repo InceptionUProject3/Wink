@@ -93,33 +93,20 @@ const WeeklyCalendarBody = (props) => {
     const barLength = maxBar / 15;
     // console.log("division", barLength);
     const barStart = moment(newFrom - dayStart).unix() / 60 / 15;
-    const barEnd = moment(newTo - dayStart).unix() / 60 / 15 ;
+    const barEnd = moment(newTo - dayStart).unix() / 60 / 15;
     console.log("bar indexs", barStart, barEnd);
 
-    // let barColorArray = [];
-    // for (let i = 0; i < barLength; i++) {
-      
-    //   if (i >= barStart && i <= barEnd) {
-    //     barColorArray[i] = i
-    //     // "filled";
-    //   } else {
-    //     barColorArray[i] = i
-    //     // "unfilled";
-    //   }
-    // }
-
-    // return barColorArray.map((fill, index) => {
-    //   const percentage = /barLength
-    //   return (
-    //     <div
-    //       key={index}
-    //       className={`Percentage-bar ${fill}`}
-    //     ></div>
-    //   );
-    // });
-    return (<div style={{display:"grid", width: "100%", height: "100%", gridTemplateColumns: `repeat(${barLength-1},1fr)` }}>
-      <div style={{backgroundColor:"red",gridColumn: `${barStart+1}/${barEnd}`}}></div>
-    </div>)
+    return (
+      <div
+        className="Full-bar"
+        style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
+      >
+        <div
+          className="Percentage-bar"
+          style={{ gridColumn: `${barStart + 1}/${barEnd}` }}
+        ></div>
+      </div>
+    );
   };
 
   const displaySched = (ForWhom) => {
@@ -156,14 +143,19 @@ const WeeklyCalendarBody = (props) => {
 
         return (
           <div className="Schedule">
-            {foundSched.workCode==="Working"?<div className="hours">{moment(newTo-newFrom).unix()/60/60}hrs</div>:""}
-            <div
-              className="Full-bar"
-              
-            >
-              {shedBar(dayStart, dayEnd, newFrom, newTo)}
+            {foundSched.workCode === "Working" ? (
+              <div className="hours">
+                {moment(newTo - newFrom).unix() / 60 / 60}hrs
+              </div>
+            ) : (
+              ""
+            )}
+
+            {shedBar(dayStart, dayEnd, newFrom, newTo)}
+
+            <div className="text">
+              {newFrom.format("HH:mm")}-{newTo.format("HH:mm")}
             </div>
-            <div className="text">{newFrom.format("HH:mm")}-{newTo.format("HH:mm")}</div>
           </div>
         );
       }
