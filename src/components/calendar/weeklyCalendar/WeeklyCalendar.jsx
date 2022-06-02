@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
+import WeeklyTableHeader from "./WeeklyTableHeader";
 import "./WeeklyCalendar.css";
-import WeeklyCalendarBody from "./WeeklyCalendarBody";
+import WeeklyCalendarBody from "./WeeklyTableBody";
+import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
 
 const WeeklyCalendar = () => {
   //selectedDay is a standard day
   const [selectedDay, setSelectedDay] = useState(moment());
   const [daysInWeek, setDaysInWeek] = useState();
+
+  //need to fetch store information
+  const storeOpen = moment("09:00", "HH:mm");
+  // console.log("storeStart", storeOpen)
+  const storeClose = moment("20:00", "HH:mm");
+
   useEffect(() => {
     const startDayOfWeek = selectedDay.clone().startOf("day");
     const endDayOfWeek = startDayOfWeek.clone().add(6, "days");
@@ -23,31 +30,21 @@ const WeeklyCalendar = () => {
 
   return (
     <div className="Weekly-calendar-container">
-    <div className="Weekly-calendar">
-      <WeeklyCalendarHeader
-        selectedDay={selectedDay}
-        setSelectedDay={setSelectedDay}
-      />
-      <>
-        {daysInWeek?.map((day, index) => {
-          const isWeekend =
-          moment(day).day() === 0||moment(day).day()===6 ? "Weekend" : "";
-          const isToday =
-            day === moment().startOf("day").format() ? "Today" : "";
-            console.log("isWeekend", moment(day).day());
-
-          return (
-            <div
-              className={`WeeklyCal-date ${isToday} ${isWeekend}`}
-              key={`daysInWeek ${index}`}
-            >
-              {moment(day).format("ddd DD")}
-            </div>
-          );
-        })}
-      </>
-      <WeeklyCalendarBody selectedDay={selectedDay} />
-    </div>
+      
+    <WeeklyCalendarHeader storeOpen={storeOpen} storeClose={storeClose}/>
+      <div className="Weekly-calendar">
+        <WeeklyTableHeader
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
+          daysInWeek={daysInWeek}
+        />
+        
+        <WeeklyCalendarBody
+          selectedDay={selectedDay}
+          storeOpen={storeOpen}
+          storeClose={storeClose}
+        />
+      </div>
     </div>
   );
 };

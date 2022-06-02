@@ -16,12 +16,30 @@
     border-radius: 3.5rem;
     box-shadow: var(--background-shadow);
 }
+.Table-info{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+.Table-info> .Store-hours{
+    display: flex;
+    flex-direction: column;
+    width: 7rem;
+}
+.Store-hours p{
+    display: flex;
+    
 
+}
+.Store-hours span{
+    width: 100%;
+    text-align: start;
+}
 .Weekly-calendar{
     display: grid;
     color: var(--font-darkgrey);
     grid-template-columns: 1fr repeat(7,1fr);
-    grid-template-rows:repeat(2,minmax(1rem,1.5rem)) repeat(auto-fit,minmax(3rem,1fr));
+    grid-template-rows:repeat(2,minmax(20px,25px)) repeat(auto-fit,minmax(100px,1fr));
     border-top: 0.5px solid var(--grid-color);
     /* border-right: 0.5px solid var(--grid-color); */
 }
@@ -47,7 +65,9 @@
     width:7rem;
 }
 
+
 .WeeklyCal-date{
+
     justify-self: stretch;
     text-align: start;
     padding: 3px;
@@ -64,13 +84,56 @@
 
 .WeeklyCal-Profiles{
     grid-column: 1;
+    
+    padding: 10px 0;
 }
 .WeeklyCal-Profiles> .title{
     border-bottom: 0.5px solid var(--grid-color);
+    min-height: 25px;
 }
 #myProfile{
     grid-row: 1/4;
 }
-.Profile-icon{
-    width: 1rem;
+
+.Weekly-calendar>.Schedule{
+    min-height: 100px;
+    position:relative;
+    display: flex;
+}
+.Schedule>.bar{
+    position: absolute;
+    height: 24px;
+    width: 100%; 
+    
+    /* align-items: center; */
+    
+    
+}
+
+.Schedule>.Full-bar{
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    display:grid;
+    align-self: center;
+}
+.Full-bar>.Percentage-bar{
+    height: 100%;
+    width: 100%;
+    
+}
+.Full-bar>.Percentage-bar.working{
+    background-color: var(--wink-color-light);
+}
+.Full-bar>.Percentage-bar.vacation{
+    background-color: var(--font-darkgrey);
+}
+.Percentage-bar>.hours{
+    /* position: absolute; */
+    /* align-self: center; */
+    height: 100%;
+    color: white;
+   margin: auto;
+
+    
 }
