@@ -86,6 +86,41 @@ const WeeklyCalendarBody = (props) => {
     );
     return weekScheds;
   };
+  const shedBar = (dayStart, dayEnd, newFrom, newTo) => {
+    const maxBar = moment(dayEnd - dayStart).unix() / 60;
+    // console.log("store hrs in minutes", maxBar);
+    //Divide maxBar every 15min
+    const barLength = maxBar / 15;
+    // console.log("division", barLength);
+    const barStart = moment(newFrom - dayStart).unix() / 60 / 15;
+    const barEnd = moment(newTo - dayStart).unix() / 60 / 15 ;
+    console.log("bar indexs", barStart, barEnd);
+
+    // let barColorArray = [];
+    // for (let i = 0; i < barLength; i++) {
+      
+    //   if (i >= barStart && i <= barEnd) {
+    //     barColorArray[i] = i
+    //     // "filled";
+    //   } else {
+    //     barColorArray[i] = i
+    //     // "unfilled";
+    //   }
+    // }
+
+    // return barColorArray.map((fill, index) => {
+    //   const percentage = /barLength
+    //   return (
+    //     <div
+    //       key={index}
+    //       className={`Percentage-bar ${fill}`}
+    //     ></div>
+    //   );
+    // });
+    return (<div style={{display:"grid", width: "100%", height: "100%", gridTemplateColumns: `repeat(${barLength-1},1fr)` }}>
+      <div style={{backgroundColor:"red",gridColumn: `${barStart+1}/${barEnd}`}}></div>
+    </div>)
+  };
 
   const displaySched = (ForWhom) => {
     //  console.log("filtered", filterWeekScheds(ForWhom));
@@ -118,23 +153,17 @@ const WeeklyCalendarBody = (props) => {
         const newFrom = from > dayStart ? from : dayStart;
         const newTo = to < dayEnd ? to : dayEnd;
         // console.log("day end and start", newFrom, "-", newTo);
-        const maxBar = dayEnd - dayStart;
-        const percentBar = Math.round(((newTo - newFrom) / maxBar) * 100);
-        // console.log('Bar percentage',percentBar);
 
         return (
           <div className="Schedule">
-            <div className="Full-bar" style={{ height: 24, width: "100%" }}>
-              <div
-                className="Percentage-bar"
-                style={{
-                  height: "100%",
-                  backgroundColor: "#71C8C8",
-                  width: `${percentBar}%`,
-                }}
-              ></div>
+            {foundSched.workCode==="Working"?<div className="hours">{moment(newTo-newFrom).unix()/60/60}hrs</div>:""}
+            <div
+              className="Full-bar"
+              
+            >
+              {shedBar(dayStart, dayEnd, newFrom, newTo)}
             </div>
-            {newFrom.format("HH:mm")}-{newTo.format("HH:mm")}
+            <div className="text">{newFrom.format("HH:mm")}-{newTo.format("HH:mm")}</div>
           </div>
         );
       }

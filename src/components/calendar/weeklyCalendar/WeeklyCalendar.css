@@ -77,3 +77,15 @@
 .Weekly-calendar>.Schedule{
     min-height: 100px;
 }
+.Schedule>.Full-bar{
+    height: 24px;
+    width: 100%;
+    display: flex;
+}
+.Schedule>.Full-bar>.Percentage-bar{
+    height: 100%;
+    width: 100%;
+}
+.Schedule>.Full-bar>.Percentage-bar.filled{
+    background-color: var(--wink-color-light);
+}

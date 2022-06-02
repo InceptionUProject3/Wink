@@ -9,7 +9,7 @@ const WeeklyCalendarHeader = (props) => {
     
     const moveToPreWeek = () =>{
         setSelectedDay((pre)=>pre.clone().subtract(7,'days'))
-        // console.log('Selected day',selectedDay)
+        console.log('Selected day',selectedDay)
     }
     const moveToNextWeek=()=>{
         setSelectedDay((pre)=>pre.clone().add(7,'days'))
