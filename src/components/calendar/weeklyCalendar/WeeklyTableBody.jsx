@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import mockScheduleData from "./mockScheduleData.json";
-import moment, { duration } from "moment";
+import moment from "moment";
 
-import DisplayOthersSched from "./scheduleBody/DisplayOthersSched";
-import DisplayMySched from "./scheduleBody/DisplayMySched";
+import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
+import DisplayMySched from "./weeklyTableBody/DisplayMySched";
 
-const WeeklyCalendarBody = (props) => {
-  const { selectedDay } = props;
+const WeeklyTableBody = (props) => {
+  const { selectedDay, storeOpen, storeClose } = props;
 
   const [mySched, setMySched] = useState();
   const [cowerkerScheds, setcowerkerScheds] = useState();
@@ -24,10 +24,7 @@ const WeeklyCalendarBody = (props) => {
     { name: "John", position: "Supervisor" },
     { name: "Tim", position: "Receptionist" },
   ];
-  //need to fetch store information
-  const storeOpen = moment("09:00", "HH:mm");
-  // console.log("storeStart", storeOpen)
-  const storeClose = moment("20:00", "HH:mm");
+  
   //need to fetch current logged in user
   const currentUser = { name: "Ann" };
 
@@ -86,7 +83,10 @@ const WeeklyCalendarBody = (props) => {
     );
     return weekScheds;
   };
-  const shedBar = (dayStart, dayEnd, newFrom, newTo) => {
+
+  const shedBar = (dayStart, dayEnd, from, to, foundSched) => {
+    const newFrom = from > dayStart ? from : dayStart;
+    const newTo = to < dayEnd ? to : dayEnd;
     const maxBar = moment(dayEnd - dayStart).unix() / 60;
     // console.log("store hrs in minutes", maxBar);
     //Divide maxBar every 15min
@@ -96,17 +96,42 @@ const WeeklyCalendarBody = (props) => {
     const barEnd = moment(newTo - dayStart).unix() / 60 / 15;
     console.log("bar indexs", barStart, barEnd);
 
-    return (
-      <div
-        className="Full-bar"
-        style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
-      >
-        <div
-          className="Percentage-bar"
-          style={{ gridColumn: `${barStart + 1}/${barEnd}` }}
-        ></div>
-      </div>
-    );
+    if (foundSched.workCode === "Working") {
+      return (
+        <>
+          <div
+            className="Full-bar"
+            style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
+          >
+            <div
+              className="Percentage-bar working"
+              style={{ gridColumn: `${barStart + 1}/${barEnd}` }}
+            >
+              <p className="hours">
+                {moment(newTo - newFrom).unix() / 60 / 60}hrs
+              </p>
+            </div>
+          </div>
+          <div className="text">
+            {newFrom.format("HH:mm")}-{newTo.format("HH:mm")}
+          </div>
+        </>
+      );
+    } else if (foundSched.workCode === "Vacation") {
+      return (
+        <>
+          <div
+            className="Full-bar"
+            style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
+          >
+            <div
+              className={"Percentage-bar vacation"}
+              style={{ gridColumn: `${barStart + 1}/${barEnd}` }}
+            ></div>
+          </div>
+        </>
+      );
+    }
   };
 
   const displaySched = (ForWhom) => {
@@ -137,25 +162,12 @@ const WeeklyCalendarBody = (props) => {
         // console.log("foundSched", foundSched);
         const from = moment(foundSched.from, "MMM DD YYYY HH:mm");
         const to = moment(foundSched.to, "MMM DD YYYY HH:mm");
-        const newFrom = from > dayStart ? from : dayStart;
-        const newTo = to < dayEnd ? to : dayEnd;
+
         // console.log("day end and start", newFrom, "-", newTo);
 
         return (
           <div className="Schedule">
-            {foundSched.workCode === "Working" ? (
-              <div className="hours">
-                {moment(newTo - newFrom).unix() / 60 / 60}hrs
-              </div>
-            ) : (
-              ""
-            )}
-
-            {shedBar(dayStart, dayEnd, newFrom, newTo)}
-
-            <div className="text">
-              {newFrom.format("HH:mm")}-{newTo.format("HH:mm")}
-            </div>
+            {shedBar(dayStart, dayEnd, from, to, foundSched)}
           </div>
         );
       }
@@ -179,4 +191,4 @@ const WeeklyCalendarBody = (props) => {
   );
 };
 
-export default WeeklyCalendarBody;
+export default WeeklyTableBody;

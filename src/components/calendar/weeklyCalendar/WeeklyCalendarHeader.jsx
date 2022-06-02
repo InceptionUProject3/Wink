@@ -1,28 +1,33 @@
-import React from 'react'
-import { IconContext } from 'react-icons';
-import {MdOutlineArrowBackIos,MdOutlineArrowForwardIos} from 'react-icons/md'
-// import moment from 'moment';
+import React from "react";
+import { VscCircleFilled } from "react-icons/vsc";
 
 const WeeklyCalendarHeader = (props) => {
-    const {selectedDay,setSelectedDay}= props
-    const selectDayInHeader = selectedDay.format('MMM YYYY');
-    
-    const moveToPreWeek = () =>{
-        setSelectedDay((pre)=>pre.clone().subtract(7,'days'))
-        console.log('Selected day',selectedDay)
-    }
-    const moveToNextWeek=()=>{
-        setSelectedDay((pre)=>pre.clone().add(7,'days'))
-    }
-  return (
-    <div className='WeeklyCal-header'>
-      <IconContext.Provider value={{className:"buttons"}}>
-        <MdOutlineArrowBackIos onClick={moveToPreWeek}/>
-        <div className='DayInHeader'>{selectDayInHeader}</div>
-        <MdOutlineArrowForwardIos onClick={moveToNextWeek}/>
-        </IconContext.Provider>
-    </div>
-  )
-}
+  const { storeOpen, storeClose } = props;
 
-export default WeeklyCalendarHeader
+  return (
+    <div className="Table-info">
+      <div className="Store-hours">
+        <p className="open">
+          <span>From</span>
+          <span>: {storeOpen.format("HH:mm")}</span>
+        </p>
+        <p className="close">
+          <span>To</span>
+          <span>: {storeClose.format("HH:mm")}</span>
+        </p>
+      </div>
+      <div className="Work-code">
+        <div className="Working">
+          <VscCircleFilled color="#71C8C8" />
+          <span>Working</span>
+        </div>
+        <div className="Vacation">
+          <VscCircleFilled color="#5a5a5a"/>
+          <span>Vacation</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WeeklyCalendarHeader;
