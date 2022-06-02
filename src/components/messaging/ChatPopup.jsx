@@ -11,7 +11,7 @@ const ChatPopup = () => {
         <Messaging show={show} />
         
         </div>
-        <button className='btn' onClick={() => setShow(prevCheck => !prevCheck)} src={winkLogo}> </button>
+        <button className='chat-btn' onClick={() => setShow(prevCheck => !prevCheck)} src={winkLogo}> </button>
         </div>
   )
 }
