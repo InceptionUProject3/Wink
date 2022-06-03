@@ -34,8 +34,7 @@
 }
 .Store-hours p{
     display: flex;
-    
-
+    margin: 0;
 }
 .Store-hours span{
     width: 100%;
@@ -145,12 +144,13 @@
     align-items: center;
     gap: 0.5rem;
 }
-.icon>p{
+.icon>.initial{
     position:absolute;
     color: white;
     font-size: 0.8rem;
     width: 100%;
     height: 100%;
+    margin: 0;
 
 }
 

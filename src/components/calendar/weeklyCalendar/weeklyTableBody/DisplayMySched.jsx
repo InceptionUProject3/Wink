@@ -7,7 +7,7 @@ const DisplayMySched = (props) => {
   const findColor =()=>{
     const myPositionObj = positions?.find((position)=>myProfile.position===position.position);
     const color = myPositionObj?.color;
-    console.log(color)
+    // console.log(color)
     return color
     
   }
