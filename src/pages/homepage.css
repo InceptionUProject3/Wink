@@ -1,9 +1,13 @@
-/* .container {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    margin: 5rem 3rem;
-    padding: 5rem;
-    border-radius: 3.5rem;
-    box-shadow: var(--background-shadow);
-} */
+.home {
+    
+    display: flex;
+    
+    
+    
+}
+.message {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+
+}

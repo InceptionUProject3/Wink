@@ -17,7 +17,7 @@
     z-index: 1000;
   }
   .popup.show {
-    display: block;
+    display: flex;
   }
 
   .chat-btn-active {
@@ -30,6 +30,9 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
   }
   .chat-btn {
     background-color: white;
@@ -41,4 +44,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
   }

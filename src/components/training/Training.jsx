@@ -2,7 +2,7 @@ import React from 'react'
 
 const Training = () => {
   return (
-    <div>Training</div>
+    <div className='container'>This is a placeholder for the Training Component</div>
   )
 }
 
