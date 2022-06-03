@@ -43,7 +43,7 @@ function App() {
           />
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/:roomId" element={<Chat />} />
-          <Route path="/weeklyCalender" element={<WeeklyCalendar />}/>
+          <Route path="/weeklyCalendar" element={<WeeklyCalendar />}/>
           <Route path="/monthlyCalender" element={<MonthlyCalender />}/>
           <Route path="/login" element={<LoginForm/>}/>
           <Route path="/logout" element={<Logout/>}/>

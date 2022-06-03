@@ -3,7 +3,7 @@
     "id": 1,
     "employeeId": 1,
     "name": "Ann",
-    "position": "Store Manager",
+    "position": "Manager",
     "from": "May 29 2022 9:00",
     "to": "May 29 2022 15:00",
     "workCode": "Working"
