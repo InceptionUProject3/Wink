@@ -1,30 +1,53 @@
-import React from 'react'
+import React from "react";
+import "./NavBar.css";
 
 const Navbar = () => {
   return (
-    <div className='navbar'>
+    <div className="navbar">
       <div className="container">
-        <h1>
-          Wink Scheduling System
-        </h1>
-
+        <h1>WINK SYSTEM</h1>
         <ul>
-        <li>
+          <li>
             <p>
-              <a className="menu" href="/">Home</a>
+              <a className="menu" href="/">
+                HOME
+              </a>
             </p>
           </li>
           <li>
             <p>
-              <a className="menu" href="/messaging">Messaging</a>
+              <a className="menu" href="/messaging">
+                MESSAGING
+              </a>
             </p>
           </li>
+          <li>
+            <p>
+              <a className="menu" href="/">
+                CALENDAR
+              </a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a className="menu" href="/">
+                TRAINING
+              </a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="/login">
+                <button className="btn" href="/login">
+                  Login
+                </button>
+              </a>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-          </ul>
-        </div>
-        </div>
-
-  )
-}
-
-export default Navbar
+export default Navbar;

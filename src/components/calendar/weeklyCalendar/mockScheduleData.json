@@ -4,9 +4,8 @@
     "employeeId": 1,
     "name": "Ann",
     "position": "Store Manager",
-    "date": "May 29 2022",
-    "from": "9:00",
-    "to": "16:00",
+    "from": "May 29 2022 9:00",
+    "to": "May 29 2022 15:00",
     "workCode": "Working"
   },
   {
@@ -14,9 +13,8 @@
     "employeeId": 1,
     "name": "Ann",
     "position": "Store Manager",
-    "date": "May 28 2022",
-    "from": "9:00",
-    "to": "16:00",
+    "from": "May 28 2022 9:00",
+    "to": "May 28 2022 16:00",
     "workCode": "Working"
   },
   {
@@ -24,9 +22,8 @@
     "employeeId": 2,
     "name": "John",
     "position": "Supervisor",
-    "date": "May 26 2022",
-    "from": "9:00",
-    "to": "15:00",
+    "from": "May 26 2022 9:00",
+    "to": "May 26 2022 15:00",
     "workCode": "Working"
   },
   {
@@ -34,18 +31,56 @@
     "employeeId": 2,
     "name": "John",
     "position": "Supervisor",
-    "date": "May 27 2022",
-    "from": "15:00",
-    "to": "21:00",
+    "from": "May 27 2022 15:00",
+    "to": "May 27 2022 21:00",
     "workCode": "Working"
   },{
     "id": 5,
     "employeeId": 3,
     "name": "Hana",
     "position": "Supervisor",
-    "date": "May 26 2022",
-    "from": "15:00",
-    "to": "21:00",
+    "from": "May 26 2022 15:00",
+    "to": "May 26 2022 21:00",
     "workCode": "Working"
+  },{
+    "id": 6,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "from": "May 30 2022 9:00",
+    "to": "May 30 2022 16:00",
+    "workCode": "Working"
+  },{
+    "id": 7,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "from": "May 31 2022 9:00",
+    "to": "May 31 2022 16:00",
+    "workCode": "Working"
+  },{
+    "id": 8,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "from": "Jun 01 2022 9:15",
+    "to": "Jun 01 2022 19:45",
+    "workCode": "Working"
+  },{
+    "id": 9,
+    "employeeId": 3,
+    "name": "Hana",
+    "position": "Supervisor",
+    "from": "Jun 02 2022 15:00",
+    "to": "Jun 02 2022 21:00",
+    "workCode": "Working"
+  },{
+    "id": 10,
+    "employeeId": 4,
+    "name": "Tim",
+    "position": "Receptionist",
+    "from": "Jun 02 2022 00:00",
+    "to": "Jun 10 2022 23:59",
+    "workCode": "Vacation"
   }
 ]

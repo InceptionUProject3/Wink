@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
-// import "./Home.css";
+
+import "./Messaging.css";
 
 const Messaging = () => {
   const [roomName, setRoomName] = useState("");
@@ -9,9 +9,22 @@ const Messaging = () => {
   const handleRoomNameChange = (event) => {
     setRoomName(event.target.value);
   };
+
+  const [margin, setMargin] = useState("auto");
+  const [padding, setPadding] = useState("10px");
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    console.log("show", show);
+  }, [show]);
+  useEffect(() => {
+    if (!show) return;
+    setMargin("0");
+    setPadding("0");
+  }, [show]);
+
   return (
-    <div className='messaging'>
-      
+    <div className="Messaging-container" margin={margin} padding={padding}>
       <input
         type="text"
         placeholder="Room"
@@ -20,10 +33,10 @@ const Messaging = () => {
         className="text-input-field"
       />
       <Link to={`/${roomName}`} className="enter-room-button">
-        Join room
+        Join room!
       </Link>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Messaging
+export default Messaging;

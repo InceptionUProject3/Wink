@@ -7,5 +7,3 @@ const Training = () => {
 }
 
 export default Training
-
-//This is our training component.jsx

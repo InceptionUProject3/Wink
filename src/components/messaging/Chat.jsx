@@ -1,11 +1,14 @@
-import React from "react";
-import useChat from "./useChat";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const Chat = (props) => {
-  const { roomId } = props.match.params; // Gets roomId from URL
-  const { messages, sendMessage } = useChat(roomId); // Creates a websocket and manages messaging
-  const [newMessage, setNewMessage] = useState(""); // Message to be sent
+
+import "./Chat.css";
+import useChat from "./useChat";
+
+const ChatRoom = (props) => {
+  
+  const { roomId } = <props className="match params"></props>;
+  const { messages, sendMessage } = useChat(roomId);
+  const [newMessage, setNewMessage] = useState("");
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value);
@@ -15,12 +18,13 @@ const Chat = (props) => {
     sendMessage(newMessage);
     setNewMessage("");
   };
+
   return (
-  <div className="chat">
+    <div className="chat-room-container">
       <h1 className="room-name">Chatting with: {roomId}</h1>
       <div className="messages-container">
         <ol className="messages-list">
-        {messages.map((message, i) => (
+          {messages.map((message, i) => (
             <li
               key={i}
               className={`message-item ${
@@ -38,11 +42,11 @@ const Chat = (props) => {
         placeholder="Write message..."
         className="new-message-input-field"
       />
-       <button onClick={handleSendMessage} className="send-message-button">
+      <button onClick={handleSendMessage} className="send-message-button">
         Send
       </button>
-      </div>
+    </div>
   );
 };
 
-export default Chat;
+export default ChatRoom;
