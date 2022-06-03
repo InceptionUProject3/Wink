@@ -24,7 +24,7 @@ const WeeklyCalendar = () => {
     while (startDayOfWeek.add(1, "days").diff(endDayOfWeek) <= 0) {
       weekCalArray.push(startDayOfWeek.format());
     }
-    console.log(weekCalArray);
+    // console.log(weekCalArray);
     setDaysInWeek(weekCalArray);
   }, [selectedDay]);
 

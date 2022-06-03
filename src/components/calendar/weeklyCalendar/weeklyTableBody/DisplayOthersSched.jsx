@@ -1,16 +1,11 @@
 import React from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
+import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayOthersSched = (props) => {
-  const { cowokerProfs, cowerkerScheds, displaySched } = props;
+  const { cowokerProfs, cowerkerScheds, displaySched,positions } = props;
 
-  const setPositionList = (profArray) => {
-    let positionLists = [];
-    profArray?.forEach((prof) => positionLists.push(prof.position));
-    const positionList = Array.from(new Set(positionLists));
-    // console.log("positions", positionList)
-    return positionList;
-  };
+ 
   const groupByPosition = () => {
     const initialVal = {};
     return cowokerProfs?.reduce((acc, current) => {
@@ -25,32 +20,30 @@ const DisplayOthersSched = (props) => {
     }, initialVal);
   };
 
-  const positions = setPositionList(cowokerProfs);
+  // const positions = setPositionList(cowokerProfs);
   const groupedProfs = groupByPosition();
 
-  return positions.map((position) => {
-    return groupedProfs[position].map((prof, i) => {
-      if (prof.position === position) {
+  return positions?.map((position) => {
+    const onlyPosition = position.position
+    return groupedProfs[onlyPosition]?.map((prof, i) => {
+      if (prof.position === onlyPosition) {
         const schedsForOne = cowerkerScheds?.filter(
           //need to replace name to id
           (sched) => sched.name === prof.name
         );
-        console.log("should be all scheds per person", schedsForOne)
+        // console.log("should be all scheds per person", schedsForOne)
         return (
           <React.Fragment key={`OtherScheds ${i}`}>
-            <div className="WeeklyCal-Profiles" key={`profile ${i}`}>
+            <div className="WeeklyCal-Profiles others" key={`profile ${i}`}>
               {i === 0 && (
-                <div className="title" key={`position ${i}`}>
-                  {prof.position}
+                <div className="title others" key={`position ${i}`}>
+                  <ProfileIcon profile={prof} color={position.color}/>
                 </div>
               )}
-              <div className="profile" key={`profile ${i}`}></div>
-              {prof.picture ? (
-                <div key={`photo ${i}`}>{prof.picture}</div>
-              ) : (
-                <FaUserCircle fontSize="40px" key={`photoIcon ${i}`}/>
-              )}
+              <div className="profile" key={`profile ${i}`}>
+              <ProfilePhoto profile={prof}/>
               <div key={`name ${i}`}>{prof.name}</div>
+            </div>
             </div>
             {displaySched(schedsForOne)}
           </React.Fragment>

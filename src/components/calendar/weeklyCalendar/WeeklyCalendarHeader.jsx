@@ -18,11 +18,11 @@ const WeeklyCalendarHeader = (props) => {
       </div>
       <div className="Work-code">
         <div className="Working">
-          <VscCircleFilled color="#71C8C8" />
+          <VscCircleFilled style={{color:"#71C8C8", alignSelf: "center"}}/>
           <span>Working</span>
         </div>
         <div className="Vacation">
-          <VscCircleFilled color="#5a5a5a"/>
+          <VscCircleFilled style={{color:"#5a5a5a", alignSelf: "center"}}/>
           <span>Vacation</span>
         </div>
       </div>

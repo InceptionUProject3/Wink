@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+//useContext to fetch data from server
 import mockScheduleData from "./mockScheduleData.json";
 import moment from "moment";
 
-import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
-import DisplayMySched from "./weeklyTableBody/DisplayMySched";
+import DisplayOthersSched from "./WeeklyTableBody/DisplayOthersSched";
+import DisplayMySched from "./WeeklyTableBody/DisplayMySched";
+import setPositionList from "../Reusables/functions/setPositionList";
+import ScheduleBar from "../Reusables/components/ScheduleBar";
 
 const WeeklyTableBody = (props) => {
   const { selectedDay, storeOpen, storeClose } = props;
@@ -13,18 +16,21 @@ const WeeklyTableBody = (props) => {
   const [myProfile, setMyProfile] = useState();
   const [cowokerProfs, setCowokerProfs] = useState();
   const [week, setWeek] = useState();
+  const [positions, setPositions] = useState();
 
   const startDay = selectedDay.clone().startOf("day");
   const endDay = selectedDay.clone().add(6, "days").endOf("day");
-  //need to fetch employee profiles from server.
+  //need to fetch employee profiles from server (useContext).
   const mockEmployeeData = [
     { name: "Hana", position: "Supervisor" },
-    { name: "Ann", position: "Store Manager" },
+    { name: "Ann", position: "Manager" },
     { name: "Patrick", position: "Receptionist" },
     { name: "John", position: "Supervisor" },
     { name: "Tim", position: "Receptionist" },
+    // { name: "Tim", position: "Doctor" },
+    // { name: "Tim", position: "Specialist" },
   ];
-  
+
   //need to fetch current logged in user
   const currentUser = { name: "Ann" };
 
@@ -42,6 +48,11 @@ const WeeklyTableBody = (props) => {
     );
     return currentUserData;
   };
+  useEffect(() => {
+    const positionArray = setPositionList(mockEmployeeData);
+    setPositions(positionArray);
+    //add dependence fetched profile data
+  }, []);
 
   useEffect(() => {
     const setAllProfiles = () => {
@@ -84,56 +95,6 @@ const WeeklyTableBody = (props) => {
     return weekScheds;
   };
 
-  const shedBar = (dayStart, dayEnd, from, to, foundSched) => {
-    const newFrom = from > dayStart ? from : dayStart;
-    const newTo = to < dayEnd ? to : dayEnd;
-    const maxBar = moment(dayEnd - dayStart).unix() / 60;
-    // console.log("store hrs in minutes", maxBar);
-    //Divide maxBar every 15min
-    const barLength = maxBar / 15;
-    // console.log("division", barLength);
-    const barStart = moment(newFrom - dayStart).unix() / 60 / 15;
-    const barEnd = moment(newTo - dayStart).unix() / 60 / 15;
-    console.log("bar indexs", barStart, barEnd);
-
-    if (foundSched.workCode === "Working") {
-      return (
-        <>
-          <div
-            className="Full-bar"
-            style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
-          >
-            <div
-              className="Percentage-bar working"
-              style={{ gridColumn: `${barStart + 1}/${barEnd}` }}
-            >
-              <p className="hours">
-                {moment(newTo - newFrom).unix() / 60 / 60}hrs
-              </p>
-            </div>
-          </div>
-          <div className="text">
-            {newFrom.format("HH:mm")}-{newTo.format("HH:mm")}
-          </div>
-        </>
-      );
-    } else if (foundSched.workCode === "Vacation") {
-      return (
-        <>
-          <div
-            className="Full-bar"
-            style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
-          >
-            <div
-              className={"Percentage-bar vacation"}
-              style={{ gridColumn: `${barStart + 1}/${barEnd}` }}
-            ></div>
-          </div>
-        </>
-      );
-    }
-  };
-
   const displaySched = (ForWhom) => {
     //  console.log("filtered", filterWeekScheds(ForWhom));
     return week?.map((day, i) => {
@@ -152,7 +113,7 @@ const WeeklyTableBody = (props) => {
           moment(sched.to, "MMM DD YYYY HH:mm") > dayStart &&
           moment(sched.from, "MMM DD YYYY HH:mm") < dayEnd
       );
-      console.log("filtered sched", foundSched);
+      // console.log("filtered sched", foundSched);
       if (foundSched === undefined) {
         //  console.log("print empty div ");
         return (
@@ -167,7 +128,13 @@ const WeeklyTableBody = (props) => {
 
         return (
           <div className="Schedule">
-            {shedBar(dayStart, dayEnd, from, to, foundSched)}
+            <ScheduleBar
+              dayStart={dayStart}
+              dayEnd={dayEnd}
+              schedFrom={from}
+              schedTo={to}
+              schedObj={foundSched}
+            />
           </div>
         );
       }
@@ -180,11 +147,13 @@ const WeeklyTableBody = (props) => {
         myProfile={myProfile}
         mySched={mySched}
         displaySched={displaySched}
+        positions={positions}
       />
 
       <DisplayOthersSched
         cowokerProfs={cowokerProfs}
         cowerkerScheds={cowerkerScheds}
+        positions={positions}
         displaySched={displaySched}
       />
     </>

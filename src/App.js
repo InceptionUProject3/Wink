@@ -11,7 +11,6 @@ import Logout from "./components/authentication/Logout";
 import RequireAuth from "./components/authentication/RequireAuth";
 import HomePage from "./pages/HomePage";
 
-
 const SERVER = "http://localhost:4000";
 
 function App() {
@@ -35,7 +34,7 @@ function App() {
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/:roomId" element={<Chat />} />
           <Route path="/weeklyCalender" element={<WeeklyCalendar />} />
-          <Route path="/monthlyCalender" element={<MonthlyCalendar />} />
+          <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>

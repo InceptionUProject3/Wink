@@ -17,10 +17,11 @@ const WeeklyTableHeader = (props) => {
   const moveToNextWeek = () => {
     setSelectedDay((pre) => pre.clone().add(7, "days"));
   };
+
   return (
     <>
       <div className="WeeklyCal-header">
-        <IconContext.Provider value={{ className: "buttons" }}>
+        <IconContext.Provider value={{className: "buttons" }}>
           <MdOutlineArrowBackIos onClick={moveToPreWeek} />
           <div className="DayInHeader">{selectDayInHeader}</div>
           <MdOutlineArrowForwardIos onClick={moveToNextWeek} />
@@ -31,7 +32,7 @@ const WeeklyTableHeader = (props) => {
         const isWeekend =
           moment(day).day() === 0 || moment(day).day() === 6 ? "Weekend" : "";
         const isToday = day === moment().startOf("day").format() ? "Today" : "";
-        console.log("isWeekend", moment(day).day());
+        // console.log("isWeekend", moment(day).day());
 
         return (
           <div
