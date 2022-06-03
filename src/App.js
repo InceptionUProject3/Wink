@@ -1,6 +1,6 @@
 import "./App.css";
 import Messaging from "./components/messaging/Messaging";
-import MonthlyCalender from "./components/calendar/monthlyCalender/monthlyCalender";
+import MonthlyCalendar from "./components/calendar/monthlyCalendar/monthlyCalendar";
 import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import socketClient from "socket.io-client";
@@ -34,7 +34,7 @@ function App() {
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/:roomId" element={<Chat />} />
           <Route path="/weeklyCalender" element={<WeeklyCalendar />} />
-          <Route path="/monthlyCalender" element={<MonthlyCalender />} />
+          <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
