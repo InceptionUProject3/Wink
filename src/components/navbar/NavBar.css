@@ -1,9 +1,12 @@
-*{
-  margin:0;
-  padding:0;
-  text-decoration: none;
-  
+.navbar * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+a  {
+  text-decoration: none;
+}
+
 .navbar {
     width: 100%;
     height: 60px;
@@ -13,6 +16,7 @@
     border-bottom: 1px solid #eee;
     position: fixed;
     z-index: 100;
+    margin: 0;
     /* padding: 1rem; */
     /* bottom: 50px; */
     
@@ -25,18 +29,29 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin:1rem;
+    margin-top: .75rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    
     /* bottom: 50px; */
+  }
+  .menu{
+    padding: .5rem;
   }
   
   ul {
        display: flex;
     list-style-type: none;
     height: 100%;
+  
+
     /*bottom: 1rem;*/
-    position: relative;
-    /* right: 1rem;  */
-  }
+    /* position: relative;
+    padding: 1rem;
+    margin: 1rem;
+    justify-content: space-between; */
+    /* right: 1rem; 
+   
   li {
     margin-right: 1rem;
   }
@@ -51,4 +66,37 @@
     /* bottom: 1rem;
     position: relative; */
     
+  }
+
+  .btn {
+    background-color: #00b3b4;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 22px;
+    display: flex;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: 0.5s;
+    position: relative;
+    top: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar. */
+    bottom: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
+  }
+
+  .btn:hover {
+    background-color: #007d7d;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 22px;
+    display: flex;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: relative;
+    top: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
+    bottom: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
   }

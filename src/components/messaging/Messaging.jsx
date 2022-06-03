@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Messaging.css";
@@ -10,8 +10,21 @@ const Messaging = () => {
     setRoomName(event.target.value);
   };
 
+  const [margin, setMargin] = useState("auto");
+  const [padding, setPadding] = useState("10px");
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    console.log("show", show);
+  }, [show]);
+  useEffect(() => {
+    if (!show) return;
+    setMargin("0");
+    setPadding("0");
+  }, [show]);
+
   return (
-    <div className="Messaging-container">
+    <div className="Messaging-container" margin={margin} padding={padding}>
       <input
         type="text"
         placeholder="Room"
