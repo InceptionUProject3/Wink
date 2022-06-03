@@ -14,9 +14,7 @@ const Messaging = () => {
   const [padding, setPadding] = useState("10px");
   const [show, setShow] = useState(true);
 
-  useEffect(() => {
-    console.log("show", show);
-  }, [show]);
+
   useEffect(() => {
     if (!show) return;
     setMargin("0");
