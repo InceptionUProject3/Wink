@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import mockScheduleData from "./mockScheduleData.json";
 import moment from "moment";
 
-import DisplayOthersSched from "./WeeklyTableBody/DisplayOthersSched";
-import DisplayMySched from "./WeeklyTableBody/DisplayMySched";
+import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
+import DisplayMySched from "./weeklyTableBody/DisplayMySched";
 import setPositionList from "../Reusables/functions/setPositionList";
 import ScheduleBar from "../Reusables/components/ScheduleBar";
 
