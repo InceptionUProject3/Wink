@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import WeeklyTableHeader from "./WeeklyTableHeader";
-import "./WeeklyCalendar.css";
 import WeeklyCalendarBody from "./WeeklyTableBody";
 import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
+import "./WeeklyCalendar.css";
 
 const WeeklyCalendar = () => {
   //selectedDay is a standard day

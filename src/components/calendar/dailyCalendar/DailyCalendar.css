@@ -1,0 +1,62 @@
+:root {
+    --wink-color: #23A5A5;
+    --wink-color-light: #71C8C8;
+    --grid-color: #bec6c67f;
+    --font-darkgrey: #5a5a5a;
+    --font-black: #000000;
+    --weekend-color: #bd4a31;
+    --background-shadow: rgba(0, 0, 0, 0.10) 0px 3px 5px;
+}
+/* *{
+    margin:0;
+    padding:0;
+} */
+.Daily-calendar{
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+.Daily-calendar>.DailyCal-container{
+    height: 100%; 
+    width: 50%;
+    background-color: white;
+    margin: 5rem 3rem;
+    padding: 5rem;
+    border-radius: 3.5rem;
+    box-shadow: var(--background-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.DailyCal-container>.Weekly-summary-container{
+    height: 100%; 
+    width: 50%;
+    background-color: white;
+    margin: 0 5rem 3rem 5rem;
+    padding: 2rem;
+    border-radius: 3rem;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1rem;
+}
+
+.Weekly-summary-container>.Weekly-summary{
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ justify-content: center;
+ /* gap:4rem */
+}
+.Weekly-summary>.User-profile{
+    flex:1
+}
+.Weekly-summary>.summary{
+    flex:1
+}
+.summary>div{
+    text-align: start;
+    margin-bottom: 0.5rem ;
+}
