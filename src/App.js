@@ -9,7 +9,7 @@ import WeeklyCalendar from "./components/calendar/weeklyCalendar/WeeklyCalendar"
 import LoginForm from "./components/authentication/LoginForm";
 import Logout from "./components/authentication/Logout";
 import RequireAuth from "./components/authentication/RequireAuth";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/homepage/HomePage";
 
 const SERVER = "http://localhost:4000";
 
