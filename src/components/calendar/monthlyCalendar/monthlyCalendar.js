@@ -43,7 +43,7 @@ const MonthlyCalendar = () => {
         });
       } else {
         monthArray.push({
-          value: "padding",
+          value: "",
           isCurrentDay: false,
           date: "",
         });
@@ -66,14 +66,14 @@ const MonthlyCalendar = () => {
     gridAutoRows: "50px",
   };
   
-  let weekdayStyle = {
-    backgroundColor: "var(--mainHeader)",
-    textAlign:"center",
-    display: "flex",
-    width: "flex",
-    height: "60px",
-    color: "var(--headerWhiteFont)",
-  };
+  // let weekdayStyle = {
+  //   backgroundColor: "var(--mainHeader)",
+  //   textAlign:"center",
+  //   display: "flex",
+  //   width: "flex",
+  //   height: "60px",
+  //   color: "var(--headerWhiteFont)",
+  // };
 
   let weekdayHeadersStyle = {
     display : "grid",
