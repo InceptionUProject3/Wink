@@ -1,0 +1,7 @@
+[
+  { "UserId": 3, "name": "Hana", "position": "Supervisor" },
+  { "UserId": 1, "name": "Ann", "position": "Manager" },
+  { "UserId": 5, "name": "Patrick", "position": "Receptionist" },
+  { "UserId": 2, "name": "John", "position": "Supervisor" },
+  { "UserId": 4, "name": "Tim", "position": "Receptionist" }
+]

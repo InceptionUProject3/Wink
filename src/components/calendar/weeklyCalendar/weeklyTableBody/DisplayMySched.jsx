@@ -5,7 +5,7 @@ import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 const DisplayMySched = (props) => {
   const { myProfile, mySched, displaySched,positions } = props;
   const findColor =()=>{
-    const myPositionObj = positions?.find((position)=>myProfile.position===position.position);
+    const myPositionObj = positions?.find((position)=>myProfile?.position===position.position);
     const color = myPositionObj?.color;
     // console.log(color)
     return color

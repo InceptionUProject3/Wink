@@ -28,8 +28,8 @@ const DisplayOthersSched = (props) => {
     return groupedProfs[onlyPosition]?.map((prof, i) => {
       if (prof.position === onlyPosition) {
         const schedsForOne = cowerkerScheds?.filter(
-          //need to replace name to id
-          (sched) => sched.name === prof.name
+          
+          (sched) => sched.UserId === prof.UserId
         );
         // console.log("should be all scheds per person", schedsForOne)
         return (

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 //useContext to fetch data from server
-import mockScheduleData from "./mockScheduleData.json";
+import mockUsersData from "../mockUsersData.json"
+//fetch sheduleData for store
+import mockScheduleData from "../mockScheduleData.json";
+
 import moment from "moment";
 
 import DisplayOthersSched from "./WeeklyTableBody/DisplayOthersSched";
@@ -20,36 +23,26 @@ const WeeklyTableBody = (props) => {
 
   const startDay = selectedDay.clone().startOf("day");
   const endDay = selectedDay.clone().add(6, "days").endOf("day");
-  //need to fetch employee profiles from server (useContext).
-  const mockEmployeeData = [
-    { name: "Hana", position: "Supervisor" },
-    { name: "Ann", position: "Manager" },
-    { name: "Patrick", position: "Receptionist" },
-    { name: "John", position: "Supervisor" },
-    { name: "Tim", position: "Receptionist" },
-    // { name: "Tim", position: "Doctor" },
-    // { name: "Tim", position: "Specialist" },
-  ];
 
-  //need to fetch current logged in user
-  const currentUser = { name: "Ann" };
+  //need to fetch current logged in user useContext
+  const currentUser = { UserId: 2 ,storeId:1 };
 
   const findMy = (arr) => {
     const currentUserData = arr.filter(
-      //name will be replaced to id
-      (e) => e.name === currentUser.name
+      
+      (e) => e.UserId === currentUser.UserId
     );
     return currentUserData;
   };
   const filterOutMy = (arr) => {
     const currentUserData = arr.filter(
-      //name will be replaced to id
-      (e) => e.name !== currentUser.name
+      
+      (e) => e.UserId !== currentUser.UserId
     );
     return currentUserData;
   };
   useEffect(() => {
-    const positionArray = setPositionList(mockEmployeeData);
+    const positionArray = setPositionList(mockUsersData);
     setPositions(positionArray);
     //add dependence fetched profile data
   }, []);
@@ -57,10 +50,10 @@ const WeeklyTableBody = (props) => {
   useEffect(() => {
     const setAllProfiles = () => {
       //set my profile
-      const currentUserProf = findMy(mockEmployeeData);
+      const currentUserProf = findMy(mockUsersData);
       setMyProfile(currentUserProf[0]);
       //set coworkers' profiles
-      const otherProfs = filterOutMy(mockEmployeeData);
+      const otherProfs = filterOutMy(mockUsersData);
       setCowokerProfs(otherProfs);
     };
     setAllProfiles();
