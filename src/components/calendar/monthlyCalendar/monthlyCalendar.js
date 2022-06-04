@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Container, style } from "@mui/system";
+//import "./monthCalender/mainGridStyle"
 
 const MonthlyCalendar = () => {
   const weekdayHeaders = [
@@ -67,43 +68,57 @@ const MonthlyCalendar = () => {
   
   let weekdayStyle = {
     backgroundColor: "var(--mainHeader)",
+    textAlign:"center",
     display: "flex",
-    width: "100%",
+    width: "flex",
     height: "60px",
     color: "var(--headerWhiteFont)",
   };
 
   let weekdayHeadersStyle = {
-    width: "14.25%",
-    padding: ".6%",
+    display : "grid",
+    width: "100%",
     textAlign: "center",
+    flexWrap: "wrap",
     fontWeight: "500",
     fontSize: "larger",
     alignContent: "center",
     margin: "auto",
     textTransform: "uppercase",
+    gridTemplateColumns: "repeat(7,1fr)"
+    
   };
 
   return (
     <div>
-      <Container>
+      <div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+      <Container alignContent={"center"}>
         <div
-          id="container"
+          //id="container"
           style={{
+            display:"grid",
+            padding:"5px",
             width: "95%",
             border: "1px solid black",
             margin: "auto",
           }}
         >
-          <div id="weekdays" style={weekdayStyle}>
+          <div  style={weekdayHeadersStyle}>
             {weekdayHeaders.map((day, index) => {
               return (
-                <div key={index} style={weekdayHeadersStyle}>
-                  {day}
+                <div  style={weekdayHeadersStyle}>
+                   {day}
                 </div>
               );
             })}
           </div>
+
+          <br/>
           <div style={mainGridStyle}>
             {monthsArray?.map((day, index) => {
               // console.log("day is", day);
@@ -112,6 +127,7 @@ const MonthlyCalendar = () => {
           </div>
         </div>
       </Container>
+      </div>
     </div>
   );
 };
