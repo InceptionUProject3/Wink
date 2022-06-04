@@ -8,17 +8,16 @@ import moment from "moment";
 
 import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
-import setPositionList from "../Reusables/functions/setPositionList";
 import ScheduleBar from "../Reusables/components/ScheduleBar";
+import setPositionList from "../Reusables/functions/setPositionList";
+import findMy from "../Reusables/functions/findMy";
+import filterOutMy from "../Reusables/functions/filterOutMy";
 
 const WeeklyTableBody = (props) => {
   const { selectedDay, storeOpen, storeClose } = props;
 
-  const [weekAllScheds, setWeekAllScheds] =useState();
-  const [mySched, setMySched] = useState();
-  const [cowerkerScheds, setcowerkerScheds] = useState();
-  const [myProfile, setMyProfile] = useState();
-  const [cowokerProfs, setCowokerProfs] = useState();
+  const [weekAllScheds, setWeekAllScheds] = useState();
+  const [AllProfiles, setAllProfiles] = useState();
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
 
@@ -28,14 +27,6 @@ const WeeklyTableBody = (props) => {
   //need to fetch current logged in user useContext
   const currentUser = { UserId: 2, storeId: 1 };
 
-  const findMy = (arr) => {
-    const currentUserData = arr?.filter((e) => e.UserId === currentUser.UserId);
-    return currentUserData;
-  };
-  const filterOutMy = (arr) => {
-    const currentUserData = arr?.filter((e) => e.UserId !== currentUser.UserId);
-    return currentUserData;
-  };
   useEffect(() => {
     const positionArray = setPositionList(mockUsersData);
     setPositions(positionArray);
@@ -44,19 +35,16 @@ const WeeklyTableBody = (props) => {
 
   useEffect(() => {
     const setAllProfiles = () => {
-      //set my profile
-      const currentUserProf = findMy(mockUsersData);
-      setMyProfile(currentUserProf[0]);
-      //set coworkers' profiles
-      const otherProfs = filterOutMy(mockUsersData);
-      setCowokerProfs(otherProfs);
+      //send store id
+      //backend=>useprevileges : find userids, UserprofileId then user: find user  name and userprofile: position
+      // setAllProfiles(mockScheduleData);
     };
     setAllProfiles();
   }, []);
-  
-    //set schdules
-    useEffect(() => {
-      const getAllSchedules = () => {
+
+  //set schdules
+  useEffect(() => {
+    const getAllSchedules = () => {
       //need to fetch schedule from server
       //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
       const thisWeekSched = mockScheduleData?.filter(
@@ -65,7 +53,7 @@ const WeeklyTableBody = (props) => {
           moment(sched.from, "MMM DD YYYY HH:mm") < endDay
       );
       // console.log("this week schedules", thisWeekSched)
-      setWeekAllScheds(thisWeekSched); 
+      setWeekAllScheds(thisWeekSched);
     };
     getAllSchedules();
   }, [selectedDay]);
@@ -80,7 +68,6 @@ const WeeklyTableBody = (props) => {
 
   //   console.log("weekarray",week)
 
-
   const displaySched = (ForWhom) => {
     //  console.log("filtered", filterWeekScheds(ForWhom));
     return week?.map((day, i) => {
@@ -93,7 +80,7 @@ const WeeklyTableBody = (props) => {
         h: storeClose.hour(),
         m: storeClose.minute(),
       });
-      
+
       const foundSched = ForWhom?.find(
         (sched) =>
           moment(sched.to, "MMM DD YYYY HH:mm") > dayStart &&
@@ -130,15 +117,15 @@ const WeeklyTableBody = (props) => {
   return (
     <>
       <DisplayMySched
-        myProfile={myProfile}
-        mySched={findMy(weekAllScheds)}
+        myProfile={findMy(mockUsersData, currentUser)[0]}
+        mySched={findMy(weekAllScheds, currentUser)}
         displaySched={displaySched}
         positions={positions}
       />
 
       <DisplayOthersSched
-        cowokerProfs={cowokerProfs}
-        cowerkerScheds={filterOutMy(weekAllScheds)}
+        cowokerProfs={filterOutMy(mockUsersData, currentUser)}
+        cowerkerScheds={filterOutMy(weekAllScheds, currentUser)}
         positions={positions}
         displaySched={displaySched}
       />
