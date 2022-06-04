@@ -5,7 +5,7 @@
     --font-darkgrey: #5a5a5a;
     --font-black: #000000;
     --weekend-color: #bd4a31;
-    --background-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    --background-shadow: rgba(0, 0, 0, 0.10) 0px 3px 5px;
 }
 
 .Weekly-calendar-container{

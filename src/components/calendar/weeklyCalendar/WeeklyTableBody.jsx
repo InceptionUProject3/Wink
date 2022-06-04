@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 //useContext to fetch data from server
-import mockUsersData from "../mockUsersData.json"
+import mockUsersData from "../mockUsersData.json";
 //fetch sheduleData for store
 import mockScheduleData from "../mockScheduleData.json";
 
@@ -14,6 +14,7 @@ import ScheduleBar from "../Reusables/components/ScheduleBar";
 const WeeklyTableBody = (props) => {
   const { selectedDay, storeOpen, storeClose } = props;
 
+  const [weekAllScheds, setWeekAllScheds] =useState();
   const [mySched, setMySched] = useState();
   const [cowerkerScheds, setcowerkerScheds] = useState();
   const [myProfile, setMyProfile] = useState();
@@ -25,20 +26,14 @@ const WeeklyTableBody = (props) => {
   const endDay = selectedDay.clone().add(6, "days").endOf("day");
 
   //need to fetch current logged in user useContext
-  const currentUser = { UserId: 2 ,storeId:1 };
+  const currentUser = { UserId: 2, storeId: 1 };
 
   const findMy = (arr) => {
-    const currentUserData = arr.filter(
-      
-      (e) => e.UserId === currentUser.UserId
-    );
+    const currentUserData = arr?.filter((e) => e.UserId === currentUser.UserId);
     return currentUserData;
   };
   const filterOutMy = (arr) => {
-    const currentUserData = arr.filter(
-      
-      (e) => e.UserId !== currentUser.UserId
-    );
+    const currentUserData = arr?.filter((e) => e.UserId !== currentUser.UserId);
     return currentUserData;
   };
   useEffect(() => {
@@ -58,17 +53,22 @@ const WeeklyTableBody = (props) => {
     };
     setAllProfiles();
   }, []);
-
-  //need to fetch schedule from server
-  useEffect(() => {
-    const getAllSchedules = () => {
-      const currentUserSched = findMy(mockScheduleData);
-      const cowerkerScheds = filterOutMy(mockScheduleData);
-      setMySched(currentUserSched);
-      setcowerkerScheds(cowerkerScheds);
+  
+    //set schdules
+    useEffect(() => {
+      const getAllSchedules = () => {
+      //need to fetch schedule from server
+      //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
+      const thisWeekSched = mockScheduleData?.filter(
+        (sched) =>
+          moment(sched.to, "MMM DD YYYY HH:mm") > startDay &&
+          moment(sched.from, "MMM DD YYYY HH:mm") < endDay
+      );
+      // console.log("this week schedules", thisWeekSched)
+      setWeekAllScheds(thisWeekSched); 
     };
     getAllSchedules();
-  }, []);
+  }, [selectedDay]);
 
   useEffect(() => {
     const weekArray = [];
@@ -79,14 +79,7 @@ const WeeklyTableBody = (props) => {
   }, [selectedDay]);
 
   //   console.log("weekarray",week)
-  const filterWeekScheds = (wholeSched) => {
-    const weekScheds = wholeSched?.filter(
-      (sched) =>
-        moment(sched.to, "MMM DD YYYY HH:mm") > startDay &&
-        moment(sched.from, "MMM DD YYYY HH:mm") < endDay
-    );
-    return weekScheds;
-  };
+
 
   const displaySched = (ForWhom) => {
     //  console.log("filtered", filterWeekScheds(ForWhom));
@@ -100,8 +93,8 @@ const WeeklyTableBody = (props) => {
         h: storeClose.hour(),
         m: storeClose.minute(),
       });
-      // console.log('day end and start', dayStart, '-', dayEnd)
-      const foundSched = filterWeekScheds(ForWhom)?.find(
+      
+      const foundSched = ForWhom?.find(
         (sched) =>
           moment(sched.to, "MMM DD YYYY HH:mm") > dayStart &&
           moment(sched.from, "MMM DD YYYY HH:mm") < dayEnd
@@ -138,14 +131,14 @@ const WeeklyTableBody = (props) => {
     <>
       <DisplayMySched
         myProfile={myProfile}
-        mySched={mySched}
+        mySched={findMy(weekAllScheds)}
         displaySched={displaySched}
         positions={positions}
       />
 
       <DisplayOthersSched
         cowokerProfs={cowokerProfs}
-        cowerkerScheds={cowerkerScheds}
+        cowerkerScheds={filterOutMy(weekAllScheds)}
         positions={positions}
         displaySched={displaySched}
       />
