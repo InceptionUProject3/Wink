@@ -1,0 +1,10 @@
+.mainGridStyle  {
+    height: auto;
+    width: 100%;
+    margin: auto;
+    display: grid;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    grid-template-columns: repeat(7,1fr);
+    grid-auto-rows: 50px;
+  };
