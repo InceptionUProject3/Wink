@@ -193,10 +193,12 @@
     color: white;
     height: fit-content;
    margin: auto;
+   font-size: 0.6vw;
 
     
 }
 .Schedule>.text{
     position: absolute;
     bottom:0.4em;
+    font-size: 0.7vw;
 }
