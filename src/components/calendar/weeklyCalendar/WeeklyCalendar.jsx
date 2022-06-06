@@ -11,9 +11,9 @@ const WeeklyCalendar = () => {
   const [daysInWeek, setDaysInWeek] = useState();
 
   //need to fetch store information
-  const storeOpen = moment("09:00", "HH:mm");
+  const storeOpen = moment("00:00", "HH:mm");
   // console.log("storeStart", storeOpen)
-  const storeClose = moment("20:00", "HH:mm");
+  const storeClose = moment("23:59", "HH:mm");
 
   useEffect(() => {
     const startDayOfWeek = selectedDay.clone().startOf("day");
