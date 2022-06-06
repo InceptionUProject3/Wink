@@ -100,3 +100,10 @@ a  {
     top: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
     bottom: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
   }
+
+  .wink {
+    display: flex;
+    position: relative;
+    top: -.40rem;
+    bottom: -.50rem;
+  }

@@ -1,11 +1,14 @@
 import React from "react";
 import "./NavBar.css";
+import wink from "../../images/wink.logo.png";
 
 const Navbar = () => {
   return (
     <div className="navbar">
       <div className="container">
-        <h1>WINK SYSTEM</h1>
+        <h1>
+        <img className="wink" src={wink} alt="" width="50"/>
+        </h1>
         <ul>
           <li>
             <p>
