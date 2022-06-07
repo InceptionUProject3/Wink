@@ -1,6 +1,6 @@
 import React from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
-import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
+// import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayOthersSched = (props) => {
   const { cowokerProfs, cowerkerScheds, displaySched,positions } = props;
@@ -38,10 +38,11 @@ const DisplayOthersSched = (props) => {
               {i === 0 && (
                 <div className="title others" key={`position ${i}`}>
                   <ProfileIcon profile={prof} color={position.color}/>
+                  <div>{position.position}</div>
                 </div>
               )}
               <div className="profile" key={`profile ${i}`}>
-              <ProfilePhoto profile={prof}/>
+              {/* <ProfilePhoto profile={prof}/> */}
               <div key={`name ${i}`}>{prof.name}</div>
             </div>
             </div>

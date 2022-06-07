@@ -116,6 +116,7 @@ const WeeklyTableBody = (props) => {
 
   return (
     <>
+      <div className="Empty-div"></div>
       <DisplayMySched
         myProfile={findMy(mockUsersData, currentUser)[0]}
         mySched={findMy(weekAllScheds, currentUser)}

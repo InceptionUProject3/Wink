@@ -8,9 +8,9 @@ export const ProfileIcon = (props) => {
     <>
       <div className="icon">
         <p className="initial">{profile?.position.charAt(0)}</p>
-        <FaCircle color={color}/>
+        <FaCircle color={color} width="2rem" height="2rem"/>
       </div>
-      <div>{profile?.position}</div>
+      {/* <div>{profile?.position}</div> */}
     </>
   );
 };

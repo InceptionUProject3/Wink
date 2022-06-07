@@ -3,7 +3,7 @@ import moment from "moment";
 
 import mockUsersData from "../mockUsersData.json";
 
-import { ProfilePhoto } from "../Reusables/components/ProfilePhoto";
+// import { ProfilePhoto } from "../Reusables/components/ProfilePhoto";
 import { ProfileIcon } from "../Reusables/components/ProfileIcon";
 import findMy from "../Reusables/functions/findMy";
 import filterOutMy from "../Reusables/functions/filterOutMy";
@@ -41,7 +41,7 @@ const DailyCalendar = () => {
           <div>Weekly Summary</div>
           <div className="Weekly-summary">
             <div className="User-profile">
-              <ProfilePhoto profile={myProfile} />
+              {/* <ProfilePhoto profile={myProfile} /> */}
               <ProfileIcon profile={myProfile} color={findMyColor(myProfile)} />
               <div className="User-name">{myProfile?.name}</div>
             </div>
