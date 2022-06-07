@@ -17,7 +17,7 @@ const WeeklyTableBody = (props) => {
   const { selectedDay, storeOpen, storeClose } = props;
 
   const [weekAllScheds, setWeekAllScheds] = useState();
-  const [AllProfiles, setAllProfiles] = useState();
+  // const [AllProfiles, setAllProfiles] = useState();
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
 

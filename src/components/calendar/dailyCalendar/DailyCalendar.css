@@ -6,6 +6,7 @@
     --font-black: #000000;
     --weekend-color: #bd4a31;
     --background-shadow: rgba(0, 0, 0, 0.10) 0px 3px 5px;
+    --font-header-size: 1.2rem;
 }
 /* *{
     margin:0;
@@ -34,13 +35,13 @@
     width: 50%;
     background-color: white;
     margin: 0 5rem 3rem 5rem;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 3rem;
     box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:1rem;
+    gap:2rem;
 }
 
 .Weekly-summary-container>.Weekly-summary{
@@ -50,8 +51,25 @@
  justify-content: center;
  /* gap:4rem */
 }
+.Weekly-summary-container>.title{
+    color: var(--wink-color);
+    font-weight: bold;
+    font-size: var(--font-header-size);
+    
+}
 .Weekly-summary>.User-profile{
-    flex:1
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:0.5rem;
+}
+.Weekly-summary>.User-profile>.icon{
+    font-size: 2vw;
+}
+.Weekly-summary>.User-profile>.icon>.initial{
+    font-size: 1.5vw;
 }
 .Weekly-summary>.summary{
     flex:1
