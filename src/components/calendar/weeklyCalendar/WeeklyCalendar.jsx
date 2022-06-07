@@ -30,15 +30,18 @@ const WeeklyCalendar = () => {
 
   return (
     <div className="Weekly-calendar-container">
-      
-    <WeeklyCalendarHeader storeOpen={storeOpen} storeClose={storeClose}/>
+      <WeeklyCalendarHeader
+        storeOpen={storeOpen}
+        storeClose={storeClose}
+        setSelectedDay={setSelectedDay}
+      />
       <div className="Weekly-calendar">
         <WeeklyTableHeader
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
           daysInWeek={daysInWeek}
         />
-        
+
         <WeeklyCalendarBody
           selectedDay={selectedDay}
           storeOpen={storeOpen}

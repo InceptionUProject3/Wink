@@ -6,6 +6,8 @@
     --font-black: #000000;
     --weekend-color: #bd4a31;
     --background-shadow: rgba(0, 0, 0, 0.10) 0px 3px 5px;
+    --button-shadow: rgba(0, 0, 0, 0.15) 0px 4px 4px;
+    --button-inner-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.25);
 }
 
 .Weekly-calendar-container{
@@ -14,9 +16,31 @@
     width: 50%;
     background-color: white;
     margin: 5rem 3rem;
-    padding: 5rem;
+    padding: 4rem;
     border-radius: 3.5rem;
     box-shadow: var(--background-shadow);
+}
+.Table-info-header{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+}
+.Table-info-header>.today{
+    width: 2vw;
+    height: 2vw;
+   margin-left: auto;
+   border: 0.5px solid var(--grid-color);
+   border-radius: 0.6rem;
+   background: none;
+   /* background-color: #23A5A5; */
+   padding: 0;
+   color: var(--font-darkgrey);
+   box-shadow: var(--button-shadow);
+    
+}
+.Table-info-header>.today:active{
+    box-shadow: var(--button-inner-shadow);
 }
 .Table-info{
     display: flex;
@@ -39,6 +63,11 @@
 .Store-hours span{
     width: 100%;
     text-align: start;
+}
+.Table-info>.right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .Table-info>.Work-code{
     color: var(--font-darkgrey);
