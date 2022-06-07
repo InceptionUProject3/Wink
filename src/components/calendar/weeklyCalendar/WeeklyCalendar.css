@@ -106,6 +106,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    max-width:150px;
+    overflow-x: hidden;
     
 }
 .WeeklyCal-Profiles> .title{

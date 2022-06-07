@@ -43,7 +43,7 @@ const DisplayOthersSched = (props) => {
               )}
               <div className="profile" key={`profile ${i}`}>
               {/* <ProfilePhoto profile={prof}/> */}
-              <div key={`name ${i}`}>{prof.name}</div>
+              <div key={`name ${i}`}>{prof.firstname}, {prof.lastname}</div>
             </div>
             </div>
             {displaySched(schedsForOne)}
