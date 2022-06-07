@@ -22,7 +22,7 @@ const LoginForm = () => {
   const onFormSubmit = async () => {
     const user = { username: username, password: password };
     const data = JSON.stringify(user);
-    const response = await fetch("/auth/login", {
+    const response = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
