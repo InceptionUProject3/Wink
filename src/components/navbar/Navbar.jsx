@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./NavBar.css";
 import wink from "../../images/wink.logo.png";
+import AuthContext from "../authentication/AuthContext";
+
 
 const Navbar = () => {
+  const authContext = useContext(AuthContext);
+  const loggedInUser = authContext.login;
   return (
     <div className="navbar">
       <div className="container">
@@ -40,11 +44,23 @@ const Navbar = () => {
           </li>
           <li>
             <p>
+              <div> {!loggedInUser && (
+              
               <a href="/login">
-                <button className="btn" href="/login">
+                <button className="btn" >
                   Login
                 </button>
               </a>
+              )}
+              {loggedInUser && (
+              
+              <a href="/logout">
+                <button className="btn" >
+                  Logout
+                </button>
+              </a>
+              )}
+              </div>
             </p>
           </li>
         </ul>

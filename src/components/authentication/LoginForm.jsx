@@ -26,14 +26,16 @@ const LoginForm = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': 'Bearer' + login,
       },
       body: data,
     });
 
     if (response.status === 200) {
-      const userData = await response.json();
+      const userData = await response.text();
       login(userData);
       navigate("/");
+      console.log(userData);
     } else {
       alert("Login Failed");
     }

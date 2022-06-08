@@ -9,10 +9,11 @@ const AuthProvider = (props) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch("/auth/loggedInUser");
+      const response = await fetch("/api/loggedInUser");
       const userData = await response.json();
       setLoggedInUser(userData);
       setLoading(false);
+      console.log(userData);
     };
     getUser();
   }, []);
