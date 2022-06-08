@@ -2,18 +2,20 @@ import React, { useContext } from "react";
 import "./NavBar.css";
 import wink from "../../images/wink.logo.png";
 import AuthContext from "../authentication/AuthContext";
-
+import { LoginContext } from "../authentication/LoginProvider";
 
 const Navbar = () => {
-  const authContext = useContext(AuthContext);
-  const loggedInUser = authContext.login;
+  const auth = useContext(LoginContext);
+  console.log("navbar, login", auth);
+  const loggedInUser = auth.user;
   return (
     <div className="navbar">
       <div className="container">
         <h1>
-        <img className="wink" src={wink} alt="" width="50"/>
+          <img className="wink" src={wink} alt="" width="50" />
         </h1>
         <ul>
+        {loggedInUser && 
           <li>
             <p>
               <a className="menu" href="/">
@@ -21,6 +23,7 @@ const Navbar = () => {
               </a>
             </p>
           </li>
+}
           <li>
             <p>
               <a className="menu" href="/messaging">
@@ -44,22 +47,21 @@ const Navbar = () => {
           </li>
           <li>
             <p>
-              <div> {!loggedInUser && (
-              
-              <a href="/login">
-                <button className="btn" >
-                  Login
-                </button>
-              </a>
-              )}
-              {loggedInUser && (
-              
-              <a href="/logout">
-                <button className="btn" >
-                  Logout
-                </button>
-              </a>
-              )}
+              <div>
+                {" "}
+                {!loggedInUser && (
+                  <a href="/login">
+                    <button className="btn">Login</button>
+                  </a>
+                )}
+                {loggedInUser && (
+                  <button
+                    className="btn"
+                    onClick={() => auth.logout()}
+                  >
+                    Logout
+                  </button>
+                )}
               </div>
             </p>
           </li>

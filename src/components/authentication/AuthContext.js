@@ -1,11 +1,14 @@
+// import { createContext } from "react";
+// const AuthContext = createContext({
+//   loading: false,
+//   loggedInUser: null,
+//   token: null,
+//   login: (userdata) => {
+//     token = userdata.token;
+//     loggedInUser = userdata;
+//     console.log("login", userdata);
+//   },
+//   logout: () => {},
+// });
 
-import { createContext } from "react";
-const AuthContext = createContext({
-  loading: false,
-  loggedInUser: null,
-  token: null,
-  login: () => {},
-  logout: () => {},
-});
-
-export default AuthContext;
+// export default AuthContext;

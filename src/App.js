@@ -11,6 +11,7 @@ import Logout from "./components/authentication/Logout";
 import RequireAuth from "./components/authentication/RequireAuth";
 import HomePage from "./pages/homepage/HomePage";
 import DailyCalendar from "./components/calendar/dailyCalendar/DailyCalendar";
+import LoginProvider from "./components/authentication/LoginProvider";
 
 const SERVER = "http://localhost:4000";
 
@@ -21,26 +22,35 @@ function App() {
   });
   return (
     <div className="App">
-      <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              // <RequireAuth>
-                <HomePage />
-              // </RequireAuth>
-            }
-          />
-          <Route path="/messaging" element={<Messaging />} />
-          <Route path="/:roomId" element={<Chat />} />
-          <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
-          <Route path="/weeklyCalendar" element={<WeeklyCalendar />} />
-          <Route path="/dailyCalendar" element={<DailyCalendar />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/logout" element={<Logout />} />
-        </Routes>
-      </BrowserRouter>
+      <LoginProvider>
+        <Navbar />
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <RequireAuth>
+                  <HomePage />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/messaging"
+              element={
+                <RequireAuth>
+                  <Messaging />
+                </RequireAuth>
+              }
+            />
+            <Route path="/:roomId" element={<Chat />} />
+            <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
+            <Route path="/weeklyCalendar" element={<WeeklyCalendar />} />
+            <Route path="/dailyCalendar" element={<DailyCalendar />} />
+            <Route path="/login" element={<LoginForm />} />
+          </Routes>
+        </BrowserRouter>
+      </LoginProvider>
     </div>
   );
 }

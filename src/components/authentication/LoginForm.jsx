@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "./AuthContext";
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../utils/muiTheme';
+import { LoginContext } from "./LoginProvider";
 
 
 
@@ -12,7 +13,8 @@ import theme from '../utils/muiTheme';
 
 
 const LoginForm = () => {
-  const authContext = useContext(AuthContext);
+  const authContext = useContext(LoginContext);
+  console.log("loginform", authContext);
   const login = authContext.login;
 
   const [username, setUsername] = useState("");
@@ -26,16 +28,16 @@ const LoginForm = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': 'Bearer' + login,
+        'Authorization': 'Bearer' + user,
       },
       body: data,
     });
 
     if (response.status === 200) {
-      const userData = await response.text();
-      login(userData);
+      const userData = JSON.parse(await response.text());
+      authContext.finishLogin(userData);
       navigate("/");
-      console.log(userData);
+      console.log("after fetch user data", userData);
     } else {
       alert("Login Failed");
     }
