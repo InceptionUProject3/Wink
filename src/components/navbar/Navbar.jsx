@@ -15,36 +15,43 @@ const Navbar = () => {
           <img className="wink" src={wink} alt="" width="50" />
         </h1>
         <ul>
-        {loggedInUser && 
-          <li>
-            <p>
-              <a className="menu" href="/">
-                HOME
-              </a>
-            </p>
-          </li>
-}
-          <li>
-            <p>
-              <a className="menu" href="/messaging">
-                MESSAGING
-              </a>
-            </p>
-          </li>
-          <li>
-            <p>
-              <a className="menu" href="/">
-                CALENDAR
-              </a>
-            </p>
-          </li>
-          <li>
-            <p>
-              <a className="menu" href="/">
-                TRAINING
-              </a>
-            </p>
-          </li>
+          {loggedInUser && (
+            <li>
+              <p>
+                <a className="menu" href="/">
+                  HOME
+                </a>
+              </p>
+            </li>
+          )}
+          {loggedInUser && (
+            <li>
+              <p>
+                <a className="menu" href="/messaging">
+                  MESSAGING
+                </a>
+              </p>
+            </li>
+          )}
+          {loggedInUser && (
+            <li>
+              <p>
+                <a className="menu" href="/">
+                  CALENDAR
+                </a>
+              </p>
+            </li>
+          )}
+          {loggedInUser && (
+            <li>
+              <p>
+                <a className="menu" href="/">
+                  TRAINING
+                </a>
+              </p>
+            </li>
+          )}
+
           <li>
             <p>
               <div>
@@ -55,10 +62,7 @@ const Navbar = () => {
                   </a>
                 )}
                 {loggedInUser && (
-                  <button
-                    className="btn"
-                    onClick={() => auth.logout()}
-                  >
+                  <button className="btn" onClick={() => auth.logout()}>
                     Logout
                   </button>
                 )}
