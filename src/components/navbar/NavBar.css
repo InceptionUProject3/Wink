@@ -40,9 +40,9 @@ a  {
   }
   
   ul {
-       display: flex;
-    list-style-type: none;
-    height: 100%;
+      display: flex;
+      list-style-type: none;
+      height: 100%;
   
 
     /*bottom: 1rem;*/
@@ -78,6 +78,7 @@ a  {
     padding: 10px 22px;
     display: flex;
     margin: 4px 2px;
+    margin-left: 80rem;
     cursor: pointer;
     transition: 0.5s;
     position: relative;
@@ -95,6 +96,7 @@ a  {
     padding: 10px 22px;
     display: flex;
     margin: 4px 2px;
+    margin-left: 80rem;
     cursor: pointer;
     position: relative;
     top: -.5rem; /* I put the (-) sign to put the most centralized "Login button" in NavBar.*/
@@ -106,4 +108,41 @@ a  {
     position: relative;
     top: -.40rem;
     bottom: -.50rem;
+  }
+
+  .menu:last-child {
+    font-weight: 300;
+    padding: 5px 10px;
+    background-color: #fff;
+    transition: all 0.5s ease-in-out;
+    margin-left: 20px;
+    border-radius: 2px;
+  }
+  
+  .menu {
+    text-decoration: none;
+    color:  #00b3b4;
+    font-weight: 300;
+    padding: 5px 10px;
+    margin-left: 20px;
+    top: 10rem;
+    bottom: 10rem;
+  }
+  
+  .menu:hover,
+  .menu.active {
+    background-color: #00b3b4;
+    border-radius: 2px;
+    color: #fff;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  @media screen and (max-width: 800px) {
+    .logo {
+      font-size: 20px;
+    }
+    .a {
+      font-size: 14px;
+      margin-left: 10px;
+    }
   }
