@@ -2,9 +2,10 @@ import { Button, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "./AuthContext";
+
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../utils/muiTheme';
+import { LoginContext } from "./LoginProvider";
 
 
 
@@ -12,8 +13,9 @@ import theme from '../utils/muiTheme';
 
 
 const LoginForm = () => {
-  const authContext = useContext(AuthContext);
-  const login = authContext.login;
+  const authContext = useContext(LoginContext);
+
+  // const login = authContext.login;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,16 +28,16 @@ const LoginForm = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': 'Bearer' + login,
+        'Authorization': 'Bearer' + user,
       },
       body: data,
     });
 
     if (response.status === 200) {
-      const userData = await response.text();
-      login(userData);
+      const userData = JSON.parse(await response.text());
+      authContext.finishLogin(userData);
       navigate("/");
-      console.log(userData);
+
     } else {
       alert("Login Failed");
     }
