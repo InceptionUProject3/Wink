@@ -1,7 +1,7 @@
 [
-  { "UserId": 3, "name": "Hana", "position": "Supervisor" },
-  { "UserId": 1, "name": "Ann", "position": "Manager" },
-  { "UserId": 5, "name": "Patrick", "position": "Receptionist" },
-  { "UserId": 2, "name": "John", "position": "Supervisor" },
-  { "UserId": 4, "name": "Tim", "position": "Receptionist" }
+  { "UserId": 3, "firstname": "Hana", "lastname": "WinkwinkwinkWinkwinkwink","position": "Supervisor" },
+  { "UserId": 1, "firstname": "Ann", "lastname": "Wink", "position": "Manager" },
+  { "UserId": 5, "firstname": "Patrick","lastname": "Wink", "position": "Receptionist" },
+  { "UserId": 2, "firstname": "John","lastname": "Wink", "position": "Supervisor" },
+  { "UserId": 4, "firstname": "Tim", "lastname": "Wink","position": "Receptionist" }
 ]

@@ -3,13 +3,14 @@ import moment from "moment";
 
 import mockUsersData from "../mockUsersData.json";
 
-import { ProfilePhoto } from "../Reusables/components/ProfilePhoto";
+// import { ProfilePhoto } from "../Reusables/components/ProfilePhoto";
 import { ProfileIcon } from "../Reusables/components/ProfileIcon";
 import findMy from "../Reusables/functions/findMy";
 import filterOutMy from "../Reusables/functions/filterOutMy";
 import setPositionList from "../Reusables/functions/setPositionList";
 
 import "./DailyCalendar.css";
+import DailyCalendarSummary from "./DailyCalendarSummary";
 
 const DailyCalendar = () => {
   const [selectedDay, setSelectedDay] = useState(moment());
@@ -27,40 +28,12 @@ const DailyCalendar = () => {
     setAllProfiles();
   }, []);
 
-  const findMyColor = (profile) => {
-    const positionObj = profColors?.find(
-      (obj) => obj?.position === profile?.position
-    );
-    return positionObj?.color;
-  };
+
 
   return (
     <div className="Daily-calendar">
       <div className="DailyCal-container">
-        <div className="Weekly-summary-container">
-          <div>Weekly Summary</div>
-          <div className="Weekly-summary">
-            <div className="User-profile">
-              <ProfilePhoto profile={myProfile} />
-              <ProfileIcon profile={myProfile} color={findMyColor(myProfile)} />
-              <div className="User-name">{myProfile?.name}</div>
-            </div>
-            <div className="summary">
-              <div>
-                <span>Period:</span>
-                <span>~</span>
-              </div>
-              <div>
-                <span>Expected hours:</span>
-                <span>~</span>
-              </div>
-              <div>
-                <span>Scheduled hours:</span>
-                <span>~</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DailyCalendarSummary myProfile={myProfile} profColors={profColors}/>
         <div>{selectedDay?.format("MMM DD")}</div>
         <div>{selectedDay?.format("dddd")}</div>
       </div>

@@ -15,11 +15,11 @@ const DisplayMySched = (props) => {
   return (
     <>
       <div className="WeeklyCal-Profiles myProfile">
-        <ProfilePhoto profile={myProfile} />
+        {/* <ProfilePhoto profile={myProfile} /> */}
 
-        <div>{myProfile?.name}(me)</div>
         <div className="title">
           <ProfileIcon profile={myProfile} color={findColor()}/>
+        <div>{myProfile?.firstname}, {myProfile?.lastname}(me)</div>
         </div>
       </div>
       {mySched && displaySched(mySched)}

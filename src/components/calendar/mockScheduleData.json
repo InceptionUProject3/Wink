@@ -1,7 +1,7 @@
 [
   {
     "scheduleId": 1,
-    "need to put store Id in mySQL": "but we don't need store id here",
+    "need to put UserPrevilegesId instead of position and userId in mySQL": "need to join user, userprofile and userschedule to get username, position, and schedule",
     "UserId": 1,
     "position": "Manager",
     "from": "May 29 2022 9:00",
