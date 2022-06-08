@@ -12,7 +12,7 @@ const ScheduleBar = (props) => {
         // console.log("division", barLength);
         const barStart = Math.round(moment(newFrom - dayStart).unix() / 60 / 15);
         const barEnd = Math.round(moment(newTo - dayStart).unix() / 60 / 15);
-        console.log("bar indexs", barStart, barEnd);
+        // console.log("bar indexs", barStart, barEnd);
     
         if (schedObj.workCode === "Working") {
           return (

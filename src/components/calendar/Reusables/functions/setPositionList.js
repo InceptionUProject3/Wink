@@ -17,7 +17,7 @@ const setPositionList = (data) => {
       });
     }
   });
-  console.log("newarray", newPositonArray);
+  // console.log("newarray", newPositonArray);
   return newPositonArray;
 };
 
