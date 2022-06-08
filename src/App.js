@@ -9,7 +9,8 @@ import WeeklyCalendar from "./components/calendar/weeklyCalendar/WeeklyCalendar"
 import LoginForm from "./components/authentication/LoginForm";
 import Logout from "./components/authentication/Logout";
 import RequireAuth from "./components/authentication/RequireAuth";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/homepage/HomePage";
+import DailyCalendar from "./components/calendar/dailyCalendar/DailyCalendar";
 
 const SERVER = "http://localhost:4000";
 
@@ -33,8 +34,9 @@ function App() {
           />
           <Route path="/messaging" element={<Messaging />} />
           <Route path="/:roomId" element={<Chat />} />
-          <Route path="/weeklyCalender" element={<WeeklyCalendar />} />
           <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
+          <Route path="/weeklyCalendar" element={<WeeklyCalendar />} />
+          <Route path="/dailyCalendar" element={<DailyCalendar />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>

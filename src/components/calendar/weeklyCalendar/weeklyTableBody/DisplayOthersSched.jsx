@@ -1,6 +1,6 @@
 import React from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
-import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
+// import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayOthersSched = (props) => {
   const { cowokerProfs, cowerkerScheds, displaySched,positions } = props;
@@ -28,8 +28,8 @@ const DisplayOthersSched = (props) => {
     return groupedProfs[onlyPosition]?.map((prof, i) => {
       if (prof.position === onlyPosition) {
         const schedsForOne = cowerkerScheds?.filter(
-          //need to replace name to id
-          (sched) => sched.name === prof.name
+          
+          (sched) => sched.UserId === prof.UserId
         );
         // console.log("should be all scheds per person", schedsForOne)
         return (
@@ -38,11 +38,12 @@ const DisplayOthersSched = (props) => {
               {i === 0 && (
                 <div className="title others" key={`position ${i}`}>
                   <ProfileIcon profile={prof} color={position.color}/>
+                  <div>{position.position}</div>
                 </div>
               )}
               <div className="profile" key={`profile ${i}`}>
-              <ProfilePhoto profile={prof}/>
-              <div key={`name ${i}`}>{prof.name}</div>
+              {/* <ProfilePhoto profile={prof}/> */}
+              <div key={`name ${i}`}>{prof.firstname}, {prof.lastname}</div>
             </div>
             </div>
             {displaySched(schedsForOne)}

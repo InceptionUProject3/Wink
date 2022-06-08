@@ -7,19 +7,19 @@ const ScheduleBar = (props) => {
         const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
         const newTo = schedTo < dayEnd ? schedTo : dayEnd;
         //Divide maxmum of Bar every 15min
-        const barLength = moment(dayEnd - dayStart).unix() / 60 / 15;
+        const barLength = Math.round(moment(dayEnd - dayStart).unix() / 60 / 15);
     
         // console.log("division", barLength);
-        const barStart = moment(newFrom - dayStart).unix() / 60 / 15;
-        const barEnd = moment(newTo - dayStart).unix() / 60 / 15;
-        // console.log("bar indexs", barStart, barEnd);
+        const barStart = Math.round(moment(newFrom - dayStart).unix() / 60 / 15);
+        const barEnd = Math.round(moment(newTo - dayStart).unix() / 60 / 15);
+        console.log("bar indexs", barStart, barEnd);
     
         if (schedObj.workCode === "Working") {
           return (
             <>
               <div
                 className="Full-bar"
-                style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
+                style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)`, color: 'red' }}
               >
                 <div
                   className="Percentage-bar working"

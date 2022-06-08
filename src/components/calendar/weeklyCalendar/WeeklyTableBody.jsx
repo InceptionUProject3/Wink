@@ -1,81 +1,62 @@
 import React, { useEffect, useState } from "react";
 //useContext to fetch data from server
-import mockScheduleData from "./mockScheduleData.json";
+import mockUsersData from "../mockUsersData.json";
+//fetch sheduleData for store
+import mockScheduleData from "../mockScheduleData.json";
+
 import moment from "moment";
 
 import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
-import setPositionList from "../Reusables/functions/setPositionList";
 import ScheduleBar from "../Reusables/components/ScheduleBar";
+import setPositionList from "../Reusables/functions/setPositionList";
+import findMy from "../Reusables/functions/findMy";
+import filterOutMy from "../Reusables/functions/filterOutMy";
 
 const WeeklyTableBody = (props) => {
   const { selectedDay, storeOpen, storeClose } = props;
 
-  const [mySched, setMySched] = useState();
-  const [cowerkerScheds, setcowerkerScheds] = useState();
-  const [myProfile, setMyProfile] = useState();
-  const [cowokerProfs, setCowokerProfs] = useState();
+  const [weekAllScheds, setWeekAllScheds] = useState();
+  // const [AllProfiles, setAllProfiles] = useState();
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
 
   const startDay = selectedDay.clone().startOf("day");
   const endDay = selectedDay.clone().add(6, "days").endOf("day");
-  //need to fetch employee profiles from server (useContext).
-  const mockEmployeeData = [
-    { name: "Hana", position: "Supervisor" },
-    { name: "Ann", position: "Manager" },
-    { name: "Patrick", position: "Receptionist" },
-    { name: "John", position: "Supervisor" },
-    { name: "Tim", position: "Receptionist" },
-    // { name: "Tim", position: "Doctor" },
-    // { name: "Tim", position: "Specialist" },
-  ];
 
-  //need to fetch current logged in user
-  const currentUser = { name: "Ann" };
+  //need to fetch current logged in user useContext
+  const currentUser = { UserId: 2, storeId: 1 };
 
-  const findMy = (arr) => {
-    const currentUserData = arr.filter(
-      //name will be replaced to id
-      (e) => e.name === currentUser.name
-    );
-    return currentUserData;
-  };
-  const filterOutMy = (arr) => {
-    const currentUserData = arr.filter(
-      //name will be replaced to id
-      (e) => e.name !== currentUser.name
-    );
-    return currentUserData;
-  };
   useEffect(() => {
-    const positionArray = setPositionList(mockEmployeeData);
+    const positionArray = setPositionList(mockUsersData);
     setPositions(positionArray);
     //add dependence fetched profile data
   }, []);
 
   useEffect(() => {
     const setAllProfiles = () => {
-      //set my profile
-      const currentUserProf = findMy(mockEmployeeData);
-      setMyProfile(currentUserProf[0]);
-      //set coworkers' profiles
-      const otherProfs = filterOutMy(mockEmployeeData);
-      setCowokerProfs(otherProfs);
+      //send store id
+      //backend=>useprevileges : find userids, UserprofileId then user: find user  name and userprofile: position
+      // setAllProfiles(mockScheduleData);
     };
     setAllProfiles();
   }, []);
 
-  //need to fetch schedule from server
+  //set schdules
   useEffect(() => {
     const getAllSchedules = () => {
-      const currentUserSched = findMy(mockScheduleData);
-      const cowerkerScheds = filterOutMy(mockScheduleData);
-      setMySched(currentUserSched);
-      setcowerkerScheds(cowerkerScheds);
+      //need to fetch schedule from server
+      //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
+      const thisWeekSched = mockScheduleData?.filter(
+        (sched) =>
+          moment(sched.to, "MMM DD YYYY HH:mm") > startDay &&
+          moment(sched.from, "MMM DD YYYY HH:mm") < endDay
+      );
+      // console.log("this week schedules", thisWeekSched)
+      setWeekAllScheds(thisWeekSched);
     };
     getAllSchedules();
-  }, []);
+  }, [selectedDay]);
 
   useEffect(() => {
     const weekArray = [];
@@ -86,14 +67,6 @@ const WeeklyTableBody = (props) => {
   }, [selectedDay]);
 
   //   console.log("weekarray",week)
-  const filterWeekScheds = (wholeSched) => {
-    const weekScheds = wholeSched?.filter(
-      (sched) =>
-        moment(sched.to, "MMM DD YYYY HH:mm") > startDay &&
-        moment(sched.from, "MMM DD YYYY HH:mm") < endDay
-    );
-    return weekScheds;
-  };
 
   const displaySched = (ForWhom) => {
     //  console.log("filtered", filterWeekScheds(ForWhom));
@@ -107,8 +80,8 @@ const WeeklyTableBody = (props) => {
         h: storeClose.hour(),
         m: storeClose.minute(),
       });
-      // console.log('day end and start', dayStart, '-', dayEnd)
-      const foundSched = filterWeekScheds(ForWhom)?.find(
+
+      const foundSched = ForWhom?.find(
         (sched) =>
           moment(sched.to, "MMM DD YYYY HH:mm") > dayStart &&
           moment(sched.from, "MMM DD YYYY HH:mm") < dayEnd
@@ -143,16 +116,17 @@ const WeeklyTableBody = (props) => {
 
   return (
     <>
+      <div className="Empty-div"></div>
       <DisplayMySched
-        myProfile={myProfile}
-        mySched={mySched}
+        myProfile={findMy(mockUsersData, currentUser)[0]}
+        mySched={findMy(weekAllScheds, currentUser)}
         displaySched={displaySched}
         positions={positions}
       />
 
       <DisplayOthersSched
-        cowokerProfs={cowokerProfs}
-        cowerkerScheds={cowerkerScheds}
+        cowokerProfs={filterOutMy(mockUsersData, currentUser)}
+        cowerkerScheds={filterOutMy(weekAllScheds, currentUser)}
         positions={positions}
         displaySched={displaySched}
       />

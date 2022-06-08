@@ -1,83 +1,74 @@
 [
   {
-    "id": 1,
-    "employeeId": 1,
-    "name": "Ann",
-    "position": "Store Manager",
+    "scheduleId": 1,
+    "need to put UserPrevilegesId instead of position and userId in mySQL": "need to join user, userprofile and userschedule to get username, position, and schedule",
+    "UserId": 1,
+    "position": "Manager",
     "from": "May 29 2022 9:00",
     "to": "May 29 2022 15:00",
     "workCode": "Working"
   },
   {
-    "id": 2,
-    "employeeId": 1,
-    "name": "Ann",
-    "position": "Store Manager",
+    "scheduleId": 2,
+    "UserId": 1,
+    "position": "Manager",
     "from": "May 28 2022 9:00",
     "to": "May 28 2022 16:00",
     "workCode": "Working"
   },
   {
-    "id": 3,
-    "employeeId": 2,
-    "name": "John",
+    "scheduleId": 3,
+    "UserId": 2,
     "position": "Supervisor",
     "from": "May 26 2022 9:00",
     "to": "May 26 2022 15:00",
     "workCode": "Working"
   },
   {
-    "id": 4,
-    "employeeId": 2,
-    "name": "John",
+    "scheduleId": 4,
+    "UserId": 2,
     "position": "Supervisor",
     "from": "May 27 2022 15:00",
     "to": "May 27 2022 21:00",
     "workCode": "Working"
   },{
-    "id": 5,
-    "employeeId": 3,
-    "name": "Hana",
+    "scheduleId": 5,
+    "UserId": 3,
     "position": "Supervisor",
     "from": "May 26 2022 15:00",
     "to": "May 26 2022 21:00",
     "workCode": "Working"
   },{
-    "id": 6,
-    "employeeId": 3,
-    "name": "Hana",
+    "scheduleId": 6,
+    "UserId": 3,
     "position": "Supervisor",
     "from": "May 30 2022 9:00",
     "to": "May 30 2022 16:00",
     "workCode": "Working"
   },{
-    "id": 7,
-    "employeeId": 3,
-    "name": "Hana",
+    "scheduleId": 7,
+    "UserId": 3,
     "position": "Supervisor",
     "from": "May 31 2022 9:00",
     "to": "May 31 2022 16:00",
     "workCode": "Working"
   },{
-    "id": 8,
-    "employeeId": 3,
-    "name": "Hana",
+    "scheduleId": 8,
+    "UserId": 3,
     "position": "Supervisor",
     "from": "Jun 01 2022 9:15",
     "to": "Jun 01 2022 19:45",
     "workCode": "Working"
   },{
-    "id": 9,
-    "employeeId": 3,
-    "name": "Hana",
+    "scheduleId": 9,
+    "UserId": 3,
     "position": "Supervisor",
     "from": "Jun 02 2022 15:00",
     "to": "Jun 02 2022 21:00",
     "workCode": "Working"
   },{
-    "id": 10,
-    "employeeId": 4,
-    "name": "Tim",
+    "scheduleId": 10,
+    "UserId": 4,
     "position": "Receptionist",
     "from": "Jun 02 2022 00:00",
     "to": "Jun 10 2022 23:59",

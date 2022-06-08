@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import WeeklyCalendar from '../components/calendar/weeklyCalendar/WeeklyCalendar'
-import ChatPopup from '../components/messaging/ChatPopup'
+import WeeklyCalendar from '../../components/calendar/weeklyCalendar/WeeklyCalendar'
+import ChatPopup from '../../components/messaging/ChatPopup'
 
-import PersonalTasks from '../components/tasks/PersonalTasks'
-import Training from '../components/training/Training'
+import PersonalTasks from '../../components/tasks/PersonalTasks'
+import Training from '../../components/training/Training'
 import './homepage.css'
 
 const HomePage = () => {

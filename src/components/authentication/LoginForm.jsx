@@ -22,18 +22,20 @@ const LoginForm = () => {
   const onFormSubmit = async () => {
     const user = { username: username, password: password };
     const data = JSON.stringify(user);
-    const response = await fetch("/auth/login", {
+    const response = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': 'Bearer' + login,
       },
       body: data,
     });
 
     if (response.status === 200) {
-      const userData = await response.json();
+      const userData = await response.text();
       login(userData);
       navigate("/");
+      console.log(userData);
     } else {
       alert("Login Failed");
     }

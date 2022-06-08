@@ -10,14 +10,14 @@ const Logout = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const logoutUser = async () => {
-      const response = await fetch("/auth/logout");
-      if (response.status === 200) {
+      // const response = await fetch("/api/logout");
+      // if (response.status === 200) {
         logout();
-        navigate(-1);
-      } else {
-        alert("logout failed");
-        navigate(-1);
-      }
+        navigate("/login");
+      // } else {
+      //   alert("logout failed");
+      //   navigate(-1);
+      // }
     };
     logoutUser();
   }, [logout, navigate]);
