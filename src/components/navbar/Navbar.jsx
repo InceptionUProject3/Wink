@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import "./NavBar.css";
 import wink from "../../images/wink.logo.png";
-import AuthContext from "../authentication/AuthContext";
+
 import { LoginContext } from "../authentication/LoginProvider";
 
 const Navbar = () => {
   const auth = useContext(LoginContext);
-  console.log("navbar, login", auth);
+
   const loggedInUser = auth.user;
   return (
     <div className="navbar">

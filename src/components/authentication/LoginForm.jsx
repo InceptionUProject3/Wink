@@ -2,7 +2,7 @@ import { Button, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "./AuthContext";
+
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../utils/muiTheme';
 import { LoginContext } from "./LoginProvider";
@@ -14,8 +14,8 @@ import { LoginContext } from "./LoginProvider";
 
 const LoginForm = () => {
   const authContext = useContext(LoginContext);
-  console.log("loginform", authContext);
-  const login = authContext.login;
+
+  // const login = authContext.login;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +37,7 @@ const LoginForm = () => {
       const userData = JSON.parse(await response.text());
       authContext.finishLogin(userData);
       navigate("/");
-      console.log("after fetch user data", userData);
+
     } else {
       alert("Login Failed");
     }

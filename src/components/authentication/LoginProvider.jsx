@@ -6,8 +6,7 @@ const LoginProvider = (props) => {
 const [user, setUser] = useState(null)
 const [token, setToken] = useState(null)
 const finishLogin = (newUser) => {
-    console.log("finishlogin", (newUser))
-    console.log("finishlogin2", (newUser.token))
+
     setUser(newUser)
     setToken(newUser.token)
 }

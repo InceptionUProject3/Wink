@@ -7,7 +7,7 @@ import socketClient from "socket.io-client";
 import Chat from "./components/messaging/Chat";
 import WeeklyCalendar from "./components/calendar/weeklyCalendar/WeeklyCalendar";
 import LoginForm from "./components/authentication/LoginForm";
-import Logout from "./components/authentication/Logout";
+
 import RequireAuth from "./components/authentication/RequireAuth";
 import HomePage from "./pages/homepage/HomePage";
 import DailyCalendar from "./components/calendar/dailyCalendar/DailyCalendar";
