@@ -31,7 +31,6 @@ const LoginForm = () => {
       body: data,
     });
 
-    
     if (response.status === 200) {
       const userData = await response.text();
       login(userData);

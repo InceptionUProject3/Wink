@@ -1,10 +1,10 @@
 import React from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
-import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
+// import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayMySched = (props) => {
   const { myProfile, mySched, displaySched,positions } = props;
-  console.log(mySched)
+  // console.log(mySched)
   const findColor =()=>{
     const myPositionObj = positions?.find((position)=>myProfile?.position===position.position);
     const color = myPositionObj?.color;
