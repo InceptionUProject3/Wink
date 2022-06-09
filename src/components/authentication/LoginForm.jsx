@@ -1,24 +1,24 @@
+/** Import resorces and works as a "tools" to produce the file. */
+
 import { Button, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./AuthContext";
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '../utils/muiTheme';
+import theme from '../utils/muiTheme'
 
-
-
-
-
-
+/**  UI allowing the user to login to the app with their email and password. */
 const LoginForm = () => {
   const authContext = useContext(AuthContext);
   const login = authContext.login;
-
+  // default 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
+/** Post username/password to the authentication service */
   const onFormSubmit = async () => {
     const user = { username: username, password: password };
     const data = JSON.stringify(user);
@@ -31,6 +31,7 @@ const LoginForm = () => {
       body: data,
     });
 
+    
     if (response.status === 200) {
       const userData = await response.text();
       login(userData);
