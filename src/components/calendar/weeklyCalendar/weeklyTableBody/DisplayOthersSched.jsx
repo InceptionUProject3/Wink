@@ -3,9 +3,8 @@ import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayOthersSched = (props) => {
-  const { cowokerProfs, cowerkerScheds, displaySched,positions } = props;
+  const { cowokerProfs, cowerkerScheds, displaySched, positions } = props;
 
- 
   const groupByPosition = () => {
     const initialVal = {};
     return cowokerProfs?.reduce((acc, current) => {
@@ -24,11 +23,10 @@ const DisplayOthersSched = (props) => {
   const groupedProfs = groupByPosition();
 
   return positions?.map((position) => {
-    const onlyPosition = position.position
+    const onlyPosition = position.position;
     return groupedProfs[onlyPosition]?.map((prof, i) => {
       if (prof.position === onlyPosition) {
         const schedsForOne = cowerkerScheds?.filter(
-          
           (sched) => sched.UserId === prof.UserId
         );
         // console.log("should be all scheds per person", schedsForOne)
@@ -36,15 +34,18 @@ const DisplayOthersSched = (props) => {
           <React.Fragment key={`OtherScheds ${i}`}>
             <div className="WeeklyCal-Profiles others" key={`profile ${i}`}>
               {i === 0 && (
-                <div className="title others" key={`position ${i}`}>
-                  <ProfileIcon profile={prof} color={position.color}/>
-                  <div>{position.position}</div>
+                <div className="title" key={`position ${i}`}>
+                  <ProfileIcon profile={prof} color={position.color} />
+                  <div className="name">{position.position}</div>
                 </div>
               )}
               <div className="profile" key={`profile ${i}`}>
-              {/* <ProfilePhoto profile={prof}/> */}
-              <div key={`name ${i}`}>{prof.firstname}, {prof.lastname}</div>
-            </div>
+                {/* <ProfilePhoto profile={prof}/> */}
+                <div key={`name ${i}`} className="Name-container">
+                  <div className="firstname">{prof.firstname},</div>
+                  <div className="lastname">{prof.lastname}</div>
+                </div>
+              </div>
             </div>
             {displaySched(schedsForOne)}
           </React.Fragment>

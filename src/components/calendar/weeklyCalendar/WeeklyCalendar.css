@@ -11,13 +11,12 @@
 }
 
 .Weekly-calendar-container{
-    /* width: 100%;*/
-    height: 100%; 
-    width: 50%;
+   border-width: 100%;
+   min-width: 400px;
     background-color: white;
-    margin: 5rem 3rem;
-    padding: 4rem;
-    border-radius: 3.5rem;
+    /* margin: 5em 2em; */
+    padding: 3em;
+    border-radius: 3.5em;
     box-shadow: var(--background-shadow);
 }
 .Table-info-header{
@@ -33,7 +32,6 @@
    border: 0.5px solid var(--grid-color);
    border-radius: 0.6rem;
    background: none;
-   /* background-color: #23A5A5; */
    padding: 0;
    color: var(--font-darkgrey);
    box-shadow: var(--button-shadow);
@@ -46,16 +44,15 @@
 .Table-info{
     display: flex;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    font-size: 0.7vw;
-    /* color: var(--font-darkgrey); */
+    padding: 1em 2em;
+    font-size: 60%;
 }
 .Table-info> .Store-hours{
     display: flex;
     flex-direction: column;
-    width: 7rem;
+    width: 7em;
     color: var(--font-darkgrey);
-    gap: 0.4rem;
+    gap: 0.4em;
 }
 .Store-hours p{
     display: flex;
@@ -83,16 +80,19 @@
 }
 .Weekly-calendar{
     display: grid;
-    grid-template-columns: 1fr repeat(7,1fr);
-    grid-template-rows:repeat(2,minmax(20px,25px)) repeat(auto-fit,minmax(100px,1fr));
+    grid-template-columns: 1fr repeat(7,minmax(43px,1fr));
+    grid-template-rows:repeat(2,5%) repeat(auto-fit,minmax(67px,1fr));
     border-top: 0.5px solid var(--grid-color);
-    /* border-right: 0.5px solid var(--grid-color); */
 }
 .Weekly-calendar >div{
     border-bottom: 0.5px solid var(--grid-color);
     border-left: 0.5px solid var(--grid-color);
     color: var(--font-darkgrey);
-    font-size: 0.8vw;
+    font-size: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* min-width: 20px; */
+
 }
 .WeeklyCal-header{
     grid-column: 2/-1;
@@ -118,8 +118,7 @@
     justify-self: stretch;
     text-align: start;
     padding: 3px;
-    /* font-size: 0.8vw; */
-    /* text-indent: 5px; */
+
 }
 .WeeklyCal-date.Weekend{
     color: var(--weekend-color)
@@ -135,30 +134,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: start; */
     max-width:150px;
-    overflow-x: hidden;
-    
+    min-height: 67px;
+    min-width: 80px;
 }
 .WeeklyCal-Profiles> .title{
-    
-    min-height: 25px;
+
     display: flex;
     justify-content:center;
     
 }
+.WeeklyCal-Profiles>.title> div{
+    align-self: center;
+    margin: 0.2rem;
+}
+
 .Weekly-calendar>.Empty-div{
     grid-column: 1;
     grid-row: 1/3;
 }
 .WeeklyCal-Profiles.myProfile{
     grid-row: 3/4;
-    /* padding: 10px 0; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap:0.5rem;
+    
 }
 .WeeklyCal-Profiles.myProfile>.title{
     flex-direction: column;
@@ -169,10 +171,7 @@
     
 }
 
-.title> div{
-    align-self: center;
-    margin: 0.3rem;
-}
+
 .WeeklyCal-Profiles.others> .profile{
     padding: 10px 0;
     display: flex;
@@ -181,35 +180,32 @@
     align-items: center;
     gap: 0.5rem;
     flex: 1;
-}
-.icon{
-    display: flex;
-    position: relative;
-   
-}
-.icon>.initial{
-    position:absolute;
-    color: white;
-    font-weight: bold;
-    font-size: 0.55vw;
     width: 100%;
-    height: 100%;
-    margin: 0;
-    
 }
+.WeeklyCal-Profiles> .profile>.Name-container{
+    width: 90%;
+
+}
+.WeeklyCal-Profiles>.profile>.Name-container>div{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 .WeeklyCal-Profiles.myProfile> .title> .icon{
-   font-size: 1.5vw;
+   font-size: 200%;
 }
-.WeeklyCal-Profiles.myProfile> .title> .icon>p{
-    font-size:1vw;
-    top:8%;
-}
-.WeeklyCal-Profiles.others>.title> div{
-    font-size: 0.7vw;
+.WeeklyCal-Profiles.others> .title> .icon> .initial
+{
+    font-size:0.47rem;
+ } 
+.WeeklyCal-Profiles.others>.title> .name{
+    font-size: 60%
 }
 
 .Weekly-calendar>.Schedule{
-    min-height: 90px;
+
     position:relative;
     display: flex;
     flex-direction: column;
@@ -220,9 +216,8 @@
 .Schedule>.Full-bar{
     position: absolute;
     width: 100%;
-    height: 24px;
+    height: 23%;
     display:grid;
-    /* justiy-content: center; */
 }
 .Full-bar>.Percentage-bar{
     height: 100%;
@@ -233,7 +228,6 @@
     background-color: var(--wink-color-light);
     border-radius: 5px;
     display: flex;
-    /* align-items: center; */
 }
 
 .Full-bar>.Percentage-bar.vacation{

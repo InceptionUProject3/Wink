@@ -3,23 +3,27 @@ import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayMySched = (props) => {
-  const { myProfile, mySched, displaySched,positions } = props;
+  const { myProfile, mySched, displaySched, positions } = props;
   // console.log(mySched)
-  const findColor =()=>{
-    const myPositionObj = positions?.find((position)=>myProfile?.position===position.position);
+  const findColor = () => {
+    const myPositionObj = positions?.find(
+      (position) => myProfile?.position === position.position
+    );
     const color = myPositionObj?.color;
     // console.log(color)
-    return color
-    
-  }
+    return color;
+  };
   return (
     <>
       <div className="WeeklyCal-Profiles myProfile">
         {/* <ProfilePhoto profile={myProfile} /> */}
 
         <div className="title">
-          <ProfileIcon profile={myProfile} color={findColor()}/>
-        <div>{myProfile?.firstname}, {myProfile?.lastname}(me)</div>
+          <ProfileIcon profile={myProfile} color={findColor()} />
+          <div className="Name-container">
+            <div className="firstname">{myProfile?.firstname},</div>
+            <div className="lastname">{myProfile?.lastname} (me)</div> 
+          </div>
         </div>
       </div>
       {mySched && displaySched(mySched)}
