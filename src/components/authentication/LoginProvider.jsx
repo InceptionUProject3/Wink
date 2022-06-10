@@ -1,4 +1,4 @@
-/** Import resorces from files. It work as a "tools" to produce the funcionality of the app. */
+/** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import React, { createContext, useState } from 'react'
 
 

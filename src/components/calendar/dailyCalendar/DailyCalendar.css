@@ -1,3 +1,4 @@
+/** The :root selector matches the document's root element. */
 :root {
     --wink-color: #23A5A5;
     --wink-color-light: #71C8C8;
@@ -8,6 +9,10 @@
     --background-shadow: rgba(0, 0, 0, 0.10) 0px 3px 5px;
     --font-header-size: 1.2rem;
 }
+
+/** This resources below are in comments yet because problably will be use in the future. 
+Line 16 to 24 contents this resources. */
+
 /* *{
     margin:0;
     padding:0;
@@ -17,7 +22,9 @@
     display: flex;
     justify-content: center;
 } */
-.DailyCal-container{
+
+/** CSS functionality. */
+.DailyCal-container {
     height: 100%; 
     border-width: 100%;
     background-color: white;
@@ -30,6 +37,8 @@
     align-items: center;
     
 }
+
+/** CSS functionality. */
 .DailyCal-container>.Weekly-summary-container{
     height: 100%; 
     width: 50%;
@@ -44,6 +53,7 @@
     gap:2rem;
 }
 
+/** CSS functionality. */
 .Weekly-summary-container>.Weekly-summary{
  display: flex;
  flex-direction: row;
@@ -51,12 +61,16 @@
  justify-content: center;
  /* gap:4rem */
 }
+
+/** CSS functionality. */
 .Weekly-summary-container>.title{
     color: var(--wink-color);
     font-weight: bold;
     font-size: var(--font-header-size);
     
 }
+
+/** CSS functionality. */
 .Weekly-summary>.User-profile{
     flex:1;
     display: flex;
@@ -65,15 +79,23 @@
     align-items: center;
     gap:0.5rem;
 }
+
+/** This resources below are in comments yet because problably will be use in the future. 
+Line 86 to 91 contents this resources. */
+
 /* .Weekly-summary>.User-profile>.icon{
     font-size: 2vw;
 }
 .Weekly-summary>.User-profile>.icon>.initial{
     font-size: 1.5vw;
 } */
+
+/** CSS funcionality. */
 .Weekly-summary>.summary{
     flex:1
 }
+
+/** CSS funcionality. */
 .summary>div{
     text-align: start;
     margin-bottom: 0.5rem ;

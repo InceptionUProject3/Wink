@@ -23,7 +23,6 @@ const AuthProvider = (props) => {
     getUser();
   }, []);
 
-
 /** Const Login. */
   const login = (user) => {
     setLoggedInUser(user);

@@ -1,4 +1,4 @@
-/** Import resorces from files, app and ruoter. It work as a "bridge" to produce the funcionality of the app. */
+/** Import resorces from files, app and ruoter. It work as a "bridge" to produce the functionality of the app. */
 import React from "react";
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
@@ -10,7 +10,7 @@ function RequireAuth({ children }) {
 
 // Condition. 
   if (!auth.user) {
-  //If user is not logged in, redirect to login page
+  //If user is not logged in, redirect to login page.
     return <Navigate to="/login" />;
   }
   // Returns the result of value from children.

@@ -1,4 +1,4 @@
-/** Import resorces from files. It work as a "tools" to produce the funcionality of the app. */
+/** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import { Button, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
