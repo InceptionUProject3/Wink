@@ -1,14 +1,4 @@
-:root {
-    --wink-color: #23A5A5;
-    --wink-color-light: #71C8C8;
-    --grid-color: #bec6c67f;
-    --font-darkgrey: #5a5a5a;
-    --font-black: #000000;
-    --weekend-color: #bd4a31;
-    --background-shadow: rgba(0, 0, 0, 0.10) 0px 3px 5px;
-    --button-shadow: rgba(0, 0, 0, 0.15) 0px 4px 4px;
-    --button-inner-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.25);
-}
+
 
 .Weekly-calendar-container{
    border-width: 100%;
