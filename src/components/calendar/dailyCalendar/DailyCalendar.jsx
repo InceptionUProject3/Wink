@@ -21,29 +21,30 @@ const DailyCalendar = () => {
   const [selectedDay, setSelectedDay] = useState(moment());
   const [myProfile, setMyProfile] = useState();
   const [profColors, setProfColors] = useState(setPositionList(mockUsersData));
-  //Bring user obj from useContext.
+  //Bring user obj. from useContext.
   const currentUser = { UserId: 2, storeId: 1 };
-  //This useEffect is duplicated from weeklyTableBody.
+
+/** This useEffect is duplicated from weeklyTableBody. */
   useEffect(() => {
     const setAllProfiles = () => {
-      //set my profile
+    //set my profile.
       const currentUserProf = findMy(mockUsersData, currentUser);
       setMyProfile(currentUserProf[0]);
     };
+  // set all profiles.
     setAllProfiles();
   }, []);
 
-
-  return (
+/** Returns the result of .format ("") from Daily-container. */
+return (
 /** This resources below are in comments yet because problably will be use in the future. 
-Line 40 contents this resources. */
-    // <div className="Daily-calendar">
+Line 41 content this resource. */
+    //<div className="Daily-calendar">
       <div className="DailyCal-container">
         <DailyCalendarSummary myProfile={myProfile} profColors={profColors}/>
         <div>{selectedDay?.format("MMM DD")}</div>
         <div>{selectedDay?.format("dddd")}</div>
       </div>
-    // </div>
   );
 };
 
