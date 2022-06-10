@@ -11,12 +11,11 @@ import theme from '../utils/muiTheme'
 const LoginForm = () => {
   const authContext = useContext(AuthContext);
   const login = authContext.login;
-  // default 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-/** Post username/password to the authentication service */
+/** Post username/password to the authentication service. */
   const onFormSubmit = async () => {
     const user = { username: username, password: password };
     const data = JSON.stringify(user);
@@ -59,6 +58,7 @@ const LoginForm = () => {
             setUsername(event.target.value);
           }}
         />
+
         <TextField
           label="Password"
           variant="standard"
@@ -68,7 +68,7 @@ const LoginForm = () => {
             setPassword(event.target.value);
           }}
         />
-        
+
         <Button variant="contained" onClick={() => onFormSubmit()} >
           Login
         </Button>

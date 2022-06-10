@@ -34,7 +34,7 @@ const AuthProvider = (props) => {
     setLoggedInUser(null);
   };
 
-/* Show the result instantally. */  
+/** Output value of x to the console. */  
   console.log(`logged in user is ${JSON.stringify(loggedInUser)}`);
 
 /** Values contents in the function. */
