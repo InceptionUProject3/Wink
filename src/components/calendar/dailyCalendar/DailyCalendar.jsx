@@ -4,9 +4,9 @@ import moment from "moment";
 import mockUsersData from "../mockUsersData.json";
 
 // import { ProfilePhoto } from "../Reusables/components/ProfilePhoto";
-import { ProfileIcon } from "../Reusables/components/ProfileIcon";
+// import { ProfileIcon } from "../Reusables/components/ProfileIcon";
 import findMy from "../Reusables/functions/findMy";
-import filterOutMy from "../Reusables/functions/filterOutMy";
+// import filterOutMy from "../Reusables/functions/filterOutMy";
 import setPositionList from "../Reusables/functions/setPositionList";
 
 import "./DailyCalendar.css";
@@ -31,13 +31,13 @@ const DailyCalendar = () => {
 
 
   return (
-    <div className="Daily-calendar">
+    // <div className="Daily-calendar">
       <div className="DailyCal-container">
         <DailyCalendarSummary myProfile={myProfile} profColors={profColors}/>
         <div>{selectedDay?.format("MMM DD")}</div>
         <div>{selectedDay?.format("dddd")}</div>
       </div>
-    </div>
+    // </div>
   );
 };
 

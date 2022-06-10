@@ -12,18 +12,18 @@
     margin:0;
     padding:0;
 } */
-.Daily-calendar{
+/* .Daily-calendar{
     margin-top: 60px;
     display: flex;
     justify-content: center;
-}
-.Daily-calendar>.DailyCal-container{
+} */
+.DailyCal-container{
     height: 100%; 
-    width: 50%;
+    border-width: 100%;
     background-color: white;
-    margin: 5rem 3rem;
-    padding: 5rem;
-    border-radius: 3.5rem;
+    /* margin: 5rem 3rem; */
+    padding: 5em;
+    border-radius: 3.5em;
     box-shadow: var(--background-shadow);
     display: flex;
     flex-direction: column;
@@ -65,12 +65,12 @@
     align-items: center;
     gap:0.5rem;
 }
-.Weekly-summary>.User-profile>.icon{
+/* .Weekly-summary>.User-profile>.icon{
     font-size: 2vw;
 }
 .Weekly-summary>.User-profile>.icon>.initial{
     font-size: 1.5vw;
-}
+} */
 .Weekly-summary>.summary{
     flex:1
 }

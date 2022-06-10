@@ -11,10 +11,10 @@
 }
 
 .Weekly-calendar-container{
-   width: 70%;
+   border-width: 100%;
    min-width: 400px;
     background-color: white;
-    margin: 5em 2em;
+    /* margin: 5em 2em; */
     padding: 3em;
     border-radius: 3.5em;
     box-shadow: var(--background-shadow);
@@ -192,22 +192,7 @@
     text-overflow: ellipsis;
 }
 
-.title>.icon{
-    display: flex;
-    position: relative;
-}
-.icon>.initial{
-    position:absolute;
-    color: white;
-    font-weight: bold;
-    font-size: 80%;
-    right:0;
-    left:0;
-    top:0;
-    bottom: 0;
-    margin: auto;
 
-}
 .WeeklyCal-Profiles.myProfile> .title> .icon{
    font-size: 200%;
 }
