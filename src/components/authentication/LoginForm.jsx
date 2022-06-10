@@ -1,5 +1,4 @@
-/** Import resorces and works as a "tools" to produce the file. */
-
+/** Import resorces from files. It work as a "tools" to produce the funcionality of the app. */
 import { Button, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
@@ -17,7 +16,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-
 /** Post username/password to the authentication service */
   const onFormSubmit = async () => {
     const user = { username: username, password: password };
@@ -31,6 +29,7 @@ const LoginForm = () => {
       body: data,
     });
 
+// Condition of the fucntion.
     if (response.status === 200) {
       const userData = await response.text();
       login(userData);
@@ -41,6 +40,7 @@ const LoginForm = () => {
     }
   };
 
+// Returns the result of function with a nice display.
   return (
     <Container sx={{ mt: 10 }}>
         <ThemeProvider theme={theme}>
@@ -79,4 +79,5 @@ const LoginForm = () => {
   );
 };
 
+/** It's part of the ES6 module system thats defines a default export. In the case of Wink project LoginForm. */
 export default LoginForm;
