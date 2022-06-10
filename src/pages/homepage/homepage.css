@@ -5,9 +5,13 @@
     
     
 }
+
 .message {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
 
+}
+.home >.Weekly-calendar-container{
+    width: 50%;
 }
