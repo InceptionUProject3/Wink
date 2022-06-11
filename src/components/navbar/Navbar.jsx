@@ -20,7 +20,7 @@ const Navbar = () => {
           {loggedInUser && (
             <li>
               <p>
-                <a className="menu" href="/">
+                <a className="menu" href="/home">
                   HOME
                 </a>
               </p>
@@ -38,7 +38,7 @@ const Navbar = () => {
           {loggedInUser && (
             <li>
               <p>
-                <a className="menu" href="/">
+                <a className="menu" href="/calendar">
                   CALENDAR
                 </a>
               </p>

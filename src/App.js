@@ -28,7 +28,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route
-              path="/"
+              path="/home"
               element={
                 <RequireAuth>
                   <HomePage />
@@ -49,7 +49,7 @@ function App() {
             <Route path="/calendar/*" element={<Calendar/>}/>
             <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
             
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/" element={<LoginForm />} />
           </Routes>
         </BrowserRouter>
       </LoginProvider>
