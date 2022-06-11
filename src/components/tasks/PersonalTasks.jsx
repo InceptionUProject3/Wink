@@ -6,4 +6,4 @@ const PersonalTasks = () => {
   )
 }
 
-export default PersonalTasks
+export default PersonalTasks;
