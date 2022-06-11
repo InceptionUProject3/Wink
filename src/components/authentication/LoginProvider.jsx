@@ -1,5 +1,5 @@
 /** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 
 /** Export const LoginContext */
@@ -10,21 +10,35 @@ const LoginProvider = (props) => {
 
 // default to "" because <input> needs a non-null value
 const [user, setUser] = useState(null)
-const [token, setToken] = useState(null)
+// const [loggedInUser, setLoggedInUser] = useState(null)
+
+const [loading, setLoading] = useState(true)
 const finishLogin = (newUser) => {
 
   // call setUser and setToken
     setUser(newUser)
-    setToken(newUser.token)
+    // setLoggedInUser(newUser)
+
 }
 
-/**  UI allowing the user to logout to the app with their token. */
+useEffect(() => {
+    const getUser = async () => {
+      const response = await fetch("/api/loggedInUser");
+      const userData = await response.json();
+      setUser(userData);
+      setLoading(false);
+      console.log(userData);
+    };
+    getUser();
+  }, []);
+
+/**  UI allowing the user to logout from account. */
 const logout = () => {
     setUser(null)
-    setToken(null)
+    
 }
     const children = props.children
-    const theValues = {user, token, finishLogin, logout};
+    const theValues = {user, finishLogin, logout, loading};
 
   // Returns the result of value from LoginContext.Provider.
   return (

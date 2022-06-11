@@ -8,9 +8,8 @@ import { LoginContext } from "./LoginProvider";
 function RequireAuth({ children }) {
   let auth = useContext(LoginContext);
 
-// Condition. 
-  if (!auth.user) {
   //If user is not logged in, redirect to login page.
+  if (!auth.user && !auth.loading) {
     return <Navigate to="/login" />;
   }
   // Returns the result of value from children.
