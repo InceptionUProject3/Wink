@@ -1,30 +1,85 @@
 .Calendars-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 10em auto 0 auto;
-    align-items: center;
-    justify-content: center;
     width: 80%;
     height: 100%;
+    padding: 7em;
+     border-radius: 3.5em;
+     box-shadow: var(--background-shadow);
+    min-width: 400px;
+     gap:1em;
 
 }
-.Calendars-container>.Calendar-view{
-    
-    flex:1;
 
-}
-.Calendars-container>.View-buttons{
+.Calendars-container>.Calendar-header{
     display: flex;
-    flex-direction: column; 
-    height:100vh;
-    }
-
-.Calendars-container>.View-buttons>a{
-padding: 0.5em;
-height: 6%;
-border: 0.5px solid var(--grid-color);
-border-left: none;
-color: var(--font-darkgrey);
-border-radius: 0% 10% 91% 10% / 0% 10% 41% 0% ;
-box-shadow: var(--background-shadow)
+    flex-direction: row;
+    justify-content: right;
+    gap:3em;  
+    align-items: center;
 }
+
+.Calendars-container>.Calendar-header>.View-buttons{
+    display: flex;
+    /* gap: 0.6em; */
+/*added*/
+background-color: rgba(210, 228, 227, 0.495);
+border-radius: 0.5em;
+
+}
+.Calendar-header>.View-buttons> button{
+    position: relative;
+    border: none;
+    border-radius: 0.8em;
+    width: 2.5em;
+    height: 2.5em;
+    cursor: pointer;
+    background-color: transparent;
+    /* box-shadow: var(--button-shadow); */
+    /*added*/
+    width: 3em;
+}
+.Calendar-header>.View-buttons>button>svg{
+    position: absolute;
+    font-size: 1.8em;
+    left:0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    color: var(--wink-color);
+}
+.Calendar-header>.View-buttons>button>p{
+ font-size: 0.8em;
+ color: var(--font-darkgrey);
+ font-weight: bold;
+
+}
+.Calendar-header>.View-buttons>.selected{
+    background-color: var(--wink-color);
+}
+.Calendar-header>.View-buttons>.selected>svg{
+    color: white
+}
+.Calendar-header>.View-buttons>.selected>p{
+    color: white
+}
+
+.Calendars-container>.Calendar-header>.today{
+    
+    height: 3em;
+    width: 3em;
+   border: 0.1em solid var(--grid-color);
+   border-radius: 1em;
+   background: none;
+   padding: 0;
+   color: var(--font-darkgrey);
+   box-shadow: var(--button-shadow);
+   font-size: 0.8em;
+   cursor: pointer;
+}
+.Calendars-container>.Calendar-header>.today:active{
+    box-shadow: var(--button-inner-shadow);
+}
+

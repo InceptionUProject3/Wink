@@ -3,19 +3,12 @@ import React from "react";
 import { VscCircleFilled } from "react-icons/vsc";
 
 const WeeklyCalendarHeader = (props) => {
-  const { storeOpen, storeClose, setSelectedDay } = props;
+  const { storeOpen, storeClose } = props;
 
-  const setToToday = () => {
-    const today = moment();
-    setSelectedDay(today);
-    // console.log('today')
-  };
-
+  
   return (
     <div className="Table-info-header">
-      <button className="today" onClick={setToToday}>
-        Today
-      </button>
+      
 
       <div className="Table-info">
         <div className="Store-hours">

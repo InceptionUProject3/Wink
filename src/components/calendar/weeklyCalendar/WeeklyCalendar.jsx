@@ -5,9 +5,9 @@ import WeeklyCalendarBody from "./WeeklyTableBody";
 import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
 import "./WeeklyCalendar.css";
 
-const WeeklyCalendar = () => {
+const WeeklyCalendar = (props) => {
   //selectedDay is a standard day
-  const [selectedDay, setSelectedDay] = useState(moment());
+  const{selectedDay, setSelectedDay} = props;
   const [daysInWeek, setDaysInWeek] = useState();
 
   //need to fetch store information
@@ -33,7 +33,6 @@ const WeeklyCalendar = () => {
       <WeeklyCalendarHeader
         storeOpen={storeOpen}
         storeClose={storeClose}
-        setSelectedDay={setSelectedDay}
       />
       <div className="Weekly-calendar">
         <WeeklyTableHeader
