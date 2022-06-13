@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { Container, style } from "@mui/system";
-//import "./monthCalender/mainGridStyle"
+import { Container } from "@mui/system";
+
+
 
 const MonthlyCalendar = () => {
   const weekdayHeaders = [
@@ -15,6 +16,7 @@ const MonthlyCalendar = () => {
   ];
 
   const [today, setToday] = useState(moment());
+  const [monInCalendar, setMonInCalendar] = useState(moment());
   const [nav, setNav] = useState(0);
   const theDate = new Date();
   const month = theDate.getMonth();
@@ -22,6 +24,9 @@ const MonthlyCalendar = () => {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, month, 1);
   const [monthsArray, setMonthsArray] = useState();
+
+  //console.log("monthsArray in mon cal", monthsArray);
+  console.log("monInCalendar in mon cal", monInCalendar.format("MMM"));
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -49,9 +54,6 @@ const MonthlyCalendar = () => {
         });
       }
     }
-    // console.log("padding days is", paddingDays);
-    // console.log("Days in Month is ", daysInMonth);
-    // console.log("month Array is", monthArray);
     setToday();
     setMonthsArray(monthArray);
   }, []);
@@ -65,18 +67,9 @@ const MonthlyCalendar = () => {
     gridTemplateColumns: "repeat(7,1fr)",
     gridAutoRows: "50px",
   };
-  
-  // let weekdayStyle = {
-  //   backgroundColor: "var(--mainHeader)",
-  //   textAlign:"center",
-  //   display: "flex",
-  //   width: "flex",
-  //   height: "60px",
-  //   color: "var(--headerWhiteFont)",
-  // };
 
-  let weekdayHeadersStyle = {
-    display : "grid",
+    let weekdayHeadersStyle = {
+    display: "grid",
     width: "100%",
     textAlign: "center",
     flexWrap: "wrap",
@@ -84,49 +77,33 @@ const MonthlyCalendar = () => {
     fontSize: "larger",
     alignContent: "center",
     margin: "auto",
-    textTransform: "uppercase",
-    gridTemplateColumns: "repeat(7,1fr)"
-    
+
+    gridTemplateColumns: "repeat(7,1fr)",
   };
 
   return (
     <div>
       <div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-      <Container alignContent={"center"}>
-        <div
-          //id="container"
-          style={{
-            display:"grid",
-            padding:"5px",
-            width: "95%",
-            border: "1px solid black",
-            margin: "auto",
-          }}
-        >
-          <div  style={weekdayHeadersStyle}>
-            {weekdayHeaders.map((day, index) => {
-              return (
-                <div  style={weekdayHeadersStyle}>
-                   {day}
-                </div>
-              );
-            })}
-          </div>
+        <Container alignContent={"center"}>
+        
+          <br />
+          
+            <div> <h1>{monInCalendar.format("MMM")}</h1></div>
+            <div style={weekdayHeadersStyle}>
+              {weekdayHeaders.map((day, index) => {
+                return <div style={weekdayHeadersStyle}>{day}</div>;
+              })}
+            </div>
 
-          <br/>
-          <div style={mainGridStyle}>
-            {monthsArray?.map((day, index) => {
-              // console.log("day is", day);
-              return <div>{day.value}</div>;
-            })}
-          </div>
-        </div>
-      </Container>
+            <br />
+            <div style={mainGridStyle}>
+              {monthsArray?.map((day, index) => {
+                // console.log("day is", day);
+                return <div>{day.value}</div>;
+              })}
+            </div>
+          
+        </Container>
       </div>
     </div>
   );
