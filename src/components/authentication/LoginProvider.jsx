@@ -1,6 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react'
 
-export const LoginContext = createContext()
+export const LoginContext = createContext({
+  loading: false,
+  user: null,
+  login: () => {},
+  logout: () => {},
+})
 
 const LoginProvider = (props) => {
 const [user, setUser] = useState(null)
@@ -17,6 +22,7 @@ useEffect(() => {
     const getUser = async () => {
       const response = await fetch("/api/loggedInUser");
       const userData = await response.json();
+      console.log(response)
       setUser(userData);
       setLoading(false);
       console.log(userData);

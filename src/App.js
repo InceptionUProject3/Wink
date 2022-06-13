@@ -13,6 +13,7 @@ import Chat from "./components/messaging/Chat";
 import MonthlyCalendar from "./components/calendar/monthlyCalendar/monthlyCalendar";
 
 import Calendar from "./pages/calendar/Calendar";
+import Logout from "./components/authentication/Logout";
 
 const SERVER = "http://localhost:4000";
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
             
             <Route path="/" element={<LoginForm />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </BrowserRouter>
       </LoginProvider>

@@ -34,6 +34,7 @@ const LoginForm = () => {
     });
 
     if (response.status === 200) {
+      console.log(response)
       const userData = JSON.parse(await response.text());
       authContext.finishLogin(userData);
       navigate("/home");

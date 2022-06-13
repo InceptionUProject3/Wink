@@ -64,9 +64,11 @@ const Navbar = () => {
                   </a>
                 )}
                 {loggedInUser && (
-                  <button className="btn" onClick={() => auth.logout()}>
+                  <a href="/logout">
+                  <button className="btn">
                     Logout
                   </button>
+                  </a>
                 )}
               </div>
             </p>
