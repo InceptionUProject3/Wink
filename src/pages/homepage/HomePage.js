@@ -14,7 +14,9 @@ const HomePage = () => {
   return (
     <div className="home">
       <div className="calendar-container">
-        <TodayButton setSelectedDay={setSelectedDay} />
+        <div className="calendar-header">
+          <TodayButton setSelectedDay={setSelectedDay} />
+        </div>
         <WeeklyCalendar
           className="calendar"
           selectedDay={selectedDay}

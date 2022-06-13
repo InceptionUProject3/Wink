@@ -20,12 +20,12 @@ const DisplayMySched = (props) => {
 
         <div className="title">
           <ProfileIcon profile={myProfile} color={findColor()} />
-          <div>{myProfile?.position}</div>
+          <div className="position">{myProfile?.position}</div>
+        </div>
           <div className="Name-container">
             <div className="firstname">{myProfile?.firstname},</div>
             <div className="lastname">{myProfile?.lastname} (me)</div> 
           </div>
-        </div>
       </div>
       {mySched && displaySched(mySched)}
     </>

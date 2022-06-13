@@ -111,11 +111,17 @@
     display: flex;
     justify-content:center;
     padding-bottom: 0.2em;
+    width: 100%;
     
 }
 .WeeklyCal-Profiles>.title> div{
     align-self: center;
     margin: 0.3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.WeeklyCal-Profiles.myProfile>.title>.position{
+    width: 100%;
 }
 
 .Weekly-calendar>.Empty-div{
@@ -162,7 +168,7 @@
  }
 
     .WeeklyCal-Profiles> .profile>.Name-container{
-    width: 90%;
+    width: 100%;
 
 }
 .WeeklyCal-Profiles>.profile>.Name-container>div{
