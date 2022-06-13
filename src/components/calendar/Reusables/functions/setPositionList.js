@@ -7,7 +7,7 @@ const setPositionList = (data) => {
   const colorList = ["860E2B", "6E3CDA", "D87400", "0070D8", "50B700"];
 
   let newPositonArray = [];
-  positionList.forEach((pos, i) => {
+  positionList?.forEach((pos, i) => {
     if (colorList[i]) {
       newPositonArray.push({ position: pos, color: colorList[i] });
     } else {

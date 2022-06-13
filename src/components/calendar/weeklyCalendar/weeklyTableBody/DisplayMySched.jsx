@@ -4,7 +4,7 @@ import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 
 const DisplayMySched = (props) => {
   const { myProfile, mySched, displaySched, positions } = props;
-  // console.log(mySched)
+  // console.log(myProfile)
   const findColor = () => {
     const myPositionObj = positions?.find(
       (position) => myProfile?.position === position.position
@@ -20,6 +20,7 @@ const DisplayMySched = (props) => {
 
         <div className="title">
           <ProfileIcon profile={myProfile} color={findColor()} />
+          <div>{myProfile?.position}</div>
           <div className="Name-container">
             <div className="firstname">{myProfile?.firstname},</div>
             <div className="lastname">{myProfile?.lastname} (me)</div> 

@@ -20,21 +20,25 @@ const WeeklyTableBody = (props) => {
   // const [AllProfiles, setAllProfiles] = useState();
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
+  const [scheduleData, setScheduleData] = useState();
 
   const startDay = selectedDay?.clone().startOf("day");
   const endDay = selectedDay?.clone().add(6, "days").endOf("day");
 
   //need to fetch current logged in user useContext
-  const currentUser = { UserId: 2, storeId: 1 };
+  const currentUser = { userId: 4, storeId:1};
+
 
   useEffect(() => {
-    const positionArray = setPositionList(mockUsersData);
-    setPositions(positionArray);
-    //add dependence fetched profile data
-  }, []);
+    const setAllProfiles = async () => {
+      //store id will be changed
+      const res = await fetch(`/api/schedule/store/${currentUser.storeId}`);
+      const scheduleData = await res.json();
+      console.log("employees",scheduleData)
+      setScheduleData(() => scheduleData);
 
-  useEffect(() => {
-    const setAllProfiles = () => {
+      const positionArray = scheduleData && setPositionList(scheduleData);
+      setPositions(positionArray);
       //send store id
       //backend=>useprevileges : find userids, UserprofileId then user: find user  name and userprofile: position
       // setAllProfiles(mockScheduleData);
@@ -117,19 +121,23 @@ const WeeklyTableBody = (props) => {
   return (
     <>
       <div className="Empty-div"></div>
-      <DisplayMySched
-        myProfile={findMy(mockUsersData, currentUser)[0]}
-        mySched={findMy(weekAllScheds, currentUser)}
-        displaySched={displaySched}
-        positions={positions}
-      />
+      {scheduleData && (
+        <DisplayMySched
+          myProfile={findMy(scheduleData, currentUser)[0]}
+          mySched={findMy(weekAllScheds, currentUser)}
+          displaySched={displaySched}
+          positions={positions}
+        />
+      )}
 
-      <DisplayOthersSched
-        cowokerProfs={filterOutMy(mockUsersData, currentUser)}
-        cowerkerScheds={filterOutMy(weekAllScheds, currentUser)}
-        positions={positions}
-        displaySched={displaySched}
-      />
+      {scheduleData && (
+        <DisplayOthersSched
+          cowokerProfs={filterOutMy(scheduleData, currentUser)}
+          cowerkerScheds={filterOutMy(weekAllScheds, currentUser)}
+          positions={positions}
+          displaySched={displaySched}
+        />
+      )}
     </>
   );
 };
