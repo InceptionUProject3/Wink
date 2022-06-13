@@ -9,7 +9,7 @@ function RequireAuth({ children }) {
 
   if (!auth.user && !auth.loading) {
     //If user is not logged in, redirect to login page
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return children;

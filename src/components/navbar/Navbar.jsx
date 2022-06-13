@@ -59,7 +59,7 @@ const Navbar = () => {
               <div>
                 {" "}
                 {!loggedInUser && (
-                  <a href="/login">
+                  <a href="/">
                     <button className="btn">Login</button>
                   </a>
                 )}
