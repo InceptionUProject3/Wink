@@ -5,11 +5,8 @@ import { VscCircleFilled } from "react-icons/vsc";
 const WeeklyCalendarHeader = (props) => {
   const { storeOpen, storeClose } = props;
 
-  
   return (
     <div className="Table-info-header">
-      
-
       <div className="Table-info">
         <div className="Store-hours">
           <p className="open">

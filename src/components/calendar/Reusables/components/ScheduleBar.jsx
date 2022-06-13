@@ -19,7 +19,7 @@ const ScheduleBar = (props) => {
             <>
               <div
                 className="Full-bar"
-                style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)`, color: 'red' }}
+                style={{ gridTemplateColumns: `repeat(${barLength - 1},1fr)` }}
               >
                 <div
                   className="Percentage-bar working"

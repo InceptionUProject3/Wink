@@ -21,8 +21,8 @@ const WeeklyTableBody = (props) => {
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
 
-  const startDay = selectedDay.clone().startOf("day");
-  const endDay = selectedDay.clone().add(6, "days").endOf("day");
+  const startDay = selectedDay?.clone().startOf("day");
+  const endDay = selectedDay?.clone().add(6, "days").endOf("day");
 
   //need to fetch current logged in user useContext
   const currentUser = { UserId: 2, storeId: 1 };
@@ -60,8 +60,8 @@ const WeeklyTableBody = (props) => {
 
   useEffect(() => {
     const weekArray = [];
-    for (let i = 0; i < endDay.diff(startDay, "days") + 1; i++) {
-      weekArray.push(startDay.clone().add(i, "days").format("MMM DD YYYY"));
+    for (let i = 0; i < endDay?.diff(startDay, "days") + 1; i++) {
+      weekArray.push(startDay?.clone().add(i, "days").format("MMM DD YYYY"));
     }
     return setWeek(weekArray);
   }, [selectedDay]);
