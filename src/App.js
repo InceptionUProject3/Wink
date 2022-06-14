@@ -10,7 +10,7 @@ import LoginProvider from "./components/authentication/LoginProvider";
 import HomePage from "./pages/homepage/HomePage";
 import Messaging from "./components/messaging/Messaging";
 import Chat from "./components/messaging/Chat";
-import MonthlyCalendar from "./components/calendar/monthlyCalendar/monthlyCalendar";
+import MonthlyCalendar from "./components/calendar/monthlyCalendar/MonthlyCalendar";
 
 import Calendar from "./pages/calendar/Calendar";
 

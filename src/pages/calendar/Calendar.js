@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import moment from "moment";
 
-import MonthlyCalendar from "../../components/calendar/monthlyCalendar/monthlyCalendar";
+import MonthlyCalendar from "../../components/calendar/monthlyCalendar/MonthlyCalendar";
 import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
 import DailyCalendar from "../../components/calendar/dailyCalendar/DailyCalendar";
 
