@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
+// import { IconContext } from "react-icons";
 import moment from "moment";
 import { Container } from "@mui/system";
+import MonthlyCalendarHeader from "./MonthlyCalendarHeader"
 
-
+import "./monthlyCalendar.css"
+//import mainGridStyle from "./monthlyCalendar.css"
+//import weekdayHeadersStyle from "./monthlyCalendar.css"
+// import {
+//   MdOutlineArrowBackIos,
+//   MdOutlineArrowForwardIos,
+// } from "react-icons/md";
 
 const MonthlyCalendar = () => {
   const weekdayHeaders = [
@@ -26,7 +34,7 @@ const MonthlyCalendar = () => {
   const [monthsArray, setMonthsArray] = useState();
 
   //console.log("monthsArray in mon cal", monthsArray);
-  console.log("monInCalendar in mon cal", monInCalendar.format("MMM"));
+  //console.log("monInCalendar in mon cal", monInCalendar.format("MMM"));
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -57,52 +65,44 @@ const MonthlyCalendar = () => {
     setToday();
     setMonthsArray(monthArray);
   }, []);
-  let mainGridStyle = {
-    height: "auto",
-    width: "100%",
-    margin: "auto",
-    display: "grid",
-    flexWrap: "wrap",
-    border: "1px solid black",
-    gridTemplateColumns: "repeat(7,1fr)",
-    gridAutoRows: "50px",
-  };
+  
+// let getNextMonth = () => {
+//     setMonInCalendar ((next) => next?.clone().add(1, "month"));
+//     console.log("setMonInCalendar next", monInCalendar.format("MMM"));
+// };
 
-    let weekdayHeadersStyle = {
-    display: "grid",
-    width: "100%",
-    textAlign: "center",
-    flexWrap: "wrap",
-    fontWeight: "500",
-    fontSize: "larger",
-    alignContent: "center",
-    margin: "auto",
-
-    gridTemplateColumns: "repeat(7,1fr)",
-  };
+// let getPreMonth = () => {
+//   setMonInCalendar ((pre) => pre?.clone().subtract(1,"month"))
+//   console.log("setMonInCalendar previous", monInCalendar.format("MMM"));
+// }
 
   return (
     <div>
       <div>
         <Container alignContent={"center"}>
-        
           <br />
+          <MonthlyCalendarHeader monInCalendar={monInCalendar} setMonInCalendar={setMonInCalendar} weekdayHeaders={weekdayHeaders}/>
           
-            <div> <h1>{monInCalendar.format("MMM")}</h1></div>
-            <div style={weekdayHeadersStyle}>
-              {weekdayHeaders.map((day, index) => {
-                return <div style={weekdayHeadersStyle}>{day}</div>;
-              })}
-            </div>
+          {/* <div className="test">
+            <IconContext.Provider value={{ className: "buttons" }}>
+              <MdOutlineArrowBackIos onClick={getPreMonth} />
+              <h1>{monInCalendar.format("MMM")}</h1>
+              <MdOutlineArrowForwardIos onClick={getNextMonth} />
+            </IconContext.Provider>
+          </div>
+          <div className="headerGrid">
+            {weekdayHeaders.map((day, index) => {
+              return <div>{day}</div>;
+            })}
+          </div> */}
 
-            <br />
-            <div style={mainGridStyle}>
-              {monthsArray?.map((day, index) => {
-                // console.log("day is", day);
-                return <div>{day.value}</div>;
-              })}
-            </div>
-          
+          <br />
+          <div className="mainGridStyle">
+            {monthsArray?.map((day, index) => {
+              // console.log("day is", day);
+              return <div key={`day ${index}`}>{day.value}</div>;
+            })}
+          </div>
         </Container>
       </div>
     </div>
