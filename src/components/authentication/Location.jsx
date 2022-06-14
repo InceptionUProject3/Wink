@@ -5,7 +5,7 @@ import React from 'react'
 const Location = (props) => {
    
 const location = props.selectedProfile;
-
+console.log("message in location", location)
 
   return (
       <div>

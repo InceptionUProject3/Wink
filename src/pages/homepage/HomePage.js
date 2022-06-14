@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import TodayButton from "../../components/calendar/Reusables/components/TodayButton";
 import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
 import ChatPopup from "../../components/messaging/ChatPopup";
@@ -7,8 +7,11 @@ import ChatPopup from "../../components/messaging/ChatPopup";
 import PersonalTasks from "../../components/tasks/PersonalTasks";
 import Training from "../../components/training/Training";
 import "./homepage.css";
+import { StoreContext } from "../../components/authentication/StoreProvider";
 
 const HomePage = () => {
+const storeContext = useContext(StoreContext);
+console.log("this is on the homepage", storeContext);
   const [show, setShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(moment());
   return (

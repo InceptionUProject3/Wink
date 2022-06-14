@@ -14,8 +14,8 @@ import MonthlyCalendar from "./components/calendar/monthlyCalendar/MonthlyCalend
 
 import Calendar from "./pages/calendar/Calendar";
 import Logout from "./components/authentication/Logout";
-import ProfileSelection from "./components/authentication/StoreProvider";
-import StoreProvider from "./components/authentication/StoreProvider";
+import ProfileSelection from "./components/authentication/LocationSelection";
+import { StoreProvider } from "./components/authentication/StoreProvider";
 
 
 const SERVER = "http://localhost:4000";
@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <LoginProvider>
-        
+        <StoreProvider>
         <Navbar />
         <BrowserRouter>
           <Routes>
@@ -62,7 +62,7 @@ function App() {
             
           </Routes>
         </BrowserRouter>
-        
+        </StoreProvider>
       </LoginProvider>
     </div>
   );

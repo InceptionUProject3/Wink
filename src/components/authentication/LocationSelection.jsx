@@ -1,17 +1,16 @@
-import React, { createContext, useEffect, useContext, useState } from "react";
+import React, {  useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginProvider";
 import Location from "./Location";
+import { StoreContext } from "./StoreProvider";
 
-// export const StoreContext = createContext({
-//   stores: null,
-//   selectedProfile: null,
-// });
 
-const ProfileSelection = (props) => {
+
+const StoreProvider = (props) => {
   const authContext = useContext(LoginContext);
+  const storeContext = useContext(StoreContext);
   const user = authContext.user;
-  const [selectedProfile, setSelectedProfile] = useState([]);
+  const [allStores, setAllStores] = useState([]);
   const navigate = useNavigate();
   let userToSend = JSON.stringify(user);
   useEffect(() => {
@@ -26,25 +25,31 @@ const ProfileSelection = (props) => {
       });
       const userData = JSON.parse(await response.text());
       console.log(response);
-      setSelectedProfile(userData);
+      setAllStores(userData);
       console.log("we have the user data", userData);
     };
     getStore(userToSend);
   }, [userToSend]);
-  // const children = props.children
-  // const theValues = {selectedProfile};
-  // const profiles = () => {Object.keys(selectedProfile).map(key => {
-  //   console.log("the keys are", key);
-  //   console.log(selectedProfile[key]);
-  //   return <div>{selectedProfile[key]}</div>
-  // }
-  // )};
-
+ 
+  const profiles = (profile) => {
+    storeContext.setStore(profile);
+    navigate("/home");
+    console.log("the selected profile is", profile);
+  };
+console.log("this is the store context", storeContext)
   return (
     <div>
-      {selectedProfile ? (
-        selectedProfile.map((profile, index) => {
-          return <Location selectedProfile={profile} />;
+      {allStores ? (
+        allStores.map((profile, index) => {
+          return (
+            <button
+              onClick={() => {
+                profiles(profile);
+              }}
+            >
+              <Location selectedProfile={profile} />
+            </button>
+          );
         })
       ) : (
         <div>Loading...</div>
@@ -53,10 +58,4 @@ const ProfileSelection = (props) => {
   );
 };
 
-export default ProfileSelection;
-
-{
-  /* <StoreContext.Provider value={theValues}>
-        {children}
-    </StoreContext.Provider> */
-}
+export default StoreProvider;
