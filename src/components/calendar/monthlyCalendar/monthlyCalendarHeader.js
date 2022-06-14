@@ -1,16 +1,38 @@
-import React from 'react'
+import { IconContext } from "react-icons";
+import {
+  MdOutlineArrowBackIos,
+  MdOutlineArrowForwardIos,
+} from "react-icons/md";
+
 
 const MonthlyCalendarHeader = (props) => {
-    const {day,setday} = props
-    const monthInHeader = day.format('MMM YYYY')
+
+  const {monInCalendar,setMonInCalendar,weekdayHeaders} = props
+  let getNextMonth = () => {
+        setMonInCalendar ((next) => next?.clone().add(1, "month"));
+        console.log("setMonInCalendar next", monInCalendar.format("MMM"));
+    };
     
-    
+    let getPreMonth = () => {
+      setMonInCalendar ((pre) => pre?.clone().subtract(1,"month"))
+      console.log("setMonInCalendar previous", monInCalendar.format("MMM"));
+    }
   return (
-    <div className='Monthly-header'>
-
+    <div>
+      <div className="test">
+        <IconContext.Provider value={{ className: "buttons" }}>
+          <MdOutlineArrowBackIos onClick={getPreMonth} />
+          <h1>{monInCalendar.format("MMM")}</h1>
+          <MdOutlineArrowForwardIos onClick={getNextMonth} />
+        </IconContext.Provider>
+      </div>
+      <div className="headerGrid">
+        {weekdayHeaders.map((day, index) => {
+          return <div key={index}>{day}</div>;
+        })}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MonthlyCalendarHeader
-
+export default MonthlyCalendarHeader;
