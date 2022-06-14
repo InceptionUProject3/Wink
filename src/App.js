@@ -13,6 +13,10 @@ import Chat from "./components/messaging/Chat";
 import MonthlyCalendar from "./components/calendar/monthlyCalendar/MonthlyCalendar";
 
 import Calendar from "./pages/calendar/Calendar";
+import Logout from "./components/authentication/Logout";
+import ProfileSelection from "./components/authentication/StoreProvider";
+import StoreProvider from "./components/authentication/StoreProvider";
+
 
 const SERVER = "http://localhost:4000";
 
@@ -24,9 +28,13 @@ function App() {
   return (
     <div className="App">
       <LoginProvider>
+        
         <Navbar />
         <BrowserRouter>
           <Routes>
+            {/* <Route path="/location" element={<Location />} /> */}
+            <Route path="/selection" element={<ProfileSelection />} />
+           
             <Route
               path="/home"
               element={
@@ -50,8 +58,11 @@ function App() {
             <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
             
             <Route path="/" element={<LoginForm />} />
+            <Route path="/logout" element={<Logout />} />
+            
           </Routes>
         </BrowserRouter>
+        
       </LoginProvider>
     </div>
   );
