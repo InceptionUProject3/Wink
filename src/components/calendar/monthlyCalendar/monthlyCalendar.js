@@ -1,10 +1,10 @@
-/** Test */
-
+/** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Container, style } from "@mui/system";
 //import "./monthCalender/mainGridStyle"
 
+/**  UI allowing the user to watching headers weekdays. */
 const MonthlyCalendar = () => {
   const weekdayHeaders = [
     "Sunday",
@@ -16,6 +16,7 @@ const MonthlyCalendar = () => {
     "Saturday",
   ];
 
+  /** For fetching data, Use useEffect and pass [] as a second argument to make sure it fires only on initial mount. */
   const [today, setToday] = useState(moment());
   const [nav, setNav] = useState(0);
   const theDate = new Date();
