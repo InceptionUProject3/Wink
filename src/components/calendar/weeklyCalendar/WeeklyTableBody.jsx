@@ -18,7 +18,7 @@ const WeeklyTableBody = (props) => {
   // console.log('calendar user',user)
   const { selectedDay, storeOpen, storeClose } = props;
 
-  const [weekAllScheds, setWeekAllScheds] = useState();
+  // const [weekAllScheds, setWeekAllScheds] = useState();
   // const [AllProfiles, setAllProfiles] = useState();
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
@@ -30,36 +30,26 @@ const WeeklyTableBody = (props) => {
   //need to fetch current logged in user useContext
   const currentUser = { userId: 4, storeId: 1 };
 
+
+  //set schdules
   useEffect(() => {
-    const setAllProfiles = async () => {
-      //store id will be changed
+    const getAllSchedules = async() => {
+      //need to fetch schedule with priod from server
       const res = await fetch(`/api/schedule/store/${currentUser.storeId}`);
       const scheduleData = await res.json();
-      console.log("employees", scheduleData);
+    
       setScheduleData(() => scheduleData);
       //enable this line chduleData
       // const positionArray = scheduleData && setPositionList(scheduleData);
       const positionArray = setPositionList(mockScheduleData)
       setPositions(positionArray);
-      //send store id
-      //backend=>useprevileges : find userids, UserprofileId then user: find user  name and userprofile: position
-      // setAllProfiles(mockScheduleData);
-    };
-    setAllProfiles();
-  }, []);
-
-  //set schdules
-  useEffect(() => {
-    const getAllSchedules = () => {
-      //need to fetch schedule from server
       //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
-      const thisWeekSched = mockScheduleData?.filter(
-        (sched) =>
-          moment(sched.endTime, "MMM DD YYYY HH:mm") > startDay &&
-          moment(sched.startTime, "MMM DD YYYY HH:mm") < endDay
-      );
-      // console.log("this week schedules", thisWeekSched)
-      setWeekAllScheds(thisWeekSched);
+      // const thisWeekSched = mockScheduleData?.filter(
+      //   (sched) =>
+      //     moment(sched.endTime, "MMM DD YYYY HH:mm") > startDay &&
+      //     moment(sched.startTime, "MMM DD YYYY HH:mm") < endDay
+      // );
+      
     };
     getAllSchedules();
   }, [selectedDay]);
