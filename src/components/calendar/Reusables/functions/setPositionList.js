@@ -1,6 +1,10 @@
 const setPositionList = (data) => {
   let positionLists = [];
-  data?.forEach((prof) => positionLists.push(prof.position));
+
+  data?.forEach((prof) => {
+    // console.log(typeof prof);
+    typeof prof === 'object' ? positionLists.push(prof.position): positionLists=data;
+  });
   const positionList = Array.from(new Set(positionLists));
   // console.log("positions", positionList)
   //color list
