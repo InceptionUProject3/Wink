@@ -4,6 +4,8 @@ import { ProfileIcon } from "../Reusables/components/ProfileIcon";
 const DailyCalendarSummary = (props) => {
   const { myProfile, profColors } = props;
 
+ 
+
   const findMyColor = (profile) => {
     const positionObj = profColors?.find(
       (obj) => obj?.position === profile?.position

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-//useContext to fetch data from server
-import mockUsersData from "../mockUsersData.json";
+import React, { useContext, useEffect, useState } from "react";
+
 //fetch sheduleData for store
 import mockScheduleData from "../mockScheduleData.json";
 
@@ -12,8 +11,11 @@ import ScheduleBar from "../Reusables/components/ScheduleBar";
 import setPositionList from "../Reusables/functions/setPositionList";
 import findMy from "../Reusables/functions/findMy";
 import filterOutMy from "../Reusables/functions/filterOutMy";
+import { LoginContext } from "../../authentication/LoginProvider";
 
 const WeeklyTableBody = (props) => {
+  const { user } = useContext(LoginContext);
+  // console.log('calendar user',user)
   const { selectedDay, storeOpen, storeClose } = props;
 
   const [weekAllScheds, setWeekAllScheds] = useState();
@@ -26,18 +28,18 @@ const WeeklyTableBody = (props) => {
   const endDay = selectedDay?.clone().add(6, "days").endOf("day");
 
   //need to fetch current logged in user useContext
-  const currentUser = { userId: 4, storeId:1};
-
+  const currentUser = { userId: 4, storeId: 1 };
 
   useEffect(() => {
     const setAllProfiles = async () => {
       //store id will be changed
       const res = await fetch(`/api/schedule/store/${currentUser.storeId}`);
       const scheduleData = await res.json();
-      console.log("employees",scheduleData)
+      console.log("employees", scheduleData);
       setScheduleData(() => scheduleData);
-
-      const positionArray = scheduleData && setPositionList(scheduleData);
+      //enable this line chduleData
+      // const positionArray = scheduleData && setPositionList(scheduleData);
+      const positionArray = setPositionList(mockScheduleData)
       setPositions(positionArray);
       //send store id
       //backend=>useprevileges : find userids, UserprofileId then user: find user  name and userprofile: position
@@ -53,8 +55,8 @@ const WeeklyTableBody = (props) => {
       //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
       const thisWeekSched = mockScheduleData?.filter(
         (sched) =>
-          moment(sched.to, "MMM DD YYYY HH:mm") > startDay &&
-          moment(sched.from, "MMM DD YYYY HH:mm") < endDay
+          moment(sched.endTime, "MMM DD YYYY HH:mm") > startDay &&
+          moment(sched.startTime, "MMM DD YYYY HH:mm") < endDay
       );
       // console.log("this week schedules", thisWeekSched)
       setWeekAllScheds(thisWeekSched);
@@ -72,8 +74,8 @@ const WeeklyTableBody = (props) => {
 
   //   console.log("weekarray",week)
 
-  const displaySched = (ForWhom) => {
-    //  console.log("filtered", filterWeekScheds(ForWhom));
+  const displaySched = (schedules) => {
+    console.log("schedules", schedules)
     return week?.map((day, i) => {
       //need to change to store hrs
       const oneDay = moment(day, "MMM DD YYYY HH:mm");
@@ -85,23 +87,26 @@ const WeeklyTableBody = (props) => {
         m: storeClose.minute(),
       });
 
-      const foundSched = ForWhom?.find(
+      const foundSched = schedules?.find(
         (sched) =>
-          moment(sched.to, "MMM DD YYYY HH:mm") > dayStart &&
-          moment(sched.from, "MMM DD YYYY HH:mm") < dayEnd
+          moment(sched.endTime, "MMM DD YYYY HH:mm") > dayStart &&
+          moment(sched.startTime, "MMM DD YYYY HH:mm") < dayEnd
       );
       // console.log("filtered sched", foundSched);
       if (foundSched === undefined) {
         //  console.log("print empty div ");
         return (
-          <div className="Schedule" key={`emptySched ${ForWhom.id} ${i}`}></div>
+          <div
+            className="Schedule"
+            key={`emptySched ${schedules?.scheduleId} ${i}`}
+          ></div>
         );
       } else if (foundSched) {
         // console.log("foundSched", foundSched);
-        const from = moment(foundSched.from, "MMM DD YYYY HH:mm");
-        const to = moment(foundSched.to, "MMM DD YYYY HH:mm");
+        const from = moment(foundSched.startTime, "MMM DD YYYY HH:mm");
+        const to = moment(foundSched.endTime, "MMM DD YYYY HH:mm");
 
-        // console.log("day end and start", newFrom, "-", newTo);
+        console.log("day end and start", from, "-", to);
 
         return (
           <div className="Schedule">
@@ -123,8 +128,8 @@ const WeeklyTableBody = (props) => {
       <div className="Empty-div"></div>
       {scheduleData && (
         <DisplayMySched
-          myProfile={findMy(scheduleData, currentUser)[0]}
-          mySched={findMy(weekAllScheds, currentUser)}
+          /*mockshceduledata to fetched scheduleData*/
+          myProfile={findMy(mockScheduleData, currentUser)[0]}
           displaySched={displaySched}
           positions={positions}
         />
@@ -132,8 +137,8 @@ const WeeklyTableBody = (props) => {
 
       {scheduleData && (
         <DisplayOthersSched
-          cowokerProfs={filterOutMy(scheduleData, currentUser)}
-          cowerkerScheds={filterOutMy(weekAllScheds, currentUser)}
+          /*mockshceduledata to fetched scheduleData*/
+          cowokerProfs={filterOutMy(mockScheduleData, currentUser)}
           positions={positions}
           displaySched={displaySched}
         />
