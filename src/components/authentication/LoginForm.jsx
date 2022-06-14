@@ -37,7 +37,7 @@ const LoginForm = () => {
       console.log(response)
       const userData = JSON.parse(await response.text());
       authContext.finishLogin(userData);
-      navigate("/home");
+      navigate("/selection");
 
     } else {
       alert("Login Failed");

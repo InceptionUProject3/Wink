@@ -14,6 +14,9 @@ import MonthlyCalendar from "./components/calendar/monthlyCalendar/monthlyCalend
 
 import Calendar from "./pages/calendar/Calendar";
 import Logout from "./components/authentication/Logout";
+import ProfileSelection from "./components/authentication/ProfileSelection";
+import Location from "./components/authentication/Location";
+
 
 const SERVER = "http://localhost:4000";
 
@@ -28,6 +31,8 @@ function App() {
         <Navbar />
         <BrowserRouter>
           <Routes>
+            {/* <Route path="/location" element={<Location />} /> */}
+            <Route path="/selection" element={<ProfileSelection />} />
             <Route
               path="/home"
               element={
