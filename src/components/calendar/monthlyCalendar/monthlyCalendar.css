@@ -1,0 +1,54 @@
+.headerGrid{
+    display: grid;
+    width: 100%;
+    text-align: center;
+    flex-wrap: wrap;
+    font-weight: 500;
+    font-size: larger;
+    align-content: center;
+    margin: auto;
+    grid-template-columns: repeat(7,1fr);
+}
+.test{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+
+}
+
+.buttons{
+    background: var(--wink-color);
+    border: none;
+    color: white ;
+    font-weight:900;
+}
+
+.mainGridStyle  {
+    padding: 2px;
+    height: auto;
+    width: 100%;
+    margin: auto;
+    display: grid;
+    flex-wrap: wrap;
+    border: 1px solid var(--grid-color);
+    grid-template-columns: repeat(7,1fr);
+    grid-auto-rows: 50px;
+
+  };
+  
+.weekdayHeadersStyle {
+    display: grid;
+    width: 100%;
+    text-align: center;
+    flex-wrap: wrap;
+    font-weight: 500;
+    font-size: larger;
+    align-content: center;
+    margin: auto;
+    grid-template-columns: repeat(7,1fr);
+
+  };
+
+
