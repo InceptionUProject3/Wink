@@ -16,7 +16,7 @@ const StoreProvider = (props) => {
   let userToSend = JSON.stringify(user);
   useEffect(() => {
     const getStore = async () => {
-      console.log("sending userId: " + userToSend);
+      // console.log("sending userId: " + userToSend);
       const response = await fetch("/api/storeselection", {
         method: "POST",
         headers: {
@@ -25,9 +25,9 @@ const StoreProvider = (props) => {
         body: userToSend,
       });
       const userData = JSON.parse(await response.text());
-      console.log(response);
+      // console.log(response);
       setAllStores(userData);
-      console.log("we have the user data", userData);
+      // console.log("we have the user data", userData);
     };
     getStore(userToSend);
   }, [userToSend]);
@@ -35,9 +35,9 @@ const StoreProvider = (props) => {
   const profiles = (profile) => {
     storeContext.setStore(profile);
     navigate("/home");
-    console.log("the selected profile is", profile);
+    // console.log("the selected profile is", profile);
   };
-console.log("this is the store context", storeContext)
+// console.log("this is the store context", storeContext)
   return (<div><h1 className="location-header"> Please select your location: </h1>
     
     <div className='location-container'>

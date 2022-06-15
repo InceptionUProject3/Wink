@@ -5,11 +5,11 @@ import React from 'react'
 const Location = (props) => {
    
 const location = props.selectedProfile;
-console.log("message in location", location)
+// console.log("message in location", location)
 let store = location.store;
-console.log("store in location", store)
+// console.log("store in location", store)
 let storeName = store.name;
-console.log("store name in location", storeName)
+// console.log("store name in location", storeName)
 
 
   return (

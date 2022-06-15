@@ -11,7 +11,7 @@ import { StoreContext } from "../../components/authentication/StoreProvider";
 
 const HomePage = () => {
 const storeContext = useContext(StoreContext);
-console.log("this is on the homepage", storeContext);
+// console.log("this is on the homepage", storeContext);
   const [show, setShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(moment());
   return (
