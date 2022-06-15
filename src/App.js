@@ -29,8 +29,9 @@ function App() {
     <div className="App">
       <LoginProvider>
         <StoreProvider>
-        <Navbar />
+        
         <BrowserRouter>
+        <Navbar />
           <Routes>
             {/* <Route path="/location" element={<Location />} /> */}
             <Route path="/selection" element={<ProfileSelection />} />
