@@ -3,11 +3,14 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginProvider";
 
+/** The Location methods must return a Promise. */
 const Logout = () => {
   const authContext = useContext(LoginContext);
 
+/** The Location methods must return a Promise. */
   const logout = authContext.logout;
 
+/** The Location methods must return a Promise. */
   const navigate = useNavigate();
   useEffect(() => {
     const logoutUser = async () => {
