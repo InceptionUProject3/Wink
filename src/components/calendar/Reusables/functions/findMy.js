@@ -1,6 +1,7 @@
 /** The findMy methods must return a Promise. */
 const findMy = (arr, myProfile) => {
-  const currentUserData = arr?.filter((e) => e.UserId === myProfile.UserId);
+  // console.log("findMy",myProfile, arr)
+  const currentUserData = arr?.filter((e) => e.userId === myProfile.userId);
   return currentUserData;
 };
 

@@ -30,10 +30,18 @@ const LoginForm = () => {
 
 // Condition of the fucntion.
     if (response.status === 200) {
+<<<<<<< HEAD
       const userData = await response.text();
       login(userData);
       navigate("/");
       console.log(userData);
+=======
+      console.log(response)
+      const userData = JSON.parse(await response.text());
+      authContext.finishLogin(userData);
+      navigate("/selection");
+
+>>>>>>> main
     } else {
       alert("Login Failed");
     }

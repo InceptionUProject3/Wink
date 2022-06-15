@@ -8,14 +8,14 @@ import moment from "moment";
 
 const WeeklyTableHeader = (props) => {
   const { selectedDay, setSelectedDay, daysInWeek } = props;
-  const selectDayInHeader = selectedDay.format("MMM YYYY");
+  const selectDayInHeader = selectedDay?.format("MMM YYYY");
 
   const moveToPreWeek = () => {
-    setSelectedDay((pre) => pre.clone().subtract(7, "days"));
-    console.log("Selected day", selectedDay);
+    setSelectedDay((pre) => pre?.clone().subtract(7, "days"));
+    // console.log("Selected day", selectedDay);
   };
   const moveToNextWeek = () => {
-    setSelectedDay((pre) => pre.clone().add(7, "days"));
+    setSelectedDay((pre) => pre?.clone().add(7, "days"));
   };
 
   return (
@@ -29,6 +29,7 @@ const WeeklyTableHeader = (props) => {
       </div>
 
       {daysInWeek?.map((day, index) => {
+        // console.log('days', moment(day), moment(day).day())
         const isWeekend =
           moment(day).day() === 0 || moment(day).day() === 6 ? "Weekend" : "";
         const isToday = day === moment().startOf("day").format() ? "Today" : "";

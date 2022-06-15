@@ -20,36 +20,36 @@ const Navbar = () => {
           {loggedInUser && (
             <li>
               <p>
-                <a className="menu" href="/">
+                <Link className="menu" to="/home">
                   HOME
-                </a>
+                </Link>
               </p>
             </li>
           )}
           {loggedInUser && (
             <li>
               <p>
-                <a className="menu" href="/messaging">
+                <Link className="menu" to="/messaging">
                   MESSAGING
-                </a>
+                </Link>
               </p>
             </li>
           )}
           {loggedInUser && (
             <li>
               <p>
-                <a className="menu" href="/">
+                <Link className="menu" to="/calendar">
                   CALENDAR
-                </a>
+                </Link>
               </p>
             </li>
           )}
           {loggedInUser && (
             <li>
               <p>
-                <a className="menu" href="/">
+                <Link className="menu" to="/">
                   TRAINING
-                </a>
+                </Link>
               </p>
             </li>
           )}
@@ -59,14 +59,16 @@ const Navbar = () => {
               <div>
                 {" "}
                 {!loggedInUser && (
-                  <a href="/login">
+                  <Link to="/">
                     <button className="btn">Login</button>
-                  </a>
+                  </Link>
                 )}
                 {loggedInUser && (
-                  <button className="btn" onClick={() => auth.logout()}>
+                  <Link to="/logout">
+                  <button className="btn">
                     Logout
                   </button>
+                  </Link>
                 )}
               </div>
             </p>

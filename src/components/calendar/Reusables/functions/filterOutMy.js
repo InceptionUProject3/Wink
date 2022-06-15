@@ -1,6 +1,6 @@
 /** The filterOutMy methods must return a Promise. */
 const filterOutMy = (arr, myProfile) => {
-  const currentUserData = arr?.filter((e) => e.UserId !== myProfile.UserId);
+  const currentUserData = arr?.filter((e) => e.userId !== myProfile.userId);
   return currentUserData;
 };
 

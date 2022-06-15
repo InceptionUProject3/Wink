@@ -1,44 +1,50 @@
 import React, { useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import { BsCalendar2Month, BsCalendar2Week, BsCalendar2Day} from "react-icons/bs"
+import { Route, Routes } from "react-router-dom";
+import moment from "moment";
+import "moment-timezone";
 
-import MonthlyCalendar from "../../components/calendar/monthlyCalendar/monthlyCalendar";
+import MonthlyCalendar from "../../components/calendar/monthlyCalendar/MonthlyCalendar";
 import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
 import DailyCalendar from "../../components/calendar/dailyCalendar/DailyCalendar";
 
 import "./calendar.css";
+import ViewButtons from "../../components/calendar/Reusables/components/ViewButtons";
+import TodayButton from "../../components/calendar/Reusables/components/TodayButton";
 
 const Calendar = () => {
-  
+  const [selectedDay, setSelectedDay] = useState(
+    moment()
+    // .tz("America/New_York")
+    // .format('YYYY-MM-DD HH:mmZ')
+  );
+
+  // console.log("selected calendar", selectedDay);
   return (
     <div className="Calendars-container">
+      <div className="Calendar-header">
+        <ViewButtons />
+        <TodayButton setSelectedDay={setSelectedDay} />
+      </div>
       <div className="Calendar-view">
         <Routes>
           <Route path="/monthly" element={<MonthlyCalendar />} />
-          <Route path="/weekly" element={<WeeklyCalendar />} />
-          <Route path="/daily" element={<DailyCalendar />} />
+          <Route
+            path="/weekly"
+            element={
+              <WeeklyCalendar
+                selectedDay={selectedDay}
+                setSelectedDay={setSelectedDay}
+              />
+            }
+          />
+          <Route
+            path="/daily"
+            element={<DailyCalendar selectedDay={selectedDay} />}
+          />
         </Routes>
-      </div>
-
-      <div className="View-buttons">
-        
-        <Link to="/calendar/monthly" className="Monthly">
-          
-          <BsCalendar2Month/>
-          M
-        </Link>
-        <Link to="/calendar/weekly" className="weekly">
-          <BsCalendar2Week/>
-          W
-        </Link>
-        <Link to="/calendar/daily" className="daily">
-          <BsCalendar2Day/>
-          D
-        </Link>
       </div>
     </div>
   );
 };
-
 
 export default Calendar;

@@ -10,9 +10,13 @@ import LoginProvider from "./components/authentication/LoginProvider";
 import HomePage from "./pages/homepage/HomePage";
 import Messaging from "./components/messaging/Messaging";
 import Chat from "./components/messaging/Chat";
-import MonthlyCalendar from "./components/calendar/monthlyCalendar/monthlyCalendar";
+import MonthlyCalendar from "./components/calendar/monthlyCalendar/MonthlyCalendar";
 
 import Calendar from "./pages/calendar/Calendar";
+import Logout from "./components/authentication/Logout";
+import ProfileSelection from "./components/authentication/LocationSelection";
+import { StoreProvider } from "./components/authentication/StoreProvider";
+
 
 const SERVER = "http://localhost:4000";
 
@@ -24,11 +28,16 @@ function App() {
   return (
     <div className="App">
       <LoginProvider>
-        <Navbar />
+        <StoreProvider>
+        
         <BrowserRouter>
+        <Navbar />
           <Routes>
+            {/* <Route path="/location" element={<Location />} /> */}
+            <Route path="/selection" element={<ProfileSelection />} />
+           
             <Route
-              path="/"
+              path="/home"
               element={
                 <RequireAuth>
                   <HomePage />
@@ -49,9 +58,12 @@ function App() {
             <Route path="/calendar/*" element={<Calendar/>}/>
             <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
             
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/" element={<LoginForm />} />
+            <Route path="/logout" element={<Logout />} />
+            
           </Routes>
         </BrowserRouter>
+        </StoreProvider>
       </LoginProvider>
     </div>
   );

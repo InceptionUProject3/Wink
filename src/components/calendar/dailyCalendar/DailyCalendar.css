@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 /** The :root selector matches the document's root element. */
 :root {
+=======
+/* :root {
+>>>>>>> main
     --wink-color: #23A5A5;
     --wink-color-light: #71C8C8;
     --grid-color: #bec6c67f;
@@ -8,11 +12,15 @@
     --weekend-color: #bd4a31;
     --background-shadow: rgba(0, 0, 0, 0.10) 0px 3px 5px;
     --font-header-size: 1.2rem;
+<<<<<<< HEAD
 }
 
 /** This resources below are in comments yet because problably will be use in the future. 
 Line 16 to 24 contents this resources. */
 
+=======
+} */
+>>>>>>> main
 /* *{
     margin:0;
     padding:0;
@@ -22,6 +30,7 @@ Line 16 to 24 contents this resources. */
     display: flex;
     justify-content: center;
 } */
+<<<<<<< HEAD
 
 /** CSS functionality. */
 .DailyCal-container {
@@ -36,6 +45,10 @@ Line 16 to 24 contents this resources. */
     flex-direction: column;
     align-items: center;
     
+=======
+.DailyCal-container{
+   
+>>>>>>> main
 }
 
 /** CSS functionality. */
@@ -43,13 +56,14 @@ Line 16 to 24 contents this resources. */
     height: 100%; 
     width: 50%;
     background-color: white;
-    margin: 0 5rem 3rem 5rem;
-    padding: 1.5rem;
-    border-radius: 3rem;
+    margin: 0 5em 3em 5em;
+    padding: 1.5em;
+    border-radius: 3em;
     box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap:2rem;
 }
 
