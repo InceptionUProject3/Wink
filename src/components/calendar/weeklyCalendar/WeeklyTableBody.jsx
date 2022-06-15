@@ -35,7 +35,9 @@ const WeeklyTableBody = (props) => {
   useEffect(() => {
     const getAllSchedules = async() => {
       //need to fetch schedule with priod from server
-      const res = await fetch(`/api/schedule/store/${currentUser.storeId}`);
+      const weekStart = selectedDay.clone().startOf('week').utc().format('YYYY-MM-DD HH:mm');
+      console.log('weekstart', weekStart)
+      const res = await fetch(`/api/schedule/week?storeId=${currentUser.storeId}&startDay=${weekStart}`);
       const scheduleData = await res.json();
     
       setScheduleData(() => scheduleData);
@@ -65,7 +67,7 @@ const WeeklyTableBody = (props) => {
   //   console.log("weekarray",week)
 
   const displaySched = (schedules) => {
-    console.log("schedules", schedules)
+    // console.log("schedules", schedules)
     return week?.map((day, i) => {
       //need to change to store hrs
       const oneDay = moment(day, "MMM DD YYYY HH:mm");
@@ -96,7 +98,7 @@ const WeeklyTableBody = (props) => {
         const from = moment(foundSched.startTime, "MMM DD YYYY HH:mm");
         const to = moment(foundSched.endTime, "MMM DD YYYY HH:mm");
 
-        console.log("day end and start", from, "-", to);
+        // console.log("day end and start", from, "-", to);
 
         return (
           <div className="Schedule">
