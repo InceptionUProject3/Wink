@@ -1,5 +1,7 @@
+/** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import React from 'react'
 import moment from 'moment';
+
 
 const ScheduleBar = (props) => {
     const {dayStart, dayEnd, schedFrom, schedTo, schedObj} = props;
@@ -15,6 +17,7 @@ const ScheduleBar = (props) => {
         // console.log("bar indexs", barStart, barEnd);
     
         if (schedObj.workCode === "Working") {
+          //Returns the result of class such as: Full-bar, Percentage-bar working, hours, text, Full-bar, Percentage-bar vacation. */
           return (
             <>
               <div
@@ -56,4 +59,5 @@ const ScheduleBar = (props) => {
   )
 }
 
+/** It's part of the ES6 module system thats defines a default export. In the case of Wink project ScheduleBar. */
 export default ScheduleBar
