@@ -47,3 +47,4 @@ const DailyCalendarSummary = (props) => {
 
 /** It's part of the ES6 module system thats defines a default export. In the case of Wink project DailyCalendarSummary. */
 export default DailyCalendarSummary;
+
