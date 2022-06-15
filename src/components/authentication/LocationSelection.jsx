@@ -38,8 +38,10 @@ const StoreProvider = (props) => {
     console.log("the selected profile is", profile);
   };
 console.log("this is the store context", storeContext)
-  return (
+  return (<div><h1 className="location-header"> Please select your location: </h1>
+    
     <div className='location-container'>
+      
       {allStores ? (
         allStores.map((profile, index) => {
           return (
@@ -55,6 +57,7 @@ console.log("this is the store context", storeContext)
       ) : (
         <div>Loading...</div>
       )}
+    </div>
     </div>
   );
 };

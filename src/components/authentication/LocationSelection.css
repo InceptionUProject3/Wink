@@ -1,3 +1,12 @@
+.location-header {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+  color:#00b3b4
+  
+}
+
+
 .location-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -5,7 +14,7 @@
 
   grid-gap: 10px;
 
-  margin-top: 5rem;
+  margin-top: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
