@@ -1,8 +1,7 @@
 /** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import React from 'react'
 
-
-
+/** The Location methods must return a Promise. */
 const Location = (props) => {
    
 const location = props.selectedProfile;
@@ -31,5 +30,5 @@ let storeName = store.name;
   )
 }
 
-
+/** It's part of the ES6 module system thats defines a default export. In the case of Wink project Location. */
 export default Location
