@@ -1,3 +1,4 @@
+/** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import React from 'react'
 
 
