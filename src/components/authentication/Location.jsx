@@ -11,7 +11,6 @@ let store = location.store;
 let storeName = store.name;
 // console.log("store name in location", storeName)
 
-
   return (
       <div>
             {/* <h1>idUserPrivileges{location.idUserPrivileges}</h1>
