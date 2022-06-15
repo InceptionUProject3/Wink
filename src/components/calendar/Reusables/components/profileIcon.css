@@ -1,7 +1,9 @@
+/** CSS props - icon */
 .icon{
     display: flex;
     position: relative;
 }
+/** CSS props - icon */
 .icon>.initial{
     position:absolute;
     color: white;
