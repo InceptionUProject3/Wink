@@ -8,7 +8,7 @@ import "./DailyCalendar.css";
 import DailyCalendarSummary from "./DailyCalendarSummary";
 
 /** This resources below are in comments yet because problably will be use in the future. 
-Line 13 to 15 contents this resources. */
+Line 13 to 17 contents this resources. */
 
 /**
  import { ProfilePhoto } from "../Reusables/components/ProfilePhoto";
