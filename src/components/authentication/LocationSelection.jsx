@@ -1,3 +1,4 @@
+/** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import React, {  useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginProvider";
@@ -6,7 +7,7 @@ import { StoreContext } from "./StoreProvider";
 import "./LocationSelection.css";
 
 
-
+/** The Location methods must return a Promise. */
 const StoreProvider = (props) => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
@@ -32,6 +33,7 @@ const StoreProvider = (props) => {
     getStore(userToSend);
   }, [userToSend]);
  
+/** The Location methods must return a Promise. */
   const profiles = (profile) => {
     storeContext.setStore(profile);
     navigate("/home");
@@ -62,4 +64,5 @@ const StoreProvider = (props) => {
   );
 };
 
+/** It's part of the ES6 module system thats defines a default export. In the case of Wink project StoreProvider. */
 export default StoreProvider;

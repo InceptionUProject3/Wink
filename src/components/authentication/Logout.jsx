@@ -1,3 +1,4 @@
+/** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginProvider";
@@ -27,4 +28,5 @@ const Logout = () => {
   return null;
 };
 
+/** It's part of the ES6 module system thats defines a default export. In the case of Wink project Logout. */
 export default Logout;
