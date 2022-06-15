@@ -35,7 +35,7 @@ const ScheduleBar = (props) => {
               </div>
             </>
           );
-        } else if (schedObj.workCode === 1) {
+        } else if (schedObj.workcode === 1) {
           return (
             <>
               <div

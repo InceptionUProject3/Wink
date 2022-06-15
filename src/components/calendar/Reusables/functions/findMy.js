@@ -1,6 +1,6 @@
-const findMy = (arr, myProfile) => {
+const findMy = (arr, currentUserId) => {
   // console.log("findMy",myProfile, arr)
-  const currentUserData = arr?.filter((e) => e.userId === myProfile.userId);
+  const currentUserData = arr?.filter((e) => e.userId === currentUserId);
   return currentUserData;
 };
 

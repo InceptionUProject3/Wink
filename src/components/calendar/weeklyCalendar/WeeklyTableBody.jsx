@@ -11,10 +11,12 @@ import ScheduleBar from "../Reusables/components/ScheduleBar";
 import setPositionList from "../Reusables/functions/setPositionList";
 import findMy from "../Reusables/functions/findMy";
 import filterOutMy from "../Reusables/functions/filterOutMy";
-import { LoginContext } from "../../authentication/LoginProvider";
 
+import { LoginContext } from "../../authentication/LoginProvider";
+import { StoreContext } from "../../authentication/StoreProvider";
 const WeeklyTableBody = (props) => {
-  const { user } = useContext(LoginContext);
+  const userId  = useContext(LoginContext).user?.id;
+  const storeId = useContext(StoreContext).store?.Store_idStore;
   // console.log('calendar user',user)
   const { selectedDay, storeOpen, storeClose } = props;
 
@@ -22,31 +24,33 @@ const WeeklyTableBody = (props) => {
   const [positions, setPositions] = useState();
   const [scheduleData, setScheduleData] = useState();
 
-  const startDay = selectedDay?.clone().startOf("day");
-  const endDay = selectedDay?.clone().add(6, "days").endOf("day");
+  const startDay = selectedDay?.clone().startOf("week");
+  const endDay = selectedDay?.clone().endOf("week");
 
   //need to fetch current logged in user useContext
-  const currentUser = { userId: 9, storeId: 1 };
+  // console.log("user", userId,storeId);
+  // const currentUser = { userId: 9, storeId: 1 };
 
-  //set schdules
+  //set schdules & position colors
   useEffect(() => {
     const getAllSchedules = async () => {
-      //need to fetch schedule with priod from server
-      const weekStart = selectedDay
-        .clone()
-        .startOf("week")
-        .utc()
-        .format("YYYY-MM-DD HH:mm");
+      try{//need to fetch schedule with priod from server
+      const weekStart = startDay.clone().format("YYYY-MM-DD HH:mmZ");
       // console.log("weekstart", selectedDay, weekStart);
       const res = await fetch(
-        `/api/schedule/week?storeId=${currentUser.storeId}&startDay=${weekStart}`
+        `/api/schedule/week?storeId=${storeId}&startDay=${weekStart}`
       );
       const scheduleData = await res.json();
-      console.log('fetched data', scheduleData)
+      // console.log('fetched data', scheduleData)
       setScheduleData(() => scheduleData);
       //enable this line chduleData
       const positionArray = scheduleData && setPositionList(scheduleData);
-      setPositions(positionArray);
+      setPositions(positionArray);}
+      catch(err){
+        console.log("failed to fetch schedule data", err)
+        setScheduleData(() => null);
+
+      }
       //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
       // const thisWeekSched = mockScheduleData?.filter(
       //   (sched) =>
@@ -54,12 +58,13 @@ const WeeklyTableBody = (props) => {
       //     moment(sched.startTime, "MMM DD YYYY HH:mm") < endDay
       // );
     };
-    getAllSchedules();
-  }, [selectedDay]);
+    storeId&&getAllSchedules();
+  }, [selectedDay,storeId]);
 
   useEffect(() => {
     const weekArray = [];
     for (let i = 0; i < endDay?.diff(startDay, "days") + 1; i++) {
+      // console.log('week', startDay)
       weekArray.push(startDay?.clone().add(i, "days").format("MMM DD YYYY"));
     }
     return setWeek(weekArray);
@@ -68,7 +73,6 @@ const WeeklyTableBody = (props) => {
   //   console.log("weekarray",week)
 
   const displaySched = (schedules) => {
-    // console.log("schedules", schedules)
     return week?.map((day, i) => {
       //need to change to store hrs
       const oneDay = moment(day, "MMM DD YYYY HH:mm");
@@ -80,14 +84,14 @@ const WeeklyTableBody = (props) => {
         m: storeClose.minute(),
       });
 
+      // console.log("sched", schedules);
       const foundSched = schedules?.find(
         (sched) =>
-          moment(sched.endtime) > dayStart &&
-          moment(sched.starttime) < dayEnd
+          moment(sched.endtime) > dayStart && moment(sched.starttime) < dayEnd
       );
-      // console.log("filtered sched", foundSched);
+      // console.log("foundsched", foundSched);
       if (foundSched === undefined) {
-        //  console.log("print empty div ");
+        // console.log("print empty div ");
         return (
           <div
             className="Schedule"
@@ -95,14 +99,15 @@ const WeeklyTableBody = (props) => {
           ></div>
         );
       } else if (foundSched) {
+        // console.log('day period', dayStart, dayEnd)
         // console.log("foundSched", foundSched);
-        const from = moment(foundSched.starttime, "MMM DD YYYY HH:mm");
-        const to = moment(foundSched.endtime, "MMM DD YYYY HH:mm");
+        const from = moment(foundSched.starttime);
+        const to = moment(foundSched.endtime);
 
-        // console.log("day end and start", from, "-", to);
+        // console.log("schedule in a day", from, "-", to);
 
         return (
-          <div className="Schedule">
+          <div key={`Sched ${schedules?.scheduleId} ${i}`} className="Schedule">
             <ScheduleBar
               dayStart={dayStart}
               dayEnd={dayEnd}
@@ -121,7 +126,7 @@ const WeeklyTableBody = (props) => {
       <div className="Empty-div"></div>
       {scheduleData && (
         <DisplayMySched
-          myProfile={findMy(scheduleData, currentUser)[0]}
+          myProfile={userId&&findMy(scheduleData, userId)[0]}
           displaySched={displaySched}
           positions={positions}
         />
@@ -129,7 +134,7 @@ const WeeklyTableBody = (props) => {
 
       {scheduleData && (
         <DisplayOthersSched
-          cowokerProfs={filterOutMy(scheduleData, currentUser)}
+          cowokerProfs={userId&&filterOutMy(scheduleData, userId)}
           positions={positions}
           displaySched={displaySched}
         />

@@ -198,6 +198,7 @@
     height: 100%;
     width: 100%;
     
+    
 }
 .Full-bar>.Percentage-bar.working{
     background-color: var(--wink-color-light);
@@ -210,12 +211,12 @@
     
 }
 .Percentage-bar>.hours{
-    
+    width: 100%;
     height: 100%;
     color: white;
     height: fit-content;
-   margin: auto;
-   font-size: 0.9em;
+    margin: auto;
+    font-size: 0.9em;
 
     
 }

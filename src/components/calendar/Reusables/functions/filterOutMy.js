@@ -1,5 +1,5 @@
-const filterOutMy = (arr, myProfile) => {
-  const currentUserData = arr?.filter((e) => e.userId !== myProfile.userId);
+const filterOutMy = (arr, currentUserId) => {
+  const currentUserData = arr?.filter((e) => e.userId !== currentUserId);
   return currentUserData;
 };
 
