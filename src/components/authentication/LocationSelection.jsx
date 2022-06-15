@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginProvider";
 import Location from "./Location";
 import { StoreContext } from "./StoreProvider";
+import "./LocationSelection.css";
 
 
 
@@ -38,11 +39,11 @@ const StoreProvider = (props) => {
   };
 console.log("this is the store context", storeContext)
   return (
-    <div>
+    <div className='location-container'>
       {allStores ? (
         allStores.map((profile, index) => {
           return (
-            <button
+            <button className='location-button'
               onClick={() => {
                 profiles(profile);
               }}
