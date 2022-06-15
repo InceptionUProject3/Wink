@@ -14,7 +14,7 @@ const ScheduleBar = (props) => {
         const barEnd = Math.round(moment(newTo - dayStart).unix() / 60 / 15);
         // console.log("bar indexs", barStart, barEnd);
     
-        if (schedObj.workCode === "Working") {
+        if (schedObj.workcode === 0) {
           return (
             <>
               <div
@@ -35,7 +35,7 @@ const ScheduleBar = (props) => {
               </div>
             </>
           );
-        } else if (schedObj.workCode === "Vacation") {
+        } else if (schedObj.workCode === 1) {
           return (
             <>
               <div
@@ -51,9 +51,7 @@ const ScheduleBar = (props) => {
           );
         }
       ;
-  return (
-    <div>ScheduleBar</div>
-  )
+
 }
 
 export default ScheduleBar

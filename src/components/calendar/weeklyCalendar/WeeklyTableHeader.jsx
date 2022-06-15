@@ -29,6 +29,7 @@ const WeeklyTableHeader = (props) => {
       </div>
 
       {daysInWeek?.map((day, index) => {
+        // console.log('days', moment(day), moment(day).day())
         const isWeekend =
           moment(day).day() === 0 || moment(day).day() === 6 ? "Weekend" : "";
         const isToday = day === moment().startOf("day").format() ? "Today" : "";

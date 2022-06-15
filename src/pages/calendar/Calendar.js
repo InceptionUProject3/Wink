@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import moment from "moment";
+import "moment-timezone";
 
 import MonthlyCalendar from "../../components/calendar/monthlyCalendar/MonthlyCalendar";
 import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
@@ -11,9 +12,13 @@ import ViewButtons from "../../components/calendar/Reusables/components/ViewButt
 import TodayButton from "../../components/calendar/Reusables/components/TodayButton";
 
 const Calendar = () => {
-  const [selectedDay, setSelectedDay] = useState(moment());
+  const [selectedDay, setSelectedDay] = useState(
+    moment()
+    // .tz("America/New_York")
+    // .format('YYYY-MM-DD HH:mmZ')
+  );
 
-  // console.log("selected calendar", typeof selectedCal);
+  // console.log("selected calendar", selectedDay);
   return (
     <div className="Calendars-container">
       <div className="Calendar-header">

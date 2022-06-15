@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 //fetch sheduleData for store
-import mockScheduleData from "../mockScheduleData.json";
+// import mockScheduleData from "../mockScheduleData.json";
 
 import moment from "moment";
 
@@ -18,8 +18,6 @@ const WeeklyTableBody = (props) => {
   // console.log('calendar user',user)
   const { selectedDay, storeOpen, storeClose } = props;
 
-  // const [weekAllScheds, setWeekAllScheds] = useState();
-  // const [AllProfiles, setAllProfiles] = useState();
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
   const [scheduleData, setScheduleData] = useState();
@@ -28,22 +26,26 @@ const WeeklyTableBody = (props) => {
   const endDay = selectedDay?.clone().add(6, "days").endOf("day");
 
   //need to fetch current logged in user useContext
-  const currentUser = { userId: 4, storeId: 1 };
-
+  const currentUser = { userId: 9, storeId: 1 };
 
   //set schdules
   useEffect(() => {
-    const getAllSchedules = async() => {
+    const getAllSchedules = async () => {
       //need to fetch schedule with priod from server
-      const weekStart = selectedDay.clone().startOf('week').utc().format('YYYY-MM-DD HH:mm');
-      console.log('weekstart', weekStart)
-      const res = await fetch(`/api/schedule/week?storeId=${currentUser.storeId}&startDay=${weekStart}`);
+      const weekStart = selectedDay
+        .clone()
+        .startOf("week")
+        .utc()
+        .format("YYYY-MM-DD HH:mm");
+      // console.log("weekstart", selectedDay, weekStart);
+      const res = await fetch(
+        `/api/schedule/week?storeId=${currentUser.storeId}&startDay=${weekStart}`
+      );
       const scheduleData = await res.json();
-    
+      console.log('fetched data', scheduleData)
       setScheduleData(() => scheduleData);
       //enable this line chduleData
-      // const positionArray = scheduleData && setPositionList(scheduleData);
-      const positionArray = setPositionList(mockScheduleData)
+      const positionArray = scheduleData && setPositionList(scheduleData);
       setPositions(positionArray);
       //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
       // const thisWeekSched = mockScheduleData?.filter(
@@ -51,7 +53,6 @@ const WeeklyTableBody = (props) => {
       //     moment(sched.endTime, "MMM DD YYYY HH:mm") > startDay &&
       //     moment(sched.startTime, "MMM DD YYYY HH:mm") < endDay
       // );
-      
     };
     getAllSchedules();
   }, [selectedDay]);
@@ -81,8 +82,8 @@ const WeeklyTableBody = (props) => {
 
       const foundSched = schedules?.find(
         (sched) =>
-          moment(sched.endTime, "MMM DD YYYY HH:mm") > dayStart &&
-          moment(sched.startTime, "MMM DD YYYY HH:mm") < dayEnd
+          moment(sched.endtime) > dayStart &&
+          moment(sched.starttime) < dayEnd
       );
       // console.log("filtered sched", foundSched);
       if (foundSched === undefined) {
@@ -95,8 +96,8 @@ const WeeklyTableBody = (props) => {
         );
       } else if (foundSched) {
         // console.log("foundSched", foundSched);
-        const from = moment(foundSched.startTime, "MMM DD YYYY HH:mm");
-        const to = moment(foundSched.endTime, "MMM DD YYYY HH:mm");
+        const from = moment(foundSched.starttime, "MMM DD YYYY HH:mm");
+        const to = moment(foundSched.endtime, "MMM DD YYYY HH:mm");
 
         // console.log("day end and start", from, "-", to);
 
@@ -120,8 +121,7 @@ const WeeklyTableBody = (props) => {
       <div className="Empty-div"></div>
       {scheduleData && (
         <DisplayMySched
-          /*mockshceduledata to fetched scheduleData*/
-          myProfile={findMy(mockScheduleData, currentUser)[0]}
+          myProfile={findMy(scheduleData, currentUser)[0]}
           displaySched={displaySched}
           positions={positions}
         />
@@ -129,8 +129,7 @@ const WeeklyTableBody = (props) => {
 
       {scheduleData && (
         <DisplayOthersSched
-          /*mockshceduledata to fetched scheduleData*/
-          cowokerProfs={filterOutMy(mockScheduleData, currentUser)}
+          cowokerProfs={filterOutMy(scheduleData, currentUser)}
           positions={positions}
           displaySched={displaySched}
         />

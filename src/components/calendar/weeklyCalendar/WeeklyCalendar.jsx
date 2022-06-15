@@ -17,7 +17,8 @@ const WeeklyCalendar = (props) => {
 
   useEffect(() => {
     const startDayOfWeek = selectedDay?.clone().startOf("week");
-    const endDayOfWeek = startDayOfWeek?.clone().endOf("week");
+    const endDayOfWeek = selectedDay?.clone().endOf("week");
+    // console.log('start day', startDayOfWeek.format('YYYY-MM-DD HH:mmZ'))
     //days in week should include startDayOfWeek
     const weekCalArray = [startDayOfWeek?.format()];
     //If you dont insert clone(), startDayOfweek will be incresed everytime in this loop.
