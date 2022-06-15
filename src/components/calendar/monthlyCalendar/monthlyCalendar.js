@@ -69,6 +69,9 @@ const MonthlyCalendar = () => {
     gridAutoRows: "50px",
   };
   
+/** This resources below are in comments yet because problably will be use in the future. 
+Line 75 to 82 contents this resources. */
+
   // let weekdayStyle = {
   //   backgroundColor: "var(--mainHeader)",
   //   textAlign:"center",
@@ -78,6 +81,7 @@ const MonthlyCalendar = () => {
   //   color: "var(--headerWhiteFont)",
   // };
 
+  /** Style props */
   let weekdayHeadersStyle = {
     display : "grid",
     width: "100%",
@@ -135,4 +139,6 @@ const MonthlyCalendar = () => {
   );
 };
 
+
+/** It's part of the ES6 module system thats defines a default export. In the case of Wink project MonthlyCalendar. */
 export default MonthlyCalendar;
