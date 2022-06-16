@@ -3,7 +3,13 @@
 import React from "react";
 =======
 import moment from "moment";
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+>>>>>>> main
+=======
+import React, { useContext, useEffect, useState } from "react";
+import { LoginContext } from "../../authentication/LoginProvider";
+import { StoreContext } from "../../authentication/StoreProvider";
 >>>>>>> main
 import { ProfileIcon } from "../Reusables/components/ProfileIcon";
 
@@ -11,10 +17,11 @@ import { ProfileIcon } from "../Reusables/components/ProfileIcon";
 const DailyCalendarSummary = (props) => {
   const { positions } = props;
 
-  //useContext
-  const currentUser = { userId: 4, storeId: 1 };
-  const [userSummary, setUserSummary] = useState();
+  const userId = useContext(LoginContext).user?.id || 6;
+  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
 
+  const [userSummary, setUserSummary] = useState();
+console.log("postions", positions)
   useEffect(() => {
     const fetchUserSummary = async () => {
       //switch endpoint to get userSummary
@@ -43,7 +50,7 @@ const DailyCalendarSummary = (props) => {
     const today = moment();
     const startOfWeek = today.clone().startOf("week").format("MMM Do");
     const endofWeek = today.clone().endOf("week").format("MMM Do");
-    console.log("today", startOfWeek, endofWeek);
+    // console.log("today", startOfWeek, endofWeek);
     return (
       <div>
         <span>Period:</span>

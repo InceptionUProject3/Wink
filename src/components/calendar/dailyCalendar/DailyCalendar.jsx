@@ -7,16 +7,17 @@ import findMy from "../Reusables/functions/findMy";
 import setPositionList from "../Reusables/functions/setPositionList";
 =======
 
-// import mockUsersData from "../mockUsersData.json";
-import mockScheduleData from "../mockScheduleData.json";
-
 import DailyCalendarSummary from "./DailyCalendarSummary";
 import DailyCalendarTable from "./DailyCalendarTable";
 
 >>>>>>> main
 import "./DailyCalendar.css";
 import setPositionList from "../Reusables/functions/setPositionList";
+import { useContext } from "react";
+import { StoreContext } from "../../authentication/StoreProvider";
+import moment from "moment";
 
+<<<<<<< HEAD
 /** This resources below are in comments yet because problably will be use in the future. 
 Line 13 to 17 contents this resources. */
 
@@ -59,34 +60,53 @@ Line 41 content this resource. */
 =======
   //positon is set this level component to aaply same color in child components
   const [positions, setPositions] = useState();
+=======
+const DailyCalendar = (props) => {
+  const { selectedDay, setSelectedDay } = props;
+>>>>>>> main
 
-  //bring user obj from useContext
-  const user = { storeId: 1, userId: 4 };
+  //positon is set this level component to apply same color in child components
+  const [positions, setPositions] = useState();
+  const [daySchedules, setDaySchedules] = useState();
+  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
 
+  //set sd
   useEffect(() => {
-    const fetchPositions = async () => {
-      const positions = await fetch(
-        `/api/schedule/positions/store/${user?.storeId}`
-      );
-      //enable this line
-      // const res = await positions.json();
-      // const positionWithColor = setPositionList(res.positions);
-      const res= mockScheduleData;
-      const positionWithColor = setPositionList(res)
+    const getAllSchedules = async () => {
+      try {
+        const day = selectedDay.clone().format("YYYY-MM-DD");
+        const schedules = await fetch(
+          `/api/schedule/day?storeId=${storeId}&day=${day}`
+        );
 
-      return setPositions(() => positionWithColor);
+        const res = await schedules.json();
+        console.log("response schedules", res);
+        setDaySchedules(() => res);
+
+        const positionArray = setPositionList(res);
+        setPositions(() => positionArray);
+      } catch (err) {
+        console.log("Failed to fetch day schedules");
+        setDaySchedules(() => null);
+      }
     };
-    fetchPositions();
-  }, []);
-  //This useEffect is duplicated from weeklyTableBody
+    storeId && getAllSchedules();
+  }, [selectedDay]);
 
   return (
-    // <div className="Daily-calendar">
     <div className="DailyCal-container">
-      <DailyCalendarSummary positions={positions}/>
-      <DailyCalendarTable positions={positions} />
+      <DailyCalendarSummary positions={positions} />
+      <DailyCalendarTable
+        positions={positions}
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+        daySchedules={daySchedules}
+      />
     </div>
+<<<<<<< HEAD
     // </div>
+>>>>>>> main
+=======
 >>>>>>> main
   );
 };
