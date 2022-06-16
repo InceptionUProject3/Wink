@@ -14,9 +14,10 @@ import filterOutMy from "../Reusables/functions/filterOutMy";
 
 import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
+
 const WeeklyTableBody = (props) => {
-  const userId  = useContext(LoginContext).user?.id;
-  const storeId = useContext(StoreContext).store?.Store_idStore;
+  const userId  = useContext(LoginContext).user?.id||9;
+  const storeId = useContext(StoreContext).store?.Store_idStore||1;
   // console.log('calendar user',user)
   const { selectedDay, storeOpen, storeClose } = props;
 
@@ -28,14 +29,14 @@ const WeeklyTableBody = (props) => {
   const endDay = selectedDay?.clone().endOf("week");
 
   //need to fetch current logged in user useContext
-  // console.log("user", userId,storeId);
-  // const currentUser = { userId: 9, storeId: 1 };
+  console.log("userid : ", userId,"storeid : ",storeId);
+ 
 
   //set schdules & position colors
   useEffect(() => {
     const getAllSchedules = async () => {
       try{//need to fetch schedule with priod from server
-      const weekStart = startDay.clone().format("YYYY-MM-DD HH:mmZ");
+      const weekStart = startDay.clone().format("YYYY-MM-DD");
       // console.log("weekstart", selectedDay, weekStart);
       const res = await fetch(
         `/api/schedule/week?storeId=${storeId}&startDay=${weekStart}`
