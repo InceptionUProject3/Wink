@@ -102,20 +102,24 @@ const WeeklyTableBody = (props) => {
       } else if (foundSched) {
         // console.log('day period', dayStart, dayEnd)
         // console.log("foundSched", foundSched);
-        const from = moment(foundSched.starttime);
-        const to = moment(foundSched.endtime);
-
-        // console.log("schedule in a day", from, "-", to);
+        const schedFrom = moment(foundSched.starttime);
+        const schedTo = moment(foundSched.endtime);
+        const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
+        const newTo = schedTo < dayEnd ? schedTo : dayEnd;
+        // console.log("schedule in a day", newFrom, "-", newTo);
 
         return (
           <div key={`Sched ${schedules?.scheduleId} ${i}`} className="Schedule">
             <ScheduleBar
               dayStart={dayStart}
               dayEnd={dayEnd}
-              schedFrom={from}
-              schedTo={to}
+              newFrom={newFrom}
+              newTo={newTo}
               schedObj={foundSched}
             />
+            <div className="text">
+                {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+              </div>
           </div>
         );
       }

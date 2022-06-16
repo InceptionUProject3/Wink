@@ -1,10 +1,10 @@
 import React from 'react'
 import { ProfileIcon } from '../../Reusables/components/ProfileIcon';
-import ScheduleBar from '../../Reusables/components/ScheduleBar';
+// import ScheduleBar from '../../Reusables/components/ScheduleBar';
 
 const MyDailySched = (props) => {
   const {mySched, positions, displaySched} = props;
-  console.log("mySched", mySched)
+  // console.log("mySched", mySched)
   const findColor = () => {
     const myPositionObj = positions?.find(
       (position) => mySched?.position === position.position
@@ -14,15 +14,17 @@ const MyDailySched = (props) => {
   };
 
   return (
-    <div className='MyDaily'>
-      <div className='Myprofile-container'>
+    
+    <>
+      <div className='profile-container my'>
         <ProfileIcon profile={mySched} color={findColor()}/>
-        <div className='name'>{mySched?.firstname}, {mySched?.lastname}</div>
+        <div className='name'>{mySched?.firstname}, {mySched?.lastname} (me)</div>
       </div>
-      <div className='MySchduels'>
+     
+      
       {displaySched(mySched?.schedules)}
-      </div>
-    </div>
+    </>
+  
   )
 }
 

@@ -1,6 +1,6 @@
 import moment from "moment";
-import React, { useContext, useEffect, useState } from "react";
-import DailyTableBody from "./DailyTableBody";
+import React, { useContext, useState } from "react";
+// import DailyTableBody from "./DailyTableBody";
 import { DailyTableHeader } from "./DailyTableHeader";
 
 import findMy from "../Reusables/functions/findMy";
@@ -9,9 +9,12 @@ import OthersDailyScheds from "./dailyTablebody/OthersDailyScheds";
 import filterOutMy from "../Reusables/functions/filterOutMy";
 import { LoginContext } from "../../authentication/LoginProvider";
 import ScheduleBar from "../Reusables/components/ScheduleBar";
+import TableGrid from "./TableGrid";
 
 const DailyCalendarTable = (props) => {
   const { positions, selectedDay, setSelectedDay, daySchedules } = props;
+
+  const [timeDisplay, setTimeDisplay] = useState(false);
 
   const userId = useContext(LoginContext).user?.id || 9;
   const dayStart = selectedDay.clone().startOf("day");
@@ -19,68 +22,77 @@ const DailyCalendarTable = (props) => {
 
   const displayTimes = () => {
     const timeArray = [];
-    console.log("day start and end", dayStart, dayEnd);
-    const iterTimes = dayEnd?.diff(dayStart, "hours") + 1;
+    // console.log("day start and end", dayStart, dayEnd);
+    const iterTimes = dayEnd?.diff(dayStart, "hours") + 2;
     // console.group("itertimes", iterTimes);
-    for (let i = 0; i < iterTimes; i++) {
-      timeArray.push(dayStart?.clone().add(i, "hours").format("HH:mm"));
+    for (let i = 0; i < iterTimes; i = i + 2) {
+      timeArray.push(dayStart?.clone().add(i, "hours").format("h:mma"));
     }
     // console.log("timeArray", timeArray)
     return timeArray.map((time) => <div>{time}</div>);
   };
+  // console.log('time display', timeDisplay)
 
   const displaySched = (schedules) => {
     //most of case schedule is one. For some case, can be more than two
     return schedules?.map((sched, i) => {
-      const from = moment(sched.starttime);
-      const to = moment(sched.endtime);
+      const schedFrom = moment(sched.starttime);
+      const schedTo = moment(sched.endtime);
+      const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
+      const newTo = schedTo < dayEnd ? schedTo : dayEnd;
       return (
         <div
           key={`Dailyched ${schedules?.scheduleId} ${i}`}
           className="Schedule"
+          onMouseEnter={() => setTimeDisplay(true)}
+          onMouseLeave={() => setTimeDisplay(false)}
         >
           <ScheduleBar
             dayStart={dayStart}
             dayEnd={dayEnd}
-            schedFrom={from}
-            schedTo={to}
+            newFrom={newFrom}
+            newTo={newTo}
             schedObj={sched}
           />
+          
+          {timeDisplay && (
+            <div className="text">
+              {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+            </div>
+          )}
         </div>
       );
     });
   };
 
   return (
-    <div className="DailyCal-container">
+    <div className="Table-container">
       <DailyTableHeader
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
       />
-      <div className="Table-body-container">
         <div className="Time-header">{displayTimes()}</div>
-        <div className="Table-body">
-          {daySchedules && (
-            <MyDailySched
-              mySched={findMy(daySchedules, userId)[0]}
-              positions={positions}
-              displaySched={displaySched}
-            />
-          )}
-          {daySchedules && (
-            <OthersDailyScheds
-              othersScheds={filterOutMy(daySchedules, userId)}
-              positions={positions}
-            />
-          )}
-        </div>
-      </div>
-      {/* <DailyTableBody
-        selectedDay={selectedDay}
-        positions={positions}
-        daySchedules={daySchedules}
+      <div className="Table-body-container">
+        
+        <TableGrid/>
+        {daySchedules && (
+          <MyDailySched
+            mySched={findMy(daySchedules, userId)[0]}
+            positions={positions}
+            displaySched={displaySched}
+          />
+        )}
        
-      /> */}
+        {daySchedules && (
+          <OthersDailyScheds
+            othersScheds={filterOutMy(daySchedules, userId)}
+            positions={positions}
+            displaySched={displaySched}
+          />
+        )}
+      
+      </div>
+      
     </div>
   );
 };

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-// import mockUsersData from "../mockUsersData.json";
-import mockScheduleData from "../mockScheduleData.json";
-
 import DailyCalendarSummary from "./DailyCalendarSummary";
 import DailyCalendarTable from "./DailyCalendarTable";
 
@@ -10,7 +7,6 @@ import "./DailyCalendar.css";
 import setPositionList from "../Reusables/functions/setPositionList";
 import { useContext } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
-import { LoginContext } from "../../authentication/LoginProvider";
 import moment from "moment";
 
 const DailyCalendar = (props) => {
@@ -45,7 +41,6 @@ const DailyCalendar = (props) => {
   }, [selectedDay]);
 
   return (
-    // <div className="Daily-calendar">
     <div className="DailyCal-container">
       <DailyCalendarSummary positions={positions} />
       <DailyCalendarTable
@@ -55,7 +50,6 @@ const DailyCalendar = (props) => {
         daySchedules={daySchedules}
       />
     </div>
-    // </div>
   );
 };
 

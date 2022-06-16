@@ -1,15 +1,19 @@
 .Calendars-container{
     display: flex;
     flex-direction: column;
-    margin: 10em auto 0 auto;
-    width: 80%;
-    height: 30em;
+    /* margin: 10em auto 0 auto; */
+    margin: 5em auto 0 auto;
+    width: 82%;
+    /* width: 100%; */
+    /* height: 30em;  */
+    height: 100%;
     padding: 7em;
      border-radius: 3.5em;
-     box-shadow: var(--background-shadow);
+     /* box-shadow: var(--background-shadow); */
      min-width: 36em;
      gap:1em;
     overflow-y: scroll;
+
 }
 
 .Calendars-container>.Calendar-header{
