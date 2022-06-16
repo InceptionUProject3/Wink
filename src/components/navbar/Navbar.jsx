@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./NavBar.css";
 import wink from "../../images/wink.logo.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { LoginContext } from "../authentication/LoginProvider";
 
@@ -19,37 +19,61 @@ const Navbar = () => {
         <ul>
           {loggedInUser && (
             <li>
-              <p>
-                <Link className="menu" to="/home">
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
+                  to="/home"
+                >
                   HOME
-                </Link>
+                </NavLink>
               </p>
             </li>
           )}
           {loggedInUser && (
             <li>
-              <p>
-                <Link className="menu" to="/messaging">
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
+                  to="/messaging"
+                >
                   MESSAGING
-                </Link>
+                </NavLink>
               </p>
             </li>
           )}
           {loggedInUser && (
             <li>
-              <p>
-                <Link className="menu" to="/calendar">
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
+                  to="/calendar"
+                >
                   CALENDAR
-                </Link>
+                </NavLink>
               </p>
             </li>
           )}
           {loggedInUser && (
             <li>
-              <p>
-                <Link className="menu" to="/">
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
+                  to="/"
+                >
                   TRAINING
-                </Link>
+                </NavLink>
               </p>
             </li>
           )}
@@ -65,9 +89,7 @@ const Navbar = () => {
                 )}
                 {loggedInUser && (
                   <Link to="/logout">
-                  <button className="btn">
-                    Logout
-                  </button>
+                    <button className="btn">Logout</button>
                   </Link>
                 )}
               </div>
