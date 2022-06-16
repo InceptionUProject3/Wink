@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 
 const OthersDailyScheds = (props) => {
-  const { othersScheds, positions } = props;
+  const { othersScheds, positions,displaySched } = props;
   const [groupedScheds, setGroupedScheds] = useState();
+
   useEffect(() => {
     const groupByPosition = () => {
       const initialVal = {};
@@ -19,7 +21,30 @@ const OthersDailyScheds = (props) => {
     setGroupedScheds(() => groupedObj);
   }, [othersScheds]);
 
-  return <div></div>;
-};
+  return (
+    <>
+      {positions?.map((position, i) => {
+        const empInPosition = groupedScheds && groupedScheds[position.position];
+        if (empInPosition) {
+          // console.log('others day positon', position)
+          return empInPosition?.map((sched, index) => {
+            return (<React.Fragment key={`OtherDaySched ${i} ${index} `}>
+              <div
+                className="profile-container others"
+                key={`day-profile ${i} ${index}`}
+              >
+                <ProfileIcon profile={sched} color={position.color} />
+                <div className="name">
+                  {sched?.firstname}, {sched?.lastname}
+                </div>
+              </div>
 
+              {displaySched(sched?.schedules)}
+            </React.Fragment>)
+          });
+        }
+      })}
+    </>
+  );
+};
 export default OthersDailyScheds;

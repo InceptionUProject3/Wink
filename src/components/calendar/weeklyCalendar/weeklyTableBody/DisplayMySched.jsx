@@ -14,6 +14,7 @@ const DisplayMySched = (props) => {
     // console.log(color)
     return color;
   };
+  // console.log('my schedules', myProfile?.schedules)
   return (
     <>
       <div className="WeeklyCal-Profiles myProfile">

@@ -13,15 +13,19 @@ export const DailyTableHeader = (props) => {
   const moveToTomorrow = () => {
     setSelectedDay((pre) => pre?.clone().add(1, "days"));
   };
- 
+
   return (
-    <IconContext.Provider value={{ className: "buttons" }}>
-      <MdOutlineArrowBackIos onClick={moveToYesterday} />
-      <div className="DayInHeader">
-        <div>{selectedDay?.format("MMM DD")},</div>
-        <div>{selectedDay?.format("ddd")}</div>
+    <div className="Table-header">
+      <div className="Header-container">
+        <IconContext.Provider value={{ className: "buttons" }}>
+          <MdOutlineArrowBackIos onClick={moveToYesterday} />
+          <div className="DayInHeader">
+            <div>{selectedDay?.format("MMM DD")},</div>
+            <div>{selectedDay?.format("ddd")}</div>
+          </div>
+          <MdOutlineArrowForwardIos onClick={moveToTomorrow} />
+        </IconContext.Provider>
       </div>
-      <MdOutlineArrowForwardIos onClick={moveToTomorrow} />
-    </IconContext.Provider>
+    </div>
   );
 };

@@ -1,56 +1,98 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import DailyTableBody from "./DailyTableBody";
+import React, { useContext, useState } from "react";
+// import DailyTableBody from "./DailyTableBody";
 import { DailyTableHeader } from "./DailyTableHeader";
 
-import mockScheduleData from "../mockScheduleData.json";
+import findMy from "../Reusables/functions/findMy";
+import MyDailySched from "./dailyTablebody/MyDailySched";
+import OthersDailyScheds from "./dailyTablebody/OthersDailyScheds";
+import filterOutMy from "../Reusables/functions/filterOutMy";
+import { LoginContext } from "../../authentication/LoginProvider";
+import ScheduleBar from "../Reusables/components/ScheduleBar";
+import TableGrid from "./TableGrid";
 
 const DailyCalendarTable = (props) => {
-  const { positions } = props;
+  const { positions, selectedDay, setSelectedDay, daySchedules } = props;
 
-  const [selectedDay, setSelectedDay] = useState(moment());
-  const [allDayScheds, setAllDayScheds] = useState();
+  const [timeDisplay, setTimeDisplay] = useState(false);
 
-  const currentUser = { userid: 4, storeId: 1 };
- 
+  const userId = useContext(LoginContext).user?.id || 9;
+  const dayStart = selectedDay.clone().startOf("day");
+  const dayEnd = selectedDay.clone().endOf("day");
 
-  useEffect(() => {
-    const getAllDaySchedules = async () => {
-      //need to fetch schedule with date from server
-      // const res = await fetch(`/api/schedule/store/${currentUser.storeId}`);
-      // const scheduleData = await res.json();
-      //--------filter can be replaced with filter in server
-      const startDay = selectedDay?.clone().startOf("day");
-      const endDay = selectedDay?.clone().endOf("day");
-      const todaySched = mockScheduleData?.map((emp) => {
-        const dayschedule = emp?.schedules.filter(
-          (sched) =>
-            moment(sched.endTime, "MMM DD YYYY HH:mm") > startDay &&
-            moment(sched.startTime, "MMM DD YYYY HH:mm") < endDay
-        );
-        return { ...emp, schedules: dayschedule };
-      });
-      //-------
-      const scheduleData = todaySched;
-      // console.log("dayschedule data",scheduleData)
-      setAllDayScheds(() => scheduleData);
-    };
-    getAllDaySchedules();
-  }, [selectedDay]);
+  const displayTimes = () => {
+    const timeArray = [];
+    // console.log("day start and end", dayStart, dayEnd);
+    const iterTimes = dayEnd?.diff(dayStart, "hours") + 2;
+    // console.group("itertimes", iterTimes);
+    for (let i = 0; i < iterTimes; i = i + 2) {
+      timeArray.push(dayStart?.clone().add(i, "hours").format("h:mma"));
+    }
+    // console.log("timeArray", timeArray)
+    return timeArray.map((time) => <div>{time}</div>);
+  };
+  // console.log('time display', timeDisplay)
+
+  const displaySched = (schedules) => {
+    //most of case schedule is one. For some case, can be more than two
+    return schedules?.map((sched, i) => {
+      const schedFrom = moment(sched.starttime);
+      const schedTo = moment(sched.endtime);
+      const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
+      const newTo = schedTo < dayEnd ? schedTo : dayEnd;
+      return (
+        <div
+          key={`Dailyched ${schedules?.scheduleId} ${i}`}
+          className="Schedule"
+          onMouseEnter={() => setTimeDisplay(true)}
+          onMouseLeave={() => setTimeDisplay(false)}
+        >
+          <ScheduleBar
+            dayStart={dayStart}
+            dayEnd={dayEnd}
+            newFrom={newFrom}
+            newTo={newTo}
+            schedObj={sched}
+          />
+          
+          {timeDisplay && (
+            <div className="text">
+              {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+            </div>
+          )}
+        </div>
+      );
+    });
+  };
 
   return (
-    <div className="DailyCal-container">
+    <div className="Table-container">
       <DailyTableHeader
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
+      />
+        <div className="Time-header">{displayTimes()}</div>
+      <div className="Table-body-container">
         
-      />
-      <DailyTableBody
-        selectedDay={selectedDay}
-        positions={positions}
-        daySchedules={allDayScheds}
+        <TableGrid/>
+        {daySchedules && (
+          <MyDailySched
+            mySched={findMy(daySchedules, userId)[0]}
+            positions={positions}
+            displaySched={displaySched}
+          />
+        )}
        
-      />
+        {daySchedules && (
+          <OthersDailyScheds
+            othersScheds={filterOutMy(daySchedules, userId)}
+            positions={positions}
+            displaySched={displaySched}
+          />
+        )}
+      
+      </div>
+      
     </div>
   );
 };

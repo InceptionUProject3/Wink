@@ -22,16 +22,14 @@ const DisplayOthersSched = (props) => {
     setGroupedProfs(() => groupedObj);
   }, [cowokerProfs]);
 
-
   return (
     <>
       {positions?.map((position, i) => {
         const empInPositon = groupedProfs && groupedProfs[position.position];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
-            // console.log(emp)
             return (
-              <React.Fragment key={`OtherScheds ${i}`}>
+              <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <div
                   className="WeeklyCal-Profiles others"
                   key={`profile ${i} ${index}`}

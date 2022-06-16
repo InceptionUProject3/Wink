@@ -39,7 +39,7 @@ const Calendar = () => {
           />
           <Route
             path="/daily"
-            element={<DailyCalendar selectedDay={selectedDay} />}
+            element={<DailyCalendar selectedDay={selectedDay} setSelectedDay={setSelectedDay} />}
           />
         </Routes>
       </div>

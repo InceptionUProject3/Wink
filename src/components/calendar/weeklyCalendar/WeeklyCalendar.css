@@ -188,43 +188,16 @@
     /* min-height: 3.7em; */
 }
 
-.Schedule>.Full-bar{
-    position: absolute;
-    width: 100%;
-    height: 23%;
-    display:grid;
-}
-.Full-bar>.Percentage-bar{
-    height: 100%;
-    width: 100%;
+.Weekly-calendar>.Schedule>.Full-bar{
     
+    height: 23%; 
 }
-.Full-bar>.Percentage-bar.working{
-    background-color: var(--wink-color-light);
-    border-radius: 5px;
-    display: flex;
-}
-
-.Full-bar>.Percentage-bar.vacation{
-    background-color: var(--font-darkgrey);
-    
-}
-.Percentage-bar>.hours{
-    
-    height: 100%;
-    color: white;
-    height: fit-content;
-   margin: auto;
-   font-size: 0.9em;
-
-    
-}
-.Schedule>.text{
+.Weekly-calendar>.Schedule>.text{
     position: absolute;
     bottom:0.4em;
-    font-size: 0.9em;
+    font-size: 0.7em;
 }
 .WeeklyCal-Profiles.others{
-    min-height:8em;
+    min-height:6em;
     
 };

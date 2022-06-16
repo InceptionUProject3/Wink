@@ -37,6 +37,10 @@ a  {
   }
   .menu{
     padding: .5rem;
+    
+  }
+  .menu-a{
+    color: #007d7d;
   }
   
   ul {

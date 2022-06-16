@@ -1,8 +1,9 @@
 import React from 'react'
 import { ProfileIcon } from '../../Reusables/components/ProfileIcon';
+// import ScheduleBar from '../../Reusables/components/ScheduleBar';
 
 const MyDailySched = (props) => {
-  const {mySched, positions} = props;
+  const {mySched, positions, displaySched} = props;
   // console.log("mySched", mySched)
   const findColor = () => {
     const myPositionObj = positions?.find(
@@ -13,13 +14,17 @@ const MyDailySched = (props) => {
   };
 
   return (
-    <div>
-      <div className='Myprofile-container'>
+    
+    <>
+      <div className='profile-container my'>
         <ProfileIcon profile={mySched} color={findColor()}/>
-        <div>{mySched?.firstname}, {mySched?.lastname}</div>
+        <div className='name'>{mySched?.firstname}, {mySched?.lastname} (me)</div>
       </div>
+     
       
-    </div>
+      {displaySched(mySched?.schedules)}
+    </>
+  
   )
 }
 
