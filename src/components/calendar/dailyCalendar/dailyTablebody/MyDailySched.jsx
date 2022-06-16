@@ -21,8 +21,10 @@ const MyDailySched = (props) => {
         <div className='name'>{mySched?.firstname}, {mySched?.lastname} (me)</div>
       </div>
      
-      
-      {displaySched(mySched?.schedules)}
+      <div className="schedules-container my">
+
+      {displaySched(mySched?.schedules,mySched?.userId)}
+      </div>
     </>
   
   )

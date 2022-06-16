@@ -5,6 +5,7 @@ import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 const DisplayOthersSched = (props) => {
   const { cowokerProfs, displaySched, positions } = props;
 
+
   const [groupedProfs, setGroupedProfs] = useState();
   useEffect(() => {
     const groupByPosition = () => {
@@ -21,13 +22,13 @@ const DisplayOthersSched = (props) => {
     const groupedObj = groupByPosition();
     setGroupedProfs(() => groupedObj);
   }, [cowokerProfs]);
-
   return (
     <>
       {positions?.map((position, i) => {
         const empInPositon = groupedProfs && groupedProfs[position.position];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
+            
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <div
@@ -42,8 +43,8 @@ const DisplayOthersSched = (props) => {
                   )}
                   <div className="profile" key={`profile ${index}`}>
                     <div key={`name ${index}`} className="Name-container">
-                      <div className="firstname">{emp.firstname},</div>
-                      <div className="lastname">{emp.lastname}</div>
+                      <div className="name">{emp.firstname}, {emp.lastname}</div>
+                      
                     </div>
                   </div>
                 </div>

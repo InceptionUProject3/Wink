@@ -38,8 +38,10 @@ const OthersDailyScheds = (props) => {
                   {sched?.firstname}, {sched?.lastname}
                 </div>
               </div>
+            <div className="schedules-container other">
 
-              {displaySched(sched?.schedules)}
+              {displaySched(sched?.schedules, sched?.userId)}
+            </div>
             </React.Fragment>)
           });
         }

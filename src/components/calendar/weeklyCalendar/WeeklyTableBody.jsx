@@ -128,6 +128,7 @@ const WeeklyTableBody = (props) => {
 
   return (
     <>
+   
       <div className="Empty-div"></div>
       {scheduleData && (
         <DisplayMySched
