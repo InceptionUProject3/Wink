@@ -20,9 +20,9 @@ const MonthlyCalendarHeader = (props) => {
   return (
     <div>
       <div className="test">
-        <IconContext.Provider value={{ className: "buttons" }}>
+        <IconContext.Provider value={{ className: "buttons" }}> 
           <MdOutlineArrowBackIos onClick={getPreMonth} />
-          <h1>{monInCalendar.format("MMM")}</h1>
+          <div className="MonthInHeader">{monInCalendar.format("MMM YYYY")}</div>
           <MdOutlineArrowForwardIos onClick={getNextMonth} />
         </IconContext.Provider>
       </div>
