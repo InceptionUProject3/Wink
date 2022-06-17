@@ -153,7 +153,7 @@
 .WeeklyCal-Profiles.myProfile>.title>.iconNme{
     display: flex;
     flex-direction: row;
-    gap:1em;
+    gap:0.5em;
 }
 
 .WeeklyCal-Profiles.myProfile> .title> .iconNme>.icon{
@@ -227,7 +227,7 @@
 
 .Weekly-calendar>.Schedule>.Full-bar{
     
-    height: 23%; 
+    height: 1.7em; 
 }
 .Weekly-calendar>.Schedule>.text{
     position: absolute;

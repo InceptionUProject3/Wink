@@ -14,8 +14,6 @@ import TableGrid from "./TableGrid";
 const DailyCalendarTable = (props) => {
   const { positions, selectedDay, setSelectedDay, daySchedules } = props;
 
-
-
   const userId = useContext(LoginContext).user?.id || 9;
   const dayStart = selectedDay.clone().startOf("day");
   const dayEnd = selectedDay.clone().endOf("day");
@@ -40,7 +38,7 @@ const DailyCalendarTable = (props) => {
       const schedTo = moment(sched.endtime);
       const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
       const newTo = schedTo < dayEnd ? schedTo : dayEnd;
-     
+
       return (
         <div
           key={`Dailyched ${schedules?.scheduleId} ${i}`}
@@ -53,8 +51,7 @@ const DailyCalendarTable = (props) => {
             newTo={newTo}
             schedObj={sched}
             profIndex={index}
-            schedIndex= {i}
-           
+            schedIndex={i}
           />
         </div>
       );
@@ -67,7 +64,9 @@ const DailyCalendarTable = (props) => {
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
       />
-      <div className="Time-header">{displayTimes()}</div>
+      <div className="Time-header-container">
+        <div className="Time-header">{displayTimes()}</div>
+      </div>
       <div className="Table-body-container">
         <TableGrid />
         {daySchedules && (
