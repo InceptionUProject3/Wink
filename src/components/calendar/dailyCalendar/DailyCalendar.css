@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /** The :root selector matches the document's root element. */
 :root {
 =======
@@ -54,6 +55,12 @@ Line 16 to 24 contents this resources. */
 
 /** CSS functionality. */
 =======
+=======
+.DailyCal-container{
+    color: var(--font-darkgrey);
+    margin-top:5em;
+}
+>>>>>>> main
 
 
 >>>>>>> main
@@ -61,7 +68,7 @@ Line 16 to 24 contents this resources. */
     height: 100%; 
     width: 50%;
     background-color: white;
-    /* margin: 0 5em 3em 5em; */
+ 
     padding: 1.5em;
     border-radius: 3em;
     box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 8px;
@@ -70,6 +77,8 @@ Line 16 to 24 contents this resources. */
     align-items: center;
     justify-content: center;
     gap:2rem;
+    margin: 0 auto;
+ 
 }
 
 /** CSS functionality. */
@@ -78,7 +87,7 @@ Line 16 to 24 contents this resources. */
  flex-direction: row;
  width: 100%;
  justify-content: center;
- /* gap:4rem */
+ 
 }
 
 /** CSS functionality. */
@@ -126,19 +135,20 @@ Line 86 to 91 contents this resources. */
 =======
 
 .DailyCal-container>.Table-container{
-    margin-top: 1em;
+    margin-top: 5em;
     height: 100%; 
     width: 100%;
     background-color: white;
-    /* margin: 0 5em 3em 5em; */
-    /* padding: 1.5em; */
     border-radius: 3em;
-    /* box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 8px; */
     display: flex;
     flex-direction: column;
+
 }
 .Table-container>.Table-header{
     width: 100%;
+    padding-bottom: 4em;
+    font-weight: bold;
+    color: var(--wink-color)
 }
 .Table-header>.Header-container{
     display: flex;
@@ -147,24 +157,21 @@ Line 86 to 91 contents this resources. */
     gap: 10%;
     align-items: center;
     width: 80%;
-    margin-left: auto;
+    margin: 0 auto;
 }
 
-.Table-container>.Time-header{
+.Table-container>.Time-header-container{
+    width: 100%;
+}
+.Table-container>.Time-header-container>.Time-header{
     display: grid;
     grid-template-columns: repeat(13, 1fr);
     grid-column: 2/-1;
-    /* grid-template-rows: 1; */
-    left: 30%;
-    width: 86%;
-    margin-left:11em;
+    width: 78%;
+    margin: 0 1.8% 0 auto;
 }
-.Table-container>.Time-header>div{
+.Table-container>.Time-header-container>.Time-header>div{
     font-size: 10%;
-   
-    justify-self: end;
-  
-    /* right:-1em; */
 }
 
 .Table-container>.Table-body-container{
@@ -172,6 +179,25 @@ Line 86 to 91 contents this resources. */
     grid-template-columns: 20% 1fr;
     grid-template-rows: repeat(auto-fit, minmax(1em, 1fr));
     position: relative;
+    padding-top: 1em;
+    width: 90%;
+    align-self: center;
+}
+.Table-body-container>div{
+    border-bottom: 0.5px solid var(--grid-color);
+}
+.Table-body-container>.gridLines{
+    position: absolute;
+    display: flex;
+    left:20%;
+    width: 80%;
+    top:1em;
+    height: 100%;
+    border-left: 0.1px solid var(--grid-color);
+}
+.Table-body-container>.gridLines>div{
+    flex:1;
+    border-left: 0.1px solid rgba(255, 255, 255, 0.469);
 }
 .Table-body-container>.profile-container{
     grid-column: 1/2;
@@ -181,37 +207,61 @@ Line 86 to 91 contents this resources. */
     justify-content: center;
     gap:1em;
     height: 2em;
-    margin-bottom: 0.5em;
-    justify-content: start;
-}
-
-
-.Table-body-container> .Schedule{
-    position: relative;
-    /* height:3em; */
-    display: flex;
-    align-items: center;
-}
-.profile-container>.Schedule>.Full-bar{
-    position: relative;
-    height: 50%;
+    padding: 5% 15% ;
+    font-size: 0.75em;
+    width: 70%;
     
 }
-.profile-container.my>.Schedule{
-    position: relative;
+.profile-container.my>.name{
+font-weight: bold;
 }
-.gridLines{
-    position: absolute;
+.Table-body-container>.profile-container>.name{
+    width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}
+
+.Table-body-container>.schedules-container{
+   position:relative;
     display: flex;
-    /* grid-template-columns: repeat(24,1fr); */
-    left:20%;
-    width: 80%;
-    top:1em;
-    height: 100%;
-    border-right: 0.5px solid var(--grid-color);
+    align-items: center;
+    width: 100%;
+  
 }
+.Table-body-container>.schedules-container> .Schedule{
+    
+    position: absolute;
+    height:1.5em;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: auto 0;
+}
+.Table-body-container>.schedules-container>.Schedule>.Full-bar{
+    position: relative;
+    height: 100%
+    
+}
+.schedules-container>.Schedule>.Full-bar>.Percentage-bar{
+    position: relative
+}
+<<<<<<< HEAD
 .gridLines>div{
     flex:1;
     border-left: 0.5px solid var(--grid-color);
+}
+>>>>>>> main
+=======
+ .schedules-container>.Schedule>.Full-bar>.Percentage-bar>.text{
+    position: absolute;
+    top: 2em;
+    width: 100%;
+    height: 2em;
+    font-size: 0.8em;
+    background-color: white;
+    white-space: nowrap;
 }
 >>>>>>> main

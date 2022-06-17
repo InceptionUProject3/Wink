@@ -3,8 +3,8 @@ import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayMySched = (props) => {
-  const { myProfile,  displaySched, positions } = props;
- 
+  const { myProfile, displaySched, positions } = props;
+
   // console.log(myProfile)
   const findColor = () => {
     const myPositionObj = positions?.find(
@@ -21,15 +21,19 @@ const DisplayMySched = (props) => {
         {/* <ProfilePhoto profile={myProfile} /> */}
 
         <div className="title">
-          <ProfileIcon profile={myProfile} color={findColor()} />
+          <div className="iconNme">
+            <ProfileIcon profile={myProfile} color={findColor()} />
+            <div className="me">me</div>
+          </div>
           <div className="position">{myProfile?.position}</div>
         </div>
         <div className="Name-container">
-          <div className="firstname">{myProfile?.firstname},</div>
-          <div className="lastname">{myProfile?.lastname} (me)</div>
+          <div className="name">
+            {myProfile?.firstname}, {myProfile?.lastname}{" "}
+          </div>
         </div>
       </div>
-      { displaySched(myProfile?.schedules)}
+      {displaySched(myProfile?.schedules)}
     </>
   );
 };

@@ -20,8 +20,7 @@ export const DailyTableHeader = (props) => {
         <IconContext.Provider value={{ className: "buttons" }}>
           <MdOutlineArrowBackIos onClick={moveToYesterday} />
           <div className="DayInHeader">
-            <div>{selectedDay?.format("MMM DD")},</div>
-            <div>{selectedDay?.format("ddd")}</div>
+            <div>{selectedDay?.format("MMM Do, ddd")}</div>
           </div>
           <MdOutlineArrowForwardIos onClick={moveToTomorrow} />
         </IconContext.Provider>

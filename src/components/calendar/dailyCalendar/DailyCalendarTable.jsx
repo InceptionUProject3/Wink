@@ -14,8 +14,6 @@ import TableGrid from "./TableGrid";
 const DailyCalendarTable = (props) => {
   const { positions, selectedDay, setSelectedDay, daySchedules } = props;
 
-  const [timeDisplay, setTimeDisplay] = useState(false);
-
   const userId = useContext(LoginContext).user?.id || 9;
   const dayStart = selectedDay.clone().startOf("day");
   const dayEnd = selectedDay.clone().endOf("day");
@@ -33,19 +31,18 @@ const DailyCalendarTable = (props) => {
   };
   // console.log('time display', timeDisplay)
 
-  const displaySched = (schedules) => {
+  const displaySched = (schedules, index) => {
     //most of case schedule is one. For some case, can be more than two
     return schedules?.map((sched, i) => {
       const schedFrom = moment(sched.starttime);
       const schedTo = moment(sched.endtime);
       const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
       const newTo = schedTo < dayEnd ? schedTo : dayEnd;
+
       return (
         <div
           key={`Dailyched ${schedules?.scheduleId} ${i}`}
-          className="Schedule"
-          onMouseEnter={() => setTimeDisplay(true)}
-          onMouseLeave={() => setTimeDisplay(false)}
+          className={`Schedule ${index} ${i}`}
         >
           <ScheduleBar
             dayStart={dayStart}
@@ -53,13 +50,9 @@ const DailyCalendarTable = (props) => {
             newFrom={newFrom}
             newTo={newTo}
             schedObj={sched}
+            profIndex={index}
+            schedIndex={i}
           />
-          
-          {timeDisplay && (
-            <div className="text">
-              {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
-            </div>
-          )}
         </div>
       );
     });
@@ -71,10 +64,11 @@ const DailyCalendarTable = (props) => {
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
       />
+      <div className="Time-header-container">
         <div className="Time-header">{displayTimes()}</div>
+      </div>
       <div className="Table-body-container">
-        
-        <TableGrid/>
+        <TableGrid />
         {daySchedules && (
           <MyDailySched
             mySched={findMy(daySchedules, userId)[0]}
@@ -82,7 +76,7 @@ const DailyCalendarTable = (props) => {
             displaySched={displaySched}
           />
         )}
-       
+
         {daySchedules && (
           <OthersDailyScheds
             othersScheds={filterOutMy(daySchedules, userId)}
@@ -90,9 +84,7 @@ const DailyCalendarTable = (props) => {
             displaySched={displaySched}
           />
         )}
-      
       </div>
-      
     </div>
   );
 };

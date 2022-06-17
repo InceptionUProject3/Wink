@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /** Import resorces from files. It work as a "tools" to produce the functionality of the app. */
 import React from 'react'
 import moment from 'moment';
 =======
 import React from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> main
 import moment from "moment";
 
 import "./scheduleBar.css";
@@ -11,6 +15,7 @@ import "./scheduleBar.css";
 
 
 const ScheduleBar = (props) => {
+<<<<<<< HEAD
 <<<<<<< HEAD
     const {dayStart, dayEnd, schedFrom, schedTo, schedObj} = props;
     
@@ -69,6 +74,11 @@ const ScheduleBar = (props) => {
 =======
   const { dayStart, dayEnd, newFrom, newTo, schedObj } = props;
 
+=======
+  const { dayStart, dayEnd, newFrom, newTo, schedObj, schedIndex, profIndex } =
+    props;
+  const [timeDisplay, setTimeDisplay] = useState(-1);
+>>>>>>> main
   //  console.log(newFrom, newTo)
   //Divide maxmum of Bar every 15min
   const barLength = Math.round(moment(dayEnd - dayStart).unix() / 60 / 15);
@@ -77,6 +87,11 @@ const ScheduleBar = (props) => {
   const barStart = Math.round(moment(newFrom - dayStart).unix() / 60 / 15);
   const barEnd = Math.round(moment(newTo - dayStart).unix() / 60 / 15);
   // console.log("bar indexs", barStart, barEnd);
+<<<<<<< HEAD
+>>>>>>> main
+=======
+  const hrs =
+    Math.round((moment(newTo - newFrom).unix() / 60 / 60) * 100) / 100;
 >>>>>>> main
 
   if (schedObj.workcode === 0) {
@@ -88,11 +103,16 @@ const ScheduleBar = (props) => {
         >
           <div
             className="Percentage-bar working"
-            style={{ gridColumn: `${barStart+1}/${barEnd+1}` }}
+            style={{ gridColumn: `${barStart + 1}/${barEnd + 1}` ,zIndex:100}}
+            onMouseEnter={() => setTimeDisplay(`${profIndex} ${schedIndex}`)}
+            onMouseLeave={() => setTimeDisplay(-1)}
           >
-            <p className="hours">
-              {moment(newTo - newFrom).unix() / 60 / 60}hrs
-            </p>
+            <p className="hours">{hrs}hrs</p>
+            {profIndex && timeDisplay === `${profIndex} ${schedIndex}` && (
+              <div className="text">
+                {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+              </div>
+            )}
           </div>
         </div>
       </>
