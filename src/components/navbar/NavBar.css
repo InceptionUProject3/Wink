@@ -111,3 +111,13 @@ a  {
     top: -.40rem;
     bottom: -.50rem;
   }
+
+  .navbar-welcome {
+    display: flex;
+
+    position: relative;
+    padding-left: 1rem;
+    color:#00b3b4
+   
+    
+  }

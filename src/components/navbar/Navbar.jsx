@@ -14,28 +14,31 @@ const Navbar = () => {
 
   const loggedInUser = auth.user;
   const loggedInStore = store.store;
-  console.log("Navbar", loggedInStore.store.name);
+
   // const theStore = loggedInStore.store;
   // console.log("navbar", theStore);
   // const loading = auth.loading;
   return (
     <div className="navbar">
       <div className="container">
+        <ul>
         <h1>
           <img className="wink" src={wink} alt="" width="50" />
           
         </h1>
         {loggedInUser && (
-        <p className="navbar-welcome">
+        <h2 className="navbar-welcome">
           Welcome {loggedInUser.firstname}
-          </p>
+          </h2>
         )}
-        {loggedInStore && (
-        
+        {loggedInStore && loggedInUser && (
+        <h2 className="navbar-welcome" >
           <Link to="/selection">
 {loggedInStore.store.name}
 </Link>
+</h2>
         )}
+        </ul>
         <ul>
           {loggedInUser && (
             <li>
