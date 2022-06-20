@@ -1,17 +1,18 @@
 
 import React, {  useState } from "react";
 import { BsCalendar } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import './viewButtons.css'
 
 const ViewButtons = () => {
 
   const navigate = useNavigate();
-  const [selectedCal, setSelectedCal] = useState("monthly ");
+  const calendar = useLocation()?.pathname.split('/').pop();
+  const [selectedCal, setSelectedCal] = useState(calendar||"monthly");
+  // console.log("clicked" ,calendar)
  
   const buttonActive = (e) => {
     const clicked = e.currentTarget.className;
-    console.log("clicked" ,clicked)
     return setSelectedCal(clicked);
   };
 
