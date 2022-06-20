@@ -7,10 +7,9 @@ import "./DailyCalendar.css";
 import setPositionList from "../Reusables/functions/setPositionList";
 import { useContext } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
-import moment from "moment";
 
 const DailyCalendar = (props) => {
-  const { selectedDay, setSelectedDay } = props;
+  const { selectedDay, setSelectedDay,scheduleHrs,storeOpen } = props;
 
   //positon is set this level component to apply same color in child components
   const [positions, setPositions] = useState();
@@ -48,6 +47,8 @@ const DailyCalendar = (props) => {
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
         daySchedules={daySchedules}
+        storeOpen={storeOpen}
+        scheduleHrs={scheduleHrs}
       />
     </div>
   );

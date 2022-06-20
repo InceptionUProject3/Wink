@@ -19,7 +19,7 @@ const WeeklyTableBody = (props) => {
   const userId  = useContext(LoginContext).user?.id||9;
   const storeId = useContext(StoreContext).store?.Store_idStore||1;
   // console.log('calendar user',user)
-  const { selectedDay, storeOpen, storeClose } = props;
+  const { selectedDay, storeOpen, scheduleHrs } = props;
 
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
@@ -27,7 +27,7 @@ const WeeklyTableBody = (props) => {
 
   const startDay = selectedDay?.clone().startOf("week");
   const endDay = selectedDay?.clone().endOf("week");
-
+  const storeClose = storeOpen.clone().add(scheduleHrs,'hours')
   //need to fetch current logged in user useContext
   console.log("userid : ", userId,"storeid : ",storeId);
  
@@ -52,12 +52,7 @@ const WeeklyTableBody = (props) => {
         setScheduleData(() => null);
 
       }
-      //Filter cowokers' schedules and only bring those which meet this period condition. Send startDay and endDay and store info to find schedule to backend
-      // const thisWeekSched = mockScheduleData?.filter(
-      //   (sched) =>
-      //     moment(sched.endTime, "MMM DD YYYY HH:mm") > startDay &&
-      //     moment(sched.startTime, "MMM DD YYYY HH:mm") < endDay
-      // );
+
     };
     storeId&&getAllSchedules();
   }, [selectedDay,storeId]);

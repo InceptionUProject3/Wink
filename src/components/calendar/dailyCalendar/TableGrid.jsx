@@ -1,10 +1,11 @@
 import React from "react";
 
-const TableGrid = () => {
-  const flexboxes = () => {
+const TableGrid = (props) => {
+  const {hrs} = props;
+  const flexboxes = (division) => {
     let i = 0;
     const boxes = [];
-    while (i < 12) {
+    while (i < division) {
       let color
       const findstyle = (i) => {
         if ((i+1) % 2 === 0) {
@@ -19,7 +20,7 @@ const TableGrid = () => {
     // console.log("boxes",boxes)
     return boxes;
   };
-  return <div className="gridLines">{flexboxes()}</div>;
+  return <div className="gridLines">{flexboxes(hrs/2)}</div>;
 };
 
 export default TableGrid;

@@ -12,19 +12,20 @@ import ScheduleBar from "../Reusables/components/ScheduleBar";
 import TableGrid from "./TableGrid";
 
 const DailyCalendarTable = (props) => {
-  const { positions, selectedDay, setSelectedDay, daySchedules } = props;
+  const { positions, selectedDay, setSelectedDay, daySchedules , storeOpen, scheduleHrs} = props;
 
   const userId = useContext(LoginContext).user?.id || 9;
-  const dayStart = selectedDay.clone().startOf("day");
-  const dayEnd = selectedDay.clone().endOf("day");
+
+
+  const dayStart = selectedDay.clone().set({ h: storeOpen.hour(), m: storeOpen.minute() });
+  const dayEnd = selectedDay.clone().add(scheduleHrs,'hours')
 
   const displayTimes = () => {
     const timeArray = [];
-    // console.log("day start and end", dayStart, dayEnd);
-    const iterTimes = dayEnd?.diff(dayStart, "hours") + 2;
-    // console.group("itertimes", iterTimes);
+    const iterTimes = scheduleHrs + 2;
+  
     for (let i = 0; i < iterTimes; i = i + 2) {
-      timeArray.push(dayStart?.clone().add(i, "hours").format("h:mma"));
+      timeArray.push(dayStart?.clone().add(i, "hours").format("h:mm a"));
     }
     // console.log("timeArray", timeArray)
     return timeArray.map((time) => <div>{time}</div>);
@@ -68,7 +69,7 @@ const DailyCalendarTable = (props) => {
         <div className="Time-header">{displayTimes()}</div>
       </div>
       <div className="Table-body-container">
-        <TableGrid />
+        <TableGrid hrs={scheduleHrs}/>
         {daySchedules && (
           <MyDailySched
             mySched={findMy(daySchedules, userId)[0]}

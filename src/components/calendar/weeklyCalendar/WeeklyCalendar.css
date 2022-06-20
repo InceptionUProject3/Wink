@@ -16,7 +16,7 @@
 .Table-info> .Store-hours{
     display: flex;
     flex-direction: column;
-    width: 8em;
+    width: 10em;
     color: var(--font-darkgrey);
     gap: 0.4em;
 }
@@ -24,10 +24,18 @@
     display: flex;
     margin: 0;
 }
-.Store-hours span{
-    width: 100%;
+.Store-hours p > .at{
+    flex:1;
     text-align: start;
 }
+.Store-hours> p> .time{
+    flex:2;
+    text-align: start;
+}
+/* .Store-hours span{
+    width: 100%;
+    text-align: start;
+} */
 .Table-info>.right{
     display: flex;
     flex-direction: column;

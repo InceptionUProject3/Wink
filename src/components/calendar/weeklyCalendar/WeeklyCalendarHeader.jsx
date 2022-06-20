@@ -2,19 +2,20 @@ import React from "react";
 import { VscCircleFilled } from "react-icons/vsc";
 
 const WeeklyCalendarHeader = (props) => {
-  const { storeOpen, storeClose } = props;
+  const { storeOpen, scheduleHrs } = props;
+  const storeClose = storeOpen.clone().add(scheduleHrs, "hours");
 
   return (
     <div className="Table-info-header">
       <div className="Table-info">
         <div className="Store-hours">
           <p className="open">
-            <span>From</span>
-            <span> {storeOpen.format("HH:mm")}</span>
+            <span className="at">From</span>
+            <span className="time"> {storeOpen.format("h:mm a")}</span>
           </p>
           <p className="close">
-            <span>To</span>
-            <span> {storeClose.format("HH:mm")}</span>
+            <span className="at">To</span>
+            <span className="time"> {storeClose.format("h:mm a")}</span>
           </p>
         </div>
 

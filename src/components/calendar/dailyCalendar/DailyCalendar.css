@@ -81,7 +81,7 @@
 }
 .Table-container>.Time-header-container>.Time-header{
     display: grid;
-    grid-template-columns: repeat(13, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-column: 2/-1;
     width: 78%;
     margin: 0 1.8% 0 auto;
