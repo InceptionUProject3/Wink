@@ -26,14 +26,15 @@ const Navbar = () => {
           
         </h1>
         {loggedInUser && (
-        <div className="navbar-welcome">
+        <p className="navbar-welcome">
           Welcome {loggedInUser.firstname}
-          </div>
+          </p>
         )}
         {loggedInStore && (
-        <div className="navbar-location">
+        
+          <Link to="/selection">
 {loggedInStore.store.name}
-          </div>
+</Link>
         )}
         <ul>
           {loggedInUser && (
