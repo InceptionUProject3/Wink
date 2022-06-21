@@ -9,7 +9,7 @@ const WeeklyCalendar = (props) => {
   const{selectedDay, setSelectedDay, scheduleHrs, storeOpen} = props;
   const [daysInWeek, setDaysInWeek] = useState();
 
-
+console.log('weekly calendar store hours', storeOpen)
   useEffect(() => {
     const startDayOfWeek = selectedDay?.clone().startOf("week");
     const endDayOfWeek = selectedDay?.clone().endOf("week");

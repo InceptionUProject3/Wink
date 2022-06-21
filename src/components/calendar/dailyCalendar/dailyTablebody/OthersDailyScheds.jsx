@@ -9,11 +9,16 @@ const OthersDailyScheds = (props) => {
     const groupByPosition = () => {
       const initialVal = {};
       return othersScheds?.reduce((acc, current) => {
-        if (!acc[current.position]) {
-          acc[current.position] = [];
+        //filter empty schedules
+        // console.log(current.firstname)
+        if(current.schedules.length!==0){
+          
+          if (!acc[current.position]) {
+            acc[current.position] = [];
+          }
+          
+          acc[current.position].push(current);
         }
-
-        acc[current.position].push(current);
         return acc;
       }, initialVal);
     };
@@ -39,7 +44,7 @@ const OthersDailyScheds = (props) => {
                 </div>
               </div>
             <div className="schedules-container other">
-
+              {/* {console.log(sched?.firstname)} */}
               {displaySched(sched?.schedules, sched?.userId)}
             </div>
             </React.Fragment>)

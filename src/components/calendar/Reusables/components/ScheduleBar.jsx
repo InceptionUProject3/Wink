@@ -7,7 +7,7 @@ const ScheduleBar = (props) => {
   const { dayStart, dayEnd, newFrom, newTo, schedObj, schedIndex, profIndex } =
     props;
   const [timeDisplay, setTimeDisplay] = useState(-1);
-  //  console.log(newFrom, newTo)
+  //  console.log(dayStart, dayEnd)
   //Divide maxmum of Bar every 15min
   const barLength = Math.round(moment(dayEnd - dayStart).unix() / 60 / 15);
 

@@ -29,7 +29,7 @@ const DisplayMySched = (props) => {
         </div>
         <div className="Name-container">
           <div className="name">
-            {myProfile?.firstname}, {myProfile?.lastname}{" "}
+            {myProfile?.firstname}, {myProfile?.lastname}
           </div>
         </div>
       </div>

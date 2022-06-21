@@ -15,12 +15,13 @@ const DailyCalendar = (props) => {
   const [positions, setPositions] = useState();
   const [daySchedules, setDaySchedules] = useState();
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-
+const[loading, setLoading] = useState(true);
   //set sd
   useEffect(() => {
     const getAllSchedules = async () => {
       try {
         const day = selectedDay.clone().format("YYYY-MM-DD");
+        // console.log('selectedday', day)
         const schedules = await fetch(
           `/api/schedule/day?storeId=${storeId}&day=${day}`
         );
@@ -31,6 +32,7 @@ const DailyCalendar = (props) => {
 
         const positionArray = setPositionList(res);
         setPositions(() => positionArray);
+        
       } catch (err) {
         console.log("Failed to fetch day schedules");
         setDaySchedules(() => null);

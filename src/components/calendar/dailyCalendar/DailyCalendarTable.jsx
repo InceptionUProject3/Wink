@@ -16,10 +16,9 @@ const DailyCalendarTable = (props) => {
 
   const userId = useContext(LoginContext).user?.id || 9;
 
-
-  const dayStart = selectedDay.clone().set({ h: storeOpen.hour(), m: storeOpen.minute() });
-  const dayEnd = selectedDay.clone().add(scheduleHrs,'hours')
-
+  const dayStart = selectedDay?.clone().set({ h: storeOpen.hour(), m: storeOpen.minute() });
+  const dayEnd = dayStart?.clone().add(scheduleHrs,'hours')
+  // console.log("Daily: day start and end", selectedDay, dayStart, dayEnd, storeOpen, scheduleHrs)
   const displayTimes = () => {
     const timeArray = [];
     const iterTimes = scheduleHrs + 2;
@@ -35,27 +34,32 @@ const DailyCalendarTable = (props) => {
   const displaySched = (schedules, index) => {
     //most of case schedule is one. For some case, can be more than two
     return schedules?.map((sched, i) => {
+      console.log("schedule", sched);
       const schedFrom = moment(sched.starttime);
       const schedTo = moment(sched.endtime);
-      const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
-      const newTo = schedTo < dayEnd ? schedTo : dayEnd;
+      
+      if(schedTo > dayStart && schedFrom < dayEnd){
 
-      return (
-        <div
-          key={`Dailyched ${schedules?.scheduleId} ${i}`}
-          className={`Schedule ${index} ${i}`}
-        >
-          <ScheduleBar
-            dayStart={dayStart}
-            dayEnd={dayEnd}
-            newFrom={newFrom}
-            newTo={newTo}
-            schedObj={sched}
-            profIndex={index}
-            schedIndex={i}
-          />
-        </div>
-      );
+        const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
+        const newTo = schedTo < dayEnd ? schedTo : dayEnd;
+        console.log('newdates', newFrom, newTo)
+        return (
+          <div
+            key={`Dailyched ${schedules?.scheduleId} ${i}`}
+            className={`Schedule ${index} ${i}`}
+          >
+            <ScheduleBar
+              dayStart={dayStart}
+              dayEnd={dayEnd}
+              newFrom={newFrom}
+              newTo={newTo}
+              schedObj={sched}
+              profIndex={index}
+              schedIndex={i}
+            />
+          </div>
+        );
+      }
     });
   };
 

@@ -16,8 +16,8 @@ import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
 
 const WeeklyTableBody = (props) => {
-  const userId  = useContext(LoginContext).user?.id||9;
-  const storeId = useContext(StoreContext).store?.Store_idStore||1;
+  const userId = useContext(LoginContext).user?.id || 9;
+  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
   // console.log('calendar user',user)
   const { selectedDay, storeOpen, scheduleHrs } = props;
 
@@ -27,35 +27,33 @@ const WeeklyTableBody = (props) => {
 
   const startDay = selectedDay?.clone().startOf("week");
   const endDay = selectedDay?.clone().endOf("week");
-  const storeClose = storeOpen.clone().add(scheduleHrs,'hours')
+  const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
   //need to fetch current logged in user useContext
-  console.log("userid : ", userId,"storeid : ",storeId);
- 
+  console.log("userid : ", userId, "storeid : ", storeId);
 
   //set schdules & position colors
   useEffect(() => {
     const getAllSchedules = async () => {
-      try{//need to fetch schedule with priod from server
-      const weekStart = startDay.clone().format("YYYY-MM-DD");
-      // console.log("weekstart", selectedDay, weekStart);
-      const res = await fetch(
-        `/api/schedule/week?storeId=${storeId}&startDay=${weekStart}`
-      );
-      const scheduleData = await res.json();
-      // console.log('fetched data', scheduleData)
-      setScheduleData(() => scheduleData);
-      //enable this line chduleData
-      const positionArray = scheduleData && setPositionList(scheduleData);
-      setPositions(positionArray);}
-      catch(err){
-        console.log("failed to fetch schedule data", err)
+      try {
+        //need to fetch schedule with priod from server
+        const weekStart = startDay.clone().format("YYYY-MM-DD");
+        // console.log("weekstart", selectedDay, weekStart);
+        const res = await fetch(
+          `/api/schedule/week?storeId=${storeId}&startDay=${weekStart}`
+        );
+        const scheduleData = await res.json();
+        // console.log('fetched data', scheduleData)
+        setScheduleData(() => scheduleData);
+        //enable this line chduleData
+        const positionArray = scheduleData && setPositionList(scheduleData);
+        setPositions(positionArray);
+      } catch (err) {
+        console.log("failed to fetch schedule data", err);
         setScheduleData(() => null);
-
       }
-
     };
-    storeId&&getAllSchedules();
-  }, [selectedDay,storeId]);
+    storeId && getAllSchedules();
+  }, [selectedDay, storeId]);
 
   useEffect(() => {
     const weekArray = [];
@@ -74,13 +72,13 @@ const WeeklyTableBody = (props) => {
       const oneDay = moment(day, "MMM DD YYYY HH:mm");
       const dayStart = oneDay
         .clone()
-        .set({ h: storeOpen.hour(), m: storeOpen.minute() });
+        .set({ h: storeOpen?.hour(), m: storeOpen?.minute() });
       const dayEnd = oneDay.set({
-        h: storeClose.hour(),
-        m: storeClose.minute(),
+        h: storeClose?.hour(),
+        m: storeClose?.minute(),
       });
 
-      // console.log("sched", schedules);
+      console.log("sched", schedules);
       const foundSched = schedules?.find(
         (sched) =>
           moment(sched.endtime) > dayStart && moment(sched.starttime) < dayEnd
@@ -95,7 +93,7 @@ const WeeklyTableBody = (props) => {
           ></div>
         );
       } else if (foundSched) {
-        // console.log('day period', dayStart, dayEnd)
+        // console.log("day period", dayStart, dayEnd);
         // console.log("foundSched", foundSched);
         const schedFrom = moment(foundSched.starttime);
         const schedTo = moment(foundSched.endtime);
@@ -112,9 +110,11 @@ const WeeklyTableBody = (props) => {
               newTo={newTo}
               schedObj={foundSched}
             />
-            <div className="text">
+            {foundSched.workcode === 0 && (
+              <div className="text">
                 {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
               </div>
+            )}
           </div>
         );
       }
@@ -123,11 +123,10 @@ const WeeklyTableBody = (props) => {
 
   return (
     <>
-   
       <div className="Empty-div"></div>
       {scheduleData && (
         <DisplayMySched
-          myProfile={userId&&findMy(scheduleData, userId)[0]}
+          myProfile={userId && findMy(scheduleData, userId)[0]}
           displaySched={displaySched}
           positions={positions}
         />
@@ -135,7 +134,7 @@ const WeeklyTableBody = (props) => {
 
       {scheduleData && (
         <DisplayOthersSched
-          cowokerProfs={userId&&filterOutMy(scheduleData, userId)}
+          cowokerProfs={userId && filterOutMy(scheduleData, userId)}
           positions={positions}
           displaySched={displaySched}
         />
