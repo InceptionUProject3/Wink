@@ -4,18 +4,41 @@ import wink from "../../images/wink.logo.png";
 import { Link, NavLink } from "react-router-dom";
 
 import { LoginContext } from "../authentication/LoginProvider";
+import { StoreContext } from "../authentication/StoreProvider";
 
 const Navbar = () => {
   const auth = useContext(LoginContext);
+  const store = useContext(StoreContext);
+
+
 
   const loggedInUser = auth.user;
+  const loggedInStore = store.store;
+
+  // const theStore = loggedInStore.store;
+  // console.log("navbar", theStore);
   // const loading = auth.loading;
   return (
     <div className="navbar">
       <div className="container">
+        <ul>
         <h1>
           <img className="wink" src={wink} alt="" width="50" />
+          
         </h1>
+        {loggedInUser && (
+        <h2 className="navbar-welcome">
+          Welcome {loggedInUser.firstname}
+          </h2>
+        )}
+        {loggedInStore && loggedInUser && (
+        <h2 className="navbar-welcome" >
+          <Link to="/selection">
+{loggedInStore.store.name}
+</Link>
+</h2>
+        )}
+        </ul>
         <ul>
           {loggedInUser && (
             <li>
