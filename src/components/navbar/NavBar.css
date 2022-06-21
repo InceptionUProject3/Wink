@@ -114,6 +114,7 @@ a  {
     bottom: -.50rem;
   }
 
+<<<<<<< HEAD
   .menu:last-child {
     font-weight: 300;
     padding: 5px 10px;
@@ -149,4 +150,14 @@ a  {
       font-size: 14px;
       margin-left: 10px;
     }
+=======
+  .navbar-welcome {
+    display: flex;
+
+    position: relative;
+    padding-left: 1rem;
+    color:#00b3b4
+   
+    
+>>>>>>> main
   }
