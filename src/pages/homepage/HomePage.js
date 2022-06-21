@@ -14,6 +14,7 @@ const storeContext = useContext(StoreContext);
 // console.log("this is on the homepage", storeContext);
   const [show, setShow] = useState(false);
   const [selectedDay, setSelectedDay] = useState(moment());
+
   return (
     <div className="home">
       <div className="calendar-container">

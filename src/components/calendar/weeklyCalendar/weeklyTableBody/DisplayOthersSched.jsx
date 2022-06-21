@@ -14,8 +14,12 @@ const DisplayOthersSched = (props) => {
         if (!acc[current.position]) {
           acc[current.position] = [];
         }
-
+       
         acc[current.position].push(current);
+        //order emplyees in every group
+        acc[current.position]?.sort((a,b)=>a.firstname>b.firstname?1:-1)
+        // console.log('after', acc[current.position])
+        
         return acc;
       }, initialVal);
     };

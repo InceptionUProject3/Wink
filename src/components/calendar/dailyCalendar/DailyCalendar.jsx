@@ -7,16 +7,23 @@ import "./DailyCalendar.css";
 import setPositionList from "../Reusables/functions/setPositionList";
 import { useContext } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
+import moment from "moment";
 
 const DailyCalendar = (props) => {
-  const { selectedDay, setSelectedDay,scheduleHrs,storeOpen } = props;
+  const { selectedDay, setSelectedDay } = props;
 
   //positon is set this level component to apply same color in child components
   const [positions, setPositions] = useState();
   const [daySchedules, setDaySchedules] = useState();
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-const[loading, setLoading] = useState(true);
-  //set sd
+
+  const storeTimeZone =
+    useContext(StoreContext).store?.store.timeZone || "America/New_York";
+  const userTimeZone = moment.tz.guess();
+  //  console.log(userTimeZone)
+  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
+  const scheduleHrs = 18;
+
   useEffect(() => {
     const getAllSchedules = async () => {
       try {

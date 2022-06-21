@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 
 const OthersDailyScheds = (props) => {
-  const { othersScheds, positions,displaySched } = props;
+  const { othersScheds, positions, displaySched } = props;
   const [groupedScheds, setGroupedScheds] = useState();
 
   useEffect(() => {
     const groupByPosition = () => {
       const initialVal = {};
       return othersScheds?.reduce((acc, current) => {
-        //filter empty schedules
         // console.log(current.firstname)
+        //filter empty schedules
         if(current.schedules.length!==0){
           
           if (!acc[current.position]) {
@@ -19,10 +19,15 @@ const OthersDailyScheds = (props) => {
           
           acc[current.position].push(current);
         }
+     
+        //order emplyees in every group
+        acc[current.position]?.sort((a,b)=>a.firstname>b.firstname?1:-1)
+        // console.log('after', acc[current.position])
         return acc;
       }, initialVal);
     };
     const groupedObj = groupByPosition();
+    console.log("ordered", groupedObj)
     setGroupedScheds(() => groupedObj);
   }, [othersScheds]);
 
@@ -31,7 +36,7 @@ const OthersDailyScheds = (props) => {
       {positions?.map((position, i) => {
         const empInPosition = groupedScheds && groupedScheds[position.position];
         if (empInPosition) {
-          // console.log('others day positon', position)
+          console.log('others day positon', position)
           return empInPosition?.map((sched, index) => {
             return (<React.Fragment key={`OtherDaySched ${i} ${index} `}>
               <div

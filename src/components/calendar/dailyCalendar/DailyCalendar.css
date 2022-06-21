@@ -75,6 +75,9 @@
     width: 80%;
     margin: 0 auto;
 }
+.Header-container>.DayInHeader{
+    width: 15%;
+}
 
 .Table-container>.Time-header-container{
     width: 100%;

@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 // import DailyTableBody from "./DailyTableBody";
 import { DailyTableHeader } from "./DailyTableHeader";
 
@@ -42,7 +42,7 @@ const DailyCalendarTable = (props) => {
 
         const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
         const newTo = schedTo < dayEnd ? schedTo : dayEnd;
-        console.log('newdates', newFrom, newTo)
+        // console.log('newdates', newFrom, newTo)
         return (
           <div
             key={`Dailyched ${schedules?.scheduleId} ${i}`}

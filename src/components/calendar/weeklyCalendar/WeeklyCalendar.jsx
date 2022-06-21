@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import WeeklyTableHeader from "./WeeklyTableHeader";
 import WeeklyCalendarBody from "./WeeklyTableBody";
 import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
 import "./WeeklyCalendar.css";
+import moment from "moment";
+import { StoreContext } from "../../authentication/StoreProvider";
 
 const WeeklyCalendar = (props) => {
   //selectedDay is a standard day
-  const{selectedDay, setSelectedDay, scheduleHrs, storeOpen} = props;
+  const { selectedDay, setSelectedDay } = props;
   const [daysInWeek, setDaysInWeek] = useState();
 
-console.log('weekly calendar store hours', storeOpen)
+  const storeTimeZone =
+    useContext(StoreContext).store?.store.timeZone || "America/New_York";
+  const userTimeZone = moment.tz.guess();
+  //  console.log(userTimeZone)
+  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
+  const scheduleHrs = 18;
+
   useEffect(() => {
     const startDayOfWeek = selectedDay?.clone().startOf("week");
     const endDayOfWeek = selectedDay?.clone().endOf("week");
@@ -26,10 +34,7 @@ console.log('weekly calendar store hours', storeOpen)
 
   return (
     <div className="Weekly-calendar-container">
-      <WeeklyCalendarHeader
-        storeOpen={storeOpen}
-        scheduleHrs = {scheduleHrs}
-      />
+      <WeeklyCalendarHeader storeOpen={storeOpen} scheduleHrs={scheduleHrs} />
       <div className="Weekly-calendar">
         <WeeklyTableHeader
           selectedDay={selectedDay}
@@ -40,7 +45,7 @@ console.log('weekly calendar store hours', storeOpen)
         <WeeklyCalendarBody
           selectedDay={selectedDay}
           storeOpen={storeOpen}
-          scheduleHrs = {scheduleHrs}
+          scheduleHrs={scheduleHrs}
         />
       </div>
     </div>
