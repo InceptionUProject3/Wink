@@ -13,6 +13,8 @@ const StoreProvider = (props) => {
   const user = authContext.user;
   const [allStores, setAllStores] = useState([]);
   const navigate = useNavigate();
+  const [filteredStores, setFilteredStores] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("")
   let userToSend = JSON.stringify(user);
   useEffect(() => {
     const getStore = async () => {
@@ -31,6 +33,12 @@ const StoreProvider = (props) => {
     };
     getStore(userToSend);
   }, [userToSend]);
+
+  useEffect(() => {
+    let newStores = allStores.filter( (profile) => profile.store.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    setFilteredStores(newStores);
+  },
+  [searchTerm, allStores])
  
   const profiles = (profile) => {
     storeContext.setStore(profile);
@@ -39,11 +47,11 @@ const StoreProvider = (props) => {
   };
 // console.log("this is the store context", storeContext)
   return (<div><h1 className="location-header"> Please select your location: </h1>
-    
+   <input type="text" placeholder="Search..." value={searchTerm} onChange={event => {setSearchTerm(event.target.value)}} style={{marginTop: "20px"}} />
     <div className='location-container'>
-      
-      {allStores ? (
-        allStores.map((profile, index) => {
+    
+      {filteredStores ? (
+        filteredStores.map((profile, index) => {
           return (
             <button className='location-button'
               onClick={() => {
