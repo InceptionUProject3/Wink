@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Container } from "@mui/system";
-import MonthlyCalendarHeader from "./MonthlyCalendarHeader"
+import MonthlyCalendarHeader from "./MonthlyCalendarHeader";
 
-import "./monthlyCalendar.css"
+import "./monthlyCalendar.css";
 
-const MonthlyCalendar = () => {
+const MonthlyCalendar = (props) => {
   const weekdayHeaders = [
     "Sunday",
     "Monday",
@@ -18,8 +18,9 @@ const MonthlyCalendar = () => {
 
   const [today, setToday] = useState(moment());
   const [monInCalendar, setMonInCalendar] = useState(moment());
+  const [theDate, setDate] = useState(new Date());
   const [nav, setNav] = useState(0);
-  const theDate = new Date();
+  //const theDate = new Date();
   const month = theDate.getMonth();
   const year = theDate.getFullYear();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -33,7 +34,9 @@ const MonthlyCalendar = () => {
       month: "numeric",
       day: "numeric",
     });
+
     const paddingDays = weekdayHeaders.indexOf(dateString.split(", ")[0]);
+    const endPaddingDays = 7 - ((paddingDays + daysInMonth) % 7);
     let monthArray = [];
 
     for (let i = 1; i <= paddingDays + daysInMonth; i++) {
@@ -52,31 +55,42 @@ const MonthlyCalendar = () => {
         });
       }
     }
+
+    for (let i = 0; i < endPaddingDays; i++) {
+      monthArray.push({
+        value: "",
+        isCurrentDay: false,
+        date: "",
+      });
+    }
+
     setToday();
     setMonthsArray(monthArray);
-  }, []);
-  
- return (
+  }, [theDate]);
+
+  return (
     <div>
       <div>
         <Container alignContent={"center"}>
           <br />
-          <MonthlyCalendarHeader monInCalendar={monInCalendar} setMonInCalendar={setMonInCalendar} weekdayHeaders={weekdayHeaders}/>
-          
-          <br />
-          
-          <div className="mainGridStyle">
-             {/* <div className="style">           */}
-            {monthsArray?.map((day, index) => {
-              
-              // console.log("day is", day);
-              return <div key={`day ${index}`}>
-                <div className="text">
-                {day.value}</div></div>;
-            })}
+          <MonthlyCalendarHeader
+            monInCalendar={monInCalendar}
+            setMonInCalendar={setMonInCalendar}
+            weekdayHeaders={weekdayHeaders}
+            setDate={setDate}
+          />
 
-            {/* </div> */}
-            
+          <br />
+
+          <div className="mainGridStyle">
+            {monthsArray?.map((day, index) => {
+              // console.log("day is", day);
+              return (
+                <div key={`day ${index}`}>
+                  <div className="text">{day.value}</div>
+                </div>
+              );
+            })}
           </div>
         </Container>
       </div>
