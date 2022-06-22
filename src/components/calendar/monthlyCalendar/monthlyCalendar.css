@@ -17,11 +17,41 @@
     justify-content: center;
     align-items: center;
     gap: 2em;
-
+    cursor: pointer;
+    
 }
 
 .MonthInHeader{
     width:7em;
+}
+
+.addEventButton {
+    
+    position:center;
+    height: 12px ;
+    width: 12px;
+    background-color: rgb(238, 235, 235);
+    border: 0;
+    color: black ;
+    font-weight:90;
+    font-size: 8;
+    padding: 1px;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 0px 2px 2px lightgray;
+    transition: ease background-color 250ms;
+    
+}
+
+.eventDiv{
+    position :relative
+}
+
+.eventDivDiv{
+    position:absolute;
+    top:0;
+    right:0;
+   
 }
 
 .buttons{
