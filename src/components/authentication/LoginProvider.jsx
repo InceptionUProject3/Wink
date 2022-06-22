@@ -20,13 +20,17 @@ const LoginProvider = (props) => {
     const getUser = async () => {
       try {
         const response = await fetch("/api/loggedInUser");
-        const userData = await response.json();
-        console.log(response);
-        setUser(userData);
+        if (!response.ok) {
+          console.error("error getting user");
+        } else {
+          const userData = await response.json();
+          console.log(response);
+          setUser(userData);
 
-        console.log(userData);
+          console.log(userData);
+        }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
       setLoading(false);
     };
