@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React from 'react'
-import './todayButton.css'
+import './style/todayButton.css'
 
 const TodayButton = (props) => {
     const {setSelectedDay} = props;

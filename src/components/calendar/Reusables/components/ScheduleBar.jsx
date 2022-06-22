@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
 
-import "./scheduleBar.css";
+import "./style/scheduleBar.css";
 
 const ScheduleBar = (props) => {
   const { dayStart, dayEnd, newFrom, newTo, schedObj, schedIndex, profIndex } =
