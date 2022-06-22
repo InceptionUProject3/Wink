@@ -5,7 +5,7 @@ const LocationFilters = (props) => {
 
   return (
     <section className="filters" aria-labelledby="filters-header">
-      <header id="filters-header">{"Filters"}</header>
+      {/* <header id="filters-header">{"Filters"}</header> */}
 
       <ul>
         {profiles.map((profile, index) => (
