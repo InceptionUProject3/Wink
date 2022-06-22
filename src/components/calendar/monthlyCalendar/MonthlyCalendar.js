@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Container } from "@mui/system";
 import MonthlyCalendarHeader from "./MonthlyCalendarHeader";
+import AddEvent from "./AddEvent";
 
 import "./monthlyCalendar.css";
 
@@ -20,12 +21,12 @@ const MonthlyCalendar = (props) => {
   const [monInCalendar, setMonInCalendar] = useState(moment());
   const [theDate, setDate] = useState(new Date());
   const [nav, setNav] = useState(0);
-  //const theDate = new Date();
   const month = theDate.getMonth();
   const year = theDate.getFullYear();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, month, 1);
   const [monthsArray, setMonthsArray] = useState();
+  const [addEvent, setAddEvent] = useState();
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -84,9 +85,14 @@ const MonthlyCalendar = (props) => {
 
           <div className="mainGridStyle">
             {monthsArray?.map((day, index) => {
-              // console.log("day is", day);
+              
               return (
-                <div key={`day ${index}`}>
+                <div className="eventDiv" key={`day ${index}`}>
+                  <div className="eventDivDiv">
+                    <AddEvent 
+                    addEvent={addEvent}
+                    />
+                  </div>
                   <div className="text">{day.value}</div>
                 </div>
               );
