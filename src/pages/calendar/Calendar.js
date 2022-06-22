@@ -17,7 +17,7 @@ import SwapShiftModal from "../../components/calendar/Reusables/components/SwapS
 const Calendar = () => {
 
   const [selectedDay, setSelectedDay] = useState(moment());
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
