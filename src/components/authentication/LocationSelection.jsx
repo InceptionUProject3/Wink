@@ -5,7 +5,7 @@ import Location from "./Location";
 import { StoreContext } from "./StoreProvider";
 import "./LocationSelection.css";
 import LocationFilters from "./LocationFilters";
-import { useCallback } from "react";
+
 
 const LocationSelection = (props) => {
   const authContext = useContext(LoginContext);
@@ -91,12 +91,13 @@ const LocationSelection = (props) => {
         }}
         style={{ marginTop: "20px" }}
       />
-      <div className="location-container">
-        <LocationFilters
+      <LocationFilters
         state={state}
           profiles={provinces}
           onFilterChange={handleFilterChange}
         />
+      <div className="location-container">
+        
         {filteredStores ? (
           filteredStores.map((profile, index) => {
             return (
