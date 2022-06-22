@@ -4,19 +4,19 @@
     display: flex;
     
 background-color: rgba(210, 228, 227, 0.495);
-border-radius: 0.5em;
+border-radius: 0.5rem;
 
 }
 .View-buttons> button{
     position: relative;
     border: none;
-    border-radius: 0.8em;
-    width: 2.5em;
-    height: 2.5em;
+    border-radius: 0.5rem;
+
+    height: 2.1rem;
     cursor: pointer;
     background-color: transparent;
     
-    width: 3em;
+    width: 2.4rem;
 }
 .View-buttons>button>svg{
     position: absolute;

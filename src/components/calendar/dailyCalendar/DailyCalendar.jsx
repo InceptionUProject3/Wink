@@ -34,7 +34,7 @@ const DailyCalendar = (props) => {
         );
 
         const res = await schedules.json();
-        console.log("response schedules", res);
+        // console.log("response schedules", res);
         setDaySchedules(() => res);
 
         const positionArray = setPositionList(res);

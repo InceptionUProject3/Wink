@@ -1,8 +1,8 @@
 
 import React, {  useState } from "react";
 import { BsCalendar } from "react-icons/bs";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
-import './viewButtons.css'
+import { useNavigate, useLocation } from "react-router-dom";
+import './style/viewButtons.css'
 
 const ViewButtons = () => {
 

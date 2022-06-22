@@ -1,9 +1,9 @@
 .today{
     
-    height: 3.5em;
-    width: 3.5em;
+    height: 2.1rem;
+    width: 2.1rem;
    border: none;
-   border-radius: 1em;
+   border-radius: 0.5rem;
    background: var(--wink-color);
    padding: 0.2em;
    color: white;

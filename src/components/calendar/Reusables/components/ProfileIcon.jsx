@@ -1,5 +1,5 @@
 import React from "react";
-import './profileIcon.css'
+import './style/profileIcon.css'
 import { FaCircle } from "react-icons/fa";
 
 export const ProfileIcon = (props) => {

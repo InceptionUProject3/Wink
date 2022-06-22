@@ -1,25 +1,39 @@
+.Calendars{
+    display: flex;
+}
 .Calendars-container{
     display: flex;
     flex-direction: column;
     /* margin: 10em auto 0 auto; */
-    margin: 5em auto 0 auto;
-    width: 82%;
-    /* width: 100%; */
-    /* height: 30em;  */
+    margin: 3.7rem auto 0 auto;
+    width: 60%;
     height: 100%;
     padding: 7em;
      border-radius: 3.5em;
      /* box-shadow: var(--background-shadow); */
      min-width: 36em;
      gap:1em;
-    overflow-y: scroll;
+    /* overflow: scroll; */
 
 }
 
 .Calendars-container>.Calendar-header{
     display: flex;
     flex-direction: row;
-    justify-content: right;
+    /* justify-content: right; */
     gap:3em;  
     align-items: center;
+}
+
+.Calendar-header>.View-buttons{
+    margin-left: auto;
+
+}
+.Side-modal-container{
+    flex:1;
+    margin-top: 3.7rem;
+    border-left: var(--background-shadow);
+    box-shadow: 0px 10px 5px -2px #888;
+    height: 100vh;
+   
 }
