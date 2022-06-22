@@ -1,23 +1,25 @@
-import React, {  useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "./LoginProvider";
 import Location from "./Location";
 import { StoreContext } from "./StoreProvider";
 import "./LocationSelection.css";
+import LocationFilters from "./LocationFilters";
 
 
-
-const StoreProvider = (props) => {
+const LocationSelection = (props) => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
   const user = authContext.user;
   const [allStores, setAllStores] = useState([]);
   const navigate = useNavigate();
   const [filteredStores, setFilteredStores] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("")
-  let userToSend = JSON.stringify(user);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [provinces, setProvinces] = useState([]);
+  const [state, setState] = useState([]);
   useEffect(() => {
-    const getStore = async () => {
+    const getStore = async (theUser) => {
+      let userToSend = JSON.stringify(theUser);
       // console.log("sending userId: " + userToSend);
       const response = await fetch("/api/storeselection", {
         method: "POST",
@@ -26,48 +28,96 @@ const StoreProvider = (props) => {
         },
         body: userToSend,
       });
-      const userData = JSON.parse(await response.text());
+      const data = await response.text();
+      console.log("getting store data", data);
+      const userData = JSON.parse(data);
       // console.log(response);
       setAllStores(userData);
       // console.log("we have the user data", userData);
     };
-    getStore(userToSend);
-  }, [userToSend]);
+    if (user) {
+      getStore(user);
+    }
+  }, [user]);
 
   useEffect(() => {
-    let newStores = allStores.filter( (profile) => profile.store.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    let newStores = allStores.filter((profile) =>
+      profile.store.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    newStores = newStores.filter((profile) =>
+      state.includes(profile.store.province)
+    );
     setFilteredStores(newStores);
-  },
-  [searchTerm, allStores])
- 
+    
+  }, [searchTerm, allStores, state]);
+
   const profiles = (profile) => {
     storeContext.setStore(profile);
     navigate("/home");
     // console.log("the selected profile is", profile);
   };
-// console.log("this is the store context", storeContext)
-  return (<div><h1 className="location-header"> Please select your location: </h1>
-   <input type="text" placeholder="Search..." value={searchTerm} onChange={event => {setSearchTerm(event.target.value)}} style={{marginTop: "20px"}} />
-    <div className='location-container'>
-    
-      {filteredStores ? (
-        filteredStores.map((profile, index) => {
-          return (
-            <button className='location-button'
-              onClick={() => {
-                profiles(profile);
-              }}
-            >
-              <Location selectedProfile={profile} />
-            </button>
-          );
-        })
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div>
+  useEffect(() => {
+    let theProvinces = [...new Set(allStores.map((store) => store.store.province))];
+    setState(theProvinces)
+    setProvinces(theProvinces);
+  }, [allStores]);
+
+  const handleFilterChange = (event) => {
+    console.log("filter change", event.target.value);
+    setState((prevState) => {
+      let filters = [...prevState];
+
+      if (event.target.checked) {
+        filters.push(event.target.value);
+      } else {
+        filters = filters.filter((filter) => filter !== event.target.value);
+      }
+
+      console.log("filters", filters);
+      return filters;
+    });
+  };
+  console.log("the state is", state);
+  // console.log("this is the store context", storeContext)
+  return (
+    <div>
+      <h1 className="location-header"> Please select your location: </h1>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(event) => {
+          setSearchTerm(event.target.value);
+        }}
+        style={{ marginTop: "20px" }}
+      />
+      <LocationFilters
+        state={state}
+          profiles={provinces}
+          onFilterChange={handleFilterChange}
+        />
+      <div className="location-container">
+        
+        {filteredStores ? (
+          filteredStores.map((profile, index) => {
+            return (
+              <button
+                key={profile.store.name}
+                className="location-button"
+                onClick={() => {
+                  profiles(profile);
+                }}
+              >
+                <Location selectedProfile={profile} />
+              </button>
+            );
+          })
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default StoreProvider;
+export default LocationSelection;

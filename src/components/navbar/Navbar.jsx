@@ -26,18 +26,20 @@ const Navbar = () => {
           <img className="wink" src={wink} alt="" width="50" />
           
         </h1>
+        <div>
         {loggedInUser && (
-        <h2 className="navbar-welcome">
+        <h4 className="navbar-welcome">
           Welcome {loggedInUser.firstname}
-          </h2>
+          </h4>
         )}
         {loggedInStore && loggedInUser && (
-        <h2 className="navbar-welcome" >
+        <h4 className="navbar-welcome" >
           <Link to="/selection">
 {loggedInStore.store.name}
 </Link>
-</h2>
+</h4>
         )}
+        </div>
         </ul>
         <ul>
           {loggedInUser && (
