@@ -9,21 +9,21 @@ import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
 import ScheduleBar from "../Reusables/components/ScheduleBar";
 import setPositionList from "../Reusables/functions/setPositionList";
-import findMy from "../Reusables/functions/findMy";
-import filterOutMy from "../Reusables/functions/filterOutMy";
 
 import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
 
 const WeeklyTableBody = (props) => {
-  const userId = useContext(LoginContext).user?.id || 9;
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  // console.log('calendar user',user)
   const { selectedDay, storeOpen, scheduleHrs } = props;
+  const userId = useContext(LoginContext).user?.id ;
+  const storeId = useContext(StoreContext).store?.Store_idStore ;
+  // console.log('calendar user',user)
+  // console.log("weekstart", selectedDay);
 
   const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
-  const [scheduleData, setScheduleData] = useState();
+  const [mySched, setMySched] = useState();
+  const [cowokersSched, setCoworkersSched] = useState();
 
   const startDay = selectedDay?.clone().startOf("week");
   const endDay = selectedDay?.clone().endOf("week");
@@ -37,22 +37,29 @@ const WeeklyTableBody = (props) => {
       try {
         //need to fetch schedule with priod from server
         const weekStart = startDay.clone().format("YYYY-MM-DD");
-        // console.log("weekstart", selectedDay, weekStart);
         const res = await fetch(
-          `/api/schedule/week?storeId=${storeId}&startDay=${weekStart}`
+          `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${weekStart}`
         );
         const scheduleData = await res.json();
-        // console.log('fetched data', scheduleData)
-        setScheduleData(() => scheduleData);
+        // console.log('fetched data',...scheduleData.mySchedules,
+        // ...scheduleData.coworkersSchedules)
+        setMySched(() => scheduleData.mySchedules);
+        setCoworkersSched(() => scheduleData.coworkersSchedules);
         //enable this line chduleData
-        const positionArray = scheduleData && setPositionList(scheduleData);
+        const positionArray =
+          scheduleData &&
+          setPositionList(
+            [...scheduleData.mySchedules,
+            ...scheduleData.coworkersSchedules]
+          );
         setPositions(positionArray);
       } catch (err) {
         console.log("failed to fetch schedule data", err);
-        setScheduleData(() => null);
+        setMySched(() => null);
+        setCoworkersSched(() => null);
       }
     };
-    storeId && getAllSchedules();
+    startDay && getAllSchedules();
   }, [selectedDay, storeId]);
 
   useEffect(() => {
@@ -78,7 +85,7 @@ const WeeklyTableBody = (props) => {
         m: storeClose?.minute(),
       });
 
-      console.log("sched", schedules);
+      // console.log("sched", schedules);
       const foundSched = schedules?.find(
         (sched) =>
           moment(sched.endtime) > dayStart && moment(sched.starttime) < dayEnd
@@ -124,17 +131,17 @@ const WeeklyTableBody = (props) => {
   return (
     <>
       <div className="Empty-div"></div>
-      {scheduleData && (
+      {mySched && (
         <DisplayMySched
-          myProfile={userId && findMy(scheduleData, userId)[0]}
+          myProfile={userId && mySched[0]}
           displaySched={displaySched}
           positions={positions}
         />
       )}
 
-      {scheduleData && (
+      {cowokersSched && (
         <DisplayOthersSched
-          cowokerProfs={userId && filterOutMy(scheduleData, userId)}
+          cowokerProfs={userId && cowokersSched}
           positions={positions}
           displaySched={displaySched}
         />

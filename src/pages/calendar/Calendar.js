@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import moment from "moment";
 import "moment-timezone";
@@ -16,7 +16,6 @@ import SwapShiftModal from "../../components/calendar/shiftSwapModal/SwapShiftMo
 
 const Calendar = () => {
   const [selectedDay, setSelectedDay] = useState(moment());
-  
   const [openModal, setOpenModal] = useState(false);
 
   const storeTimeZone =

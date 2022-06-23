@@ -4,15 +4,8 @@
 }
 .Shiftswap>.date{
     display: flex;
-    /* justify-content: center; */
 }
-/* .Shiftswap>.date>.Date-select{
-    display: flex;
-    width: 70%;
-    /* margin: 0 auto; */
-    /* color:var(--font-darkgrey); 
-    
-} */
+
 
 .date>.Day-lists{
     width: 80%;

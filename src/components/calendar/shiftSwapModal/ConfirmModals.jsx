@@ -8,17 +8,12 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-const ConfirmModal = (props) => {
+const ConfirmModals = (props) => {
   const { request, setOpenModal } = props;
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [message, setMessage] = useState();
-  const handleClickOpen = () => {
-    setConfirmModalOpen(true);
-  };
-  const handleClose = () => {
-    setConfirmModalOpen(false);
-  };
+  
   const submitAction = async (e) => {
     e.preventDefault();
 
@@ -32,7 +27,7 @@ const ConfirmModal = (props) => {
       console.log("success");
 
      
-      handleClose();
+      setConfirmModalOpen(false);
       setSuccessModalOpen(true)
     }
   };
@@ -44,19 +39,19 @@ const ConfirmModal = (props) => {
       return setMessage("Reason is required");
     }
     
-    handleClickOpen();
+    setConfirmModalOpen(true);
   };
 const successClose=()=>{
     setOpenModal(false);
 
 }
   return (
-    <div>
-      <button onClick={buttonOnclick}>Send request</button>
-      {message && <div>{message}</div>}
+    <div className="Modal">
+      <button className='Request-btn' onClick={buttonOnclick}>Send request</button>
+      {message && <div className="Message">{message}</div>}
       <Dialog
         open={confirmModalOpen}
-        onClose={handleClose}
+        onClose={()=>setConfirmModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -67,7 +62,7 @@ const successClose=()=>{
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={()=>setConfirmModalOpen(false)}>Disagree</Button>
           <Button onClick={submitAction} autoFocus>
             Agree
           </Button>
@@ -96,4 +91,4 @@ const successClose=()=>{
   );
 };
 
-export default ConfirmModal;
+export default ConfirmModals;

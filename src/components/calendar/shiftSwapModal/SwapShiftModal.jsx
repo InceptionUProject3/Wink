@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
-import ConfirmModal from './ConfirmModal'
+import ConfirmModals from './ConfirmModals'
 import "./swapShiftModal.css";
 
 const SwapShiftModal = (props) => {
@@ -30,11 +30,11 @@ const SwapShiftModal = (props) => {
     const getMySchedules = async () => {
       try {
         const data = await fetch(
-          `/api/schedule/shiftswap?storeId=${storeId}&myId=${userId}&from=${today}`
-          // `/api/schedule/shiftswap?storeId=1&myId=9&from=${today}`
+          // `/api/schedule/shiftswap?storeId=${storeId}&myId=${userId}&from=${today}`
+          `/api/schedule/shiftswap?storeId=1&myId=9&from=${today}`
         );
         const dataObj = await data.json();
-        console.log("data", dataObj);
+        // console.log("data", dataObj);
         setMySchdules(() => dataObj.mySchedules);
         setSwapList(() => dataObj.schedulestoSwap);
       } catch (err) {
@@ -64,7 +64,7 @@ const SwapShiftModal = (props) => {
 
   return (
     <div className="Shiftswap">
-       <ConfirmModal request={request} setOpenModal={setOpenModal}/>
+       <ConfirmModals request={request} setOpenModal={setOpenModal}/>
       <div className="date">
         <label htmlFor="date">*Date: </label>
         <select
