@@ -1,7 +1,9 @@
 :root {
   --wink-color: #23A5A5;
   --wink-color-light: #71C8C8;
+  --wink-color-lightest: rgba(210, 228, 227, 0.495);
   --grid-color: #bec6c67f;
+  --warning-color: rgb(218, 30, 30);
   --font-darkgrey: #5a5a5a;
   --font-black: #000000;
   --weekend-color: #bd4a31;

@@ -48,7 +48,7 @@ const successClose=()=>{
   return (
     <div className="Modal">
       <button className='Request-btn' onClick={buttonOnclick}>Send request</button>
-      {message && <div className="Message">{message}</div>}
+      <div className="Message">{message && message}</div>
       <Dialog
         open={confirmModalOpen}
         onClose={()=>setConfirmModalOpen(false)}
@@ -58,13 +58,13 @@ const successClose=()=>{
         <DialogTitle id="alert-dialog-title">Confirm your request</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Swapping schedule on {request.date}
+            Your shift swap request will be sent for <b>{request.date}</b>.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>setConfirmModalOpen(false)}>Disagree</Button>
+          <Button onClick={()=>setConfirmModalOpen(false)}>Cancel</Button>
           <Button onClick={submitAction} autoFocus>
-            Agree
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
@@ -77,13 +77,13 @@ const successClose=()=>{
         <DialogTitle id="alert-dialog-title">Success</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          Your requests has been sent. You can check your request status in ___
+          Your request has been sent. You can check request status in ___
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           {/* <Button onClick={handleClose}>Disagree</Button> */}
           <Button onClick={successClose} autoFocus>
-            Close
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
