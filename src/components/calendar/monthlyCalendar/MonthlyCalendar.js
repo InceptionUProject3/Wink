@@ -19,8 +19,6 @@ const MonthlyCalendar = (props) => {
     "Saturday",
   ];
   
-  
-  const [monInCalendar, setMonInCalendar] = useState(moment());
   const [theDate, setDate] = useState(new Date());
   const [nav, setNav] = useState(0);
   const month = theDate.getMonth();
@@ -67,7 +65,6 @@ const MonthlyCalendar = (props) => {
       });
     }
 
-    setToday();
     setMonthsArray(monthArray);
   }, [theDate]);
   
@@ -78,8 +75,6 @@ const MonthlyCalendar = (props) => {
         <Container alignContent={"center"}>
           <br />
           <MonthlyCalendarHeader
-            monInCalendar={monInCalendar}
-            setMonInCalendar={setMonInCalendar}
             weekdayHeaders={weekdayHeaders}
             setDate={setDate}
             today={today}
