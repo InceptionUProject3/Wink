@@ -15,8 +15,8 @@ import { StoreContext } from "../../components/authentication/StoreProvider";
 import SwapShiftModal from "../../components/calendar/Reusables/components/SwapShiftModal";
 
 const Calendar = () => {
-
   const [selectedDay, setSelectedDay] = useState(moment());
+  
   const [openModal, setOpenModal] = useState(false);
 
   const storeTimeZone =
@@ -36,7 +36,10 @@ const Calendar = () => {
         </div>
         <div className="Calendar-view">
           <Routes>
-            <Route path="/monthly" element={<MonthlyCalendar />} />
+            <Route
+              path="/monthly"
+              element={<MonthlyCalendar today={selectedDay} setToday={setSelectedDay} />}
+            />
             <Route
               path="/weekly"
               element={
@@ -48,6 +51,7 @@ const Calendar = () => {
                 />
               }
             />
+
             <Route
               path="/daily"
               element={
