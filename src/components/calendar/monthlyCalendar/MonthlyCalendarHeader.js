@@ -7,34 +7,32 @@ import {
 
 const MonthlyCalendarHeader = (props) => {
   const {
-    monInCalendar,
-    setMonInCalendar,
+    today,
+    setToday,
     weekdayHeaders,
     daysInMonth,
     setDate,
-    selectedDay
   } = props;
-  const selectMonthInHeader = selectedDay?.format("MMM YYYY");
+
+  //console.log("today is",today)
   useEffect(() => {
-    setDate(new Date(monInCalendar));
-  }, [monInCalendar]);
+    setDate(new Date(today));
+  }, [today]);
 
   let getNextMonth = () => {
-    setMonInCalendar((next) => next?.clone().add(1, "month"));
+    setToday((next) => next?.clone().add(1, "month"));
   };
 
   let getPreMonth = () => {
-    setMonInCalendar((pre) => pre?.clone().subtract(1, "month"));
+    setToday((pre) => pre?.clone().subtract(1, "month"));
   };
-  
+
   return (
     <div>
       <div className="test">
         <IconContext.Provider value={{ className: "buttons" }}>
           <MdOutlineArrowBackIos onClick={getPreMonth} />
-          <div className="MonthInHeader">
-            {monInCalendar.format("MMM YYYY")}
-          </div>
+          <div className="MonthInHeader">{today?.format("MMM YYYY")}</div>
           <MdOutlineArrowForwardIos onClick={getNextMonth} />
         </IconContext.Provider>
       </div>
