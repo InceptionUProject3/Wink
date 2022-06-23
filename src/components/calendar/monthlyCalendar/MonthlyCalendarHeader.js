@@ -12,7 +12,9 @@ const MonthlyCalendarHeader = (props) => {
     weekdayHeaders,
     daysInMonth,
     setDate,
+    selectedDay
   } = props;
+  const selectMonthInHeader = selectedDay?.format("MMM YYYY");
   useEffect(() => {
     setDate(new Date(monInCalendar));
   }, [monInCalendar]);
@@ -24,6 +26,7 @@ const MonthlyCalendarHeader = (props) => {
   let getPreMonth = () => {
     setMonInCalendar((pre) => pre?.clone().subtract(1, "month"));
   };
+  
   return (
     <div>
       <div className="test">

@@ -7,6 +7,8 @@ import AddEvent from "./AddEvent";
 import "./monthlyCalendar.css";
 
 const MonthlyCalendar = (props) => {
+  const {today, setToday} = props
+  
   const weekdayHeaders = [
     "Sunday",
     "Monday",
@@ -16,8 +18,8 @@ const MonthlyCalendar = (props) => {
     "Friday",
     "Saturday",
   ];
-
-  const [today, setToday] = useState(moment());
+  
+  
   const [monInCalendar, setMonInCalendar] = useState(moment());
   const [theDate, setDate] = useState(new Date());
   const [nav, setNav] = useState(0);
@@ -68,6 +70,7 @@ const MonthlyCalendar = (props) => {
     setToday();
     setMonthsArray(monthArray);
   }, [theDate]);
+  
 
   return (
     <div>
@@ -79,20 +82,29 @@ const MonthlyCalendar = (props) => {
             setMonInCalendar={setMonInCalendar}
             weekdayHeaders={weekdayHeaders}
             setDate={setDate}
+            today={today}
+            setToday={setToday}
+            
           />
 
           <br />
 
           <div className="mainGridStyle">
             {monthsArray?.map((day, index) => {
+              // const isWeekend = moment(day).day() === 0 || moment(day).day() === 6 ? "Weekend" : "";
+              // let isToday = day === moment().startOf("day").format() ? "Today" : "";
               
               return (
                 <div className="eventDiv" key={`day ${index}`}>
                   <div className="eventDivDiv">
-                    <AddEvent 
-                    addEvent={addEvent}
-                    />
+                    <AddEvent addEvent={addEvent} />
                   </div>
+                  {/* <div
+                    className={`"abc" ${isToday} ${isWeekend}`}
+                    key={`monthsArray ${index}`}
+                    
+                  ></div> */}
+                    
                   <div className="text">{day.value}</div>
                 </div>
               );
