@@ -12,7 +12,7 @@ import ViewButtons from "../../components/calendar/Reusables/components/ViewButt
 import TodayButton from "../../components/calendar/Reusables/components/TodayButton";
 import RequestSwapBtn from "../../components/calendar/Reusables/components/RequestSwapBtn";
 import { StoreContext } from "../../components/authentication/StoreProvider";
-import SwapShiftModal from "../../components/calendar/Reusables/components/SwapShiftModal";
+import SwapShiftModal from "../../components/calendar/shiftSwapModal/SwapShiftModal";
 
 const Calendar = () => {
   const [selectedDay, setSelectedDay] = useState(moment());
@@ -68,7 +68,7 @@ const Calendar = () => {
       </div>
       {openModal && (
         <div className="Side-modal-container">
-          <SwapShiftModal />
+          <SwapShiftModal setOpenModal={setOpenModal}/>
         </div>
       )}
     </div>
