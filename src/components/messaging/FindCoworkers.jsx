@@ -36,11 +36,11 @@ console.log("user", user);
       }, [user]);
 
   return (<div>
-    <div>{coworkers}</div>
-    <div>coworkers</div>
-    
+    <h1>Find coworkers</h1>
+    <div> {JSON.stringify(coworkers)}</div>
     </div>
-  )
-}
+    )
+     
+       }
 
 export default FindCoworkers
