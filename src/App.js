@@ -16,6 +16,7 @@ import Calendar from "./pages/calendar/Calendar";
 import Logout from "./components/authentication/Logout";
 import ProfileSelection from "./components/authentication/LocationSelection";
 import { StoreProvider } from "./components/authentication/StoreProvider";
+import FindCoworkers from "./components/messaging/FindCoworkers";
 
 
 const SERVER = "http://localhost:4000";
@@ -60,6 +61,7 @@ function App() {
             
             <Route path="/" element={<LoginForm />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/coworkers" element={<FindCoworkers/>} />
             
           </Routes>
         </BrowserRouter>
