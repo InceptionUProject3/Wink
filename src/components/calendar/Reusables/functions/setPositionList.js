@@ -1,17 +1,18 @@
 const setPositionList = (data) => {
   let positionLists = [];
-
+  //collect positon from fetched data
   data?.forEach((prof) => {
-    // console.log(typeof prof);
     typeof prof === 'object' ? positionLists.push(prof.position): positionLists=data;
   });
+  //take out duplicates
   const positionList = Array.from(new Set(positionLists));
-  // console.log("positions", positionList)
+  //order by alphabet
+  const orderedPositionList = positionList.sort((a,b)=>a>b?1:-1);
   //color list
   const colorList = ["860E2B", "6E3CDA", "D87400", "0070D8", "50B700"];
 
   let newPositonArray = [];
-  positionList?.forEach((pos, i) => {
+  orderedPositionList?.forEach((pos, i) => {
     if (colorList[i]) {
       newPositonArray.push({ position: pos, color: colorList[i] });
     } else {
@@ -21,7 +22,7 @@ const setPositionList = (data) => {
       });
     }
   });
-  // console.log("newarray", newPositonArray);
+
   return newPositonArray;
 };
 

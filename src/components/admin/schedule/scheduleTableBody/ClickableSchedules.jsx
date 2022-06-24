@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
+import ClickableScheduleBar from "./ClickableScheduleBar"
+import groupByPosition from '../../../calendar/Reusables/functions/groupByPosition'
+import ProfileSmall from "../../../calendar/weeklyCalendar/weeklyTableBody/ProfileSmall";
 
-import WeeklySchedBar from "./WeeklySchedBar";
-import groupByPosition from '../../Reusables/functions/groupByPosition'
-import ProfileSmall from "./ProfileSmall";
-
-const DisplayOthersSched = (props) => {
+const ClickableSchedules = (props) => {
   const { schedules, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
-// console.log("all", cowokerProfs, positions, daysInWeek, storeOpen, storeClose)
+// console.log("all", schedules, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
 
   useEffect(() => {
-      const groupedObj = groupByPosition(schedules);
-      setGroupedProfs(() => groupedObj);
+    const groupedObj = groupByPosition(schedules);
+    setGroupedProfs(() => groupedObj);
   }, [schedules]);
 
-
-  
   return (
     <>
       {positions?.map((position, i) => {
@@ -24,8 +21,9 @@ const DisplayOthersSched = (props) => {
           return empInPositon?.map((emp, index) => {
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
-                <ProfileSmall emp={emp} position={position} i={i} index={index} />
-                <WeeklySchedBar
+                
+                <ProfileSmall emp={emp} position={position} i={i} index={index}/>
+                <ClickableScheduleBar
                   daysInWeek={daysInWeek}
                   storeOpen={storeOpen}
                   scheduleHrs={scheduleHrs}
@@ -41,4 +39,4 @@ const DisplayOthersSched = (props) => {
   );
 };
 
-export default DisplayOthersSched;
+export default ClickableSchedules;

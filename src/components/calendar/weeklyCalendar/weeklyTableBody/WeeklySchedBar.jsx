@@ -1,8 +1,6 @@
 import React from "react";
 import moment from "moment";
-import ScheduleBar from "./ScheduleBar";
-
-import "./style/weeklySchedBar.css";
+import ScheduleBar from "../../Reusables/components/ScheduleBar";
 
 const WeeklySchedBar = ({
   daysInWeek,
@@ -13,7 +11,7 @@ const WeeklySchedBar = ({
 }) => {
   // const timezone = "America/New_York";
 
-  console.log("all", daysInWeek, storeOpen, timezone, schedules);
+  // console.log("all", daysInWeek, storeOpen, timezone, schedules);
   return daysInWeek?.map((day, i) => {
     //need to change to store hrs
     const oneDay = moment.tz(day, timezone);

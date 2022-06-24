@@ -79,7 +79,7 @@ const WeeklyTableBody = (props) => {
 
       {cowokersSched && (
         <DisplayOthersSched
-          cowokerProfs={userId && cowokersSched}
+          schedules={userId && cowokersSched}
           positions={positions}
           daysInWeek={daysInWeek}
           storeOpen={storeOpen}
