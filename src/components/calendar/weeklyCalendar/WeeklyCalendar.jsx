@@ -45,6 +45,7 @@ const WeeklyCalendar = (props) => {
           storeOpen={storeOpen}
           scheduleHrs={scheduleHrs}
           daysInWeek={daysInWeek}
+          timezone={userTimeZone}
         />
       </div>
     </div>

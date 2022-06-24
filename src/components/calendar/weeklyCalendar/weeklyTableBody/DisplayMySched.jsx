@@ -5,7 +5,7 @@ import WeeklySchedBar from "../../Reusables/components/WeeklySchedBar";
 // import displaySched from "../../Reusables/functions/displaySched";
 
 const DisplayMySched = (props) => {
-  const { myProfile, positions, daysInWeek, storeOpen, storeClose } = props;
+  const { myProfile, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
 
   // console.log(daysInWeek)
   const findColor = () => {
@@ -39,8 +39,9 @@ const DisplayMySched = (props) => {
       <WeeklySchedBar
         daysInWeek={daysInWeek}
         storeOpen={storeOpen}
-        storeClose={storeClose}
+        scheduleHrs={scheduleHrs}
         schedules={myProfile?.schedules}
+        timezone={timezone}
       />
     </>
   );

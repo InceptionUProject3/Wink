@@ -4,7 +4,7 @@ import WeeklySchedBar from "../../Reusables/components/WeeklySchedBar";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
 
 const DisplayOthersSched = (props) => {
-  const { cowokerProfs, positions, daysInWeek, storeOpen, storeClose } = props;
+  const { cowokerProfs, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
 // console.log("all", cowokerProfs, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
   useEffect(() => {
@@ -57,8 +57,9 @@ const DisplayOthersSched = (props) => {
                 <WeeklySchedBar
                   daysInWeek={daysInWeek}
                   storeOpen={storeOpen}
-                  storeClose={storeClose}
+                  scheduleHrs={scheduleHrs}
                   schedules={emp.schedules}
+                  timezone={timezone}
                 />
               </React.Fragment>
             );

@@ -13,7 +13,7 @@ const Schedule = (props) => {
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const endDayOfWeek = selectedDay?.clone().endOf("week");
-  const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
+  // const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
 
   const [daysInWeek, setDaysInWeek] = useState();
 
@@ -45,7 +45,8 @@ const Schedule = (props) => {
               positions={positions}
               daysInWeek={daysInWeek}
               storeOpen={storeOpen}
-              storeClose={storeClose}
+              scheduleHrs={scheduleHrs}
+              timezone={storeTimeZone}
             />
           )}
         </div>
