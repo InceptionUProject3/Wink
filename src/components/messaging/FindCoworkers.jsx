@@ -26,21 +26,26 @@ const FindCoworkers = (props) => {
   console.log("user", user);
   useEffect(() => {
     const getCoworkers = async (theUser) => {
-      let userToSend = JSON.stringify(theUser);
-      console.log("sending userId: " + typeof userToSend);
-      const response = await fetch("/api/coworkers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: userToSend,
-      });
-      const data = await response.text();
-      console.log("getting store data", data);
-      const userData = JSON.parse(data);
-      console.log(response);
-      setCoworkers(userData);
-      console.log("we have the user data", userData);
+      try {
+        let userToSend = JSON.stringify(theUser);
+        console.log("sending userId: " + typeof userToSend);
+        const response = await fetch("/api/coworkers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: userToSend,
+        });
+        const data = await response.text();
+        console.log("getting store data", data);
+        const userData = JSON.parse(data);
+        console.log(response);
+        setCoworkers(userData);
+        console.log("we have the user data", userData);
+      } catch (err) {
+        console.log("failed to get coworkers", err);
+        setCoworkers([]);
+      }
     };
     if (user) {
       getCoworkers(user);
@@ -62,9 +67,15 @@ const FindCoworkers = (props) => {
           {coworkers ? (
             coworkers.map((profile, index) => {
               return (
-                <ListItem divider sx={{ width: 300, display: "flex", flexDirection: "column" }}>
+                <ListItem
+                  divider
+                  sx={{ width: 300, display: "flex", flexDirection: "column" }}
+                >
                   <ListItemButton key={index}>
-                    <ListItemText primary={`${profile.user.firstname}  ${profile.user.lastname}` } secondary={profile.userprofile.name} />
+                    <ListItemText
+                      primary={`${profile.user.firstname}  ${profile.user.lastname}`}
+                      secondary={profile.userprofile.name}
+                    />
                   </ListItemButton>
                 </ListItem>
               );
