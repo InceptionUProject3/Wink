@@ -1,9 +1,10 @@
 import React from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
+import displaySched from "../../Reusables/functions/displaySched";
 
 const DisplayMySched = (props) => {
-  const { myProfile, displaySched, positions } = props;
+  const { myProfile, positions, daysInWeek, storeOpen, storeClose } = props;
 
   // console.log(myProfile)
   const findColor = () => {
@@ -33,7 +34,7 @@ const DisplayMySched = (props) => {
           </div>
         </div>
       </div>
-      {displaySched(myProfile?.schedules)}
+      {displaySched(daysInWeek, storeOpen, storeClose, myProfile?.schedules)}
     </>
   );
 };

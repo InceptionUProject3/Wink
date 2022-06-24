@@ -1,11 +1,10 @@
 import moment from "moment";
-import React, { useContext } from "react";
+import React from "react";
 // import DailyTableBody from "./DailyTableBody";
 import { DailyTableHeader } from "./DailyTableHeader";
 
 import MyDailySched from "./dailyTablebody/MyDailySched";
 import OthersDailyScheds from "./dailyTablebody/OthersDailyScheds";
-import { LoginContext } from "../../authentication/LoginProvider";
 import ScheduleBar from "../Reusables/components/ScheduleBar";
 import TableGrid from "./TableGrid";
 
@@ -20,7 +19,7 @@ const DailyCalendarTable = (props) => {
     scheduleHrs,
   } = props;
 
-  const userId = useContext(LoginContext).user?.id || 9;
+  // const userId = useContext(LoginContext).user?.id || 9;
 
   const dayStart = selectedDay
     ?.clone()

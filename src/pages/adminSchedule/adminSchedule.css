@@ -1,0 +1,13 @@
+.Admin-schedule{
+    display: flex;
+    flex-direction: row;
+}
+.Admin-schedule>.schedule-container{
+    flex:3;
+    width: 80%;
+}
+.Admin-schedule>.Side-bar-container{
+    flex:1;
+    width: 20%;
+    min-width: 300px;
+}

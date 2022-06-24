@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
+import displaySched from "../../Reusables/functions/displaySched";
 
 const DisplayOthersSched = (props) => {
-  const { cowokerProfs, displaySched, positions } = props;
+  const { cowokerProfs, positions ,daysInWeek, storeOpen, storeClose} = props;
 
 
   const [groupedProfs, setGroupedProfs] = useState();
@@ -52,7 +53,7 @@ const DisplayOthersSched = (props) => {
                     </div>
                   </div>
                 </div>
-                {displaySched(emp.schedules)}
+                {displaySched(daysInWeek, storeOpen, storeClose,emp.schedules)}
               </React.Fragment>
             );
           });

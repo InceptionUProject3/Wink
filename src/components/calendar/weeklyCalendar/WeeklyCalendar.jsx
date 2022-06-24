@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import WeeklyTableHeader from "./WeeklyTableHeader";
-import WeeklyCalendarBody from "./WeeklyTableBody";
-import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
-import "./WeeklyCalendar.css";
 import moment from "moment";
+
+import WeeklyTableHeader from "./WeeklyTableHeader";
+import WeeklyTableBody from "./WeeklyTableBody";
+import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
+
 import { StoreContext } from "../../authentication/StoreProvider";
+
+import "./WeeklyCalendar.css";
 
 const WeeklyCalendar = (props) => {
   //selectedDay is a standard day
@@ -14,21 +17,16 @@ const WeeklyCalendar = (props) => {
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const userTimeZone = moment.tz.guess();
-  //  console.log(userTimeZone)
   const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
   const scheduleHrs = 18;
 
   useEffect(() => {
     const startDayOfWeek = selectedDay?.clone().startOf("week");
     const endDayOfWeek = selectedDay?.clone().endOf("week");
-    // console.log('start day', startDayOfWeek.format('YYYY-MM-DD HH:mmZ'))
-    //days in week should include startDayOfWeek
     const weekCalArray = [startDayOfWeek?.format()];
-    //If you dont insert clone(), startDayOfweek will be incresed everytime in this loop.
     while (startDayOfWeek?.add(1, "days").diff(endDayOfWeek) <= 0) {
       weekCalArray.push(startDayOfWeek?.format());
     }
-    // console.log(weekCalArray);
     setDaysInWeek(weekCalArray);
   }, [selectedDay]);
 
@@ -42,10 +40,11 @@ const WeeklyCalendar = (props) => {
           daysInWeek={daysInWeek}
         />
 
-        <WeeklyCalendarBody
+        <WeeklyTableBody
           selectedDay={selectedDay}
           storeOpen={storeOpen}
           scheduleHrs={scheduleHrs}
+          daysInWeek={daysInWeek}
         />
       </div>
     </div>
