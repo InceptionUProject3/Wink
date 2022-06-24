@@ -37,7 +37,13 @@ const Calendar = () => {
           <Routes>
             <Route
               path="/monthly"
-              element={<MonthlyCalendar today={selectedDay} setToday={setSelectedDay} />}
+              element={
+                <MonthlyCalendar
+                  today={selectedDay}
+                  setToday={setSelectedDay}
+                  scheduleHrs={scheduleHrs}
+                />
+              }
             />
             <Route
               path="/weekly"
@@ -67,7 +73,7 @@ const Calendar = () => {
       </div>
       {openModal && (
         <div className="Side-modal-container">
-          <SwapShiftModal setOpenModal={setOpenModal}/>
+          <SwapShiftModal setOpenModal={setOpenModal} />
         </div>
       )}
     </div>
