@@ -1,12 +1,13 @@
 import React from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
+import WeeklySchedBar from "../../Reusables/components/WeeklySchedBar";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
-import displaySched from "../../Reusables/functions/displaySched";
+// import displaySched from "../../Reusables/functions/displaySched";
 
 const DisplayMySched = (props) => {
   const { myProfile, positions, daysInWeek, storeOpen, storeClose } = props;
 
-  // console.log(myProfile)
+  // console.log(daysInWeek)
   const findColor = () => {
     const myPositionObj = positions?.find(
       (position) => myProfile?.position === position.position
@@ -34,7 +35,13 @@ const DisplayMySched = (props) => {
           </div>
         </div>
       </div>
-      {displaySched(daysInWeek, storeOpen, storeClose, myProfile?.schedules)}
+
+      <WeeklySchedBar
+        daysInWeek={daysInWeek}
+        storeOpen={storeOpen}
+        storeClose={storeClose}
+        schedules={myProfile?.schedules}
+      />
     </>
   );
 };

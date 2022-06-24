@@ -4,9 +4,10 @@ import moment from "moment";
 import Schedule from "../../components/admin/schedule/Schedule";
 import Sidebar from "../../components/admin/schedule/Sidebar";
 import setPositionList from "../../components/calendar/Reusables/functions/setPositionList";
-import "./adminSchedule.css";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import { LoginContext } from "../../components/authentication/LoginProvider";
+
+import "./adminSchedule.css";
 
 const AdminSchedule = () => {
   const [startWeeks, setStartWeeks] = useState();
@@ -19,8 +20,8 @@ const AdminSchedule = () => {
 
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  const userTimeZone = moment.tz.guess();
-  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
+  // const userTimeZone = moment.tz.guess();
+  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone);
   const scheduleHrs = 18;
 
   useEffect(() => {
@@ -51,7 +52,7 @@ const AdminSchedule = () => {
           `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
         );
         const scheduleData = await data.json();
-        console.log("data", scheduleData);
+        // console.log("data", scheduleData);
         const scheduleArray = [
           ...scheduleData.mySchedules,
           ...scheduleData.coworkersSchedules,

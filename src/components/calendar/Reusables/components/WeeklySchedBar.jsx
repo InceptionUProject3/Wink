@@ -1,11 +1,15 @@
+import React from "react";
 import moment from "moment";
-import ScheduleBar from '../components/ScheduleBar'
+import ScheduleBar from './ScheduleBar'
 
-const displaySched = (daysInWeek, storeOpen, storeClose, schedules) => {
+import './style/weeklySchedBar.css'
+
+const WeeklySchedBar = ({daysInWeek, storeOpen, storeClose, schedules}) => {
+  const timezone = "America/New_York"
+  console.log('all', daysInWeek, storeOpen,storeClose, schedules)
     return daysInWeek?.map((day, i) => {
       //need to change to store hrs
-    //   console.log('all', daysInWeek, storeOpen,storeClose, schedules)
-      const oneDay = moment(day);
+      const oneDay = moment.tz(day,timezone);
       const dayStart = oneDay
         .clone()
         .set({ h: storeOpen?.hour(), m: storeOpen?.minute() });
@@ -53,4 +57,4 @@ const displaySched = (daysInWeek, storeOpen, storeClose, schedules) => {
     });
   };
 
-export default displaySched;
+export default WeeklySchedBar;

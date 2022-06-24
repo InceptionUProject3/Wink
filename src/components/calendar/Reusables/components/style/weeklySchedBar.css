@@ -1,0 +1,19 @@
+.Schedule{
+
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 3.7em; */
+}
+
+.Schedule>.Full-bar{
+    
+    height: 1.7em; 
+}
+.Schedule>.text{
+    position: absolute;
+    bottom:0.4em;
+    font-size: 0.7em;
+}

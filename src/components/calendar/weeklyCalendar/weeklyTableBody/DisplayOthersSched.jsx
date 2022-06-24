@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
+import WeeklySchedBar from "../../Reusables/components/WeeklySchedBar";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
-import displaySched from "../../Reusables/functions/displaySched";
 
 const DisplayOthersSched = (props) => {
-  const { cowokerProfs, positions ,daysInWeek, storeOpen, storeClose} = props;
-
-
+  const { cowokerProfs, positions, daysInWeek, storeOpen, storeClose } = props;
+// console.log("all", cowokerProfs, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
   useEffect(() => {
     const groupByPosition = () => {
@@ -15,12 +14,14 @@ const DisplayOthersSched = (props) => {
         if (!acc[current.position]) {
           acc[current.position] = [];
         }
-       
+
         acc[current.position].push(current);
         //order emplyees in every group
-        acc[current.position]?.sort((a,b)=>a.firstname>b.firstname?1:-1)
+        acc[current.position]?.sort((a, b) =>
+          a.firstname > b.firstname ? 1 : -1
+        );
         // console.log('after', acc[current.position])
-        
+
         return acc;
       }, initialVal);
     };
@@ -33,7 +34,6 @@ const DisplayOthersSched = (props) => {
         const empInPositon = groupedProfs && groupedProfs[position.position];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
-            
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <div
@@ -48,12 +48,18 @@ const DisplayOthersSched = (props) => {
                   )}
                   <div className="profile" key={`profile ${index}`}>
                     <div key={`name ${index}`} className="Name-container">
-                      <div className="name">{emp.firstname}, {emp.lastname}</div>
-                      
+                      <div className="name">
+                        {emp.firstname}, {emp.lastname}
+                      </div>
                     </div>
                   </div>
                 </div>
-                {displaySched(daysInWeek, storeOpen, storeClose,emp.schedules)}
+                <WeeklySchedBar
+                  daysInWeek={daysInWeek}
+                  storeOpen={storeOpen}
+                  storeClose={storeClose}
+                  schedules={emp.schedules}
+                />
               </React.Fragment>
             );
           });

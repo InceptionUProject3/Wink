@@ -32,10 +32,7 @@
     flex:2;
     text-align: start;
 }
-/* .Store-hours span{
-    width: 100%;
-    text-align: start;
-} */
+
 .Table-info>.right{
     display: flex;
     flex-direction: column;
@@ -87,22 +84,6 @@
 }
 .WeeklyCal-header>.DayInHeader{
     width:7em;
-}
-
-.WeeklyCal-date{
-
-    justify-self: stretch;
-    text-align: start;
-    margin: auto 0;
-  
-
-}
-.WeeklyCal-date.Weekend{
-    color: var(--weekend-color)
-}
-.WeeklyCal-date.Today{
-    color: var(--wink-color);
-    font-weight: bold;
 }
 
 
@@ -223,27 +204,7 @@
 -webkit-box-orient: vertical;
 }
 
-
-.Weekly-calendar>.Schedule{
-
-    position:relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* min-height: 3.7em; */
-}
-
-.Weekly-calendar>.Schedule>.Full-bar{
-    
-    height: 1.7em; 
-}
-.Weekly-calendar>.Schedule>.text{
-    position: absolute;
-    bottom:0.4em;
-    font-size: 0.7em;
-}
 .WeeklyCal-Profiles.others{
     min-height:6em;
     
-};
+};  
