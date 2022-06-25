@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar"
 import groupByPosition from '../../../calendar/Reusables/functions/groupByPosition'
-import ProfileSmall from "../../../calendar/weeklyCalendar/weeklyTableBody/ProfileSmall";
+import ProfileSmall from "../../../calendar/Reusables/components/ProfileSmall";
 
 const ClickableSchedules = (props) => {
   const { schedules, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
@@ -19,6 +19,7 @@ const ClickableSchedules = (props) => {
         const empInPositon = groupedProfs && groupedProfs[position.position];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
+            // console.log('emp', emp)
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 
@@ -27,8 +28,12 @@ const ClickableSchedules = (props) => {
                   daysInWeek={daysInWeek}
                   storeOpen={storeOpen}
                   scheduleHrs={scheduleHrs}
-                  schedules={emp.schedules}
+                  employeeSched={emp}
+                  // schedules={emp.schedules}
+                  // employeeId={emp.userId}
+                  // employeeName={`${emp.firstname}, ${emp.lastname}`}
                   timezone={timezone}
+                  position={position}
                 />
               </React.Fragment>
             );

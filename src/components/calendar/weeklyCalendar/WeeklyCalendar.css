@@ -203,7 +203,7 @@
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
 }
-.Schedules>.Schedule{
+.Schedule{
 
     position:relative;
     display: flex;
@@ -213,11 +213,11 @@
     /* min-height: 3.7em; */
 }
 
-.Schedules>.Schedule>.Full-bar{
+.Schedule>.Full-bar{
     
     height: 1.7em; 
 }
-.Schedules>.Schedule>.text{
+.Schedule>.text{
     position: absolute;
     bottom:0.4em;
     font-size: 0.7em;

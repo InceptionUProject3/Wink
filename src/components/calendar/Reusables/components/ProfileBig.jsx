@@ -1,22 +1,14 @@
 import React from 'react'
-import { ProfileIcon } from '../../Reusables/components/ProfileIcon'
+import { ProfileIcon } from './ProfileIcon'
 
-const ProfileBig = ({profile, positions}) => {
-  const findColor = () => {
-    const myPositionObj = positions?.find(
-      (position) => profile?.position === position.position
-    );
-    const color = myPositionObj?.color;
-    // console.log(color)
-    return color;
-  };
+const ProfileBig = ({profile, position}) => {
 
   return (
     <div className="WeeklyCal-Profiles myProfile">
 
         <div className="title">
           <div className="iconNme">
-            <ProfileIcon profile={profile} color={findColor()} />
+            <ProfileIcon profile={profile} color={position.color} />
             <div className="me">me</div>
           </div>
           <div className="position">{profile?.position}</div>

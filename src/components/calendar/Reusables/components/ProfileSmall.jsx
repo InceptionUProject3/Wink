@@ -1,5 +1,5 @@
 import React from "react";
-import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
+import { ProfileIcon } from "./ProfileIcon";
 
 const ProfileSmall = ({ emp, position, i, index }) => {
   return (

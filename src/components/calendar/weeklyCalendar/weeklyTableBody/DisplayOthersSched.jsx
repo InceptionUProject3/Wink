@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import WeeklySchedBar from "./WeeklySchedBar";
 import groupByPosition from '../../Reusables/functions/groupByPosition'
-import ProfileSmall from "./ProfileSmall";
+import ProfileSmall from "../../Reusables/components/ProfileSmall";
 
 const DisplayOthersSched = (props) => {
   const { schedules, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
