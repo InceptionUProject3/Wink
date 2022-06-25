@@ -17,6 +17,8 @@ import Logout from "./components/authentication/Logout";
 import ProfileSelection from "./components/authentication/LocationSelection";
 import { StoreProvider } from "./components/authentication/StoreProvider";
 import FindCoworkers from "./components/messaging/FindCoworkers";
+import Message from "./components/messaging/Message";
+
 
 
 const SERVER = "http://localhost:4000";
@@ -62,6 +64,7 @@ function App() {
             <Route path="/" element={<LoginForm />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/coworkers" element={<FindCoworkers/>} />
+            <Route path="/message" element={<Message/>} />
             
           </Routes>
         </BrowserRouter>

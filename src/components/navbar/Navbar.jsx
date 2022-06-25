@@ -95,6 +95,21 @@ const Navbar = () => {
                     borderBottom: isActive ? "#00b3b4 solid 2px" : "",
                     opacity: isActive ? 1 : "",
                   })}
+                  to="/message"
+                >
+                  message
+                </NavLink>
+              </p>
+            </li>
+          )}
+          {loggedInUser && (
+            <li>
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
                   to="/calendar"
                 >
                   CALENDAR
