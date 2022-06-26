@@ -7,7 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../utils/muiTheme";
 import { useLocation } from "react-router-dom";
 
-export const Message = () => {
+const Message = () => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
   const user = storeContext.store;
