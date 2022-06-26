@@ -1,6 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
+import {
+    List,
+    ListItem,
+    ListItemText,
+    
+  } from "@mui/material";
 
 
 
@@ -11,17 +17,18 @@ const MessageWindow = () => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            console.log("interval");
-        }, 10000);
+        // const interval = setInterval(() => {
+        //     console.log("interval");
+        // }, 10000);
         const getMessages = async () => {
             try {
                 const chat = {
                     user: user.User_idUser,
                     store: user.Store_idStore,
+                    receiver: 2,
                 };
                 console.log("sending message request: " + chat);
-                data = JSON.stringify(chat);
+                const data = JSON.stringify(chat);
                 const response = await fetch("/api/getconversation", {
                     method: "POST",
                     headers: {
@@ -50,7 +57,16 @@ const MessageWindow = () => {
 
 
   return (
-    <div>MessageWindow</div>
+    <List sx={{ width: 300, display: "flex", flexDirection: "column" }}>
+        {messages.map((message, index) => {
+            return (
+                <ListItem key={index}>
+                    <ListItemText primary={message.chat} />
+                </ListItem>
+            );
+        }
+        )}
+    </List>
   )
 }
 

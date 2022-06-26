@@ -18,6 +18,7 @@ import ProfileSelection from "./components/authentication/LocationSelection";
 import { StoreProvider } from "./components/authentication/StoreProvider";
 import FindCoworkers from "./components/messaging/FindCoworkers";
 import Message from "./components/messaging/Message";
+import MessageWindow from "./components/messaging/MessageWindow";
 
 
 
@@ -65,6 +66,7 @@ function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/coworkers" element={<FindCoworkers/>} />
             <Route path="/message" element={<Message/>} />
+            <Route path="/messagewindow" element={<MessageWindow/>} />
             
           </Routes>
         </BrowserRouter>
