@@ -1,39 +1,27 @@
 import React from "react";
-import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
+
+import WeeklySchedBar from "./WeeklySchedBar";
+import ProfileBig from "../../Reusables/components/ProfileBig";
 // import { ProfilePhoto } from "../../Reusables/components/ProfilePhoto";
+// import displaySched from "../../Reusables/functions/displaySched";
 
 const DisplayMySched = (props) => {
-  const { myProfile, displaySched, positions } = props;
+  const { myProfile, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
+  const myPosition= positions.find((e)=>e.position===myProfile.position);
+  // console.log(daysInWeek)
 
-  // console.log(myProfile)
-  const findColor = () => {
-    const myPositionObj = positions?.find(
-      (position) => myProfile?.position === position.position
-    );
-    const color = myPositionObj?.color;
-    // console.log(color)
-    return color;
-  };
-  // console.log('my schedules', myProfile?.schedules)
+  console.log('my schedules', myProfile, myPosition)
   return (
     <>
-      <div className="WeeklyCal-Profiles myProfile">
-        {/* <ProfilePhoto profile={myProfile} /> */}
+      <ProfileBig profile={myProfile} position={myPosition}/>
 
-        <div className="title">
-          <div className="iconNme">
-            <ProfileIcon profile={myProfile} color={findColor()} />
-            <div className="me">me</div>
-          </div>
-          <div className="position">{myProfile?.position}</div>
-        </div>
-        <div className="Name-container">
-          <div className="name">
-            {myProfile?.firstname}, {myProfile?.lastname}
-          </div>
-        </div>
-      </div>
-      {displaySched(myProfile?.schedules)}
+      <WeeklySchedBar
+        daysInWeek={daysInWeek}
+        storeOpen={storeOpen}
+        scheduleHrs={scheduleHrs}
+        schedules={myProfile?.schedules}
+        timezone={timezone}
+      />
     </>
   );
 };

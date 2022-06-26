@@ -1,14 +1,18 @@
+import moment from "moment";
 import React from "react";
 import { IconContext } from "react-icons";
 import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import moment from "moment";
+
+import DisplayDaysinWeek from "../Reusables/components/DisplayDaysinWeek";
 
 const WeeklyTableHeader = (props) => {
+
   const { selectedDay, setSelectedDay, daysInWeek } = props;
   const selectDayInHeader = selectedDay?.format("MMM YYYY");
+  const userTimeZone = moment.tz.guess();
 
   const moveToPreWeek = () => {
     setSelectedDay((pre) => pre?.clone().subtract(7, "days"));
@@ -28,23 +32,8 @@ const WeeklyTableHeader = (props) => {
         </IconContext.Provider>
       </div>
 
-      {daysInWeek?.map((day, index) => {
-        // console.log('days', moment(day), moment(day).day())
-        const isWeekend =
-          moment(day).day() === 0 || moment(day).day() === 6 ? "Weekend" : "";
-        const isToday = day === moment().startOf("day").format() ? "Today" : "";
-        // console.log("isWeekend", moment(day).day());
-
-        return (
-          <div
-            className={`WeeklyCal-date ${isToday} ${isWeekend}`}
-            key={`daysInWeek ${index}`}
-          >
-            {moment(day).format("ddd DD")}
-          </div>
-        );
-      })}
-    </>
+      <DisplayDaysinWeek daysInWeek={daysInWeek} timezone={userTimeZone} />
+   </>
   );
 };
 

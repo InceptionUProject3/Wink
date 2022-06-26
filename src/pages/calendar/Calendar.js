@@ -13,10 +13,20 @@ import TodayButton from "../../components/calendar/Reusables/components/TodayBut
 import RequestSwapBtn from "../../components/calendar/Reusables/components/RequestSwapBtn";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import SwapShiftModal from "../../components/calendar/shiftSwapModal/SwapShiftModal";
+import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilters";
+
 
 const Calendar = () => {
+  const [filter, setFilter] = useState("All"
+    //[
+    // { name: "All", boolean: true },
+    // { name: "My Position", boolean: false },
+    // { name: "Working", boolean: false },
+  //]
+  );
+  const filterList = ["All", "My Position", "Working"];
+console.log("filter in calendar", filter)
   const [selectedDay, setSelectedDay] = useState(moment());
-  
   const [openModal, setOpenModal] = useState(false);
 
   const storeTimeZone =
@@ -31,6 +41,7 @@ const Calendar = () => {
       <div className="Calendars-container">
         <div className="Calendar-header">
           <RequestSwapBtn setOpenModal={setOpenModal} />
+          <WeeklyFilters filter={filter} setFilter={setFilter} filterList={filterList} />
           <ViewButtons />
           <TodayButton setSelectedDay={setSelectedDay} />
         </div>
@@ -38,7 +49,13 @@ const Calendar = () => {
           <Routes>
             <Route
               path="/monthly"
-              element={<MonthlyCalendar today={selectedDay} setToday={setSelectedDay} />}
+              element={
+                <MonthlyCalendar
+                  today={selectedDay}
+                  setToday={setSelectedDay}
+                  scheduleHrs={scheduleHrs}
+                />
+              }
             />
             <Route
               path="/weekly"
@@ -48,6 +65,7 @@ const Calendar = () => {
                   setSelectedDay={setSelectedDay}
                   storeOpen={storeOpen}
                   scheduleHrs={scheduleHrs}
+                  filter={filter}
                 />
               }
             />
@@ -68,7 +86,7 @@ const Calendar = () => {
       </div>
       {openModal && (
         <div className="Side-modal-container">
-          <SwapShiftModal setOpenModal={setOpenModal}/>
+          <SwapShiftModal setOpenModal={setOpenModal} />
         </div>
       )}
     </div>

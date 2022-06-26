@@ -4,7 +4,7 @@ import moment from "moment";
 import "./style/scheduleBar.css";
 
 const ScheduleBar = (props) => {
-  const { dayStart, dayEnd, newFrom, newTo, schedObj, schedIndex, profIndex } =
+  const { dayStart, dayEnd, newFrom, newTo, schedObj, schedIndex, profIndex,timezone } =
     props;
   const [timeDisplay, setTimeDisplay] = useState(-1);
   //  console.log(dayStart, dayEnd)

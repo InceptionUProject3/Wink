@@ -8,17 +8,12 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-const ConfirmModal = (props) => {
+const ConfirmModals = (props) => {
   const { request, setOpenModal } = props;
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [message, setMessage] = useState();
-  const handleClickOpen = () => {
-    setConfirmModalOpen(true);
-  };
-  const handleClose = () => {
-    setConfirmModalOpen(false);
-  };
+  
   const submitAction = async (e) => {
     e.preventDefault();
 
@@ -32,7 +27,7 @@ const ConfirmModal = (props) => {
       console.log("success");
 
      
-      handleClose();
+      setConfirmModalOpen(false);
       setSuccessModalOpen(true)
     }
   };
@@ -44,32 +39,32 @@ const ConfirmModal = (props) => {
       return setMessage("Reason is required");
     }
     
-    handleClickOpen();
+    setConfirmModalOpen(true);
   };
 const successClose=()=>{
     setOpenModal(false);
 
 }
   return (
-    <div>
-      <button onClick={buttonOnclick}>Send request</button>
-      {message && <div>{message}</div>}
+    <div className="Modal">
+      <button className='Request-btn' onClick={buttonOnclick}>Send request</button>
+      <div className="Message">{message && message}</div>
       <Dialog
         open={confirmModalOpen}
-        onClose={handleClose}
+        onClose={()=>setConfirmModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">Confirm your request</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Swapping schedule on {request.date}
+            Your shift swap request will be sent for <b>{request.date}</b>.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={()=>setConfirmModalOpen(false)}>Cancel</Button>
           <Button onClick={submitAction} autoFocus>
-            Agree
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
@@ -82,13 +77,13 @@ const successClose=()=>{
         <DialogTitle id="alert-dialog-title">Success</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          Your requests has been sent. You can check your request status in ___
+          Your request has been sent. You can check request status in ___
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           {/* <Button onClick={handleClose}>Disagree</Button> */}
           <Button onClick={successClose} autoFocus>
-            Close
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
@@ -96,4 +91,4 @@ const successClose=()=>{
   );
 };
 
-export default ConfirmModal;
+export default ConfirmModals;

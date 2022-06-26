@@ -11,11 +11,11 @@ const WeeklyCalendarHeader = (props) => {
         <div className="Store-hours">
           <p className="open">
             <span className="at">From</span>
-            <span className="time"> {storeOpen?.format("h:mm a")}</span>
+            <span className="time"> {storeOpen?.format("h:mm a (z)")}</span>
           </p>
           <p className="close">
             <span className="at">To</span>
-            <span className="time"> {storeClose?.format("h:mm a")}</span>
+            <span className="time"> {storeClose?.format("h:mm a (z)")}</span>
           </p>
         </div>
 

@@ -16,7 +16,7 @@ import Calendar from "./pages/calendar/Calendar";
 import Logout from "./components/authentication/Logout";
 import ProfileSelection from "./components/authentication/LocationSelection";
 import { StoreProvider } from "./components/authentication/StoreProvider";
-
+import AdminSchedule from "./pages/adminSchedule/AdminSchedule";
 
 const SERVER = "http://localhost:4000";
 
@@ -29,40 +29,44 @@ function App() {
     <div className="App">
       <LoginProvider>
         <StoreProvider>
-        
-        <BrowserRouter>
-        <Navbar />
-          <Routes>
-            {/* <Route path="/location" element={<Location />} /> */}
-            <Route path="/selection" element={<ProfileSelection />} />
-           
-            <Route
-              path="/home"
-              element={
-                <RequireAuth>
-                  <HomePage />
-                </RequireAuth>
-              }
-            />
+          <BrowserRouter>
+            <Navbar />
+            <Routes>
+              {/* <Route path="/location" element={<Location />} /> */}
+              <Route path="/selection" element={<ProfileSelection />} />
 
-            <Route
-              path="/messaging"
-              element={
-                <RequireAuth>
-                  <Messaging />
-                </RequireAuth>
-              }
-            />
-            <Route path="/:roomId" element={<Chat />} />
-            <Route path='/calendar' element={<Navigate replace to="/calendar/monthly"/>}/>
-            <Route path="/calendar/*" element={<Calendar/>}/>
-            <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
-            
-            <Route path="/" element={<LoginForm />} />
-            <Route path="/logout" element={<Logout />} />
-            
-          </Routes>
-        </BrowserRouter>
+              <Route
+                path="/home"
+                element={
+                  <RequireAuth>
+                    <HomePage />
+                  </RequireAuth>
+                }
+              />
+
+              <Route
+                path="/messaging"
+                element={
+                  <RequireAuth>
+                    <Messaging />
+                  </RequireAuth>
+                }
+              />
+              <Route path="/:roomId" element={<Chat />} />
+              <Route
+                path="/calendar"
+                element={<Navigate replace to="/calendar/monthly" />}
+              />
+              <Route path="/calendar/*" element={<Calendar />} />
+              <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
+
+              <Route path="/" element={<LoginForm />} />
+              <Route path="/logout" element={<Logout />} />
+
+              {/* admin route */}
+              <Route path="/admin/schedule" element={<AdminSchedule />} />
+            </Routes>
+          </BrowserRouter>
         </StoreProvider>
       </LoginProvider>
     </div>
