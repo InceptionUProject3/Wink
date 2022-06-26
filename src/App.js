@@ -19,6 +19,7 @@ import { StoreProvider } from "./components/authentication/StoreProvider";
 import FindCoworkers from "./components/messaging/FindCoworkers";
 import Message from "./components/messaging/Message";
 import MessageWindow from "./components/messaging/MessageWindow";
+import Messenger from "./pages/messanger/Messenger";
 
 
 
@@ -67,6 +68,7 @@ function App() {
             <Route path="/coworkers" element={<FindCoworkers/>} />
             <Route path="/message" element={<Message/>} />
             <Route path="/messagewindow" element={<MessageWindow/>} />
+            <Route path="/messenger" element={<Messenger/>} />
             
           </Routes>
         </BrowserRouter>

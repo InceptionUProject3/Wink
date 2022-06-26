@@ -14,6 +14,7 @@ const Message = () => {
 
   const [message, setMessage] = useState("");
   const location = useLocation();
+  const [receiver, setReceiver] = useState("");
 
   
     const sendMessage = async (message) => {

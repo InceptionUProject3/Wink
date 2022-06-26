@@ -78,7 +78,7 @@ const FindCoworkers = (props) => {
                   <ListItemButton
                     key={index}
                     onClick={() => {
-                      navigate("/message", {state: {profile}});
+                      navigate("/messenger", {state: {profile}});
                       
                     }}
                   >
