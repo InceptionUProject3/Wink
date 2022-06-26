@@ -14,25 +14,24 @@ import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
 
 const WeeklyTableBody = (props) => {
-  const { selectedDay, storeOpen, scheduleHrs, daysInWeek,timezone } = props;
-  const userId = useContext(LoginContext).user?.id ||9;
-  const storeId = useContext(StoreContext).store?.Store_idStore||1 ;
-  // console.log('calendar user',user)
-  // console.log("weekstart", selectedDay);
+  const { selectedDay, storeOpen, scheduleHrs, daysInWeek, timezone, filter } =
+    props;
+  const userId = useContext(LoginContext).user?.id || 9;
+  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
+  console.log("filter in table body", filter);
 
-  // const [week, setWeek] = useState();
   const [positions, setPositions] = useState();
   const [mySched, setMySched] = useState();
   const [cowokersSched, setCoworkersSched] = useState();
+  const [filteredEmpSched, setFilteredEmpSched] = useState();
 
   const startDay = selectedDay?.clone().startOf("week");
-  // const endDay = selectedDay?.clone().endOf("week");
-  // const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
-  //need to fetch current logged in user useContext
+
   console.log("userid : ", userId, "storeid : ", storeId);
 
   //set schdules & position colors
   useEffect(() => {
+    console.log("fetching useEffect")
     const getAllSchedules = async () => {
       try {
         //need to fetch schedule with priod from server
@@ -41,17 +40,16 @@ const WeeklyTableBody = (props) => {
           `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${weekStart}`
         );
         const scheduleData = await res.json();
-        // console.log('fetched data',...scheduleData.mySchedules,
-        // ...scheduleData.coworkersSchedules)
+
         setMySched(() => scheduleData.mySchedules);
         setCoworkersSched(() => scheduleData.coworkersSchedules);
         //enable this line chduleData
         const positionArray =
           scheduleData &&
-          setPositionList(
-            [...scheduleData.mySchedules,
-            ...scheduleData.coworkersSchedules]
-          );
+          setPositionList([
+            ...scheduleData.mySchedules,
+            ...scheduleData.coworkersSchedules,
+          ]);
         setPositions(positionArray);
       } catch (err) {
         console.log("failed to fetch schedule data", err);
@@ -62,31 +60,53 @@ const WeeklyTableBody = (props) => {
     startDay && getAllSchedules();
   }, [selectedDay, storeId]);
 
+  useEffect(() => {
+    const applyFilter = () => {
+      console.log("true fitler", filter, filter==="All");
+      if (filter === "All") {
+        console.log("all filter")
+        return setFilteredEmpSched(() => cowokersSched);
+      } else if (filter === "My Position") {
+        const filteredByPosition = cowokersSched.filter(
+          (sched) => sched.position === mySched[0].position
+        );
+        console.log("filteredByposiotn", filteredByPosition);
+        return setFilteredEmpSched(() => filteredByPosition);
+      } else if (filter === "Working") {
+        const filteredByWorking = cowokersSched.filter(
+          (sched) => sched.schedules.length !== 0
+        );
+        return setFilteredEmpSched(()=>filteredByWorking);
+      } else {
+        return console.log("Can not find filter");
+      }
+    };
+    applyFilter();
+    // console.log("seted scheduels",filteredEmpSched)
+  }, [filter, selectedDay, cowokersSched, mySched]);
+
   return (
     <>
       <div className="Empty-div"></div>
       {mySched && (
         <DisplayMySched
-          myProfile={userId && mySched[0]}
+          myProfile={mySched[0]}
           positions={positions}
           daysInWeek={daysInWeek}
           storeOpen={storeOpen}
           scheduleHrs={scheduleHrs}
           timezone={timezone}
-          // storeClose={storeClose}
         />
       )}
 
       {cowokersSched && (
         <DisplayOthersSched
-          schedules={userId && cowokersSched}
+          schedules={filteredEmpSched}
           positions={positions}
           daysInWeek={daysInWeek}
           storeOpen={storeOpen}
           scheduleHrs={scheduleHrs}
           timezone={timezone}
-          // storeClose={storeClose}
-          
         />
       )}
     </>

@@ -1,8 +1,22 @@
+button{
+    cursor: pointer;
+}
 .Shiftswap{
     padding: 1em;
     display: flex;
     flex-direction: column;
     color: var(--font-darkgrey);
+    position: relative;
+}
+.Shiftswap>.close{
+    width: fit-content;
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    color:var(--fond-darkgrey)
+
+    /* color: none;; */
+
 }
 .Shiftswap>.Modal{
     display: flex;

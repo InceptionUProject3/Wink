@@ -44,6 +44,7 @@ const SwapShiftModal = (props) => {
     getMySchedules();
   }, []);
 
+
   const updateReq = (e) => {
     const { name, value, type, checked } = e.target;
     setRequest((pre) => {
@@ -68,6 +69,7 @@ const SwapShiftModal = (props) => {
 
   return (
     <div className="Shiftswap">
+      <button className="close" onClick={()=>setOpenModal(false)}>x</button>
       <ConfirmModals request={request} setOpenModal={setOpenModal} />
       <div className="date">
         <label htmlFor="date">*Date: </label>

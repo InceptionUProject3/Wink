@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import moment from "moment";
 import "moment-timezone";
@@ -13,8 +13,19 @@ import TodayButton from "../../components/calendar/Reusables/components/TodayBut
 import RequestSwapBtn from "../../components/calendar/Reusables/components/RequestSwapBtn";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import SwapShiftModal from "../../components/calendar/shiftSwapModal/SwapShiftModal";
+import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilters";
+
 
 const Calendar = () => {
+  const [filter, setFilter] = useState("All"
+    //[
+    // { name: "All", boolean: true },
+    // { name: "My Position", boolean: false },
+    // { name: "Working", boolean: false },
+  //]
+  );
+  const filterList = ["All", "My Position", "Working"];
+console.log("filter in calendar", filter)
   const [selectedDay, setSelectedDay] = useState(moment());
   const [openModal, setOpenModal] = useState(false);
 
@@ -30,6 +41,7 @@ const Calendar = () => {
       <div className="Calendars-container">
         <div className="Calendar-header">
           <RequestSwapBtn setOpenModal={setOpenModal} />
+          <WeeklyFilters filter={filter} setFilter={setFilter} filterList={filterList} />
           <ViewButtons />
           <TodayButton setSelectedDay={setSelectedDay} />
         </div>
@@ -53,6 +65,7 @@ const Calendar = () => {
                   setSelectedDay={setSelectedDay}
                   storeOpen={storeOpen}
                   scheduleHrs={scheduleHrs}
+                  filter={filter}
                 />
               }
             />
