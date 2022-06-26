@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
-
+import { useNavigate } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -18,6 +18,8 @@ const FindCoworkers = (props) => {
   const user = storeContext.store;
   const [coworkers, setCoworkers] = useState([]);
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleCollapse = () => {
     setOpen(!open);
@@ -52,6 +54,8 @@ const FindCoworkers = (props) => {
     }
   }, [user]);
 
+ 
+
   return (
     <Box sx={{ m: 5 }}>
       <List>
@@ -71,7 +75,13 @@ const FindCoworkers = (props) => {
                   divider
                   sx={{ width: 300, display: "flex", flexDirection: "column" }}
                 >
-                  <ListItemButton key={index}>
+                  <ListItemButton
+                    key={index}
+                    onClick={() => {
+                      navigate("/message", {state: {profile}});
+                      
+                    }}
+                  >
                     <ListItemText
                       primary={`${profile.user.firstname}  ${profile.user.lastname}`}
                       secondary={profile.userprofile.name}

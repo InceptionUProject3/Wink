@@ -5,23 +5,26 @@ import { Button, Container, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../utils/muiTheme";
+import { useLocation } from "react-router-dom";
 
 export const Message = () => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
   const user = storeContext.store;
-  const [receiver, setReceiver] = useState(null);
+
   const [message, setMessage] = useState("");
+  const location = useLocation();
 
   
     const sendMessage = async (message) => {
       try {
         const chat = {
           sender: user.User_idUser,
-          receiver: receiver,
+          receiver: location.state.profile.User_idUser,
           chat: message,
           store: user.Store_idStore,
         };
+        console.log("location", location.state.profile.User_idUser );
         console.log("sending message", chat);
         const data = JSON.stringify(chat);
         const response = await fetch("/api/createconversation", {
@@ -62,7 +65,7 @@ export const Message = () => {
         }}
       />
        <Button variant="contained" onClick={() => sendMessage(message)}>
-            Login
+            Send message
           </Button>
         </Box>
       </ThemeProvider>
