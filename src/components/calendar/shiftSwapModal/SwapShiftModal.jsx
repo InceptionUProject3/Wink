@@ -105,7 +105,7 @@ const SwapShiftModal = (props) => {
       </div>
       <div className="Schedules-container">
         <label htmlFor="schedules">
-          Choose available shifts to swap (optional):{" "}
+          Choose available shifts (optional):{" "}
         </label>
         <div className="Container">
           {swapList?.map((sched) => {

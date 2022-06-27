@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useContext,  useState } from "react";
+import { Route, Routes, useLocation} from "react-router-dom";
 import moment from "moment";
 import "moment-timezone";
 
@@ -17,18 +17,13 @@ import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilter
 
 
 const Calendar = () => {
-  const [filter, setFilter] = useState("All"
-    //[
-    // { name: "All", boolean: true },
-    // { name: "My Position", boolean: false },
-    // { name: "Working", boolean: false },
-  //]
-  );
+  const [filter, setFilter] = useState("All");
   const filterList = ["All", "My Position", "Working"];
-console.log("filter in calendar", filter)
+// console.log("filter in calendar", filter)
   const [selectedDay, setSelectedDay] = useState(moment());
   const [openModal, setOpenModal] = useState(false);
 
+  const calendar = useLocation()?.pathname.split('/').pop();
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const userTimeZone = moment.tz.guess();
@@ -41,7 +36,7 @@ console.log("filter in calendar", filter)
       <div className="Calendars-container">
         <div className="Calendar-header">
           <RequestSwapBtn setOpenModal={setOpenModal} />
-          <WeeklyFilters filter={filter} setFilter={setFilter} filterList={filterList} />
+          {calendar==="weekly"&&<WeeklyFilters filter={filter} setFilter={setFilter} filterList={filterList} />}
           <ViewButtons />
           <TodayButton setSelectedDay={setSelectedDay} />
         </div>
