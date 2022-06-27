@@ -16,7 +16,7 @@
 .Table-info> .Store-hours{
     display: flex;
     flex-direction: column;
-    width: 10em;
+    width: 12em;
     color: var(--font-darkgrey);
     gap: 0.4em;
 }
@@ -29,7 +29,7 @@
     text-align: start;
 }
 .Store-hours> p> .time{
-    flex:2;
+    flex:3;
     text-align: start;
 }
 
@@ -203,6 +203,26 @@
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
 }
+.Schedule{
+
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 3.7em; */
+}
+
+.Schedule>.Full-bar{
+    
+    height: 1.7em; 
+}
+.Schedule>.text{
+    position: absolute;
+    bottom:0.4em;
+    font-size: 0.7em;
+}
+
 
 .WeeklyCal-Profiles.others{
     min-height:6em;

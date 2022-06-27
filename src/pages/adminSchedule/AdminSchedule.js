@@ -42,7 +42,7 @@ const AdminSchedule = () => {
     };
     setWeeksArray();
   }, []);
-  console.log("selectedStart", selectedStart);
+  // console.log("selectedStart", selectedStart);
   useEffect(() => {
     const fetchAllData = async () => {
       try {
@@ -67,7 +67,7 @@ const AdminSchedule = () => {
     };
     selectedStart && fetchAllData();
   }, [selectedStart]);
- console.log("position List and data", positions, schedules)
+//  console.log("position List and data", positions, schedules)
   return (
     <div className="Admin-schedule">
       <div className="schedule-container">

@@ -8,7 +8,7 @@ const RequestSwapBtn = (props) => {
         setOpenModal((pre)=>!pre)
     }
   return (
-    <button className="swapshift" onClick={eventhanlder}>Request Swap</button>
+    <button className="swapshift" onClick={eventhanlder}>Shift Swap Request</button>
   )
 }
 

@@ -11,7 +11,7 @@ import "./WeeklyCalendar.css";
 
 const WeeklyCalendar = (props) => {
   //selectedDay is a standard day
-  const { selectedDay, setSelectedDay } = props;
+  const { selectedDay, setSelectedDay,filter } = props;
   const [daysInWeek, setDaysInWeek] = useState();
 
   const storeTimeZone =
@@ -46,6 +46,7 @@ const WeeklyCalendar = (props) => {
           scheduleHrs={scheduleHrs}
           daysInWeek={daysInWeek}
           timezone={userTimeZone}
+          filter={filter}
         />
       </div>
     </div>

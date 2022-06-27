@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
 // import WeeklyCalendar from "../../calendar/weeklyCalendar/WeeklyCalendar";
 import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/WeeklyCalendarHeader";
-import DisplayOthersSched from "../../calendar/weeklyCalendar/weeklyTableBody/DisplayOthersSched";
+import ClickableSchedules from "./scheduleTableBody/ClickableSchedules";
 // import WeeklyTableBody from "../../calendar/weeklyCalendar/WeeklyTableBody";
 
 import "./schedule.css";
@@ -40,8 +40,8 @@ const Schedule = (props) => {
         </div>
         <div className="Schedules">
           {schedules && (
-            <DisplayOthersSched
-              cowokerProfs={schedules}
+            <ClickableSchedules
+              schedules={schedules}
               positions={positions}
               daysInWeek={daysInWeek}
               storeOpen={storeOpen}

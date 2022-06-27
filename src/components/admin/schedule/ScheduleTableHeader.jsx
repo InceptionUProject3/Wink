@@ -6,7 +6,7 @@ const ScheduleTableHeader = (props) => {
   const { selectedDay, endDayOfWeek, daysInWeek } = props;
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  console.log("daysInweek", daysInWeek);
+  // console.log("daysInweek", daysInWeek);
   return (
     <>
       <div className="period">
