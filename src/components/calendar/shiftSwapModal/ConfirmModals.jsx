@@ -58,7 +58,7 @@ const successClose=()=>{
         <DialogTitle id="alert-dialog-title">Confirm your request</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Your shift swap request will be sent for your shift on <b>{request.date}</b>.
+            Your shift swap request will be sent for <b>{request.date}</b>.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
