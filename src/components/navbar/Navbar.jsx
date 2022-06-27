@@ -57,21 +57,7 @@ const Navbar = () => {
               </p>
             </li>
           )}
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/messaging"
-                >
-                  MESSAGING
-                </NavLink>
-              </p>
-            </li>
-          )}
+          
           {loggedInUser && (
             <li>
               <p className="menu">
@@ -82,41 +68,13 @@ const Navbar = () => {
                   })}
                   to="/coworkers"
                 >
-                  coworkers
+                  MESSENGER
                 </NavLink>
               </p>
             </li>
           )}
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/message"
-                >
-                  message
-                </NavLink>
-              </p>
-            </li>
-          )}
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/messagewindow"
-                >
-                  message window
-                </NavLink>
-              </p>
-            </li>
-          )}
+         
+         
           {loggedInUser && (
             <li>
               <p className="menu">

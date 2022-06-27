@@ -17,29 +17,7 @@ const Day = () => {
 
    
   return(
-    <div
-    className={className}
-      style={{
-        width: "14%",
-        height: "130px",
-        cursor: "pointer",
-        boxSizing: "borderBox",
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column",
-        border: borderColor(today.value),
-        zIndex: "100",
-        position: "relative",
-      }}
-
-    >
-      {daysInMonth?.map((e,index)=>(
-      <div key={`daysInMonth ${index}`}>
-        {e}
-      </div>
-      ))}
-
-    </div>
+    <div></div>
   )};
 
 export default Day;

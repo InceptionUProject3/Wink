@@ -1,17 +1,12 @@
 import moment from "moment";
-import React, { useContext, useEffect, useState } from "react";
-import { LoginContext } from "../../authentication/LoginProvider";
-import { StoreContext } from "../../authentication/StoreProvider";
+import React, { useEffect, useState } from "react";
 import { ProfileIcon } from "../Reusables/components/ProfileIcon";
 
 const DailyCalendarSummary = (props) => {
   const { positions } = props;
 
-  const userId = useContext(LoginContext).user?.id || 6;
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-
   const [userSummary, setUserSummary] = useState();
-console.log("postions", positions)
+// console.log("postions", positions)
   useEffect(() => {
     const fetchUserSummary = async () => {
       //switch endpoint to get userSummary

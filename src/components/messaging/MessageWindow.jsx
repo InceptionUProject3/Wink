@@ -3,24 +3,39 @@ import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
 import { List, ListItem, ListItemText } from "@mui/material";
 import { Box } from "@mui/system";
+import { useLocation } from "react-router-dom";
+
+
 
 const MessageWindow = () => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
   const user = storeContext.store;
   const [messages, setMessages] = useState([]);
+ const [receiver, setReceiver] = useState("");
+  const [seconds, setSeconds] = useState(0);
+  const location = useLocation();
+  
 
   useEffect(() => {
-    // const interval = setInterval(() => {
-    //     console.log("interval");
-    // }, 10000);
+    const interval = setInterval(() => {
+      setSeconds(seconds => seconds + 1);
+      console.log(seconds);
+      console.log("receiver is", location.state.profile.User_idUser);
+    }, 10000);
+    
+  }, []);
 
+
+  useEffect(() => {
+    
     const getMessages = async () => {
+     
       try {
         const chat = {
           user: user.User_idUser,
           store: user.Store_idStore,
-          receiver: 2,
+          receiver: location.state.profile.User_idUser,
         };
         console.log("sending message request: " + chat);
         const data = JSON.stringify(chat);
@@ -45,7 +60,7 @@ const MessageWindow = () => {
       }
     };
     getMessages(user);
-  }, [setInterval(() => {}, 10000)]);
+  }, [seconds]);
 
   return (
     <Box sx={{ m: 20 }}>
