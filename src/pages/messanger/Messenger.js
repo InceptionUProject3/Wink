@@ -14,18 +14,19 @@ const Messenger = () => {
   const location = useLocation();
   const [receiver, setReceiver] = useState("");
 
-    useEffect(() => {
-        if (location.state) {
-            setReceiver(location.state.profile.receiver);
-        }
-    }, [location.state]);
+    // useEffect(() => {
+    //     if (location.state) {
+    //         setReceiver(location.state.profile.User_idUser);
+    //         console.log("logging location", location.state);
+    //     }
+    // }, [location.state]);
 
 
   return (
     <div>messenger
 
-        <MessageWindow/>
-    <Message receiver={receiver} />
+        <MessageWindow setReceiver={location.state.profile.User_idUser}/>
+    <Message receiver={location.state.profile.User_idUser} />
 
     </div>
   )
