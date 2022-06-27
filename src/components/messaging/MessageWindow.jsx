@@ -20,9 +20,9 @@ const MessageWindow = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds(seconds => seconds + 1);
-      console.log(seconds);
-      console.log("receiver is", location.state.profile.User_idUser);
-    }, 10000);
+      // console.log(seconds);
+      // console.log("receiver is", location.state.profile.User_idUser);
+    }, 5000);
     
   }, []);
 
@@ -49,7 +49,7 @@ const MessageWindow = () => {
         if (response.status === 200) {
           console.log(response);
           const theMessages = JSON.parse(await response.text());
-          console.log("we have the messages", theMessages);
+          // console.log("we have the messages", theMessages);
             setMessages(theMessages);
         } else {
           console.log("failed to get message");
@@ -67,7 +67,7 @@ const MessageWindow = () => {
       <List sx={{ width: 300, display: "flex", flexDirection: "column" }}>
         {messages ? (
           messages.map((message, index) => {
-            console.log("this is the return message", message);
+            // console.log("this is the return message", message);
             return (
               <ListItem key={index}>
                 <ListItemText primary={message.chat} />
