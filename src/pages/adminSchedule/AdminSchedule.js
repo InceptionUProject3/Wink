@@ -14,6 +14,7 @@ const AdminSchedule = () => {
   const [selectedStart, setSelectedStart] = useState();
   const [positions, setPositions] = useState();
   const [schedules, setSchedules] = useState();
+  const [filters, setFilters] = useState();
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
   // console.log("This week start", startWeeks);
@@ -27,10 +28,6 @@ const AdminSchedule = () => {
   useEffect(() => {
     const setWeeksArray = () => {
       const startThisWeek = moment.tz(moment(), storeTimeZone).startOf("week");
-      //   console.log(
-      //     "start this week in store timeZone",
-      //     startThisWeek.format("Do hh:mm:ss a z")
-      //   );
       const weekArray = [];
       for (let i = 0; i < 4; i++) {
         const newWeekStart = startThisWeek?.clone().add(i, "weeks");
@@ -67,7 +64,25 @@ const AdminSchedule = () => {
     };
     selectedStart && fetchAllData();
   }, [selectedStart]);
-//  console.log("position List and data", positions, schedules)
+  //  console.log("position List and data", positions, schedules);
+  useEffect(() => {
+    const positionArray = [];
+    positions?.map((p) => {
+      positionArray.push({ type: p.position, value: true });
+    });
+    // console.log("positionArray", positionArray);
+    const initialfilterObj = {
+      hours: [
+        { type: "> 30hrs", value: true },
+        { type: "20hrs - 30hrs ", value: true },
+        { type: "< 20hrs", value: true },
+      ],
+      positions: positionArray,
+    };
+    // console.log('initial filter obj', initialfilterObj);
+    return setFilters(()=>initialfilterObj)
+  }, [positions]);
+
   return (
     <div className="Admin-schedule">
       <div className="schedule-container">
@@ -76,7 +91,8 @@ const AdminSchedule = () => {
           storeOpen={storeOpen}
           scheduleHrs={scheduleHrs}
           positions={positions}
-          schedules= {schedules}
+          schedules={schedules}
+          filters={filters}
         />
       </div>
       <div className="Side-bar-container">
@@ -85,6 +101,8 @@ const AdminSchedule = () => {
           startWeeks={startWeeks}
           selectedStart={selectedStart}
           setSelectedStart={setSelectedStart}
+          filters={filters}
+          setFilters={setFilters}
         />
       </div>
     </div>

@@ -9,7 +9,7 @@ import "./schedule.css";
 import ScheduleTableHeader from "./ScheduleTableHeader";
 
 const Schedule = (props) => {
-  const { selectedDay, scheduleHrs, storeOpen, schedules, positions } = props;
+  const { selectedDay, scheduleHrs, storeOpen, schedules, positions, filters } = props;
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const endDayOfWeek = selectedDay?.clone().endOf("week");
@@ -26,7 +26,7 @@ const Schedule = (props) => {
   }, [selectedDay]);
 
   // console.log("daysInweek", daysInWeek);
-
+  // console.log("filter in scheudle component", filters)
   return (
     <div>
       <WeeklyCalendarHeader storeOpen={storeOpen} scheduleHrs={scheduleHrs} />
