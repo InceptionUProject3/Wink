@@ -62,18 +62,18 @@ const WeeklyTableBody = (props) => {
 
   useEffect(() => {
     const applyFilter = () => {
-      console.log("true fitler", filter, filter==="All");
+      // console.log("filter", filter, filter==="All");
       if (filter === "All") {
         console.log("all filter")
         return setFilteredEmpSched(() => cowokersSched);
       } else if (filter === "My Position") {
-        const filteredByPosition = cowokersSched.filter(
+        const filteredByPosition = cowokersSched?.filter(
           (sched) => sched.position === mySched[0].position
         );
         console.log("filteredByposiotn", filteredByPosition);
         return setFilteredEmpSched(() => filteredByPosition);
       } else if (filter === "Working") {
-        const filteredByWorking = cowokersSched.filter(
+        const filteredByWorking = cowokersSched?.filter(
           (sched) => sched.schedules.length !== 0
         );
         return setFilteredEmpSched(()=>filteredByWorking);
