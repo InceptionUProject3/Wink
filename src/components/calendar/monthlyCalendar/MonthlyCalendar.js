@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
-
 import { Container } from "@mui/system";
 import MonthlyCalendarHeader from "./MonthlyCalendarHeader";
 import AddEvent from "./AddEvent";
@@ -51,7 +50,7 @@ const MonthlyCalendar = (props) => {
           `/api/schedule/monthly?storeId=${storeId}&userId=${userId}&startOfMonth=${monthStart}`
         );
         const scheduleData = await res.json();
-        console.log('fetched data', scheduleData)
+        //console.log('fetched data', scheduleData)
         setMonSched(() => scheduleData.mySchedules[0].schedules);
         //enable this line chduleData
       } catch (err) {
@@ -62,7 +61,7 @@ const MonthlyCalendar = (props) => {
     startOfMonth && getAllSchedules();
   }, [today, storeId]);
 
-  console.log("my month Schedule", myMonSched )
+  //console.log("my month Schedule", myMonSched )
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -134,26 +133,26 @@ const MonthlyCalendar = (props) => {
               
               return (
                 <div className="eventDiv" key={`day ${index}`}>
+              
                   <div className="eventDivDiv">
                     <AddEvent addEvent={addEvent} />
                   </div>
                   <div className="Empty-div"></div>
                   
                   <div className="text">{day.value}</div>
-                  <div>
+                  <div className="monthlyShedule">
+                    
                     {myMonSched?.map((schedule,index) => {
                       const starttime = moment(schedule.starttime).format("h:mm a")
                       const endtime = moment(schedule.endtime).format("h:mm a")
                       const scheduleDate = moment(schedule.starttime).date()
-
-                      console.log("starttime", starttime)
-
-
+                      //console.log("starttime", starttime)
                       //console.log("scheduleDate,schedule.starttime  ", scheduleDate, schedule.starttime)
                       if(scheduleDate === day.value){
                         return <div>{starttime} - { endtime}</div>
                       }
                     })}
+                    
                   </div>
 
 
