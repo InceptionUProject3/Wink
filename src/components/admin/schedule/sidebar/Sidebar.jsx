@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import Filters from "./Filters";
 
 import "./sidebar.css";
 
@@ -32,34 +33,7 @@ const Sidebar = (props) => {
     setSelectedStart(() => momentValue);
   };
 
-  const rearrangeFilter = (key, name) => {
-    const newFilterArray = [];
-    filters[key].map((hr) => {
-      if (hr.type === name) {
-        return newFilterArray.push({ type: name, value: !hr.value });
-      } else {
-        return newFilterArray.push({ type: hr.type, value: hr.value });
-      }
-    });
-    return newFilterArray;
-  };
-  const onClickHrs = (e) => {
-    const { className, name } = e.target;
-    // console.log("name and value", name, value);
-
-    // console.log("className", className.includes(name))
-    if (className.includes("filterHrs")) {
-      const newFilterArray = rearrangeFilter("hours", name);
-      setFilters((pre) => {
-        return { ...pre, hours: newFilterArray };
-      });
-    } else if (className.includes("filterPos")) {
-      const newFilterArray = rearrangeFilter("positions", name);
-      setFilters((pre) => {
-        return { ...pre, positions: newFilterArray };
-      });
-    }
-  };
+ 
  
   console.log("Changed filters", filters);
 
@@ -75,39 +49,8 @@ const Sidebar = (props) => {
           {displayWeekList()}
         </select>
       </div>
-      <div className="filters">
-        <div className="hours">
-          {filters?.hours.map((hr) => {
-            const checked = hr.value;
-            return (
-              <button
-                className={`filterHrs ${hr.type} ${checked}`}
-                name={hr.type}
-                value={hr.value}
-                onClick={onClickHrs}
-              >
-                {hr.type}
-              </button>
-            );
-          })}
-          </div>
-          <div className="positions">
-            {filters?.positions.map((p) => {
-              const checked = p.value;
-              return (
-                <button
-                  className={`filterPos ${p.type} ${checked}`}
-                  name={p.type}
-                  value={p.value}
-                  onClick={onClickHrs}
-                >
-                  {p.type}
-                </button>
-              );
-            })}
-          
-        </div>
-      </div>
+      <Filters filters={filters} setFilters={setFilters} />
+      
     </div>
   );
 };

@@ -74,7 +74,7 @@ const AdminSchedule = () => {
     const initialfilterObj = {
       hours: [
         { type: "> 30hrs", value: true },
-        { type: "20hrs - 30hrs ", value: true },
+        { type: "20hrs - 30hrs", value: true },
         { type: "< 20hrs", value: true },
       ],
       positions: positionArray,

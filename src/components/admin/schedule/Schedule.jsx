@@ -47,6 +47,7 @@ const Schedule = (props) => {
               storeOpen={storeOpen}
               scheduleHrs={scheduleHrs}
               timezone={storeTimeZone}
+              filters={filters}
             />
           )}
         </div>
