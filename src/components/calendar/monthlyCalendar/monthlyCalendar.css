@@ -1,3 +1,16 @@
+.eventDiv{
+    position :relative;
+    grid-template-columns:repeat(2, 1fr);
+}
+.monthlyShedule{
+  display: flex;
+  font-size:10px;
+  flex-direction: column ;
+  background-color: var(--wink-color-light);
+  border-radius: 2px;
+  display: flex;
+  
+}
 .headerGrid{
     display: grid;
     width: 100%;
@@ -43,9 +56,6 @@
     
 }
 
-.eventDiv{
-    position :relative
-}
 
 .eventDivDiv{
     position:absolute;
@@ -68,6 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
 }
 .mainGridStyle  {
@@ -86,7 +97,7 @@
 };
 
 .weekdayHeadersStyle {
-    display: grid;
+    display: flex;
     width: 100%;
     text-align: center;
     flex-wrap: wrap;
@@ -97,5 +108,4 @@
     grid-template-columns: repeat(7,1fr);
     
   };
-  
   
