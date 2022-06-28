@@ -24,6 +24,7 @@ const Calendar = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const calendar = useLocation()?.pathname.split('/').pop();
+  console.log("calendar", calendar)
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const userTimeZone = moment.tz.guess();
