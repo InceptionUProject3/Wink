@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 
 import Schedule from "../../components/admin/schedule/Schedule";
-import Sidebar from "../../components/admin/schedule/Sidebar";
+import Sidebar from "../../components/admin/schedule/sidebar/Sidebar";
 import setPositionList from "../../components/calendar/Reusables/functions/setPositionList";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import { LoginContext } from "../../components/authentication/LoginProvider";

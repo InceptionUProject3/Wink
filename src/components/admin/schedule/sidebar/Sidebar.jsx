@@ -32,36 +32,35 @@ const Sidebar = (props) => {
     setSelectedStart(() => momentValue);
   };
 
-  const onClickHrs = (e) => {
-    const { name, value } = e.target;
-    // console.log("name and value", name, value);
-    const newHrsArray = [];
-    filters.hours.map((hr) => {
+  const rearrangeFilter = (key, name) => {
+    const newFilterArray = [];
+    filters[key].map((hr) => {
       if (hr.type === name) {
-        return newHrsArray.push({ type: name, value: !hr.value });
+        return newFilterArray.push({ type: name, value: !hr.value });
       } else {
-        return newHrsArray.push({ type: hr.type, value: hr.value });
+        return newFilterArray.push({ type: hr.type, value: hr.value });
       }
     });
-    setFilters((pre) => {
-      return { ...pre, hours: newHrsArray };
-    });
+    return newFilterArray;
   };
-  const onClickPositions = (e) => {
-    const { name, value } = e.target;
+  const onClickHrs = (e) => {
+    const { className, name } = e.target;
     // console.log("name and value", name, value);
-    const newPosArray = [];
-    filters.positions.map((p) => {
-      if (p.type === name) {
-        return newPosArray.push({ type: name, value: !p.value });
-      } else {
-        return newPosArray.push({ type: p.type, value: p.value });
-      }
-    });
-    setFilters((pre) => {
-      return { ...pre, hours: newPosArray };
-    });
+
+    // console.log("className", className.includes(name))
+    if (className.includes("filterHrs")) {
+      const newFilterArray = rearrangeFilter("hours", name);
+      setFilters((pre) => {
+        return { ...pre, hours: newFilterArray };
+      });
+    } else if (className.includes("filterPos")) {
+      const newFilterArray = rearrangeFilter("positions", name);
+      setFilters((pre) => {
+        return { ...pre, positions: newFilterArray };
+      });
+    }
   };
+ 
   console.log("Changed filters", filters);
 
   return (
@@ -91,21 +90,22 @@ const Sidebar = (props) => {
               </button>
             );
           })}
+          </div>
           <div className="positions">
-          {filters?.positions.map((p)=>{
-            const checked = p.value;
-            return(
-              <button
-              className={`filterPos ${p.type} ${checked}`}
-              name={p.type}
-              value={p.value}
-              onClick={onClickPositions}
-            >
-              {p.type}
-            </button>
-            )
-          })}
-        </div>
+            {filters?.positions.map((p) => {
+              const checked = p.value;
+              return (
+                <button
+                  className={`filterPos ${p.type} ${checked}`}
+                  name={p.type}
+                  value={p.value}
+                  onClick={onClickHrs}
+                >
+                  {p.type}
+                </button>
+              );
+            })}
+          
         </div>
       </div>
     </div>
