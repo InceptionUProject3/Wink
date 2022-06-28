@@ -4,11 +4,12 @@
 }
 .monthlyShedule{
   display: flex;
-  font-size:10px;
+  font-size:0.6em;
   flex-direction: column ;
   background-color: var(--wink-color-light);
   border-radius: 2px;
   display: flex;
+  color: white;
   
 }
 .headerGrid{
@@ -21,6 +22,7 @@
     margin: auto;
     grid-template-columns: repeat(7,1fr);
     height: 2.6em;
+    color: var(--font-darkgrey);
     
     
 }
@@ -36,6 +38,7 @@
 
 .MonthInHeader{
     width:7em;
+    color: var(--font-darkgrey);  
 }
 
 .addEventButton {
