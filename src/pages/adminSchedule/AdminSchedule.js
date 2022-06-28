@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import moment from "moment";
 
 import Schedule from "../../components/admin/schedule/Schedule";
@@ -15,6 +15,8 @@ const AdminSchedule = () => {
   const [positions, setPositions] = useState();
   const [schedules, setSchedules] = useState();
   const [filters, setFilters] = useState();
+  const [userList, setUserList] = useState([]);
+  const [selectedEmp, setSelectedEmp] = useState("")
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
   // console.log("This week start", startWeeks);
@@ -44,19 +46,17 @@ const AdminSchedule = () => {
     const fetchAllData = async () => {
       try {
         const startDay = selectedStart.clone().format();
-        console.log("startDay", selectedStart.format());
+        // console.log("startDay", selectedStart.format());
         const data = await fetch(
           `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
         );
         const scheduleData = await data.json();
-        // console.log("data", scheduleData);
+
         const scheduleArray = [
           ...scheduleData.mySchedules,
           ...scheduleData.coworkersSchedules,
         ];
         setSchedules(() => scheduleArray);
-        const positionArray = setPositionList(scheduleArray);
-        setPositions(positionArray);
       } catch (err) {
         console.log("failed to fetch schedule data", err);
         setSchedules(() => null);
@@ -64,7 +64,26 @@ const AdminSchedule = () => {
     };
     selectedStart && fetchAllData();
   }, [selectedStart]);
-  //  console.log("position List and data", positions, schedules);
+
+  useMemo(() => {
+    //set userList
+    schedules?.map((sched) => {
+      setUserList((pre) => [
+        ...pre,
+        {
+          userId: sched.userId,
+          firstname: sched.firstname,
+          lastname: sched.lastname,
+        },
+      ]);
+    });
+    //set position List
+    const positionArray = setPositionList(schedules);
+    setPositions(positionArray);
+  }, [schedules]);
+
+  console.log("position List and data", positions, schedules, userList);
+  
   useEffect(() => {
     const positionArray = [];
     positions?.map((p) => {
@@ -80,7 +99,7 @@ const AdminSchedule = () => {
       positions: positionArray,
     };
     // console.log('initial filter obj', initialfilterObj);
-    return setFilters(()=>initialfilterObj)
+    return setFilters(() => initialfilterObj);
   }, [positions]);
 
   return (
@@ -93,6 +112,7 @@ const AdminSchedule = () => {
           positions={positions}
           schedules={schedules}
           filters={filters}
+          selectedEmp={selectedEmp}
         />
       </div>
       <div className="Side-bar-container">
@@ -103,6 +123,8 @@ const AdminSchedule = () => {
           setSelectedStart={setSelectedStart}
           filters={filters}
           setFilters={setFilters}
+          userList={userList}
+          setSelectedEmp={setSelectedEmp}
         />
       </div>
     </div>

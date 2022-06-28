@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../calendar/Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../calendar/Reusables/components/ProfileSmall";
@@ -12,11 +12,13 @@ const ClickableSchedules = (props) => {
     scheduleHrs,
     timezone,
     filters,
+    selectedEmp,
   } = props;
   // console.log("all", schedules, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState();
-//filter update
+  const [filteredEmpSched, setFilteredEmpSched] = useState();
+  //filter update
   useEffect(() => {
     console.log("filters", filters);
     // const filteringHrs = () => {
@@ -31,37 +33,52 @@ const ClickableSchedules = (props) => {
     //     }
     //   });
     // };
+    console.log("emp", selectedEmp);
     const filteringPosition = () => {
+      if (selectedEmp) return setFilteredPos(positions);
+
       const positionfilterArr = filters?.positions;
-      const newPosition=[]
-      positions?.map((p, i) => {
+      const newPosition = [];
+      positions?.map((p) => {
         const checked = positionfilterArr.some((e) => {
           if (e.type === p.position) {
-            // console.log("position value",e)
             return e.value;
           }
         });
-        console.log("checked", checked)
         if (checked === true) {
-          console.log("true", p)
-          newPosition.push(p)
-        };
-        
+          newPosition.push(p);
+        }
       });
       // console.log("newPosition",newPosition)
-      return setFilteredPos (()=>newPosition)
+      return setFilteredPos(() => newPosition);
     };
-     filteringPosition();
-    
-  }, [schedules, filters, positions]);
+    filteringPosition();
+  }, [schedules, filters, selectedEmp, positions]);
+  useEffect(() => {
+    const searchEmp = () => {
+      if (selectedEmp?.length === 0) return setFilteredEmpSched(schedules);
+      setFilteredEmpSched([])
+     return schedules?.map((sched) => {
+        return selectedEmp.map((e) =>{
+        if( sched.userId === e.userId){
+          return setFilteredEmpSched((pre)=>[ ...pre,sched]);
 
-  useEffect(()=>{
-    const groupedObj = groupByPosition(schedules);
+        }});
+      });
+      // console.log('fuondEmpSched', foundEmpSched)
+    };
+    searchEmp();
+  }, [schedules, selectedEmp]);
+  // console.log("select emp sched", filteredEmpSched);
+
+  useEffect(() => {
+    const groupedObj = groupByPosition(filteredEmpSched);
     setGroupedProfs(() => groupedObj);
-  },[filteredPos,schedules])
+  }, [filteredPos, filteredEmpSched]);
 
-  console.log("filtered scheduels",filteredPos);
-  console.log('grouped',groupedProfs)
+  // console.log("filtered positions",filteredPos);
+  // console.log('grouped',groupedProfs);
+
   return (
     <>
       {filteredPos?.map((position, i) => {
