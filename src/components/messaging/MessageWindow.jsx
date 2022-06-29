@@ -1,36 +1,32 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { List, ListItem, ListItemText, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { useLocation } from "react-router-dom";
-
-
+import theme from "../utils/muiTheme";
+import { ThemeProvider } from "@mui/material/styles";
+import shadows from "@mui/material/styles/shadows";
 
 const MessageWindow = () => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
   const user = storeContext.store;
   const [messages, setMessages] = useState([]);
- const [receiver, setReceiver] = useState("");
+  const [receiver, setReceiver] = useState("");
   const [seconds, setSeconds] = useState(0);
   const location = useLocation();
-  
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSeconds(seconds => seconds + 1);
+      setSeconds((seconds) => seconds + 1);
       // console.log(seconds);
       // console.log("receiver is", location.state.profile.User_idUser);
     }, 5000);
-    
   }, []);
 
-
   useEffect(() => {
-    
     const getMessages = async () => {
-     
       try {
         const chat = {
           user: user.User_idUser,
@@ -50,7 +46,7 @@ const MessageWindow = () => {
           console.log(response);
           const theMessages = JSON.parse(await response.text());
           // console.log("we have the messages", theMessages);
-            setMessages(theMessages);
+          setMessages(theMessages);
         } else {
           console.log("failed to get message");
           setMessages([]);
@@ -63,14 +59,35 @@ const MessageWindow = () => {
   }, [seconds]);
 
   return (
-    <Box sx={{ m: 20 }}>
-      <List sx={{ width: 300, display: "flex", flexDirection: "column" }}>
+    <ThemeProvider theme={theme}>
+    <Box
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <List
+        sx={{ width: '75%', display: "flex", flexDirection: "column" }}
+        align="right"
+        justifyContent="right"
+        style={{ border: "red" }}
+      >
         {messages ? (
           messages.map((message, index) => {
             // console.log("this is the return message", message);
-            return (
-              <ListItem key={index}>
-                <ListItemText primary={message.chat} />
+            return message.sender === user.User_idUser ? (
+              <ListItem key={index}  >
+                <ListItemText
+                  primary={message.chat}
+                  align="right"
+                  sx={{ border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%', ml: '50%'   }}
+                />
+              </ListItem>
+            ) : (
+              <ListItem key={index} sx={{width: '50%'}}>
+                <ListItemText
+                  primary={message.chat}
+                  align="left"
+                  
+                  sx={{ border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%'  }}
+                />
               </ListItem>
             );
           })
@@ -81,6 +98,7 @@ const MessageWindow = () => {
         )}
       </List>
     </Box>
+    </ThemeProvider>
   );
 };
 
