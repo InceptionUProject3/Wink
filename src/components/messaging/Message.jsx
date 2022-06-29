@@ -14,7 +14,8 @@ const Message = () => {
 
   const [message, setMessage] = useState("");
   const location = useLocation();
-  const [receiver, setReceiver] = useState("");
+
+
 
   
     const sendMessage = async (message) => {
@@ -36,6 +37,7 @@ const Message = () => {
           body: data,
         });
         if (response.status === 200) {
+          setMessage("");
           console.log(response);
           const theMessage = JSON.parse(await response.text());
           console.log("we have the message", theMessage);
