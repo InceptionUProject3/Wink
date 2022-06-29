@@ -2,14 +2,16 @@
     display: grid;
     grid-template-columns: repeat(8,minmax(100px,1fr));
     grid-template-rows: auto;
-    border-top: 0.5px solid var(--grid-color);
-    border-left: 0.5px solid var(--grid-color);
 }
+
 .Weekly-header>.period{
     grid-column: 1/-1;
     grid-row: 1;
     border-bottom: 0.5px solid var(--grid-color);
-    border-right: 0.5px solid var(--grid-color);
+    padding: 0.3em 0.3em 2em 0.3rem;
+    font-weight: bold;
+    font-size: large;
+    color:var(--wink-color-light)
 }
 .Weekly-header>.days{
     grid-column: 1/-1;
@@ -17,10 +19,11 @@
     display: grid;
    grid-template-columns: repeat(8,minmax(100px,1fr));
    border-bottom: 0.5px solid var(--grid-color);
+   border-left: 0.5px solid var(--grid-color);
 }
 .Weekly-header>.days>div{
-    border-right: 0.5px solid var(--grid-color)
-
+    border-right: 0.5px solid var(--grid-color);
+    padding: 0.3em;
 }
 .Admin-weekly-calendar>.Schedules{
     display: grid;
@@ -31,5 +34,16 @@
 .Admin-weekly-calendar>.Schedules>div{
     border-bottom: 0.5px solid var(--grid-color);
     border-right: 0.5px solid var(--grid-color);
+    padding: 0.3em;
+}
+
+.Admin-weekly-calendar>.Schedules>.Schedule.clickable:hover{
+    cursor: pointer;
+    border: 2px solid var(--wink-color-light);
+    
+}
+.Admin-weekly-calendar>.Schedules>.Schedule.non-clickable{
+    /* border: 2px solid var(--wink-color-light); */
+    background-color: rgba(230, 235, 230, 0.15)
     
 }

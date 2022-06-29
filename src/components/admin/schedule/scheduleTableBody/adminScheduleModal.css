@@ -1,0 +1,33 @@
+
+.MuiPaper-root>.MuiTypography-root{
+ display: flex;
+ flex-direction: row;
+}
+.MuiPaper-root>.MuiTypography-root>.icon{
+    margin-left:1rem;
+    margin-right: 0.5rem;
+    align-items: center;
+}
+.MuiPaper-root>.MuiTypography-root>.icon>p{
+   width: fit-content;
+   top:0;
+   bottom:0;
+   font-size: 0.8em;
+}
+.MuiPaper-root>.MuiTypography-root>.name{
+    color: var(--font-darkgrey)
+}
+
+.modal-contents{
+    display: flex;
+    flex-direction: column;
+    gap:0.5rem;
+}
+.modal-contents>div{
+    display: flex;
+    flex-direction: row;
+    gap:0.5rem;
+    height: 1.5em;
+}
+
+    

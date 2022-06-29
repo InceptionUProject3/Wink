@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
-
 import { Container } from "@mui/system";
 import MonthlyCalendarHeader from "./MonthlyCalendarHeader";
 import AddEvent from "./AddEvent";
@@ -9,16 +8,12 @@ import ScheduleBar from "../Reusables/components/ScheduleBar";
 import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
 import DisplayMySched from "../weeklyCalendar/weeklyTableBody/DisplayMySched";
+import DisplayMonthlySched from "./DisplayMonthlySched";
 
 const MonthlyCalendar = (props) => {
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  const {
-    today,
-    setToday,
-    storeOpen,
-    scheduleHrs,
-    } = props;
+  const { today, setToday, storeOpen, scheduleHrs,timezone } = props;
 
   // console.log("positions",positions)
 
@@ -39,13 +34,11 @@ const MonthlyCalendar = (props) => {
   const firstDayOfMonth = new Date(year, month, 1);
   const [monthsArray, setMonthsArray] = useState();
   const [addEvent, setAddEvent] = useState();
-  const [mySched, setMySched] = useState();
+  const [myMonSched, setMonSched] = useState();
   const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
-  const startOfMonth = today?.clone().startOf("months")
-  const endOfMonth = today?.clone().startOf("months")
- // console.log("startOfMonth",startOfMonth)
- 
-
+  const startOfMonth = today?.clone().startOf("months");
+  const endOfMonth = today?.clone().startOf("months");
+  // console.log("startOfMonth",startOfMonth)
 
   useEffect(() => {
     const getAllSchedules = async () => {
@@ -57,16 +50,18 @@ const MonthlyCalendar = (props) => {
           `/api/schedule/monthly?storeId=${storeId}&userId=${userId}&startOfMonth=${monthStart}`
         );
         const scheduleData = await res.json();
-         //console.log('fetched data', scheduleData)
-         setMySched(() => scheduleData.mySchedules);
+        //console.log('fetched data', scheduleData)
+        setMonSched(() => scheduleData.mySchedules[0].schedules);
         //enable this line chduleData
-        } catch (err) {
+      } catch (err) {
         console.log("failed to fetch schedule data", err);
-        setMySched(() => null);
+        setMonSched(() => null);
       }
     };
     startOfMonth && getAllSchedules();
   }, [today, storeId]);
+
+  //console.log("my month Schedule", myMonSched )
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -108,60 +103,7 @@ const MonthlyCalendar = (props) => {
     setMonthsArray(monthArray);
   }, [theDate]);
 
-  const displaySched = (schedules) => {
-    return monthsArray?.map((day, i) => {
-      //need to change to store hrs
-      const oneDay = moment(day, "MMM DD YYYY HH:mm");
-      const dayStart = oneDay
-        .clone()
-        .set({ h: storeOpen?.hour(), m: storeOpen?.minute() });
-      const dayEnd = oneDay.set({
-        h: storeClose?.hour(),
-        m: storeClose?.minute(),
-      });
 
-      //console.log("sched", schedules);
-      const foundSched = schedules?.find(
-        (sched) =>
-          moment(sched.endtime) > dayStart && moment(sched.starttime) < dayEnd
-      );
-      // console.log("foundsched", foundSched);
-      if (foundSched === undefined) {
-        // console.log("print empty div ");
-        return (
-          <div
-            className="Schedule"
-            key={`emptySched ${schedules?.scheduleId} ${i}`}
-          ></div>
-        );
-      } else if (foundSched) {
-        // console.log("day period", dayStart, dayEnd);
-        // console.log("foundSched", foundSched);
-        const schedFrom = moment(foundSched.starttime);
-        const schedTo = moment(foundSched.endtime);
-        const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
-        const newTo = schedTo < dayEnd ? schedTo : dayEnd;
-        // console.log("schedule in a day", newFrom, "-", newTo);
-
-        return (
-          <div key={`Sched ${schedules?.scheduleId} ${i}`} className="Schedule">
-            <ScheduleBar
-              dayStart={dayStart}
-              dayEnd={dayEnd}
-              newFrom={newFrom}
-              newTo={newTo}
-              schedObj={foundSched}
-            />
-            {foundSched.workcode === 0 && (
-              <div className="text">
-                {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
-              </div>
-            )}
-          </div>
-        );
-      }
-    });
-  };
 
   return (
     <div>
@@ -177,38 +119,49 @@ const MonthlyCalendar = (props) => {
 
           <br />
 
+            <div></div>
+            {myMonSched && (
+              <DisplayMonthlySched
+              myProfile={userId && myMonSched[0]}
+              storeOpen={storeOpen}
+              monthsArray={monthsArray}
+              scheduleHrs={scheduleHrs}
+              timezone={timezone} />
+            )}
           <div className="mainGridStyle">
             {monthsArray?.map((day, index) => {
-              //  const isWeekend = moment(day).day() === 0 || moment(day).day() === 6 ? "Weekend" : "";
-              //  let isToday = day === moment().startOf("day").format() ? "Today" : "";
-
-              //  console.log("isWeekend",isWeekend)
-              //  console.log("isToday",isToday)
-
+              
               return (
                 <div className="eventDiv" key={`day ${index}`}>
+              
                   <div className="eventDivDiv">
                     <AddEvent addEvent={addEvent} />
                   </div>
                   <div className="Empty-div"></div>
-                  {/* {scheduleData && (
-                    <DisplayMySched
-                      myProfile={userId && findMy(scheduleData, userId)[0]}
-                      displaySched={displaySched}
-                      positions={positions}
-                    />
-                  )} */}
-                  {/* <div
-                    className={`"abc" ${isToday} ${isWeekend}`}
-                    key={`monthsArray ${index}`}
-                    
-                  ></div> */}
-
+                  
                   <div className="text">{day.value}</div>
+                  <div className="monthlyShedule">
+                    
+                    {myMonSched?.map((schedule,index) => {
+                      const starttime = moment(schedule.starttime).format("h:mm a")
+                      const endtime = moment(schedule.endtime).format("h:mm a")
+                      const scheduleDate = moment(schedule.starttime).date()
+                      //console.log("starttime", starttime)
+                      //console.log("scheduleDate,schedule.starttime  ", scheduleDate, schedule.starttime)
+                      if(scheduleDate === day.value){
+                        return <div>{starttime} - { endtime}</div>
+                      }
+                    })}
+                    
+                  </div>
+
+
                 </div>
               );
             })}
           </div>
+
+          <div></div>
         </Container>
       </div>
     </div>

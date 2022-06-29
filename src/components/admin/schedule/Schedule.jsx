@@ -1,22 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
-// import WeeklyCalendar from "../../calendar/weeklyCalendar/WeeklyCalendar";
 import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/WeeklyCalendarHeader";
 import ClickableSchedules from "./scheduleTableBody/ClickableSchedules";
-// import WeeklyTableBody from "../../calendar/weeklyCalendar/WeeklyTableBody";
 
 import "./schedule.css";
 import ScheduleTableHeader from "./ScheduleTableHeader";
 
 const Schedule = (props) => {
-  const { selectedDay, scheduleHrs, storeOpen, schedules, positions } = props;
+  const { selectedDay, scheduleHrs, storeOpen, schedules, positions, filters, selectedEmp } = props;
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const endDayOfWeek = selectedDay?.clone().endOf("week");
   // const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
-
   const [daysInWeek, setDaysInWeek] = useState();
-
+  // console.log('selectedEmpId in schedule', selectedEmp)
   useEffect(() => {
     const weekArray = [];
     for (let i = 0; i < endDayOfWeek?.diff(selectedDay, "days") + 1; i++) {
@@ -26,7 +23,7 @@ const Schedule = (props) => {
   }, [selectedDay]);
 
   // console.log("daysInweek", daysInWeek);
-
+  // console.log("filter in scheudle component", filters)
   return (
     <div>
       <WeeklyCalendarHeader storeOpen={storeOpen} scheduleHrs={scheduleHrs} />
@@ -36,6 +33,7 @@ const Schedule = (props) => {
             selectedDay={selectedDay}
             endDayOfWeek={endDayOfWeek}
             daysInWeek={daysInWeek}
+            
           />
         </div>
         <div className="Schedules">
@@ -47,6 +45,8 @@ const Schedule = (props) => {
               storeOpen={storeOpen}
               scheduleHrs={scheduleHrs}
               timezone={storeTimeZone}
+              filters={filters}
+              selectedEmp={selectedEmp}
             />
           )}
         </div>
