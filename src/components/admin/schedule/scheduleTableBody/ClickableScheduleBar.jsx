@@ -3,6 +3,7 @@ import moment from "moment";
 import ScheduleBar from "../../../calendar/Reusables/components/ScheduleBar";
 import { useEffect } from "react";
 import AdminScheduleModal from "./AdminScheduleModal";
+import { Button } from "@mui/material";
 
 const ClickableScheduleBar = ({
   daysInWeek,
@@ -11,11 +12,16 @@ const ClickableScheduleBar = ({
   timezone,
   employeeSched,
   position,
+  // schedModalOpen,
+  setSchedModalOpen,
+  selectedDate, 
+  setSelectedDate
 }) => {
   // console.log("schedules",schedules)
   const [newSchedArr, SetnewSchedArr] = useState([]);
-  const [selectedDate, setSelectedDate] = useState();
+  // const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
+  const [open, setOpen] =useState(false)
   const [selectedSched, setSelectedSched] = useState({
     User_idUser: "",
     Store_idStore: "",
@@ -23,8 +29,8 @@ const ClickableScheduleBar = ({
     endtime: "",
     workcode: 0,
   });
-  const [open, setOpen] = useState(false);
-  // console.log("schedules", schedules)
+
+  console.log("ININ")
 
   useEffect(() => {
     const getTimeList = () => {
@@ -41,11 +47,10 @@ const ClickableScheduleBar = ({
     };
     getTimeList();
   }, []);
-  
 
   const scheduleAction = (e, day, foundSched) => {
     // const selectedScheduleId = e.target;
-    // console.log('selectedSchedId', day, foundSched)
+    console.log('Clicked room ', moment.tz(day, timezone))
     setSelectedDate(() => moment.tz(day, timezone));
 
     if (foundSched) {
@@ -55,19 +60,32 @@ const ClickableScheduleBar = ({
       });
     } else {
       setSelectedSched((pre) => {
-        console.log("create on user where id, storeid are", employeeSched.userId, employeeSched.storeId);
-        return { ...pre, User_idUser: employeeSched.userId, Store_idStore:employeeSched.storeId };
+        console.log(
+          "create on user where id, storeid are",
+          employeeSched.userId,
+          employeeSched.storeId
+        );
+        return {
+          ...pre,
+          User_idUser: employeeSched.userId,
+          Store_idStore: employeeSched.storeId,
+        };
       });
       // format("ddd Do"));
     }
     // setSelectedSched((pre)=>{return{...pre, userId:employeeSched.userId}})
     setOpen(true);
   };
-
+  useEffect(()=>{
+    console.log('open has been changed')
+    const fetchDataAgain=()=>{
+      setSchedModalOpen((pre)=>!pre);
+    }
+    fetchDataAgain()
+  },[open])
   // console.log("selectedSched", selectedSched);
   return (
     <>
-
       {daysInWeek?.map((day, i) => {
         //need to change to store hrs
         const today = moment.tz(moment(), timezone);

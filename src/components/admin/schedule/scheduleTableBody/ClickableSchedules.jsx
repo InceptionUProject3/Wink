@@ -13,6 +13,10 @@ const ClickableSchedules = (props) => {
     timezone,
     filters,
     selectedEmp,
+    // schedModalOpen,
+    setSchedModalOpen,
+    selectedDate,
+    setSelectedDate
   } = props;
   // console.log("all", schedules, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
@@ -33,7 +37,7 @@ const ClickableSchedules = (props) => {
     //     }
     //   });
     // };
-    console.log("emp", selectedEmp);
+    // console.log("emp", selectedEmp);
     const filteringPosition = () => {
       if (selectedEmp) return setFilteredPos(positions);
 
@@ -54,16 +58,17 @@ const ClickableSchedules = (props) => {
     };
     filteringPosition();
   }, [schedules, filters, selectedEmp, positions]);
+
   useEffect(() => {
     const searchEmp = () => {
       if (selectedEmp?.length === 0) return setFilteredEmpSched(schedules);
-      setFilteredEmpSched([])
-     return schedules?.map((sched) => {
-        return selectedEmp.map((e) =>{
-        if( sched.userId === e.userId){
-          return setFilteredEmpSched((pre)=>[ ...pre,sched]);
-
-        }});
+      setFilteredEmpSched([]);
+      return schedules?.map((sched) => {
+        return selectedEmp.map((e) => {
+          if (sched.userId === e.userId) {
+            return setFilteredEmpSched((pre) => [...pre, sched]);
+          }
+        });
       });
       // console.log('fuondEmpSched', foundEmpSched)
     };
@@ -76,9 +81,9 @@ const ClickableSchedules = (props) => {
     setGroupedProfs(() => groupedObj);
   }, [filteredPos, filteredEmpSched]);
 
-  // console.log("filtered positions",filteredPos);
+  console.log("ClickeableSched");
   // console.log('grouped',groupedProfs);
-
+  // console.log('schedModalOpen', schedModalOpen)
   return (
     <>
       {filteredPos?.map((position, i) => {
@@ -101,6 +106,10 @@ const ClickableSchedules = (props) => {
                   employeeSched={emp}
                   timezone={timezone}
                   position={position}
+                  // schedModalOpen={schedModalOpen}
+                  setSchedModalOpen={setSchedModalOpen}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
                 />
               </React.Fragment>
             );

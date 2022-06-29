@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import moment from "moment";
@@ -35,7 +34,7 @@ const AdminScheduleModal = ({
       return { ...pre, [name]: time };
     });
   };
-  console.log("selected scheudles", selectedSched);
+  // console.log("selected scheudles", selectedSched);
 
   const updateWorkcode = (e) => {
     const { name, value } = e.target;
@@ -43,8 +42,41 @@ const AdminScheduleModal = ({
       return { ...pre, [name]: value * 1 };
     });
   };
-  
 
+  const resetEvent = () => {
+    setSelectedSched({
+      User_idUser: "",
+      Store_idStore: "",
+      starttime: "",
+      endtime: "",
+      workcode: 0,
+    });
+    setOpen(false);
+  };
+
+  const sendEvent = async () => {
+    try {
+      if (selectedSched.idSchedule) {
+        console.log("editing schedule... on ", selectedSched);
+      } else {
+        console.log("creating schedule...", selectedSched);
+        const dataToSend = JSON.stringify(selectedSched);
+        const response = await fetch(`/api/schedule/create`, {
+          method: "POST",
+          headers: { "content-Type": "application/json" },
+          body: dataToSend,
+        });
+        if (response.status === 200) {
+          console.log("success");
+          resetEvent();
+          setOpen(false);
+        }
+      }
+    } catch (err) {
+      console.log("Saving schedule action is failed.");
+    }
+  };
+  // console.log("selectedDay", selectedDate);
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
       <DialogTitle>
@@ -72,7 +104,9 @@ const AdminScheduleModal = ({
             </select>
           </div>
           <div className="date-list-start">
-            <label htmlFor="starttime">Start time ({selectedDate?.format('z')}):</label>
+            <label htmlFor="starttime">
+              Start time ({selectedDate?.format("z")}):
+            </label>
             <select
               name="starttime"
               onChange={(e) => {
@@ -94,7 +128,9 @@ const AdminScheduleModal = ({
             </select>
           </div>
           <div className="date-list-end">
-            <label htmlFor="endtime">End time ({selectedDate?.format('z')}):</label>
+            <label htmlFor="endtime">
+              End time ({selectedDate?.format("z")}):
+            </label>
             <select
               name="endtime"
               onChange={updateTime}
@@ -119,8 +155,8 @@ const AdminScheduleModal = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)}>Cancel</Button>
-        <Button onClick={() => setOpen(false)}>Send</Button>
+        <Button onClick={resetEvent}>Cancel</Button>
+        <Button onClick={sendEvent}>Save</Button>
       </DialogActions>
     </Dialog>
   );
