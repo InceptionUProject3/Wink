@@ -2,6 +2,7 @@ import React from "react";
 import { ProfileIcon } from "./ProfileIcon";
 
 const ProfileSmall = ({ emp, position, i, index }) => {
+  // console.log("position in profileSmall", emp,position)
   return (
     <div className="WeeklyCal-Profiles others" key={`profile ${i} ${index}`}>
       {index === 0 && (

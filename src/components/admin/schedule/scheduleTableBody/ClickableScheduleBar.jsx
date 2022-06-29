@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import moment from "moment";
-import Dialog from "@mui/material/Dialog";
-import Button from "@mui/material/Button";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import ScheduleBar from "../../../calendar/Reusables/components/ScheduleBar";
 import { useEffect } from "react";
-import ProfileBig from "../../../calendar/Reusables/components/ProfileBig";
+import AdminScheduleModal from "./AdminScheduleModal";
 
 const ClickableScheduleBar = ({
   daysInWeek,
@@ -30,7 +24,7 @@ const ClickableScheduleBar = ({
   });
   const [open, setOpen] = useState(false);
   // console.log("schedules", schedules)
-  
+
   useEffect(() => {
     const getTimeList = () => {
       const timeOpen = storeOpen?.clone();
@@ -63,91 +57,32 @@ const ClickableScheduleBar = ({
       setSelectedSched((pre) => {
         return { ...pre, userId: employeeSched.userId, workcode: 0 };
       });
-      setSelectedDate(() => moment.tz(day, timezone).format("ddd Do"));
+      setSelectedDate(() => moment.tz(day, timezone))
+      // format("ddd Do"));
       console.log("create on", employeeSched.employeeId);
     }
     // setSelectedSched((pre)=>{return{...pre, userId:employeeSched.userId}})
     setOpen(true);
   };
 
-  const clickDate = (e) => {
-    const { value, name } = e.target;
-    console.log("value and name", value, name);
-    if(name==='starttime'||name==='endtime'){
-      const hour = moment(value,"hh:mm a").get("hour");
-      const min =moment(value,"hh:mm a").get("minute");
-      const time = moment.tz(selectedDate,"ddd Do",timezone).set({'h':hour,'m':min}).format();
-      // console.log("time", moment.tz(time, timezone).format("ddd do, hh:mm a z"))
-      setSelectedSched((pre)=>{return{...pre, [name]:time}})
-    }else{
-
-      setSelectedSched((pre) => {
-        return { ...pre, [name]: value };
-      }
-      );
-    }
-  };
   // console.log("selectedSched", selectedSched);
   return (
     <>
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>
-          Schedule for {employeeSched.firstname}, {employeeSched.lastname}
-        </DialogTitle>
-        <DialogContent>
-          <div className="modal-contents">
-            <ProfileBig profile={employeeSched} position={position} />
-            <div className="form-box">
-              <div className="date-container">
-                <label> Date: </label>
-                <div className="date">{selectedDate}</div>
-                <div className="date-list-start">
-                  <label htmlFor="starttime">Shift start:</label>
-                  <select
-                    name="starttime"
-                    onChange={clickDate}
-                    value={moment.tz(selectedSched.starttime,timezone).format("hh:mm a")}
-                  >
-                    <option value="">--choose time--</option>
-                    {timeList?.map((time, i) => {
-                      return (
-                        <option value={time} key={`starttime ${i}`}>
-                          {time}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                <div className="date-list-end">
-                  <label htmlFor="endtime">Shift start:</label>
-                  <select
-                    name="endtime"
-                    onChange={clickDate}
-                    value={moment.tz(selectedSched.endtime,timezone).format("hh:mm a")}
-                  >
-                    <option value="">--choose time--</option>
-                    {timeList?.map((time, i) => {
-                      return (
-                        <option value={time} key={`endtime ${i}`}>
-                          {time}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+      <AdminScheduleModal
+        employeeSched={employeeSched}
+        position={position}
+        selectedDate={selectedDate}
+        selectedSched={selectedSched}
+        timezone={timezone}
+        setSelectedSched={setSelectedSched}
+        open={open}
+        setOpen={setOpen}
+        timeList={timeList}
+      />
 
-          <DialogContentText></DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={() => setOpen(false)}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
       {daysInWeek?.map((day, i) => {
         //need to change to store hrs
+        const today = moment.tz(moment(), timezone);
         const oneDay = moment.tz(day, timezone);
         const dayStart = oneDay
           .clone()
@@ -159,43 +94,51 @@ const ClickableScheduleBar = ({
             moment.tz(sched.endtime, timezone) > dayStart &&
             moment.tz(sched.starttime, timezone) < dayEnd
         );
-
-        if (foundSched === undefined) {
+        if (oneDay < today) {
           return (
             <div
-              className="Schedule"
+              className="Schedule non-clickable"
               key={`emptySched ${i}`}
-              onClick={(e) => scheduleAction(e, day)}
             ></div>
           );
-        } else if (foundSched) {
-          const schedFrom = moment.tz(foundSched.starttime, timezone);
-          const schedTo = moment.tz(foundSched.endtime, timezone);
-          const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
-          const newTo = schedTo < dayEnd ? schedTo : dayEnd;
+        } else if (oneDay >= today) {
+          if (foundSched === undefined) {
+            return (
+              <div
+                className="Schedule clickable"
+                key={`emptySched ${i}`}
+                onClick={(e) => scheduleAction(e, day)}
+              ></div>
+            );
+          } else if (foundSched) {
+            const schedFrom = moment.tz(foundSched.starttime, timezone);
+            const schedTo = moment.tz(foundSched.endtime, timezone);
+            const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
+            const newTo = schedTo < dayEnd ? schedTo : dayEnd;
 
-          return (
-            <div
-              onClick={(e) => scheduleAction(e)}
-              key={`Sched ${foundSched?.idSchedule} ${i}`}
-              className="Schedule"
-              id={foundSched?.idSchedule}
-            >
-              <ScheduleBar
-                dayStart={dayStart}
-                dayEnd={dayEnd}
-                newFrom={newFrom}
-                newTo={newTo}
-                schedObj={foundSched}
-                timezone={timezone}
-              />
-              {foundSched.workcode === 0 && (
-                <div className="text">
-                  {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
-                </div>
-              )}
-            </div>
-          );
+            return (
+              <div
+                onClick={(e) => scheduleAction(e)}
+                key={`Sched ${foundSched?.idSchedule} ${i}`}
+                className="Schedule clickable"
+                id={foundSched?.idSchedule}
+              >
+                <ScheduleBar
+                  dayStart={dayStart}
+                  dayEnd={dayEnd}
+                  newFrom={newFrom}
+                  newTo={newTo}
+                  schedObj={foundSched}
+                  timezone={timezone}
+                />
+                {foundSched.workcode === 0 && (
+                  <div className="text">
+                    {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+                  </div>
+                )}
+              </div>
+            );
+          }
         }
       })}
     </>
