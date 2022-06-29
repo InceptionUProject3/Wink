@@ -2,6 +2,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
 import React from "react";
+import { ProfileIcon } from "../../../calendar/Reusables/components/ProfileIcon";
 import Filters from "./Filters";
 
 import "./sidebar.css";
@@ -40,7 +41,7 @@ const Sidebar = (props) => {
   const updateUserFilter = (e, newVal) => {
     // const value = e.target;
     const userId = newVal;
-    console.log("userids", newVal);
+    // console.log("userids", newVal);
     setSelectedEmp(() => userId);
   };
   // console.log("Changed filters", filters);
@@ -73,11 +74,15 @@ const Sidebar = (props) => {
               }
               filterSelectedOptions
               noOptionsText={"No employee found"}
-              renderOption={(props, userList) => (
-                <Box {...props} key={userList.id} >
-                  {userList.firstname}, {userList.lastname}
+              renderOption={(props, userList) => {
+                // console.log('userList',userList)
+                return(
+                <Box {...props} key={userList.userId}>
+                  <ProfileIcon profile={userList.position} color={userList.position.color}/>
+                  <div>{userList.firstname}, {userList.lastname}</div>
+                  
                 </Box>
-              )}
+              )}}
               renderInput={(params) => (
                 <TextField {...params} label="Search employees" />
               )}

@@ -1,4 +1,4 @@
-import { border } from "@mui/system";
+
 import React from "react";
 
 const Filters = (props) => {
@@ -57,7 +57,7 @@ const Filters = (props) => {
         <div className="positions">
           {filters?.positions.map((p) => {
             const checked = p.value;
-            console.log("color", p.color);
+            // console.log("color", p.color);
             return (
               <button
                 style={{ 

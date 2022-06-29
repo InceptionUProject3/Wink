@@ -42,7 +42,7 @@ const AdminScheduleModal = ({
       });
     }
   };
-  console.log("selected scheudles", selectedSched);
+  // console.log("selected scheudles", selectedSched);
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
       <DialogTitle>

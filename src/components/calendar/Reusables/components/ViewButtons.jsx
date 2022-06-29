@@ -16,7 +16,7 @@ const ViewButtons = () => {
     return setSelectedCal(clicked);
   };
 
-  console.log("type", selectedCal)
+  // console.log("type", selectedCal)
   return (
    
       <div className="View-buttons">

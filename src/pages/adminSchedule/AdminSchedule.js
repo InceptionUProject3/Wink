@@ -16,7 +16,7 @@ const AdminSchedule = () => {
   const [schedules, setSchedules] = useState();
   const [filters, setFilters] = useState();
   const [userList, setUserList] = useState([]);
-  const [selectedEmp, setSelectedEmp] = useState("")
+  const [selectedEmp, setSelectedEmp] = useState("");
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
   // console.log("This week start", startWeeks);
@@ -66,28 +66,34 @@ const AdminSchedule = () => {
   }, [selectedStart]);
 
   useMemo(() => {
+    //set position List
+    const positionArray = setPositionList(schedules);
+    setPositions(positionArray);
     //set userList
     schedules?.map((sched) => {
+      const foundPos = positionArray.find(
+        (p) => sched.position === p.position
+      );
+
+      // console.log("pos color", positionColor);
       setUserList((pre) => [
         ...pre,
         {
           userId: sched.userId,
           firstname: sched.firstname,
           lastname: sched.lastname,
+          position: foundPos
         },
       ]);
     });
-    //set position List
-    const positionArray = setPositionList(schedules);
-    setPositions(positionArray);
   }, [schedules]);
 
   console.log("position List and data", positions, schedules, userList);
-  
+
   useEffect(() => {
     const positionArray = [];
     positions?.map((p) => {
-      positionArray.push({ type: p.position, color:p.color ,value: true });
+      positionArray.push({ type: p.position, color: p.color, value: true });
     });
     // console.log("positionArray", positionArray);
     const initialfilterObj = {
