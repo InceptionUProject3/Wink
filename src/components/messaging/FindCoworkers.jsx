@@ -72,6 +72,7 @@ const FindCoworkers = (props) => {
             coworkers.map((profile, index) => {
               return (
                 <ListItem
+                key={index}
                   divider
                   sx={{ width: 300, display: "flex", flexDirection: "column" }}
                 >
