@@ -60,44 +60,68 @@ const MessageWindow = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
-      <List
-        sx={{ width: '75%', display: "flex", flexDirection: "column" }}
-        align="right"
-        justifyContent="right"
-        style={{ border: "red" }}
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        {messages ? (
-          messages.map((message, index) => {
-            // console.log("this is the return message", message);
-            return message.sender === user.User_idUser ? (
-              <ListItem key={index}  >
-                <ListItemText
+        <List
+          sx={{ width: "75%", display: "flex", flexDirection: "column" }}
+          align="right"
+          justifyContent="right"
+          style={{ border: "red" }}
+        >
+          {messages ? (
+            messages.map((message, index) => {
+              // console.log("this is the return message", message);
+              return message.sender === user.User_idUser ? (
+                <ListItem key={index}>
+                  {/* <ListItemText
                   primary={message.chat}
                   align="right"
-                  sx={{ border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%', ml: '50%'   }}
-                />
-              </ListItem>
-            ) : (
-              <ListItem key={index} sx={{width: '50%'}}>
-                <ListItemText
+                  sx={{ display: 'flex-end', border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%' , ml: '50%'   }}
+                /> */}
+                  <div style={{display: "flex", alignItems: "flex-end", justifyContent: "flex-end", width: "100%"}}>
+                    <div
+                      style={{
+                        border: "1px solid #00b3b4",
+                        borderRadius: 10,
+                        padding: 10,
+                        maxWidth: "50%",
+                        overflow: "wrap",
+                      }}
+                    >
+                      {message.chat}
+                    </div>
+                  </div>
+                </ListItem>
+              ) : (
+                <ListItem key={index}>
+                  {/* <ListItemText
                   primary={message.chat}
                   align="left"
                   
-                  sx={{ border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%'  }}
-                />
-              </ListItem>
-            );
-          })
-        ) : (
-          <ListItem>
-            <ListItemText primary="No coworkers found" />
-          </ListItem>
-        )}
-      </List>
-    </Box>
+                  sx={{ border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%', overflow: 'wrap', backgroundColor: 'pink' }}
+                /> */}
+                  <div
+                    style={{
+                      border: "1px solid #00b3b4",
+                      borderRadius: 10,
+                      padding: 10,
+                      maxWidth: "50%",
+                      overflow: "wrap",
+                    }}
+                  >
+                    {message.chat}
+                  </div>
+                </ListItem>
+              );
+            })
+          ) : (
+            <ListItem>
+              <ListItemText primary="No coworkers found" />
+            </ListItem>
+          )}
+        </List>
+      </Box>
     </ThemeProvider>
   );
 };
