@@ -19,6 +19,8 @@ const Schedule = (props) => {
     setSchedModalOpen,
     selectedDate,
     setSelectedDate,
+    selectedSched,
+    setSelectedSched
   } = props;
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
@@ -62,6 +64,8 @@ const Schedule = (props) => {
               setSchedModalOpen={setSchedModalOpen}
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
+              selectedSched={selectedSched}
+          setSelectedSched={setSelectedSched}
             />
           )}
         </div>

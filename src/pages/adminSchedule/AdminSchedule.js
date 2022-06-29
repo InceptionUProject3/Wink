@@ -19,6 +19,15 @@ const AdminSchedule = () => {
   const [userList, setUserList] = useState([]);
   const [selectedEmp, setSelectedEmp] = useState("");
   const [schedModalOpen, setSchedModalOpen] = useState(false);
+  const [selectedSched, setSelectedSched] = useState({
+    User_idUser: "",
+    Store_idStore: "",
+    starttime: "",
+    endtime: "",
+    workcode: 0,
+  });
+
+
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
   // console.log("This week start", startWeeks);
@@ -125,6 +134,8 @@ const AdminSchedule = () => {
           setSchedModalOpen={setSchedModalOpen}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          selectedSched={selectedSched}
+          setSelectedSched={setSelectedSched}
         />
       </div>
       <div className="Side-bar-container">

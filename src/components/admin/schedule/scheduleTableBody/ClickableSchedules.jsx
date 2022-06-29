@@ -16,7 +16,9 @@ const ClickableSchedules = (props) => {
     // schedModalOpen,
     setSchedModalOpen,
     selectedDate,
-    setSelectedDate
+    setSelectedDate,
+    selectedSched,
+    setSelectedSched
   } = props;
   // console.log("all", schedules, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
@@ -110,6 +112,8 @@ const ClickableSchedules = (props) => {
                   setSchedModalOpen={setSchedModalOpen}
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
+                  selectedSched={selectedSched}
+          setSelectedSched={setSelectedSched}
                 />
               </React.Fragment>
             );

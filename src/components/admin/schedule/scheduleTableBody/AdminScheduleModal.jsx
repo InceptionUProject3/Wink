@@ -23,8 +23,8 @@ const AdminScheduleModal = ({
   setOpen,
   timeList,
 }) => {
+  
   const [onlyStarttime, setOnlyStarttime] = useState();
-
   const updateTime = (e) => {
     const { value, name } = e.target;
     const hour = moment(value, "hh:mm a").get("hour");
@@ -34,7 +34,9 @@ const AdminScheduleModal = ({
       return { ...pre, [name]: time };
     });
   };
-  // console.log("selected scheudles", selectedSched);
+  // console.log("selected date", selectedDate , selectedDate?.format("ddd, MMM Do"));
+  // console.log("selected scheudles",selectedSched, moment.tz(selectedSched?.starttime, timezone).format("hh:mm a"));
+  // console.log("only start time",onlyStarttime.format('hh:mm a'));
 
   const updateWorkcode = (e) => {
     const { name, value } = e.target;
@@ -90,7 +92,7 @@ const AdminScheduleModal = ({
         <div className="modal-contents">
           <div className="date-container">
             <label> Date: </label>
-            <div className="date">{selectedDate?.format("ddd, MMM do")}</div>
+            <div className="date">{selectedDate?.format("ddd, MMM Do")}</div>
           </div>
           <div className="workcode-container">
             <label htmlFor="workcode">Schedule type:</label>
@@ -140,8 +142,12 @@ const AdminScheduleModal = ({
             >
               <option value="">--choose time--</option>
               {timeList?.map((time, i) => {
+                const foundstart = moment.tz(selectedSched?.starttime, timezone).format('hh:mm a');
                 const endPotential = moment.tz(time, "hh:mm a", timezone);
-                const start = moment.tz(onlyStarttime, "hh:mm a", timezone);
+                const start = foundstart? moment.tz(foundstart, "hh:mm a", timezone):moment.tz(onlyStarttime, "hh:mm a", timezone);
+
+                // console.log("onlyStart time in endtime",endPotential, start )
+                // console.log("start time in endtime", start)
                 if (endPotential > start) {
                   return (
                     <option value={time} key={`endtime ${i}`}>

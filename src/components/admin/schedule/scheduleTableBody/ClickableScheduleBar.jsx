@@ -15,22 +15,18 @@ const ClickableScheduleBar = ({
   // schedModalOpen,
   setSchedModalOpen,
   selectedDate, 
-  setSelectedDate
+  setSelectedDate,
+  selectedSched,
+  setSelectedSched
 }) => {
   // console.log("schedules",schedules)
   const [newSchedArr, SetnewSchedArr] = useState([]);
   // const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
   const [open, setOpen] =useState(false)
-  const [selectedSched, setSelectedSched] = useState({
-    User_idUser: "",
-    Store_idStore: "",
-    starttime: "",
-    endtime: "",
-    workcode: 0,
-  });
 
-  console.log("ININ")
+
+  // console.log("ININ")
 
   useEffect(() => {
     const getTimeList = () => {
@@ -50,14 +46,13 @@ const ClickableScheduleBar = ({
 
   const scheduleAction = (e, day, foundSched) => {
     // const selectedScheduleId = e.target;
-    console.log('Clicked room ', moment.tz(day, timezone))
+    // console.log('Clicked room ', moment.tz(day, timezone),moment.tz(day, timezone).format("MMM Do"))
     setSelectedDate(() => moment.tz(day, timezone));
 
     if (foundSched) {
       console.log("edit on", foundSched);
-      setSelectedSched(() => {
-        return foundSched;
-      });
+      setSelectedSched(() =>foundSched);
+      console.log("selected schdule after click", selectedSched)
     } else {
       setSelectedSched((pre) => {
         console.log(
