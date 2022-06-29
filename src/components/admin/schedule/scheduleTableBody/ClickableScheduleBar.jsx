@@ -57,7 +57,8 @@ const ClickableScheduleBar = ({
       setSelectedSched((pre) => {
         return { ...pre, userId: employeeSched.userId, workcode: 0 };
       });
-      setSelectedDate(() => moment.tz(day, timezone).format("ddd Do"));
+      setSelectedDate(() => moment.tz(day, timezone))
+      // format("ddd Do"));
       console.log("create on", employeeSched.employeeId);
     }
     // setSelectedSched((pre)=>{return{...pre, userId:employeeSched.userId}})
@@ -81,7 +82,7 @@ const ClickableScheduleBar = ({
 
       {daysInWeek?.map((day, i) => {
         //need to change to store hrs
-        const today = moment.tz(moment(),timezone)
+        const today = moment.tz(moment(), timezone);
         const oneDay = moment.tz(day, timezone);
         const dayStart = oneDay
           .clone()
@@ -93,51 +94,51 @@ const ClickableScheduleBar = ({
             moment.tz(sched.endtime, timezone) > dayStart &&
             moment.tz(sched.starttime, timezone) < dayEnd
         );
-        if(oneDay<today){
+        if (oneDay < today) {
           return (
             <div
               className="Schedule non-clickable"
               key={`emptySched ${i}`}
             ></div>
           );
-        }
+        } else if (oneDay >= today) {
+          if (foundSched === undefined) {
+            return (
+              <div
+                className="Schedule clickable"
+                key={`emptySched ${i}`}
+                onClick={(e) => scheduleAction(e, day)}
+              ></div>
+            );
+          } else if (foundSched) {
+            const schedFrom = moment.tz(foundSched.starttime, timezone);
+            const schedTo = moment.tz(foundSched.endtime, timezone);
+            const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
+            const newTo = schedTo < dayEnd ? schedTo : dayEnd;
 
-        if (foundSched === undefined) {
-          return (
-            <div
-              className="Schedule clickable"
-              key={`emptySched ${i}`}
-              onClick={(e) => scheduleAction(e, day)}
-            ></div>
-          );
-        } else if (foundSched) {
-          const schedFrom = moment.tz(foundSched.starttime, timezone);
-          const schedTo = moment.tz(foundSched.endtime, timezone);
-          const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
-          const newTo = schedTo < dayEnd ? schedTo : dayEnd;
-
-          return (
-            <div
-              onClick={(e) => scheduleAction(e)}
-              key={`Sched ${foundSched?.idSchedule} ${i}`}
-              className="Schedule clickable"
-              id={foundSched?.idSchedule}
-            >
-              <ScheduleBar
-                dayStart={dayStart}
-                dayEnd={dayEnd}
-                newFrom={newFrom}
-                newTo={newTo}
-                schedObj={foundSched}
-                timezone={timezone}
-              />
-              {foundSched.workcode === 0 && (
-                <div className="text">
-                  {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
-                </div>
-              )}
-            </div>
-          );
+            return (
+              <div
+                onClick={(e) => scheduleAction(e)}
+                key={`Sched ${foundSched?.idSchedule} ${i}`}
+                className="Schedule clickable"
+                id={foundSched?.idSchedule}
+              >
+                <ScheduleBar
+                  dayStart={dayStart}
+                  dayEnd={dayEnd}
+                  newFrom={newFrom}
+                  newTo={newTo}
+                  schedObj={foundSched}
+                  timezone={timezone}
+                />
+                {foundSched.workcode === 0 && (
+                  <div className="text">
+                    {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+                  </div>
+                )}
+              </div>
+            );
+          }
         }
       })}
     </>

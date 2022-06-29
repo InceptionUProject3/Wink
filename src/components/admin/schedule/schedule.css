@@ -36,9 +36,7 @@
     border-right: 0.5px solid var(--grid-color);
     padding: 0.3em;
 }
-.Admin-weekly-calendar>.Schedules>.Schedule{
-  
-}
+
 .Admin-weekly-calendar>.Schedules>.Schedule.clickable:hover{
     cursor: pointer;
     border: 2px solid var(--wink-color-light);
