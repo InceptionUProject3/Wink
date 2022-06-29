@@ -50,7 +50,7 @@ const Message = () => {
     };
     
 
-  return ( <Container sx={{ mt: 10 }}>
+  return ( <Container sx={{ mt: 0 }}>
   <ThemeProvider theme={theme}>
     <Box
       display="flex"

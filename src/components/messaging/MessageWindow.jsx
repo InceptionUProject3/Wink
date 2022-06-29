@@ -61,10 +61,10 @@ const MessageWindow = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%"}}
       >
         <List
-          sx={{ width: "75%", display: "flex", flexDirection: "column" }}
+          sx={{ width: "100%", display: "flex", flexDirection: "column", height: "100%", overflowY: "scroll", marginTop: '2%', marginBottom: '2%' }}
           align="right"
           justifyContent="right"
           style={{ border: "red" }}
