@@ -83,6 +83,7 @@ const FindCoworkers = (props) => {
                     }}
                   >
                     <ListItemText
+                     key={index}
                       primary={`${profile.user.firstname}  ${profile.user.lastname}`}
                       secondary={profile.userprofile.name}
                     />
