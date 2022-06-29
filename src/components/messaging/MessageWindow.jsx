@@ -87,6 +87,8 @@ const MessageWindow = () => {
                         padding: 10,
                         maxWidth: "50%",
                         overflow: "wrap",
+                        backgroundColor: "#00b3b4",
+                        color: "white",
                       }}
                     >
                       {message.chat}
@@ -107,6 +109,7 @@ const MessageWindow = () => {
                       borderRadius: 10,
                       padding: 10,
                       maxWidth: "50%",
+                      color: "#00b3b4",
                       overflow: "wrap",
                     }}
                   >
