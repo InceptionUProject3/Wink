@@ -13,7 +13,7 @@ const Schedule = (props) => {
   const endDayOfWeek = selectedDay?.clone().endOf("week");
   // const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
   const [daysInWeek, setDaysInWeek] = useState();
-  // console.log('selectedEmpId in schedule', selectedEmp)
+  console.log('schedules', schedules);
   useEffect(() => {
     const weekArray = [];
     for (let i = 0; i < endDayOfWeek?.diff(selectedDay, "days") + 1; i++) {

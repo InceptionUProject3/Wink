@@ -17,7 +17,8 @@ const ClickableScheduleBar = ({
   const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
   const [selectedSched, setSelectedSched] = useState({
-    userId: "",
+    User_idUser: "",
+    Store_idStore: "",
     starttime: "",
     endtime: "",
     workcode: 0,
@@ -40,26 +41,24 @@ const ClickableScheduleBar = ({
     };
     getTimeList();
   }, []);
-  useEffect(() => {
-    const setSchedList = () => {
-      //update newSchedArr to update list
-    };
-  }, []);
+  
 
-  const scheduleAction = (e, day) => {
-    const selectedScheduleId = e.currentTarget * 1;
-    const foundSched = newSchedArr?.find(
-      (sched) => sched.idSchedule === selectedScheduleId
-    );
+  const scheduleAction = (e, day, foundSched) => {
+    // const selectedScheduleId = e.target;
+    // console.log('selectedSchedId', day, foundSched)
+    setSelectedDate(() => moment.tz(day, timezone));
+
     if (foundSched) {
-      console.log("edit on");
+      console.log("edit on", foundSched);
+      setSelectedSched(() => {
+        return foundSched;
+      });
     } else {
       setSelectedSched((pre) => {
-        return { ...pre, userId: employeeSched.userId, workcode: 0 };
+        console.log("create on user where id, storeid are", employeeSched.userId, employeeSched.storeId);
+        return { ...pre, User_idUser: employeeSched.userId, Store_idStore:employeeSched.storeId };
       });
-      setSelectedDate(() => moment.tz(day, timezone))
       // format("ddd Do"));
-      console.log("create on", employeeSched.employeeId);
     }
     // setSelectedSched((pre)=>{return{...pre, userId:employeeSched.userId}})
     setOpen(true);
@@ -68,17 +67,6 @@ const ClickableScheduleBar = ({
   // console.log("selectedSched", selectedSched);
   return (
     <>
-      <AdminScheduleModal
-        employeeSched={employeeSched}
-        position={position}
-        selectedDate={selectedDate}
-        selectedSched={selectedSched}
-        timezone={timezone}
-        setSelectedSched={setSelectedSched}
-        open={open}
-        setOpen={setOpen}
-        timeList={timeList}
-      />
 
       {daysInWeek?.map((day, i) => {
         //need to change to store hrs
@@ -107,7 +95,7 @@ const ClickableScheduleBar = ({
               <div
                 className="Schedule clickable"
                 key={`emptySched ${i}`}
-                onClick={(e) => scheduleAction(e, day)}
+                onClick={(e) => scheduleAction(e, day, foundSched)}
               ></div>
             );
           } else if (foundSched) {
@@ -118,7 +106,7 @@ const ClickableScheduleBar = ({
 
             return (
               <div
-                onClick={(e) => scheduleAction(e)}
+                onClick={(e) => scheduleAction(e, day, foundSched)}
                 key={`Sched ${foundSched?.idSchedule} ${i}`}
                 className="Schedule clickable"
                 id={foundSched?.idSchedule}
@@ -133,7 +121,7 @@ const ClickableScheduleBar = ({
                 />
                 {foundSched.workcode === 0 && (
                   <div className="text">
-                    {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+                    {newFrom?.format("h:mm a")}-{newTo?.format("h:mm a")}
                   </div>
                 )}
               </div>
@@ -141,6 +129,17 @@ const ClickableScheduleBar = ({
           }
         }
       })}
+      <AdminScheduleModal
+        employeeSched={employeeSched}
+        position={position}
+        selectedDate={selectedDate}
+        selectedSched={selectedSched}
+        timezone={timezone}
+        setSelectedSched={setSelectedSched}
+        open={open}
+        setOpen={setOpen}
+        timeList={timeList}
+      />
     </>
   );
 };
