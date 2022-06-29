@@ -87,7 +87,7 @@ const AdminSchedule = () => {
   useEffect(() => {
     const positionArray = [];
     positions?.map((p) => {
-      positionArray.push({ type: p.position, value: true });
+      positionArray.push({ type: p.position, color:p.color ,value: true });
     });
     // console.log("positionArray", positionArray);
     const initialfilterObj = {

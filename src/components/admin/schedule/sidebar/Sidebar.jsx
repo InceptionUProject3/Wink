@@ -16,7 +16,6 @@ const Sidebar = (props) => {
     setFilters,
     userList,
     setSelectedEmp,
-    // selectedEmpId,
   } = props;
 
   const displayWeekList = () => {
@@ -30,7 +29,7 @@ const Sidebar = (props) => {
       );
     });
   };
-
+  // console.log('filters', filters)
   const updateDate = (e) => {
     const { value } = e.target;
     const momentValue = moment.tz(value, "MMM Do", storeZone);
@@ -40,11 +39,11 @@ const Sidebar = (props) => {
 
   const updateUserFilter = (e, newVal) => {
     // const value = e.target;
-    const userId  = newVal
-    console.log('userids', newVal)
+    const userId = newVal;
+    console.log("userids", newVal);
     setSelectedEmp(() => userId);
   };
-  console.log("Changed filters", filters);
+  // console.log("Changed filters", filters);
 
   return (
     <div className="Side-bar">
@@ -59,34 +58,34 @@ const Sidebar = (props) => {
         </select>
       </div>
       <div className="userFilter">
-
-        <Autocomplete
-        multiple
-          getOptionLabel={(userList) =>
-            `${userList.firstname}, ${userList.lastname}`
-          }
-          options={userList}
-          sx={{ width: 300 }}
-          isOptionEqualToValue={(option, value) =>
-            option.firstname === value.firstname
-          }
-          filterSelectedOptions
-          noOptionsText={"No employee found"}
-          renderOption={(props, userList) => (
-            <Box {...props} key={userList.id}>
-              {userList.firstname}, {userList.lastname}
-            </Box>
-          )}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search employees"
-              variant="outlined"
+        <div className="filters-title">Filters:</div>
+        <div className="filters">
+          <div className="user-filter">
+            <Autocomplete
+              multiple
+              getOptionLabel={(userList) =>
+                `${userList.firstname}, ${userList.lastname}`
+              }
+              options={userList}
+              sx={{ width: 300 }}
+              isOptionEqualToValue={(option, value) =>
+                option.firstname === value.firstname
+              }
+              filterSelectedOptions
+              noOptionsText={"No employee found"}
+              renderOption={(props, userList) => (
+                <Box {...props} key={userList.id} >
+                  {userList.firstname}, {userList.lastname}
+                </Box>
+              )}
+              renderInput={(params) => (
+                <TextField {...params} label="Search employees" />
+              )}
+              onChange={(e, newVal) => updateUserFilter(e, newVal)}
             />
-          )}
-          onChange={(e, newVal) => updateUserFilter(e, newVal)}
-        />
-        <Filters filters={filters} setFilters={setFilters} />
+          </div>
+          <Filters filters={filters} setFilters={setFilters} />
+        </div>
       </div>
     </div>
   );

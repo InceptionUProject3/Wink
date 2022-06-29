@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../calendar/Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../calendar/Reusables/components/ProfileSmall";

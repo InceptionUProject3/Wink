@@ -81,6 +81,7 @@ const ClickableScheduleBar = ({
 
       {daysInWeek?.map((day, i) => {
         //need to change to store hrs
+        const today = moment.tz(moment(),timezone)
         const oneDay = moment.tz(day, timezone);
         const dayStart = oneDay
           .clone()
@@ -92,11 +93,19 @@ const ClickableScheduleBar = ({
             moment.tz(sched.endtime, timezone) > dayStart &&
             moment.tz(sched.starttime, timezone) < dayEnd
         );
+        if(oneDay<today){
+          return (
+            <div
+              className="Schedule non-clickable"
+              key={`emptySched ${i}`}
+            ></div>
+          );
+        }
 
         if (foundSched === undefined) {
           return (
             <div
-              className="Schedule"
+              className="Schedule clickable"
               key={`emptySched ${i}`}
               onClick={(e) => scheduleAction(e, day)}
             ></div>
@@ -111,7 +120,7 @@ const ClickableScheduleBar = ({
             <div
               onClick={(e) => scheduleAction(e)}
               key={`Sched ${foundSched?.idSchedule} ${i}`}
-              className="Schedule"
+              className="Schedule clickable"
               id={foundSched?.idSchedule}
             >
               <ScheduleBar
