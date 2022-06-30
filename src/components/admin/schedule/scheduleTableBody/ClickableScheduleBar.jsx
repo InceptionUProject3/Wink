@@ -28,7 +28,6 @@ const ClickableScheduleBar = ({
   useEffect(() => {
     const getTimeList = () => {
       const timeOpen = storeOpen?.clone();
-      // console.log("storeClose", storeClose.format());
       const timeArray = [storeOpen.format("hh:mm a")];
       const iterTimes = (scheduleHrs * 60) / 15;
       // console.log("iteration time", scheduleHrs, iterTimes)
@@ -61,6 +60,8 @@ const ClickableScheduleBar = ({
           ...pre,
           User_idUser: employeeSched.userId,
           Store_idStore: employeeSched.storeId,
+          starttime:moment.tz(day, timezone),
+          endtime:moment.tz(day, timezone),
         };
       });
     }

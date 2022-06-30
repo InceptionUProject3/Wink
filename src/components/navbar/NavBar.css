@@ -15,7 +15,7 @@ a  {
     background-color: rgb(255, 255, 255);
     border-bottom: 1px solid #eee;
     position: fixed;
-    z-index: 100;
+    z-index: 500;
     margin: 0;
     /* padding: 1rem; */
     /* bottom: 50px; */

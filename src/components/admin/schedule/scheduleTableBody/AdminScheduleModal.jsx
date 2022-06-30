@@ -11,6 +11,7 @@ import { ProfileIcon } from "../../../calendar/Reusables/components/ProfileIcon"
 import { useState } from "react";
 
 import "./adminScheduleModal.css";
+import { useEffect } from "react";
 
 const AdminScheduleModal = ({
   employeeSched,
@@ -22,15 +23,37 @@ const AdminScheduleModal = ({
   open,
   setOpen,
   timeList,
-  setSchedModalOpen
+  setSchedModalOpen,
 }) => {
   const [onlyStarttime, setOnlyStarttime] = useState();
   const [message, setMessage] = useState();
+  const [vacEndDates, setVacEndDates] = useState();
+
+  useEffect(() => {
+    const getVacDateList = () => {
+      const startDate = selectedDate?.clone();
+      const dateArray = [startDate?.format("ddd, MMM Do")];
+      const iterDay = 30;
+      // console.log("iteration time", scheduleHrs, iterTimes)
+      for (let i = 0; i < iterDay; i++) {
+        dateArray.push(startDate?.add(1, "days").format("ddd, MMM Do"));
+      }
+      setVacEndDates(() => dateArray);
+    };
+    getVacDateList();
+  }, [selectedDate]);
+
+  // console.log('vacEndDates array', vacEndDates);
+
   const updateTime = (e) => {
     const { value, name } = e.target;
     const hour = moment(value, "hh:mm a").get("hour");
     const min = moment(value, "hh:mm a").get("minute");
-    const time = selectedDate.set({ h: hour, m: min }).format();
+    const time = moment
+      .tz(selectedSched[name], timezone)
+      .set({ h: hour, m: min })
+      .format();
+    console.log("time", time);
     setSelectedSched((pre) => {
       return { ...pre, [name]: time };
     });
@@ -38,6 +61,21 @@ const AdminScheduleModal = ({
   // console.log("selected date", selectedDate , selectedDate?.format("ddd, MMM Do"));
   // console.log("selected scheudles",selectedSched, moment.tz(selectedSched?.starttime, timezone).format("hh:mm a"));
   // console.log("only start time",onlyStarttime.format('hh:mm a'));
+
+  const updateDate = (e) => {
+    const { value } = e.target;
+    const date = moment(value, "ddd, MMM Do", timezone).get("date");
+    const month = moment(value, "ddd, MMM Do", timezone).get("month");
+
+    const newDate = moment
+      .tz(selectedSched.endtime, timezone)
+      .set({ month: month, date: date })
+      .format();
+    console.log("date end vacation", newDate);
+    setSelectedSched((pre) => {
+      return { ...pre, endtime: newDate };
+    });
+  };
 
   const updateWorkcode = (e) => {
     const { name, value } = e.target;
@@ -119,9 +157,27 @@ const AdminScheduleModal = ({
       <DialogContent>
         <div className="modal-contents">
           {message ? <div>{message}</div> : null}
-          <div className="date-container">
-            <label> Date: </label>
-            <div className="date">{selectedDate?.format("ddd, MMM Do")}</div>
+          <div className="dateNtime">
+            <div className="date-container">
+              <label> Date: </label>
+              <div className="date">{selectedDate?.format("ddd, MMM Do")}</div>
+            </div>
+            {selectedSched.workcode === 1 && (
+              <div className="vacation-endDate-container">
+                <label htmlFor="vacation-endDate">End date:</label>
+                <select
+                  name="vacation-endDate"
+                  onChange={updateDate}
+                  value={moment
+                    .tz(selectedSched.endtime, timezone)
+                    .format("ddd, MMM Do")}
+                >
+                  {vacEndDates?.map((date) => {
+                    return <option value={date}>{date}</option>;
+                  })}
+                </select>
+              </div>
+            )}
           </div>
           <div className="workcode-container">
             <label htmlFor="workcode">Schedule type:</label>
