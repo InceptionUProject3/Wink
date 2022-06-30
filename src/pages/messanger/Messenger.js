@@ -23,9 +23,9 @@ const Messenger = () => {
     <div
       style={{
         display: "flex",
-        height: "80vh",
+        height: "calc(100vh - 30vh)",
       
-        marginTop: "10vh",
+        marginTop: "20vh",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
@@ -35,17 +35,17 @@ const Messenger = () => {
     >
       <div style={{
         display: "flex",
-        marginTop: "10vh",
+        marginTop: "0vh",
         marginBottom: "1vh",
 
       }}> {location.state.profile.user.firstname} {location.state.profile.user.lastname} </div>
       <MessageWindow
         setReceiver={location.state.profile.User_idUser}
-        style={{ display: "flex", height: "80vh" }}
+        style={{ display: "flex" }}
       />
       <Message
         receiver={location.state.profile.User_idUser}
-        style={{ position: "absolute", marginBottom: "20px" }}
+        style={{ marginBottom: "5vh" }}
       />
     </div>
   );
