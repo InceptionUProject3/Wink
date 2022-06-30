@@ -16,6 +16,11 @@ import Calendar from "./pages/calendar/Calendar";
 import Logout from "./components/authentication/Logout";
 import ProfileSelection from "./components/authentication/LocationSelection";
 import { StoreProvider } from "./components/authentication/StoreProvider";
+import FindCoworkers from "./components/messaging/FindCoworkers";
+import Message from "./components/messaging/Message";
+import MessageWindow from "./components/messaging/MessageWindow";
+import Messenger from "./pages/messanger/Messenger";
+
 import AdminSchedule from "./pages/adminSchedule/AdminSchedule";
 
 const SERVER = "http://localhost:4000";
@@ -44,14 +49,10 @@ function App() {
                 }
               />
 
-              <Route
-                path="/messaging"
-                element={
-                  <RequireAuth>
-                    <Messaging />
-                  </RequireAuth>
-                }
-              />
+             
+              <Route path="/coworkers" element={<FindCoworkers />} />
+              <Route path="/messagewindow" element={<MessageWindow />} />
+              <Route path="/messenger" element={<Messenger />} />
               <Route path="/:roomId" element={<Chat />} />
               <Route
                 path="/calendar"

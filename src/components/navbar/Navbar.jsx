@@ -57,6 +57,7 @@ const Navbar = () => {
               </p>
             </li>
           )}
+          
           {loggedInUser && (
             <li>
               <p className="menu">
@@ -65,13 +66,15 @@ const Navbar = () => {
                     borderBottom: isActive ? "#00b3b4 solid 2px" : "",
                     opacity: isActive ? 1 : "",
                   })}
-                  to="/messaging"
+                  to="/coworkers"
                 >
-                  MESSAGING
+                  MESSENGER
                 </NavLink>
               </p>
             </li>
           )}
+         
+         
           {loggedInUser && (
             <li>
               <p className="menu">
