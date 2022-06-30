@@ -31,7 +31,14 @@ const Messenger = () => {
         alignItems: "center",
 
       }}
+      
     >
+      <div style={{
+        display: "flex",
+        marginTop: "10vh",
+        marginBottom: "1vh",
+
+      }}> {location.state.profile.user.firstname} {location.state.profile.user.lastname} </div>
       <MessageWindow
         setReceiver={location.state.profile.User_idUser}
         style={{ display: "flex", height: "80vh" }}
