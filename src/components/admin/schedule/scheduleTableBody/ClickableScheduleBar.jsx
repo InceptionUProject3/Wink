@@ -11,19 +11,19 @@ const ClickableScheduleBar = ({
   timezone,
   employeeSched,
   position,
+  setSchedModalOpen,
+  selectedDate,
+  setSelectedDate,
+  selectedSched,
+  setSelectedSched,
 }) => {
   // console.log("schedules",schedules)
-  const [newSchedArr, SetnewSchedArr] = useState([]);
-  const [selectedDate, setSelectedDate] = useState();
+  // const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
-  const [selectedSched, setSelectedSched] = useState({
-    userId: "",
-    starttime: "",
-    endtime: "",
-    workcode: 0,
-  });
   const [open, setOpen] = useState(false);
-  // console.log("schedules", schedules)
+  // const [workHrsinWeek, setWorkHrsinWeek] = useState();
+
+  // console.log("ININ")
 
   useEffect(() => {
     const getTimeList = () => {
@@ -40,46 +40,67 @@ const ClickableScheduleBar = ({
     };
     getTimeList();
   }, []);
-  useEffect(() => {
-    const setSchedList = () => {
-      //update newSchedArr to update list
-    };
-  }, []);
 
-  const scheduleAction = (e, day) => {
-    const selectedScheduleId = e.currentTarget * 1;
-    const foundSched = newSchedArr?.find(
-      (sched) => sched.idSchedule === selectedScheduleId
-    );
+  const scheduleAction = (e, day, foundSched) => {
+    // set initial values for schedule modal
+    //set Date
+    setSelectedDate(() => moment.tz(day, timezone));
+    //set Schedule
     if (foundSched) {
-      console.log("edit on");
+      console.log("edit on", foundSched);
+      setSelectedSched(() => foundSched);
+      console.log("selected schdule after click", selectedSched);
     } else {
       setSelectedSched((pre) => {
-        return { ...pre, userId: employeeSched.userId, workcode: 0 };
+        console.log(
+          "create on user where id, storeid are",
+          employeeSched.userId,
+          employeeSched.storeId
+        );
+        return {
+          ...pre,
+          User_idUser: employeeSched.userId,
+          Store_idStore: employeeSched.storeId,
+        };
       });
-      setSelectedDate(() => moment.tz(day, timezone))
-      // format("ddd Do"));
-      console.log("create on", employeeSched.employeeId);
     }
-    // setSelectedSched((pre)=>{return{...pre, userId:employeeSched.userId}})
+    // open modal
     setOpen(true);
   };
 
+  // useEffect(() => {
+  //   console.log("open has been changed");
+  //   const fetchDataAgain = () => {
+  //     setSchedModalOpen((pre) => !pre);
+  //   };
+  //   fetchDataAgain();
+  // }, [open]);
   // console.log("selectedSched", selectedSched);
+  const sendDelete = async (e, foundsched) => {
+    e.stopPropagation();
+    const pretendDelete = {
+      ...foundsched,
+      starttime: "0",
+      endtime: "0",
+    };
+    console.log("editing(deleting) schedule on ", pretendDelete, new Date("0"));
+    // console.log("editing schedule... on ", moment(0).utc().format());
+    const dataToSend = JSON.stringify(pretendDelete);
+    const response = await fetch(`/api/schedule/scheduling`, {
+      method: "PATCH",
+      headers: { "content-Type": "application/json" },
+      body: dataToSend,
+    });
+    if (response.status === 200) {
+      console.log(await response.json());
+    }
+    setSchedModalOpen((pre) => !pre);
+
+    
+  };
+
   return (
     <>
-      <AdminScheduleModal
-        employeeSched={employeeSched}
-        position={position}
-        selectedDate={selectedDate}
-        selectedSched={selectedSched}
-        timezone={timezone}
-        setSelectedSched={setSelectedSched}
-        open={open}
-        setOpen={setOpen}
-        timeList={timeList}
-      />
-
       {daysInWeek?.map((day, i) => {
         //need to change to store hrs
         const today = moment.tz(moment(), timezone);
@@ -94,6 +115,7 @@ const ClickableScheduleBar = ({
             moment.tz(sched.endtime, timezone) > dayStart &&
             moment.tz(sched.starttime, timezone) < dayEnd
         );
+
         if (oneDay < today) {
           return (
             <div
@@ -107,7 +129,7 @@ const ClickableScheduleBar = ({
               <div
                 className="Schedule clickable"
                 key={`emptySched ${i}`}
-                onClick={(e) => scheduleAction(e, day)}
+                onClick={(e) => scheduleAction(e, day, foundSched)}
               ></div>
             );
           } else if (foundSched) {
@@ -116,13 +138,22 @@ const ClickableScheduleBar = ({
             const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
             const newTo = schedTo < dayEnd ? schedTo : dayEnd;
 
+            // CalcHrsinWeek += Math.round(moment(schedTo - schedFrom).unix()/60/60 );
+            // console.log("workingHrs", workingHrs)
+
             return (
               <div
-                onClick={(e) => scheduleAction(e)}
+                onClick={(e) => scheduleAction(e, day, foundSched)}
                 key={`Sched ${foundSched?.idSchedule} ${i}`}
                 className="Schedule clickable"
                 id={foundSched?.idSchedule}
               >
+                <button
+                  className="delete"
+                  onClick={(e) => sendDelete(e, foundSched)}
+                >
+                  x
+                </button>
                 <ScheduleBar
                   dayStart={dayStart}
                   dayEnd={dayEnd}
@@ -133,7 +164,7 @@ const ClickableScheduleBar = ({
                 />
                 {foundSched.workcode === 0 && (
                   <div className="text">
-                    {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+                    {newFrom?.format("h:mm a")}-{newTo?.format("h:mm a")}
                   </div>
                 )}
               </div>
@@ -141,6 +172,18 @@ const ClickableScheduleBar = ({
           }
         }
       })}
+      <AdminScheduleModal
+        employeeSched={employeeSched}
+        position={position}
+        selectedDate={selectedDate}
+        selectedSched={selectedSched}
+        timezone={timezone}
+        setSelectedSched={setSelectedSched}
+        open={open}
+        setOpen={setOpen}
+        timeList={timeList}
+        setSchedModalOpen={setSchedModalOpen}
+      />
     </>
   );
 };

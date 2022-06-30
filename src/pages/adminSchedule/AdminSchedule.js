@@ -12,11 +12,22 @@ import "./adminSchedule.css";
 const AdminSchedule = () => {
   const [startWeeks, setStartWeeks] = useState();
   const [selectedStart, setSelectedStart] = useState();
+  const [selectedDate, setSelectedDate] = useState();
   const [positions, setPositions] = useState();
   const [schedules, setSchedules] = useState();
   const [filters, setFilters] = useState();
   const [userList, setUserList] = useState([]);
   const [selectedEmp, setSelectedEmp] = useState("");
+  const [schedModalOpen, setSchedModalOpen] = useState(false);
+  const [selectedSched, setSelectedSched] = useState({
+    User_idUser: "",
+    Store_idStore: "",
+    starttime: "",
+    endtime: "",
+    workcode: 0,
+  });
+
+
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
   // console.log("This week start", startWeeks);
@@ -43,14 +54,15 @@ const AdminSchedule = () => {
   }, []);
   // console.log("selectedStart", selectedStart);
   useEffect(() => {
+    //read scheudles
     const fetchAllData = async () => {
       try {
-        const startDay = selectedStart.clone().format();
-        // console.log("startDay", selectedStart.format());
+        const startDay = selectedStart?.clone().format();
         const data = await fetch(
           `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
-        );
-        const scheduleData = await data.json();
+          );
+          const scheduleData = await data.json();
+          console.log("fetching schedule data", scheduleData);
 
         const scheduleArray = [
           ...scheduleData.mySchedules,
@@ -63,7 +75,7 @@ const AdminSchedule = () => {
       }
     };
     selectedStart && fetchAllData();
-  }, [selectedStart]);
+  }, [selectedStart, schedModalOpen]);
 
   useMemo(() => {
     //set position List
@@ -88,9 +100,10 @@ const AdminSchedule = () => {
     });
   }, [schedules]);
 
-  console.log("position List and data", positions, schedules, userList);
+  // console.log("position List and data", positions, schedules, userList);
 
   useEffect(() => {
+    //Set filters
     const positionArray = [];
     positions?.map((p) => {
       positionArray.push({ type: p.position, color: p.color, value: true });
@@ -119,6 +132,11 @@ const AdminSchedule = () => {
           schedules={schedules}
           filters={filters}
           selectedEmp={selectedEmp}
+          setSchedModalOpen={setSchedModalOpen}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          selectedSched={selectedSched}
+          setSelectedSched={setSelectedSched}
         />
       </div>
       <div className="Side-bar-container">

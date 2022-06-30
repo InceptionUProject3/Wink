@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../calendar/Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../calendar/Reusables/components/ProfileSmall";
+import moment from "moment";
 
 const ClickableSchedules = (props) => {
   const {
@@ -13,11 +14,17 @@ const ClickableSchedules = (props) => {
     timezone,
     filters,
     selectedEmp,
+    setSchedModalOpen,
+    selectedDate,
+    setSelectedDate,
+    selectedSched,
+    setSelectedSched,
   } = props;
   // console.log("all", schedules, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState();
   const [filteredEmpSched, setFilteredEmpSched] = useState();
+  // const [workHrsinWeek, setWorkHrsinWeek] = useState();
   //filter update
   useEffect(() => {
     console.log("filters", filters);
@@ -33,7 +40,7 @@ const ClickableSchedules = (props) => {
     //     }
     //   });
     // };
-    console.log("emp", selectedEmp);
+    // console.log("emp", selectedEmp);
     const filteringPosition = () => {
       if (selectedEmp) return setFilteredPos(positions);
 
@@ -54,16 +61,17 @@ const ClickableSchedules = (props) => {
     };
     filteringPosition();
   }, [schedules, filters, selectedEmp, positions]);
+
   useEffect(() => {
     const searchEmp = () => {
       if (selectedEmp?.length === 0) return setFilteredEmpSched(schedules);
-      setFilteredEmpSched([])
-     return schedules?.map((sched) => {
-        return selectedEmp.map((e) =>{
-        if( sched.userId === e.userId){
-          return setFilteredEmpSched((pre)=>[ ...pre,sched]);
-
-        }});
+      setFilteredEmpSched([]);
+      return schedules?.map((sched) => {
+        return selectedEmp.map((e) => {
+          if (sched.userId === e.userId) {
+            return setFilteredEmpSched((pre) => [...pre, sched]);
+          }
+        });
       });
       // console.log('fuondEmpSched', foundEmpSched)
     };
@@ -76,8 +84,20 @@ const ClickableSchedules = (props) => {
     setGroupedProfs(() => groupedObj);
   }, [filteredPos, filteredEmpSched]);
 
-  // console.log("filtered positions",filteredPos);
-  // console.log('grouped',groupedProfs);
+  const calculatingWeekHrs = (emp) => {
+    //calculated hours
+    let calcHrsinWeek = 0;
+    const foundEmpScheds = emp.schedules;
+    foundEmpScheds?.map((sched) => {
+      if (sched.workcode === 0) {
+        const to = moment(sched.endtime);
+        const from = moment(sched.starttime);
+        calcHrsinWeek +=
+          Math.round((moment(to - from).unix() / 60 / 60) * 100) / 100;
+      }
+    });
+    return calcHrsinWeek;
+  };
 
   return (
     <>
@@ -85,7 +105,7 @@ const ClickableSchedules = (props) => {
         const empInPositon = groupedProfs && groupedProfs[position.position];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
-            // console.log('emp', emp)
+            const calcHrsinWeek = calculatingWeekHrs(emp);
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <ProfileSmall
@@ -93,6 +113,7 @@ const ClickableSchedules = (props) => {
                   position={position}
                   i={i}
                   index={index}
+                  calcHrsinWeek={calcHrsinWeek}
                 />
                 <ClickableScheduleBar
                   daysInWeek={daysInWeek}
@@ -101,6 +122,11 @@ const ClickableSchedules = (props) => {
                   employeeSched={emp}
                   timezone={timezone}
                   position={position}
+                  setSchedModalOpen={setSchedModalOpen}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  selectedSched={selectedSched}
+                  setSelectedSched={setSelectedSched}
                 />
               </React.Fragment>
             );

@@ -7,13 +7,26 @@ import "./schedule.css";
 import ScheduleTableHeader from "./ScheduleTableHeader";
 
 const Schedule = (props) => {
-  const { selectedDay, scheduleHrs, storeOpen, schedules, positions, filters, selectedEmp } = props;
+  const {
+    selectedDay,
+    scheduleHrs,
+    storeOpen,
+    schedules,
+    positions,
+    filters,
+    selectedEmp,
+    setSchedModalOpen,
+    selectedDate,
+    setSelectedDate,
+    selectedSched,
+    setSelectedSched,
+  } = props;
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const endDayOfWeek = selectedDay?.clone().endOf("week");
   // const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
   const [daysInWeek, setDaysInWeek] = useState();
-  // console.log('selectedEmpId in schedule', selectedEmp)
+  // console.log('schedules', schedules);
   useEffect(() => {
     const weekArray = [];
     for (let i = 0; i < endDayOfWeek?.diff(selectedDay, "days") + 1; i++) {
@@ -33,7 +46,6 @@ const Schedule = (props) => {
             selectedDay={selectedDay}
             endDayOfWeek={endDayOfWeek}
             daysInWeek={daysInWeek}
-            
           />
         </div>
         <div className="Schedules">
@@ -47,6 +59,11 @@ const Schedule = (props) => {
               timezone={storeTimeZone}
               filters={filters}
               selectedEmp={selectedEmp}
+              setSchedModalOpen={setSchedModalOpen}
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              selectedSched={selectedSched}
+              setSelectedSched={setSelectedSched}
             />
           )}
         </div>

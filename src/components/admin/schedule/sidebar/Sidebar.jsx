@@ -80,7 +80,6 @@ const Sidebar = (props) => {
                 <Box {...props} key={userList.userId}>
                   <ProfileIcon profile={userList.position} color={userList.position.color}/>
                   <div>{userList.firstname}, {userList.lastname}</div>
-                  
                 </Box>
               )}}
               renderInput={(params) => (
