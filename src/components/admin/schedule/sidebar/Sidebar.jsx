@@ -1,3 +1,4 @@
+import { Margin } from "@mui/icons-material";
 import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
@@ -58,7 +59,7 @@ const Sidebar = (props) => {
           {displayWeekList()}
         </select>
       </div>
-      <div className="userFilter">
+      <div className="userFilter" style={{display: "flex", flexDirection: "column" }}>
         <div className="filters-title">Filters:</div>
         <div className="filters">
           <div className="user-filter">
@@ -68,7 +69,7 @@ const Sidebar = (props) => {
                 `${userList.firstname}, ${userList.lastname}`
               }
               options={userList}
-              sx={{ width: 300 }}
+              sx={{ width: 300}}
               isOptionEqualToValue={(option, value) =>
                 option.firstname === value.firstname
               }
@@ -76,14 +77,24 @@ const Sidebar = (props) => {
               noOptionsText={"No employee found"}
               renderOption={(props, userList) => {
                 // console.log('userList',userList)
-                return(
-                <Box {...props} key={userList.userId}>
-                  <ProfileIcon profile={userList.position} color={userList.position.color}/>
-                  <div>{userList.firstname}, {userList.lastname}</div>
-                </Box>
-              )}}
+                return (
+                  <Box
+                    {...props}
+                    key={userList.userId}
+                    sx={{ display: "flex", flexDirection: "row", gap:'5%'}}
+                  >
+                    <ProfileIcon
+                      profile={userList.position}
+                      color={userList.position.color}
+                    />
+                    <div>
+                      {userList.firstname}, {userList.lastname}
+                    </div>
+                  </Box>
+                );
+              }}
               renderInput={(params) => (
-                <TextField {...params} label="Search employees" />
+                <TextField {...params} label="Search employees" variant="outlined" />
               )}
               onChange={(e, newVal) => updateUserFilter(e, newVal)}
             />

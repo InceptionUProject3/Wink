@@ -2,17 +2,19 @@
 .MuiPaper-root>.MuiTypography-root{
  display: flex;
  flex-direction: row;
+ align-items: center;
 }
 .MuiPaper-root>.MuiTypography-root>.icon{
     margin-left:1rem;
     margin-right: 0.5rem;
+    height: 100%;
     align-items: center;
 }
 .MuiPaper-root>.MuiTypography-root>.icon>p{
-   width: fit-content;
-   top:0;
-   bottom:0;
-   font-size: 0.8em;
+   height: fit-content ;
+   vertical-align: middle;
+   display: table-cell;
+  
 }
 .MuiPaper-root>.MuiTypography-root>.name{
     color: var(--font-darkgrey)

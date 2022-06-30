@@ -171,7 +171,7 @@
     -webkit-box-orient: vertical;
     margin: 0 auto;
 }
-.Schedules>.WeeklyCal-Profiles.others>.title{
+.WeeklyCal-Profiles.others>.title{
 
     border-bottom: 0.5px solid var(--grid-color);
 }

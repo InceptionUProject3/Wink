@@ -5,9 +5,8 @@
 .Calendars-container{
     display: flex;
     flex-direction: column;
-    /* margin: 10em auto 0 auto; */
-    margin: 3.7rem auto 0 auto;
-    width: 60%;
+    margin-top: 3.7rem;
+    width: 100%;
     padding: 7em;
      border-radius: 3.5em;
      min-width: 36em;

@@ -1,6 +1,9 @@
 .icon{
     display: flex;
     position: relative;
+    height: fit-content;
+    /* align-self: center;
+    justify-content: center; */
 }
 .icon>.initial{
     position:absolute;
@@ -9,7 +12,12 @@
     font-size: 80%;
     right:0;
     left:0;
+ 
+    /* bottom:auto; */
     margin: auto;
-    height: 1.25em;
+    width: fit-content;
+    height: 100%;
+    /* vertical-align: middle;
+    text-align: center; */
 
 }
