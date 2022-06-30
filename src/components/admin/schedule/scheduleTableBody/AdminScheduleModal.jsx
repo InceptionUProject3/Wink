@@ -22,7 +22,7 @@ const AdminScheduleModal = ({
   open,
   setOpen,
   timeList,
-  
+  setSchedModalOpen
 }) => {
   const [onlyStarttime, setOnlyStarttime] = useState();
   const [message, setMessage] = useState();
@@ -61,7 +61,7 @@ const AdminScheduleModal = ({
   const sendEvent = async () => {
     try {
       //Check if all fields are filled
-      console.log("selectedSched", selectedSched);
+      // console.log("selectedSched", selectedSched);
       const isNull = Object.values(selectedSched).some((value) => {
         if (value === null || value === "") {
           return true;
@@ -82,6 +82,7 @@ const AdminScheduleModal = ({
         });
         if (response.status === 200) {
           console.log(await response.json());
+
           resetEvent();
         }
       } else {
@@ -98,6 +99,7 @@ const AdminScheduleModal = ({
           resetEvent();
         }
       }
+      setSchedModalOpen((pre) => !pre);
       setOpen(false);
       setMessage();
     } catch (err) {

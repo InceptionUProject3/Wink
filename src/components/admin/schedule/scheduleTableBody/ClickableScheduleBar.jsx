@@ -68,15 +68,36 @@ const ClickableScheduleBar = ({
     setOpen(true);
   };
 
-
-  useEffect(() => {
-    console.log("open has been changed");
-    const fetchDataAgain = () => {
-      setSchedModalOpen((pre) => !pre);
-    };
-    fetchDataAgain();
-  }, [open]);
+  // useEffect(() => {
+  //   console.log("open has been changed");
+  //   const fetchDataAgain = () => {
+  //     setSchedModalOpen((pre) => !pre);
+  //   };
+  //   fetchDataAgain();
+  // }, [open]);
   // console.log("selectedSched", selectedSched);
+  const sendDelete = async (e, foundsched) => {
+    e.stopPropagation();
+    const pretendDelete = {
+      ...foundsched,
+      starttime: "0",
+      endtime: "0",
+    };
+    console.log("editing(deleting) schedule on ", pretendDelete, new Date("0"));
+    // console.log("editing schedule... on ", moment(0).utc().format());
+    const dataToSend = JSON.stringify(pretendDelete);
+    const response = await fetch(`/api/schedule/scheduling`, {
+      method: "PATCH",
+      headers: { "content-Type": "application/json" },
+      body: dataToSend,
+    });
+    if (response.status === 200) {
+      console.log(await response.json());
+    }
+    setSchedModalOpen((pre) => !pre);
+
+    
+  };
 
   return (
     <>
@@ -127,6 +148,12 @@ const ClickableScheduleBar = ({
                 className="Schedule clickable"
                 id={foundSched?.idSchedule}
               >
+                <button
+                  className="delete"
+                  onClick={(e) => sendDelete(e, foundSched)}
+                >
+                  x
+                </button>
                 <ScheduleBar
                   dayStart={dayStart}
                   dayEnd={dayEnd}
@@ -155,7 +182,7 @@ const ClickableScheduleBar = ({
         open={open}
         setOpen={setOpen}
         timeList={timeList}
-       
+        setSchedModalOpen={setSchedModalOpen}
       />
     </>
   );
