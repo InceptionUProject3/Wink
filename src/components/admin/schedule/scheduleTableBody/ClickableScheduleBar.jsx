@@ -3,7 +3,6 @@ import moment from "moment";
 import ScheduleBar from "../../../calendar/Reusables/components/ScheduleBar";
 import { useEffect } from "react";
 import AdminScheduleModal from "./AdminScheduleModal";
-import { Button } from "@mui/material";
 
 const ClickableScheduleBar = ({
   daysInWeek,
@@ -12,7 +11,6 @@ const ClickableScheduleBar = ({
   timezone,
   employeeSched,
   position,
-  // schedModalOpen,
   setSchedModalOpen,
   selectedDate,
   setSelectedDate,
@@ -23,7 +21,7 @@ const ClickableScheduleBar = ({
   // const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
   const [open, setOpen] = useState(false);
-  const [workHrsinWeek, setWorkHrsinWeek] = useState();
+  // const [workHrsinWeek, setWorkHrsinWeek] = useState();
 
   // console.log("ININ")
 
@@ -66,37 +64,10 @@ const ClickableScheduleBar = ({
         };
       });
     }
-    //set calculated working hours
-    const calculatedHrs= calcWeekHrs(employeeSched);
-    setWorkHrsinWeek(calculatedHrs);
     // open modal
     setOpen(true);
   };
 
-  const calcWeekHrs = (employeeSched) => {
-    //calculated hours
-    let calcHrsinWeek=0;
-    // const selectedUserId = employeeSched.userId;
-    const foundEmpScheds = employeeSched.schedules;
-    // console.log("selected user", foundEmpScheds);
-    //  const empSchedArray = employeeSched?.schedules;
-    //  let calcHrsinWeek
-    foundEmpScheds?.map((sched) => {
-      if (sched.workcode === 0) {
-        const to = moment(sched.endtime);
-        const from = moment(sched.starttime);
-        // console.log(
-        //   "weekSchedHrs",
-        //   employeeSched.firstname,
-        //   Math.round((moment(to - from).unix() / 60 / 60) * 10) / 10
-        // );
-        calcHrsinWeek +=
-          Math.round((moment(to - from).unix() / 60 / 60) * 100) / 100;
-      }
-    });
-    // console.log("calchrs", calcHrsinWeek);
-    return calcHrsinWeek;
-  };
 
   useEffect(() => {
     console.log("open has been changed");
@@ -184,7 +155,7 @@ const ClickableScheduleBar = ({
         open={open}
         setOpen={setOpen}
         timeList={timeList}
-        workHrsinWeek={workHrsinWeek}
+       
       />
     </>
   );

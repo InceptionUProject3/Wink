@@ -22,11 +22,10 @@ const AdminScheduleModal = ({
   open,
   setOpen,
   timeList,
-  workHrsinWeek
-}) => {
   
+}) => {
   const [onlyStarttime, setOnlyStarttime] = useState();
-  const [message,setMessage] =useState();
+  const [message, setMessage] = useState();
   const updateTime = (e) => {
     const { value, name } = e.target;
     const hour = moment(value, "hh:mm a").get("hour");
@@ -62,15 +61,15 @@ const AdminScheduleModal = ({
   const sendEvent = async () => {
     try {
       //Check if all fields are filled
-      console.log("selectedSched",selectedSched)
-      const isNull = Object.values(selectedSched).some(value=>{
-        if(value===null||value===""){
-          return true
+      console.log("selectedSched", selectedSched);
+      const isNull = Object.values(selectedSched).some((value) => {
+        if (value === null || value === "") {
+          return true;
         }
-        return false
-      })
+        return false;
+      });
       // console.log('isnull?', isNull)
-      if(isNull)return setMessage("All fields need to be filled.")
+      if (isNull) return setMessage("All fields need to be filled.");
 
       if (selectedSched.idSchedule) {
         //edit schedule
@@ -84,7 +83,6 @@ const AdminScheduleModal = ({
         if (response.status === 200) {
           console.log(await response.json());
           resetEvent();
-          
         }
       } else {
         //create schedule
@@ -98,7 +96,6 @@ const AdminScheduleModal = ({
         if (response.status === 200) {
           console.log(await response.json());
           resetEvent();
-          
         }
       }
       setOpen(false);
@@ -119,13 +116,7 @@ const AdminScheduleModal = ({
       </DialogTitle>
       <DialogContent>
         <div className="modal-contents">
-          {message?<div>{message}</div>:null}
-          <div className="workhours-continer">
-            <label> Scheduled hours:</label>
-            <div className="workhours">
-              {workHrsinWeek} hrs
-              </div>
-              </div>
+          {message ? <div>{message}</div> : null}
           <div className="date-container">
             <label> Date: </label>
             <div className="date">{selectedDate?.format("ddd, MMM Do")}</div>
@@ -178,9 +169,13 @@ const AdminScheduleModal = ({
             >
               <option value="">--choose time--</option>
               {timeList?.map((time, i) => {
-                const foundstart = moment.tz(selectedSched?.starttime, timezone).format('hh:mm a');
+                const foundstart = moment
+                  .tz(selectedSched?.starttime, timezone)
+                  .format("hh:mm a");
                 const endPotential = moment.tz(time, "hh:mm a", timezone);
-                const start = foundstart? moment.tz(foundstart, "hh:mm a", timezone):moment.tz(onlyStarttime, "hh:mm a", timezone);
+                const start = foundstart
+                  ? moment.tz(foundstart, "hh:mm a", timezone)
+                  : moment.tz(onlyStarttime, "hh:mm a", timezone);
 
                 if (endPotential > start) {
                   return (

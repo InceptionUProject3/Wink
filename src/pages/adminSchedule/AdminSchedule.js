@@ -121,10 +121,6 @@ const AdminSchedule = () => {
     return setFilters(() => initialfilterObj);
   }, [positions]);
 
-  // useEffect(()=>{
-  //   //add hours
-  // },[schedules])
-
   return (
     <div className="Admin-schedule">
       <div className="schedule-container">
@@ -136,7 +132,6 @@ const AdminSchedule = () => {
           schedules={schedules}
           filters={filters}
           selectedEmp={selectedEmp}
-          // schedModalOpen={schedModalOpen}
           setSchedModalOpen={setSchedModalOpen}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}

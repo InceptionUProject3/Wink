@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../calendar/Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../calendar/Reusables/components/ProfileSmall";
+import moment from "moment";
 
 const ClickableSchedules = (props) => {
   const {
@@ -17,12 +18,13 @@ const ClickableSchedules = (props) => {
     selectedDate,
     setSelectedDate,
     selectedSched,
-    setSelectedSched
+    setSelectedSched,
   } = props;
   // console.log("all", schedules, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState();
   const [filteredEmpSched, setFilteredEmpSched] = useState();
+  // const [workHrsinWeek, setWorkHrsinWeek] = useState();
   //filter update
   useEffect(() => {
     console.log("filters", filters);
@@ -82,8 +84,20 @@ const ClickableSchedules = (props) => {
     setGroupedProfs(() => groupedObj);
   }, [filteredPos, filteredEmpSched]);
 
- 
-
+  const calculatingWeekHrs = (emp) => {
+    //calculated hours
+    let calcHrsinWeek = 0;
+    const foundEmpScheds = emp.schedules;
+    foundEmpScheds?.map((sched) => {
+      if (sched.workcode === 0) {
+        const to = moment(sched.endtime);
+        const from = moment(sched.starttime);
+        calcHrsinWeek +=
+          Math.round((moment(to - from).unix() / 60 / 60) * 100) / 100;
+      }
+    });
+    return calcHrsinWeek;
+  };
 
   return (
     <>
@@ -91,7 +105,7 @@ const ClickableSchedules = (props) => {
         const empInPositon = groupedProfs && groupedProfs[position.position];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
-            // console.log('emp', emp)
+            const calcHrsinWeek = calculatingWeekHrs(emp);
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <ProfileSmall
@@ -99,6 +113,7 @@ const ClickableSchedules = (props) => {
                   position={position}
                   i={i}
                   index={index}
+                  calcHrsinWeek={calcHrsinWeek}
                 />
                 <ClickableScheduleBar
                   daysInWeek={daysInWeek}
@@ -111,7 +126,7 @@ const ClickableSchedules = (props) => {
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
                   selectedSched={selectedSched}
-          setSelectedSched={setSelectedSched}
+                  setSelectedSched={setSelectedSched}
                 />
               </React.Fragment>
             );

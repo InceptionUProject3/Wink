@@ -1,7 +1,7 @@
 import React from "react";
 import { ProfileIcon } from "./ProfileIcon";
 
-const ProfileSmall = ({ emp, position, i, index }) => {
+const ProfileSmall = ({ emp, position, i, index,calcHrsinWeek }) => {
   // console.log("position in profileSmall", emp,position)
   return (
     <div className="WeeklyCal-Profiles others" key={`profile ${i} ${index}`}>
@@ -16,6 +16,7 @@ const ProfileSmall = ({ emp, position, i, index }) => {
           <div className="name">
             {emp.firstname}, {emp.lastname}
           </div>
+          {calcHrsinWeek&&<div className="scheduled-Hrs">{calcHrsinWeek} hrs</div>}
         </div>
       </div>
     </div>
