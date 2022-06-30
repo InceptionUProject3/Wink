@@ -24,11 +24,12 @@ const Messenger = () => {
       style={{
         display: "flex",
         height: "80vh",
+      
         marginTop: "10vh",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        
+
       }}
     >
       <MessageWindow

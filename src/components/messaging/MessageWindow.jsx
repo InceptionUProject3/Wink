@@ -61,10 +61,25 @@ const MessageWindow = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100%"}}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
       >
         <List
-          sx={{ width: "100%", display: "flex", flexDirection: "column", height: "100%", overflowY: "scroll", marginTop: '2%', marginBottom: '2%' }}
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            overflowY: "scroll",
+            marginTop: "2%",
+            marginBottom: "2%",
+            overflowX: "hidden",
+          }}
           align="right"
           justifyContent="right"
           style={{ border: "red" }}
@@ -79,7 +94,14 @@ const MessageWindow = () => {
                   align="right"
                   sx={{ display: 'flex-end', border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%' , ml: '50%'   }}
                 /> */}
-                  <div style={{display: "flex", alignItems: "flex-end", justifyContent: "flex-end", width: "100%"}}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-end",
+                      width: "100%",
+                    }}
+                  >
                     <div
                       style={{
                         border: "1px solid #00b3b4",
