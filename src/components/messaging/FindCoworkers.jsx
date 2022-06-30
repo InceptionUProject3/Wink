@@ -57,7 +57,7 @@ const FindCoworkers = (props) => {
  
 
   return (
-    <Box sx={{ m: 5 }}>
+    <Box style={{marginTop: '10vh'}}>
       <List>
         <ListItem divider>
           <ListItemButton onClick={handleCollapse}>

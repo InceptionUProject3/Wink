@@ -17,6 +17,7 @@ a  {
     position: fixed;
     z-index: 100;
     margin: 0;
+    justify-content: center;
     /* padding: 1rem; */
     /* bottom: 50px; */
     
@@ -29,7 +30,7 @@ a  {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: .75rem;
+    margin-top: 2vh;
     margin-left: 1rem;
     margin-right: 1rem;
     
@@ -106,10 +107,11 @@ a  {
   }
 
   .wink {
-    display: flex;
+    display: ;
     position: relative;
-    top: -.40rem;
-    bottom: -.50rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 4vh;
   }
 
   .navbar-welcome {

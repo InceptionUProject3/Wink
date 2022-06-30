@@ -37,6 +37,9 @@ const Messenger = () => {
         display: "flex",
         marginTop: "0vh",
         marginBottom: "1vh",
+        color: "#00b3b4",
+        fontStyle: "bold",
+
 
       }}> {location.state.profile.user.firstname} {location.state.profile.user.lastname} </div>
       <MessageWindow
