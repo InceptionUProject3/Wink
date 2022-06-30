@@ -54,9 +54,10 @@ const AdminSchedule = () => {
   }, []);
   // console.log("selectedStart", selectedStart);
   useEffect(() => {
+    //read scheudles
     const fetchAllData = async () => {
       try {
-        const startDay = selectedStart.clone().format();
+        const startDay = selectedStart?.clone().format();
         const data = await fetch(
           `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
           );
@@ -102,6 +103,7 @@ const AdminSchedule = () => {
   // console.log("position List and data", positions, schedules, userList);
 
   useEffect(() => {
+    //Set filters
     const positionArray = [];
     positions?.map((p) => {
       positionArray.push({ type: p.position, color: p.color, value: true });
@@ -118,6 +120,10 @@ const AdminSchedule = () => {
     // console.log('initial filter obj', initialfilterObj);
     return setFilters(() => initialfilterObj);
   }, [positions]);
+
+  // useEffect(()=>{
+  //   //add hours
+  // },[schedules])
 
   return (
     <div className="Admin-schedule">

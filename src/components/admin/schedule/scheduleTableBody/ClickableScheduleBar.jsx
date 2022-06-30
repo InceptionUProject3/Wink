@@ -14,17 +14,16 @@ const ClickableScheduleBar = ({
   position,
   // schedModalOpen,
   setSchedModalOpen,
-  selectedDate, 
+  selectedDate,
   setSelectedDate,
   selectedSched,
-  setSelectedSched
+  setSelectedSched,
 }) => {
   // console.log("schedules",schedules)
-  const [newSchedArr, SetnewSchedArr] = useState([]);
   // const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
-  const [open, setOpen] =useState(false)
-
+  const [open, setOpen] = useState(false);
+  const [workHrsinWeek, setWorkHrsinWeek] = useState();
 
   // console.log("ININ")
 
@@ -45,14 +44,14 @@ const ClickableScheduleBar = ({
   }, []);
 
   const scheduleAction = (e, day, foundSched) => {
-    // const selectedScheduleId = e.target;
-    // console.log('Clicked room ', moment.tz(day, timezone),moment.tz(day, timezone).format("MMM Do"))
+    // set initial values for schedule modal
+    //set Date
     setSelectedDate(() => moment.tz(day, timezone));
-
+    //set Schedule
     if (foundSched) {
       console.log("edit on", foundSched);
-      setSelectedSched(() =>foundSched);
-      console.log("selected schdule after click", selectedSched)
+      setSelectedSched(() => foundSched);
+      console.log("selected schdule after click", selectedSched);
     } else {
       setSelectedSched((pre) => {
         console.log(
@@ -66,19 +65,48 @@ const ClickableScheduleBar = ({
           Store_idStore: employeeSched.storeId,
         };
       });
-      // format("ddd Do"));
     }
-    // setSelectedSched((pre)=>{return{...pre, userId:employeeSched.userId}})
+    //set calculated working hours
+    const calculatedHrs= calcWeekHrs(employeeSched);
+    setWorkHrsinWeek(calculatedHrs);
+    // open modal
     setOpen(true);
   };
-  useEffect(()=>{
-    console.log('open has been changed')
-    const fetchDataAgain=()=>{
-      setSchedModalOpen((pre)=>!pre);
-    }
-    fetchDataAgain()
-  },[open])
+
+  const calcWeekHrs = (employeeSched) => {
+    //calculated hours
+    let calcHrsinWeek=0;
+    // const selectedUserId = employeeSched.userId;
+    const foundEmpScheds = employeeSched.schedules;
+    // console.log("selected user", foundEmpScheds);
+    //  const empSchedArray = employeeSched?.schedules;
+    //  let calcHrsinWeek
+    foundEmpScheds?.map((sched) => {
+      if (sched.workcode === 0) {
+        const to = moment(sched.endtime);
+        const from = moment(sched.starttime);
+        // console.log(
+        //   "weekSchedHrs",
+        //   employeeSched.firstname,
+        //   Math.round((moment(to - from).unix() / 60 / 60) * 10) / 10
+        // );
+        calcHrsinWeek +=
+          Math.round((moment(to - from).unix() / 60 / 60) * 100) / 100;
+      }
+    });
+    // console.log("calchrs", calcHrsinWeek);
+    return calcHrsinWeek;
+  };
+
+  useEffect(() => {
+    console.log("open has been changed");
+    const fetchDataAgain = () => {
+      setSchedModalOpen((pre) => !pre);
+    };
+    fetchDataAgain();
+  }, [open]);
   // console.log("selectedSched", selectedSched);
+
   return (
     <>
       {daysInWeek?.map((day, i) => {
@@ -95,6 +123,7 @@ const ClickableScheduleBar = ({
             moment.tz(sched.endtime, timezone) > dayStart &&
             moment.tz(sched.starttime, timezone) < dayEnd
         );
+
         if (oneDay < today) {
           return (
             <div
@@ -116,6 +145,9 @@ const ClickableScheduleBar = ({
             const schedTo = moment.tz(foundSched.endtime, timezone);
             const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
             const newTo = schedTo < dayEnd ? schedTo : dayEnd;
+
+            // CalcHrsinWeek += Math.round(moment(schedTo - schedFrom).unix()/60/60 );
+            // console.log("workingHrs", workingHrs)
 
             return (
               <div
@@ -152,6 +184,7 @@ const ClickableScheduleBar = ({
         open={open}
         setOpen={setOpen}
         timeList={timeList}
+        workHrsinWeek={workHrsinWeek}
       />
     </>
   );

@@ -22,9 +22,11 @@ const AdminScheduleModal = ({
   open,
   setOpen,
   timeList,
+  workHrsinWeek
 }) => {
   
   const [onlyStarttime, setOnlyStarttime] = useState();
+  const [message,setMessage] =useState();
   const updateTime = (e) => {
     const { value, name } = e.target;
     const hour = moment(value, "hh:mm a").get("hour");
@@ -54,26 +56,53 @@ const AdminScheduleModal = ({
       workcode: 0,
     });
     setOpen(false);
+    setMessage();
   };
 
   const sendEvent = async () => {
     try {
+      //Check if all fields are filled
+      console.log("selectedSched",selectedSched)
+      const isNull = Object.values(selectedSched).some(value=>{
+        if(value===null||value===""){
+          return true
+        }
+        return false
+      })
+      // console.log('isnull?', isNull)
+      if(isNull)return setMessage("All fields need to be filled.")
+
       if (selectedSched.idSchedule) {
+        //edit schedule
         console.log("editing schedule... on ", selectedSched);
+        const dataToSend = JSON.stringify(selectedSched);
+        const response = await fetch(`/api/schedule/scheduling`, {
+          method: "PATCH",
+          headers: { "content-Type": "application/json" },
+          body: dataToSend,
+        });
+        if (response.status === 200) {
+          console.log(await response.json());
+          resetEvent();
+          
+        }
       } else {
+        //create schedule
         console.log("creating schedule...", selectedSched);
         const dataToSend = JSON.stringify(selectedSched);
-        const response = await fetch(`/api/schedule/create`, {
+        const response = await fetch(`/api/schedule/scheduling`, {
           method: "POST",
           headers: { "content-Type": "application/json" },
           body: dataToSend,
         });
         if (response.status === 200) {
-          console.log("success");
+          console.log(await response.json());
           resetEvent();
-          setOpen(false);
+          
         }
       }
+      setOpen(false);
+      setMessage();
     } catch (err) {
       console.log("Saving schedule action is failed.");
     }
@@ -90,6 +119,13 @@ const AdminScheduleModal = ({
       </DialogTitle>
       <DialogContent>
         <div className="modal-contents">
+          {message?<div>{message}</div>:null}
+          <div className="workhours-continer">
+            <label> Scheduled hours:</label>
+            <div className="workhours">
+              {workHrsinWeek} hrs
+              </div>
+              </div>
           <div className="date-container">
             <label> Date: </label>
             <div className="date">{selectedDate?.format("ddd, MMM Do")}</div>
@@ -146,8 +182,6 @@ const AdminScheduleModal = ({
                 const endPotential = moment.tz(time, "hh:mm a", timezone);
                 const start = foundstart? moment.tz(foundstart, "hh:mm a", timezone):moment.tz(onlyStarttime, "hh:mm a", timezone);
 
-                // console.log("onlyStart time in endtime",endPotential, start )
-                // console.log("start time in endtime", start)
                 if (endPotential > start) {
                   return (
                     <option value={time} key={`endtime ${i}`}>

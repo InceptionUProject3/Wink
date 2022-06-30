@@ -13,7 +13,6 @@ const ClickableSchedules = (props) => {
     timezone,
     filters,
     selectedEmp,
-    // schedModalOpen,
     setSchedModalOpen,
     selectedDate,
     setSelectedDate,
@@ -83,9 +82,9 @@ const ClickableSchedules = (props) => {
     setGroupedProfs(() => groupedObj);
   }, [filteredPos, filteredEmpSched]);
 
-  console.log("ClickeableSched");
-  // console.log('grouped',groupedProfs);
-  // console.log('schedModalOpen', schedModalOpen)
+ 
+
+
   return (
     <>
       {filteredPos?.map((position, i) => {
@@ -108,7 +107,6 @@ const ClickableSchedules = (props) => {
                   employeeSched={emp}
                   timezone={timezone}
                   position={position}
-                  // schedModalOpen={schedModalOpen}
                   setSchedModalOpen={setSchedModalOpen}
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
