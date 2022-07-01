@@ -18,7 +18,7 @@ const Filters = (props) => {
 
   const onClickHrs = (e) => {
     const { className, name } = e.target;
-
+    
     if (className.includes("filterHrs")) {
       const newFilterArray = rearrangeFilter("hours", name);
       setFilters((pre) => {

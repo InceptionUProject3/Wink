@@ -98,6 +98,7 @@ const AdminSchedule = () => {
         },
       ]);
     });
+
   }, [schedules]);
 
   // console.log("position List and data", positions, schedules, userList);
@@ -111,9 +112,9 @@ const AdminSchedule = () => {
     // console.log("positionArray", positionArray);
     const initialfilterObj = {
       hours: [
-        { type: "> 30hrs", value: true },
-        { type: "20hrs - 30hrs", value: true },
-        { type: "< 20hrs", value: true },
+        { type: "> 30hrs", max:null, min: 30,value: true },
+        { type: "20hrs - 30hrs",max:30, min: 20, value: true },
+        { type: "< 20hrs",max:20, min: 0, value: true },
       ],
       positions: positionArray,
     };
