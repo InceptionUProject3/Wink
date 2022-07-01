@@ -1,35 +1,54 @@
-
 import React from "react";
 
 const Filters = (props) => {
   const { filters, setFilters } = props;
 
-  const rearrangeFilter = (key, name) => {
+  const onClickHrs = (e) => {
+    const { name } = e.target;
     const newFilterArray = [];
-    filters[key].map((hr) => {
+    filters?.hours.map((hr) => {
       if (hr.type === name) {
-        return newFilterArray.push({ type: name, value: !hr.value,color: hr.color });
+        return newFilterArray.push({
+          type: name,
+          value: !hr.value,
+          min: hr.min,
+          max: hr.max,
+        });
       } else {
-        return newFilterArray.push({ type: hr.type, value: hr.value,color: hr.color });
+        return newFilterArray.push({
+          type: hr.type,
+          value: hr.value,
+          min: hr.min,
+          max: hr.max,
+        });
       }
     });
-    return newFilterArray;
+    setFilters((pre) => {
+      return { ...pre, hours: newFilterArray };
+    });
   };
 
-  const onClickHrs = (e) => {
-    const { className, name } = e.target;
-    
-    if (className.includes("filterHrs")) {
-      const newFilterArray = rearrangeFilter("hours", name);
-      setFilters((pre) => {
-        return { ...pre, hours: newFilterArray };
-      });
-    } else if (className.includes("filterPos")) {
-      const newFilterArray = rearrangeFilter("positions", name);
-      setFilters((pre) => {
-        return { ...pre, positions: newFilterArray };
-      });
-    }
+  const onClickPos = (e) => {
+    const { name } = e.target;
+    const newFilterArray = [];
+    filters?.positions.map((pos) => {
+      if (pos.type === name) {
+        return newFilterArray.push({
+          type: name,
+          value: !pos.value,
+          color: pos.color,
+        });
+      } else {
+        return newFilterArray.push({
+          type: pos.type,
+          value: pos.value,
+          color: pos.color,
+        });
+      }
+    });
+    setFilters((pre) => {
+      return { ...pre, positions: newFilterArray };
+    });
   };
 
   return (
@@ -60,16 +79,16 @@ const Filters = (props) => {
             // console.log("color", p.color);
             return (
               <button
-                style={{ 
-                  backgroundColor: checked ? `#${p.color}` : "white", 
-                  border: checked? 'none':  `2px solid #${p.color}`,
-                  color: checked? "white": "#5a5a5a"
+                style={{
+                  backgroundColor: checked ? `#${p.color}` : "white",
+                  border: checked ? "none" : `2px solid #${p.color}`,
+                  color: checked ? "white" : "#5a5a5a",
                 }}
                 // {...checked&&style={{backgroundColor:"white"}}}
                 className={`filterPos ${p.type} ${checked}`}
                 name={p.type}
                 value={p.value}
-                onClick={onClickHrs}
+                onClick={onClickPos}
               >
                 {p.type}
               </button>

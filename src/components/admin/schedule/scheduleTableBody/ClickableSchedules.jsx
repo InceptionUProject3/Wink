@@ -27,44 +27,41 @@ const ClickableSchedules = (props) => {
   // const [workHrsinWeek, setWorkHrsinWeek] = useState();
   //filter update
   useEffect(() => {
-    console.log("filters", filters);
+    // console.log("filters", filters);
     const filteringHrs = () => {
       // const filteredEmpSched
       const filterHrs = filters?.hours;
       // const availArray = filterHrs?.map((avail)=>{return{[avail.type]:avail.value}})
-      
-      filterHrs?.map((avail)=>{
-        const foundscheds = schedules?.find((sched)=>{
-          const availinWeek = sched.availability.availHrsinWeek 
-          console.log("avail in week", availinWeek, avail.min)
-          if(avail.min===0){
-            return availinWeek< avail.max
-          }else if(avail.min&&avail.max){
-            return availinWeek >=avail.min && availinWeek< avail.max
-          }else if(!avail.max){
-            return availinWeek>=avail.min
+      const newSched = [];
+      filterHrs?.map((avail) => {
+        const foundSched = schedules?.filter((sched) => {
+          const availinWeek = sched.availability.availHrsinWeek;
+          if (avail.value) {
+            if (avail.min && avail.max) {
+              return availinWeek >= avail.min && availinWeek < avail.max;
+            } else if (avail.min === 0) {
+              return availinWeek < avail.max;
+            } else if (!avail.max) {
+              return availinWeek >= avail.min;
+            } else {
+              console.log("Filter range is wrong");
+            }
           }
-        })
-        console.log('result', foundscheds)
-      
-      })
-        // if (hrs.type === "> 30hrs") {
-        //   console.log("in gt 30");
-        // } else if (hrs.type === "20hrs - 30hrs") {
-        //   console.log("in bt 20- 30");
-        // } else if (hrs.type === "< 20hrs") {
-        //   console.log("in lt 20");
-        // }
-      
-      // console.log("emp", availArray);
+          // console.log("result", foundSched);
+        });
+        return newSched.push(...foundSched);
+      });
+      console.log("result", newSched);
+      return setFilteredEmpSched(() => newSched);
     };
+
     const filteringPosition = () => {
       // if (selectedEmp) return setFilteredPos(positions);
-      
+
       const positionfilterArr = filters?.positions;
       const newPosition = [];
       positions?.map((p) => {
-        const checked = positionfilterArr?.find((e) =>e.type === p.position);
+        const checked = positionfilterArr?.find((e) => e.type === p.position);
         // console.log('filtering position',checked)
         if (checked?.value === true) {
           newPosition.push(p);
@@ -73,14 +70,14 @@ const ClickableSchedules = (props) => {
       // console.log("newPosition",newPosition)
       return setFilteredPos(() => newPosition);
     };
-    filteringPosition();
     filteringHrs();
+    filteringPosition();
   }, [schedules, filters, selectedEmp, positions]);
 
   useEffect(() => {
-    console.log('filtering emp')
     const searchEmp = () => {
-      if (selectedEmp?.length === 0) return setFilteredEmpSched(schedules);
+      // console.log("filtering emp", filteredEmpSched);
+      if (selectedEmp?.length === 0) return;
       setFilteredEmpSched([]);
       return schedules?.map((sched) => {
         return selectedEmp.map((e) => {
@@ -92,9 +89,9 @@ const ClickableSchedules = (props) => {
     };
     searchEmp();
   }, [schedules, selectedEmp, filters]);
-  
+  // console.log("outside", filteredEmpSched);
   useEffect(() => {
-    console.log("select emp sched", filteredEmpSched);
+    // console.log("select emp sched", filteredEmpSched);
     const groupedObj = groupByPosition(filteredEmpSched);
     setGroupedProfs(() => groupedObj);
   }, [filteredPos, filteredEmpSched]);
@@ -122,7 +119,7 @@ const ClickableSchedules = (props) => {
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
             const calcHrsinWeek = calculatingWeekHrs(emp);
-            
+            const schedHrsinWeek = emp.availability.availHrsinWeek
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <ProfileSmall
@@ -131,6 +128,7 @@ const ClickableSchedules = (props) => {
                   i={i}
                   index={index}
                   calcHrsinWeek={calcHrsinWeek}
+                  schedHrsinWeek ={schedHrsinWeek}
                 />
                 <ClickableScheduleBar
                   daysInWeek={daysInWeek}
