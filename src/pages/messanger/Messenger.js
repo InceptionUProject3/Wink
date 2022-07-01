@@ -4,6 +4,8 @@ import MessageWindow from "../../components/messaging/MessageWindow";
 import { LoginContext } from "../../components/authentication/LoginProvider";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 
 const Messenger = () => {
   const authContext = useContext(LoginContext);
@@ -11,6 +13,7 @@ const Messenger = () => {
   const user = storeContext.store;
   const location = useLocation();
   const [receiver, setReceiver] = useState("");
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //     if (location.state) {
@@ -23,29 +26,41 @@ const Messenger = () => {
     <div
       style={{
         display: "flex",
-        height: "80vh",
-      
-        marginTop: "10vh",
+        height: "calc(100vh - 30vh)",
+
+        marginTop: "20vh",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-
       }}
-      
     >
-      <div style={{
-        display: "flex",
-        marginTop: "10vh",
-        marginBottom: "1vh",
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+      
+          flexDirection: "row",
+          marginTop: "0vh",
+          marginBottom: "1vh",
+          color: "#00b3b4",
+          fontStyle: "bold",
+          justifyContent: "flex-start",
 
-      }}> {location.state.profile.user.firstname} {location.state.profile.user.lastname} </div>
+
+        }}
+      >
+        {" "}
+        <BiArrowBack onClick={() => navigate("/coworkers")} size={40} />
+        {location.state.profile.user.firstname}{" "}
+        {location.state.profile.user.lastname}
+      </div>
       <MessageWindow
         setReceiver={location.state.profile.User_idUser}
-        style={{ display: "flex", height: "80vh" }}
+        style={{ display: "flex" }}
       />
       <Message
         receiver={location.state.profile.User_idUser}
-        style={{ position: "absolute", marginBottom: "20px" }}
+        style={{ marginBottom: "5vh" }}
       />
     </div>
   );
