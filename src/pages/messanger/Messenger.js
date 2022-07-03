@@ -50,9 +50,12 @@ const Messenger = () => {
         }}
       >
         {" "}
-        <BiArrowBack onClick={() => navigate("/coworkers")} size={40} />
-        {location.state.profile.user.firstname}{" "}
-        {location.state.profile.user.lastname}
+        <BiArrowBack style={{ position: "absolute", left: "0vw" 
+      }}onClick={() => navigate("/coworkers")} size={40} />
+        <h2 >  {location.state.profile.user.firstname}{" "}
+        {location.state.profile.user.lastname}</h2>
+        {/* {location.state.profile.user.firstname}{" "}
+        {location.state.profile.user.lastname} */}
       </div>
       <MessageWindow
         setReceiver={location.state.profile.User_idUser}
