@@ -42,21 +42,7 @@ const Navbar = () => {
         </div>
         </ul>
         <ul>
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/home"
-                >
-                  HOME
-                </NavLink>
-              </p>
-            </li>
-          )}
+     
           
           {loggedInUser && (
             <li>
@@ -90,21 +76,7 @@ const Navbar = () => {
               </p>
             </li>
           )}
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/"
-                >
-                  TRAINING
-                </NavLink>
-              </p>
-            </li>
-          )}
+          
 
           <li>
             <p>

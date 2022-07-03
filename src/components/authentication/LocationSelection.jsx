@@ -53,7 +53,7 @@ const LocationSelection = (props) => {
 
   const profiles = (profile) => {
     storeContext.setStore(profile);
-    navigate("/home");
+    navigate("/calendar");
     // console.log("the selected profile is", profile);
   };
   useEffect(() => {
