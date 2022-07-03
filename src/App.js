@@ -40,23 +40,13 @@ function App() {
               {/* <Route path="/location" element={<Location />} /> */}
               <Route path="/selection" element={<ProfileSelection />} />
 
-              <Route
-                path="/home"
-                element={
-                  <RequireAuth>
-                    <HomePage />
-                  </RequireAuth>
-                }
-              />
-
-             
               <Route path="/coworkers" element={<FindCoworkers />} />
-              <Route path="/messagewindow" element={<MessageWindow />} />
+
               <Route path="/messenger" element={<Messenger />} />
-              <Route path="/:roomId" element={<Chat />} />
+
               <Route
                 path="/calendar"
-                element={<Navigate replace to="/calendar/monthly" />}
+                element={<Navigate replace to="/calendar/weekly" />}
               />
               <Route path="/calendar/*" element={<Calendar />} />
               <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
