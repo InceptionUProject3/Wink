@@ -10,8 +10,6 @@ const Navbar = () => {
   const auth = useContext(LoginContext);
   const store = useContext(StoreContext);
 
-
-
   const loggedInUser = auth.user;
   const loggedInStore = store.store;
 
@@ -22,45 +20,23 @@ const Navbar = () => {
     <div className="navbar">
       <div className="container">
         <ul>
-        <h1>
-          <img className="wink" src={wink} alt="" width="50" />
-          
-        </h1>
-        <div>
-        {loggedInUser && (
-        <h4 className="navbar-welcome">
-          Welcome {loggedInUser.firstname}
-          </h4>
-        )}
-        {loggedInStore && loggedInUser && (
-        <h4 className="navbar-welcome" >
-          <Link to="/selection">
-{loggedInStore.store.name}
-</Link>
-</h4>
-        )}
-        </div>
+          <h1>
+            <img className="wink" src={wink} alt="" width="50" />
+          </h1>
+          <div>
+            {loggedInUser && (
+              <h4 className="navbar-welcome">
+                Welcome {loggedInUser.firstname}
+              </h4>
+            )}
+            {loggedInStore && loggedInUser && (
+              <h4 className="navbar-welcome">
+                <Link to="/selection">{loggedInStore.store.name}</Link>
+              </h4>
+            )}
+          </div>
         </ul>
         <ul>
-     
-          
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/coworkers"
-                >
-                  MESSENGER
-                </NavLink>
-              </p>
-            </li>
-          )}
-         
-         
           {loggedInUser && (
             <li>
               <p className="menu">
@@ -76,7 +52,22 @@ const Navbar = () => {
               </p>
             </li>
           )}
-          
+
+          {loggedInUser && (
+            <li>
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
+                  to="/coworkers"
+                >
+                  MESSENGER
+                </NavLink>
+              </p>
+            </li>
+          )}
 
           <li>
             <p>
