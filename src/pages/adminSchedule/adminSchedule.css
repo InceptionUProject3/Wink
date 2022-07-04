@@ -1,7 +1,7 @@
 .Admin-schedule{
     display: flex;
     flex-direction: row;
-    margin-top: 3.7rem;
+    /* margin-top: 3.7rem; */
     color: var(--font-darkgrey)
 }
 .Admin-schedule>.schedule-container{

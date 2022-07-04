@@ -28,7 +28,7 @@
 .Side-modal-container{
     flex:1;
     min-width: 300px;
-    margin-top: 3.7rem;
+    /* margin-top: 3.7rem; */
     border-left: var(--background-shadow);
     box-shadow: 0px -10px 5px -2px #888;
    
