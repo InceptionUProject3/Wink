@@ -115,11 +115,11 @@ const ClickableSchedules = (props) => {
     <>
       {filteredPos?.map((position, i) => {
         const empInPositon = groupedProfs && groupedProfs[position.position];
-        // console.log('here', position.position)
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
             const calcHrsinWeek = calculatingWeekHrs(emp);
             const schedHrsinWeek = emp.availability.availHrsinWeek
+            console.log('here', calcHrsinWeek, schedHrsinWeek)
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <ProfileSmall

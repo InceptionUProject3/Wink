@@ -48,7 +48,7 @@ const ClickableScheduleBar = ({
     if (foundSched) {
       console.log("edit on", foundSched);
       setSelectedSched(() => foundSched);
-      console.log("selected schdule after click", selectedSched);
+      console.log("selected schedule after click", selectedSched);
     } else {
       setSelectedSched((pre) => {
         console.log(
@@ -60,11 +60,12 @@ const ClickableScheduleBar = ({
           ...pre,
           User_idUser: employeeSched.userId,
           Store_idStore: employeeSched.storeId,
-          starttime:moment.tz(day, timezone),
-          endtime:moment.tz(day, timezone),
+          starttime: moment.tz(day, timezone),
+          endtime: moment.tz(day, timezone),
         };
       });
     }
+    // console.log('store open', storeOpen)
     // open modal
     setOpen(true);
   };
@@ -96,8 +97,6 @@ const ClickableScheduleBar = ({
       console.log(await response.json());
     }
     setSchedModalOpen((pre) => !pre);
-
-    
   };
 
   return (

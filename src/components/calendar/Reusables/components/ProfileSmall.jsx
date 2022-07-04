@@ -16,7 +16,7 @@ const ProfileSmall = ({ emp, position, i, index,calcHrsinWeek,schedHrsinWeek }) 
           <div className="name">
             {emp.firstname}, {emp.lastname}
           </div>
-          {calcHrsinWeek&&schedHrsinWeek&&<div className="scheduled-Hrs">{calcHrsinWeek}/{schedHrsinWeek} hrs</div>}
+          {<div className="scheduled-Hrs">{calcHrsinWeek}/{schedHrsinWeek||0} hrs</div>}
         </div>
       </div>
     </div>

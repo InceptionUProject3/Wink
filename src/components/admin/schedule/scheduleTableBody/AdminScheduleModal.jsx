@@ -43,7 +43,7 @@ const AdminScheduleModal = ({
     getVacDateList();
   }, [selectedDate]);
 
-  // console.log('vacEndDates array', vacEndDates);
+  // console.log('selectedSched', selectedSched);
 
   const updateTime = (e) => {
     const { value, name } = e.target;
@@ -53,7 +53,7 @@ const AdminScheduleModal = ({
       .tz(selectedSched[name], timezone)
       .set({ h: hour, m: min })
       .format();
-    console.log("time", time);
+    // console.log("time", time);
     setSelectedSched((pre) => {
       return { ...pre, [name]: time };
     });
