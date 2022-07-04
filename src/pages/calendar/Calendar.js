@@ -7,14 +7,14 @@ import MonthlyCalendar from "../../components/calendar/monthlyCalendar/MonthlyCa
 import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
 import DailyCalendar from "../../components/calendar/dailyCalendar/DailyCalendar";
 
-import "./calendar.css";
 import ViewButtons from "../../components/Reusables/components/ViewButtons";
 import TodayButton from "../../components/Reusables/components/TodayButton";
 import RequestSwapBtn from "../../components/Reusables/components/RequestSwapBtn";
 import { StoreContext } from "../../components/authentication/StoreProvider";
-import SwapShiftModal from "../../components/calendar/shiftSwapModal/SwapShiftModal";
+import SwapShiftRequest from "../../components/shiftSwapRequest/SwapShiftRequest";
 import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilters";
 
+import "./calendar.css";
 
 const Calendar = () => {
   const [filter, setFilter] = useState("All");
@@ -82,7 +82,7 @@ const Calendar = () => {
       </div>
       {openModal && (
         <div className="Side-modal-container">
-          <SwapShiftModal setOpenModal={setOpenModal} />
+          <SwapShiftRequest setOpenModal={setOpenModal} />
         </div>
       )}
     </div>

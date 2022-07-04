@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ProfileIcon } from "../../../Reusables/components/ProfileIcon";
+import { ProfileIcon } from "../../../../Reusables/components/ProfileIcon";
 
 const OthersDailyScheds = (props) => {
   const { othersScheds, positions, displaySched } = props;

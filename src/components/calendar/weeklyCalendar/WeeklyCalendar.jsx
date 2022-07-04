@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 
-import WeeklyTableHeader from "./WeeklyTableHeader";
-import WeeklyTableBody from "./WeeklyTableBody";
-import WeeklyCalendarHeader from "./WeeklyCalendarHeader";
+import WeeklyTableHeader from "./weeklyComponents/WeeklyTableHeader";
+import WeeklyTableBody from "./weeklyComponents/WeeklyTableBody";
+import WeeklyCalendarHeader from "./weeklyComponents/WeeklyCalendarHeader";
 
 import { StoreContext } from "../../authentication/StoreProvider";
 

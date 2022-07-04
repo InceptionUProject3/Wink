@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProfileIcon } from '../../../Reusables/components/ProfileIcon';
+import { ProfileIcon } from '../../../../Reusables/components/ProfileIcon';
 // import ScheduleBar from '../../Reusables/components/ScheduleBar';
 
 const MyDailySched = (props) => {

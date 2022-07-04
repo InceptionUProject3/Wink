@@ -1,17 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-
-//fetch sheduleData for store
-// import mockScheduleData from "../mockScheduleData.json";
-
-// import moment from "moment";
-
 import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
-// import ScheduleBar from "../Reusables/components/ScheduleBar";
-import setPositionList from "../../Reusables/functions/setPositionList";
-
-import { LoginContext } from "../../authentication/LoginProvider";
-import { StoreContext } from "../../authentication/StoreProvider";
+import setPositionList from "../../../Reusables/functions/setPositionList";
+import { LoginContext } from "../../../authentication/LoginProvider";
+import { StoreContext } from "../../../authentication/StoreProvider";
 
 const WeeklyTableBody = (props) => {
   const { selectedDay, storeOpen, scheduleHrs, daysInWeek, timezone, filter } =

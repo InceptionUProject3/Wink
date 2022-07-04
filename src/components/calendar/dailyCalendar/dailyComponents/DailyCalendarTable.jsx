@@ -5,7 +5,7 @@ import { DailyTableHeader } from "./DailyTableHeader";
 
 import MyDailySched from "./dailyTablebody/MyDailySched";
 import OthersDailyScheds from "./dailyTablebody/OthersDailyScheds";
-import ScheduleBar from "../../Reusables/components/ScheduleBar";
+import ScheduleBar from "../../../Reusables/components/ScheduleBar";
 import TableGrid from "./TableGrid";
 
 const DailyCalendarTable = (props) => {

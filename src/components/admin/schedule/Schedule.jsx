@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
-import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/WeeklyCalendarHeader";
+import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/weeklyComponents/WeeklyCalendarHeader";
 import ClickableSchedules from "./scheduleTableBody/ClickableSchedules";
 
 import "./schedule.css";

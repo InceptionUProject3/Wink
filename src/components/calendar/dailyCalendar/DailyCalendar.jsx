@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import DailyCalendarSummary from "./DailyCalendarSummary";
-import DailyCalendarTable from "./DailyCalendarTable";
+import DailyCalendarTable from "./dailyComponents/DailyCalendarTable";
 
 import "./DailyCalendar.css";
 import setPositionList from "../../Reusables/functions/setPositionList";
@@ -59,7 +58,7 @@ const DailyCalendar = (props) => {
 
   return (
     <div className="DailyCal-container">
-      <DailyCalendarSummary positions={positions} />
+    
       <DailyCalendarTable
         positions={positions}
         selectedDay={selectedDay}
