@@ -4,7 +4,7 @@ import { Container } from "@mui/system";
 import MonthlyCalendarHeader from "./MonthlyCalendarHeader";
 import AddEvent from "./AddEvent";
 import "./monthlyCalendar.css";
-import ScheduleBar from "../Reusables/components/ScheduleBar";
+import ScheduleBar from "../../Reusables/components/ScheduleBar";
 import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
 import DisplayMySched from "../weeklyCalendar/weeklyTableBody/DisplayMySched";

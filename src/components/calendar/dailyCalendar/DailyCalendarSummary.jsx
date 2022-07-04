@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { ProfileIcon } from "../Reusables/components/ProfileIcon";
+import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
 
 const DailyCalendarSummary = (props) => {
   const { positions } = props;

@@ -3,7 +3,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
 import React from "react";
-import { ProfileIcon } from "../../../calendar/Reusables/components/ProfileIcon";
+import { ProfileIcon } from "../../../Reusables/components/ProfileIcon";
 import Filters from "./Filters";
 
 import "./sidebar.css";

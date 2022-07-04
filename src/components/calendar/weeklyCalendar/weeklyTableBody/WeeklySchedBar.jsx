@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import ScheduleBar from "../../Reusables/components/ScheduleBar";
+import ScheduleBar from "../../../Reusables/components/ScheduleBar";
 
 const WeeklySchedBar = ({
   daysInWeek,

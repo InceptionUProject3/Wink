@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
-import groupByPosition from "../../../calendar/Reusables/functions/groupByPosition";
-import ProfileSmall from "../../../calendar/Reusables/components/ProfileSmall";
+import groupByPosition from "../../../Reusables/functions/groupByPosition";
+import ProfileSmall from "../../../Reusables/components/ProfileSmall";
 import moment from "moment";
 
 const ClickableSchedules = (props) => {

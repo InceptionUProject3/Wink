@@ -8,9 +8,9 @@ import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalen
 import DailyCalendar from "../../components/calendar/dailyCalendar/DailyCalendar";
 
 import "./calendar.css";
-import ViewButtons from "../../components/calendar/Reusables/components/ViewButtons";
-import TodayButton from "../../components/calendar/Reusables/components/TodayButton";
-import RequestSwapBtn from "../../components/calendar/Reusables/components/RequestSwapBtn";
+import ViewButtons from "../../components/Reusables/components/ViewButtons";
+import TodayButton from "../../components/Reusables/components/TodayButton";
+import RequestSwapBtn from "../../components/Reusables/components/RequestSwapBtn";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import SwapShiftModal from "../../components/calendar/shiftSwapModal/SwapShiftModal";
 import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilters";

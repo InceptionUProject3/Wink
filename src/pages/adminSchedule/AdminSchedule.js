@@ -3,7 +3,7 @@ import moment from "moment";
 
 import Schedule from "../../components/admin/schedule/Schedule";
 import Sidebar from "../../components/admin/schedule/sidebar/Sidebar";
-import setPositionList from "../../components/calendar/Reusables/functions/setPositionList";
+import setPositionList from "../../components/Reusables/functions/setPositionList";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import { LoginContext } from "../../components/authentication/LoginProvider";
 

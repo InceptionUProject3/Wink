@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
-import ScheduleBar from "../../../calendar/Reusables/components/ScheduleBar";
+import ScheduleBar from "../../../Reusables/components/ScheduleBar";
 import { useEffect } from "react";
 import AdminScheduleModal from "./AdminScheduleModal";
 

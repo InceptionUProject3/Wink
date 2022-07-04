@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState } from "react";
 import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
 // import ScheduleBar from "../Reusables/components/ScheduleBar";
-import setPositionList from "../Reusables/functions/setPositionList";
+import setPositionList from "../../Reusables/functions/setPositionList";
 
 import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";

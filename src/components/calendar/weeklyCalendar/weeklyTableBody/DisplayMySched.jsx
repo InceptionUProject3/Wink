@@ -1,7 +1,7 @@
 import React from "react";
 
 import WeeklySchedBar from "./WeeklySchedBar";
-import ProfileBig from "../../Reusables/components/ProfileBig";
+import ProfileBig from "../../../Reusables/components/ProfileBig";
 
 const DisplayMySched = (props) => {
   const { myProfile, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;

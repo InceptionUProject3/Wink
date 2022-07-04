@@ -4,7 +4,7 @@ import DailyCalendarSummary from "./DailyCalendarSummary";
 import DailyCalendarTable from "./DailyCalendarTable";
 
 import "./DailyCalendar.css";
-import setPositionList from "../Reusables/functions/setPositionList";
+import setPositionList from "../../Reusables/functions/setPositionList";
 import { useContext } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
 import moment from "moment";
