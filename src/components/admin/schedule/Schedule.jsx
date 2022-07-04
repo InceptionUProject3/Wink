@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
 import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/weeklyComponents/WeeklyCalendarHeader";
-import ClickableSchedules from "./scheduleTableBody/ClickableSchedules";
+import ClickableSchedules from "./scheduleComponents/ClickableSchedules";
 
 import "./schedule.css";
-import ScheduleTableHeader from "./ScheduleTableHeader";
+import ScheduleTableHeader from "./scheduleComponents/ScheduleTableHeader";
 
 const Schedule = (props) => {
   const {

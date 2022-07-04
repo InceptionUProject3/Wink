@@ -1,22 +1,23 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import moment from "moment";
 
+import { StoreContext } from "../../components/authentication/StoreProvider";
+import { LoginContext } from "../../components/authentication/LoginProvider";
+
 import Schedule from "../../components/admin/schedule/Schedule";
 import Sidebar from "../../components/admin/schedule/sidebar/Sidebar";
 import setPositionList from "../../components/Reusables/functions/setPositionList";
-import { StoreContext } from "../../components/authentication/StoreProvider";
-import { LoginContext } from "../../components/authentication/LoginProvider";
 
 import "./adminSchedule.css";
 
 const AdminSchedule = () => {
-  const [startWeeks, setStartWeeks] = useState();
+  const [startDaysOfWeek, setStartDaysOfWeek] = useState();
   const [selectedStart, setSelectedStart] = useState();
   const [selectedDate, setSelectedDate] = useState();
   const [positions, setPositions] = useState();
   const [schedules, setSchedules] = useState();
   const [filters, setFilters] = useState();
-  const [userList, setUserList] = useState([]);
+  const [empList, setEmpList] = useState([]);
   const [selectedEmp, setSelectedEmp] = useState("");
   const [schedModalOpen, setSchedModalOpen] = useState(false);
   const [selectedSched, setSelectedSched] = useState({
@@ -27,10 +28,9 @@ const AdminSchedule = () => {
     workcode: 0,
   });
 
-
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  // console.log("This week start", startWeeks);
+  // console.log("This week start", startDaysOfWeek);
 
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
@@ -38,6 +38,7 @@ const AdminSchedule = () => {
   const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone);
   const scheduleHrs = 18;
 
+  //Set an array with 4 consecutive Sundays for scheduling periods
   useEffect(() => {
     const setWeeksArray = () => {
       const startThisWeek = moment.tz(moment(), storeTimeZone).startOf("week");
@@ -46,23 +47,24 @@ const AdminSchedule = () => {
         const newWeekStart = startThisWeek?.clone().add(i, "weeks");
         weekArray.push(newWeekStart);
       }
-      // console.log('weekArray', weekArray)
-      setStartWeeks(weekArray);
+      //set variable startDaysOfWeek 
+      setStartDaysOfWeek(weekArray);
+      //set initial period to this week.
       setSelectedStart(weekArray[0]);
     };
     setWeeksArray();
   }, []);
-  // console.log("selectedStart", selectedStart);
+
+  //Read scheudles
   useEffect(() => {
-    //read scheudles
     const fetchAllData = async () => {
       try {
         const startDay = selectedStart?.clone().format();
         const data = await fetch(
           `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
-          );
-          const scheduleData = await data.json();
-          console.log("fetching schedule data", scheduleData);
+        );
+        const scheduleData = await data.json();
+        console.log("fetching schedule data", scheduleData);
 
         const scheduleArray = [
           ...scheduleData.mySchedules,
@@ -77,31 +79,26 @@ const AdminSchedule = () => {
     selectedStart && fetchAllData();
   }, [selectedStart, schedModalOpen]);
 
+  //set position and employeefilter
   useMemo(() => {
     //set position List
     const positionArray = setPositionList(schedules);
     setPositions(positionArray);
-    //set userList
+    //set empList for user filter
     schedules?.map((sched) => {
-      const foundPos = positionArray.find(
-        (p) => sched.position === p.position
-      );
-
-      // console.log("pos color", positionColor);
-      setUserList((pre) => [
+      const foundPos = positionArray.find((p) => sched.position === p.position);
+      setEmpList((pre) => [
         ...pre,
         {
           userId: sched.userId,
           firstname: sched.firstname,
           lastname: sched.lastname,
-          position: foundPos
+          position: foundPos,
         },
       ]);
     });
-
   }, [schedules]);
 
-  // console.log("position List and data", positions, schedules, userList);
 
   useEffect(() => {
     //Set filters
@@ -112,9 +109,9 @@ const AdminSchedule = () => {
     // console.log("positionArray", positionArray);
     const initialfilterObj = {
       hours: [
-        { type: "> 30hrs", max:null, min: 30,value: true },
-        { type: "20hrs - 30hrs",max:30, min: 20, value: true },
-        { type: "< 20hrs",max:20, min: 0, value: true },
+        { type: "> 30hrs", max: null, min: 30, value: true },
+        { type: "20hrs - 30hrs", max: 30, min: 20, value: true },
+        { type: "< 20hrs", max: 20, min: 0, value: true },
       ],
       positions: positionArray,
     };
@@ -143,12 +140,12 @@ const AdminSchedule = () => {
       <div className="Side-bar-container">
         <Sidebar
           storeZone={storeTimeZone}
-          startWeeks={startWeeks}
+          startDaysOfWeek={startDaysOfWeek}
           selectedStart={selectedStart}
           setSelectedStart={setSelectedStart}
           filters={filters}
           setFilters={setFilters}
-          userList={userList}
+          empList={empList}
           setSelectedEmp={setSelectedEmp}
         />
       </div>

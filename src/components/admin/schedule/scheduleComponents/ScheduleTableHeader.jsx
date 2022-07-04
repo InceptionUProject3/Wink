@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { StoreContext } from "../../authentication/StoreProvider";
-import DisplayDaysinWeek from "../../Reusables/components/DisplayDaysinWeek";
+import { StoreContext } from "../../../authentication/StoreProvider";
+import DisplayDaysinWeek from "../../../Reusables/components/DisplayDaysinWeek";
 
 const ScheduleTableHeader = (props) => {
   const { selectedDay, endDayOfWeek, daysInWeek } = props;

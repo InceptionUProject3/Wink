@@ -11,17 +11,17 @@ import "./sidebar.css";
 const Sidebar = (props) => {
   const {
     storeZone,
-    startWeeks,
+    startDaysOfWeek,
     setSelectedStart,
     selectedStart,
     filters,
     setFilters,
-    userList,
+    empList,
     setSelectedEmp,
   } = props;
 
   const displayWeekList = () => {
-    return startWeeks?.map((weekStart, i) => {
+    return startDaysOfWeek?.map((weekStart, i) => {
       const endWeek = weekStart.clone().endOf("week").format("MMM Do");
       const startWeek = weekStart.format("MMM Do");
       return (
@@ -65,30 +65,30 @@ const Sidebar = (props) => {
           <div className="user-filter">
             <Autocomplete
               multiple
-              getOptionLabel={(userList) =>
-                `${userList.firstname}, ${userList.lastname}`
+              getOptionLabel={(empList) =>
+                `${empList.firstname}, ${empList.lastname}`
               }
-              options={userList}
+              options={empList}
               sx={{ width: 300}}
               isOptionEqualToValue={(option, value) =>
                 option.firstname === value.firstname
               }
               filterSelectedOptions
               noOptionsText={"No employee found"}
-              renderOption={(props, userList) => {
-                // console.log('userList',userList)
+              renderOption={(props, empList) => {
+                // console.log('empList',empList)
                 return (
                   <Box
                     {...props}
-                    key={userList.userId}
+                    key={empList.userId}
                     sx={{ display: "flex", flexDirection: "row", gap:'5%'}}
                   >
                     <ProfileIcon
-                      profile={userList.position}
-                      color={userList.position.color}
+                      profile={empList.position}
+                      color={empList.position.color}
                     />
                     <div>
-                      {userList.firstname}, {userList.lastname}
+                      {empList.firstname}, {empList.lastname}
                     </div>
                   </Box>
                 );
