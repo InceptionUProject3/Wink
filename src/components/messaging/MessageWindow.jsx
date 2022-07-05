@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import theme from "../utils/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import shadows from "@mui/material/styles/shadows";
+import socketIOClient from "socket.io-client";
 
 const MessageWindow = () => {
   const authContext = useContext(LoginContext);
@@ -16,6 +17,8 @@ const MessageWindow = () => {
   const [receiver, setReceiver] = useState("");
   const [seconds, setSeconds] = useState(0);
   const location = useLocation();
+  const SOCKET_SERVER_URL = "http://localhost:4000";
+  const socket = socketIOClient(SOCKET_SERVER_URL);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,6 +28,38 @@ const MessageWindow = () => {
     }, 5000);
   }, []);
 
+  // useEffect(() => {
+  //   const getMessages = async () => {
+  //     try {
+  //       const chat = {
+  //         user: user.User_idUser,
+  //         store: user.Store_idStore,
+  //         receiver: location.state.profile.User_idUser,
+  //       };
+  //       console.log("sending message request: " + chat);
+  //       const data = JSON.stringify(chat);
+  //       const response = await fetch("/api/getconversation", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: data,
+  //       });
+  //       if (response.status === 200) {
+  //         console.log(response);
+  //         const theMessages = JSON.parse(await response.text());
+  //         // console.log("we have the messages", theMessages);
+  //         setMessages(theMessages);
+  //       } else {
+  //         console.log("failed to get message");
+  //         setMessages([]);
+  //       }
+  //     } catch (err) {
+  //       console.log("error getting message", err);
+  //     }
+  //   };
+  //   getMessages(user);
+  // }, [seconds]);
   useEffect(() => {
     const getMessages = async () => {
       try {
@@ -34,29 +69,38 @@ const MessageWindow = () => {
           receiver: location.state.profile.User_idUser,
         };
         console.log("sending message request: " + chat);
-        const data = JSON.stringify(chat);
-        const response = await fetch("/api/getconversation", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: data,
+        // const data = JSON.stringify(chat);
+        // const response = await fetch("/api/getconversation", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: data,
+        // });
+        socket.emit("get messages", chat);
+        socket.on("messages", (conversations) => {
+          console.log("we have the messages", conversations);
+          setMessages(conversations);
         });
-        if (response.status === 200) {
-          console.log(response);
-          const theMessages = JSON.parse(await response.text());
-          // console.log("we have the messages", theMessages);
-          setMessages(theMessages);
-        } else {
-          console.log("failed to get message");
-          setMessages([]);
+        return () => {
+          socket.disconnect();
         }
+
+        //     if (response.status === 200) {
+        //       console.log(response);
+        //       const theMessages = JSON.parse(await response.text());
+        //       // console.log("we have the messages", theMessages);
+        //       setMessages(theMessages);
+        //     } else {
+        //       console.log("failed to get message");
+        //       setMessages([]);
+        //     }
       } catch (err) {
         console.log("error getting message", err);
       }
     };
     getMessages(user);
-  }, [seconds]);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
