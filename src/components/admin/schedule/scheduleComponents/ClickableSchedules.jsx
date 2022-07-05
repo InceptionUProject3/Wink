@@ -54,7 +54,7 @@ const ClickableSchedules = (props) => {
       const newPosition = [];
       positionFilterArr?.map((p)=>{
         if(p.value){
-          console.log("position filter", p)
+          // console.log("position filter", p)
           newPosition.push(p);
         }
       })
@@ -113,7 +113,7 @@ const ClickableSchedules = (props) => {
     <>
       {filteredPos?.map((position, i) => {
         const empInPositon = groupedProfs && groupedProfs[position.type];
-        console.log('filteredpos i', filteredPos, groupedProfs)
+        // console.log('filteredpos i', filteredPos, groupedProfs)
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
             const calcHrsinWeek = calculateWeekHrs(emp);

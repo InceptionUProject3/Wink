@@ -14,15 +14,10 @@ const ClickableScheduleBar = ({
   setSelectedDate,
   selectedSched,
   setSelectedSched,
-  settingHrsObj
+  settingHrsObj,
 }) => {
-  // console.log("schedules",schedules)
-  // const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
   const [open, setOpen] = useState(false);
-  // const [workHrsinWeek, setWorkHrsinWeek] = useState();
-
-  // console.log("ININ")
 
   useEffect(() => {
     const getTimeList = () => {
@@ -39,19 +34,25 @@ const ClickableScheduleBar = ({
     getTimeList();
   }, []);
 
+  // console.log("selected date is set to", selectedDate)
+  // set initial values for schedule modal
   const scheduleAction = (e, day, foundSched) => {
-    // set initial values for schedule modal
     //set Date
-    setSelectedDate(() => moment.tz(day, timezone));
+    const dayClicked = moment.tz(day, timezone);
+    setSelectedDate(() => {
+      return {
+        starttime: dayClicked,
+        endtime: dayClicked,
+      };
+    });
     //set Schedule
     if (foundSched) {
-      console.log("edit on", foundSched);
+      console.log("Modal - editing schedule", foundSched);
       setSelectedSched(() => foundSched);
-      console.log("selected schedule after click", selectedSched);
     } else {
       setSelectedSched((pre) => {
         console.log(
-          "create on user where id, storeid are",
+          "Modal - creating schedule",
           employeeSched.userId,
           employeeSched.storeId
         );
@@ -59,8 +60,10 @@ const ClickableScheduleBar = ({
           ...pre,
           User_idUser: employeeSched.userId,
           Store_idStore: employeeSched.storeId,
-          starttime: moment.tz(day, timezone),
-          endtime: moment.tz(day, timezone),
+          starttime: "",
+          endtime: "",
+          // starttime: moment.tz(day, timezone),
+          // endtime: moment.tz(day, timezone),
         };
       });
     }
@@ -70,14 +73,14 @@ const ClickableScheduleBar = ({
   };
 
   const sendDelete = async (e, foundsched) => {
+    console.log("Deleting schedule");
     e.stopPropagation();
     const pretendDelete = {
       ...foundsched,
       starttime: "0",
       endtime: "0",
     };
-    console.log("editing(deleting) schedule on ", pretendDelete, new Date("0"));
-    // console.log("editing schedule... on ", moment(0).utc().format());
+
     const dataToSend = JSON.stringify(pretendDelete);
     const response = await fetch(`/api/schedule/scheduling`, {
       method: "PATCH",
@@ -98,8 +101,13 @@ const ClickableScheduleBar = ({
         const oneDay = moment.tz(day, timezone);
         const dayStart = oneDay
           .clone()
-          .set({ h: settingHrsObj?.startTimeOfDay?.hour(), m: settingHrsObj?.startTimeOfDay?.minute() });
-        const dayEnd = dayStart.clone().add(settingHrsObj?.scheduleHrs, "hours");
+          .set({
+            h: settingHrsObj?.startTimeOfDay?.hour(),
+            m: settingHrsObj?.startTimeOfDay?.minute(),
+          });
+        const dayEnd = dayStart
+          .clone()
+          .add(settingHrsObj?.scheduleHrs, "hours");
 
         const foundSched = employeeSched.schedules?.find(
           (sched) =>
@@ -128,9 +136,6 @@ const ClickableScheduleBar = ({
             const schedTo = moment.tz(foundSched.endtime, timezone);
             const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
             const newTo = schedTo < dayEnd ? schedTo : dayEnd;
-
-            // CalcHrsinWeek += Math.round(moment(schedTo - schedFrom).unix()/60/60 );
-            // console.log("workingHrs", workingHrs)
 
             return (
               <div
@@ -174,6 +179,7 @@ const ClickableScheduleBar = ({
         setOpen={setOpen}
         timeList={timeList}
         setSchedModalOpen={setSchedModalOpen}
+        setSelectedDate={setSelectedDate}
       />
     </>
   );

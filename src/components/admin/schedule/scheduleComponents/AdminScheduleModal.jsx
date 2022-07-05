@@ -24,6 +24,7 @@ const AdminScheduleModal = ({
   setOpen,
   timeList,
   setSchedModalOpen,
+  setSelectedDate
 }) => {
   const [onlyStarttime, setOnlyStarttime] = useState();
   const [message, setMessage] = useState();
@@ -31,7 +32,7 @@ const AdminScheduleModal = ({
 
   useEffect(() => {
     const getVacDateList = () => {
-      const startDate = selectedDate?.clone();
+      const startDate = selectedDate?.starttime?.clone();
       const dateArray = [startDate?.format("ddd, MMM Do")];
       const iterDay = 30;
       // console.log("iteration time", scheduleHrs, iterTimes)
@@ -50,38 +51,52 @@ const AdminScheduleModal = ({
     const hour = moment(value, "hh:mm a").get("hour");
     const min = moment(value, "hh:mm a").get("minute");
     const time = moment
-      .tz(selectedSched[name], timezone)
+      .tz(selectedDate[name], timezone)
       .set({ h: hour, m: min })
-      .format();
-    // console.log("time", time);
+      ;
+    setSelectedDate((pre)=>{return{...pre,[name]:time}})
     setSelectedSched((pre) => {
-      return { ...pre, [name]: time };
+      return { ...pre, [name]: time.format() };
     });
   };
-  // console.log("selected date", selectedDate , selectedDate?.format("ddd, MMM Do"));
-  // console.log("selected scheudles",selectedSched, moment.tz(selectedSched?.starttime, timezone).format("hh:mm a"));
-  // console.log("only start time",onlyStarttime.format('hh:mm a'));
-
+  
   const updateDate = (e) => {
     const { value } = e.target;
     const date = moment(value, "ddd, MMM Do", timezone).get("date");
     const month = moment(value, "ddd, MMM Do", timezone).get("month");
 
-    const newDate = moment
-      .tz(selectedSched.endtime, timezone)
+    const newDate = selectedDate.endtime.clone()
+      // .tz(selectedDate.endtime, timezone)
       .set({ month: month, date: date })
-      .format();
-    console.log("date end vacation", newDate);
+    console.log("date end vacation", newDate, month, date);
+   
+    setSelectedDate((pre)=>{return{...pre,endtime:newDate}})
     setSelectedSched((pre) => {
-      return { ...pre, endtime: newDate };
+      return { ...pre, endtime: newDate.format() };
     });
   };
+useEffect(()=>{
+  console.log("changed schedule", selectedSched);
+  console.log("changed date", selectedDate);
+},[selectedSched])
 
   const updateWorkcode = (e) => {
     const { name, value } = e.target;
-    setSelectedSched((pre) => {
-      return { ...pre, [name]: value * 1 };
-    });
+    console.log('number', value)
+    if(value==="0"){
+      setSelectedDate((pre)=>{return{
+        ...pre, endtime:pre.starttime
+      }})
+      setSelectedSched((pre) => {
+        return { ...pre, endtime: "",starttime:"",[name]: value * 1 };
+      });
+    }else{
+
+      setSelectedSched((pre) => {
+        return { ...pre, [name]: value * 1 };
+      });
+    }
+
   };
 
   const resetEvent = () => {
@@ -160,7 +175,7 @@ const AdminScheduleModal = ({
           <div className="dateNtime">
             <div className="date-container">
               <label> Date: </label>
-              <div className="date">{selectedDate?.format("ddd, MMM Do")}</div>
+              <div className="date">{selectedDate.starttime?.format("ddd, MMM Do")}</div>
             </div>
             {selectedSched.workcode === 1 && (
               <div className="vacation-endDate-container">
@@ -169,7 +184,7 @@ const AdminScheduleModal = ({
                   name="vacation-endDate"
                   onChange={updateDate}
                   value={moment
-                    .tz(selectedSched.endtime, timezone)
+                    .tz(selectedDate.endtime, timezone)
                     .format("ddd, MMM Do")}
                 >
                   {vacEndDates?.map((date) => {
@@ -192,7 +207,7 @@ const AdminScheduleModal = ({
           </div>
           <div className="date-list-start">
             <label htmlFor="starttime">
-              Start time ({selectedDate?.format("z")}):
+              Start time ({selectedDate.starttime?.format("z")}):
             </label>
             <select
               name="starttime"
@@ -216,7 +231,7 @@ const AdminScheduleModal = ({
           </div>
           <div className="date-list-end">
             <label htmlFor="endtime">
-              End time ({selectedDate?.format("z")}):
+              End time ({selectedDate?.endtime?.format("z")}):
             </label>
             <select
               name="endtime"
