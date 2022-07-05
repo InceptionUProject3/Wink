@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import React from "react";
-import { ProfileIcon } from "../../../calendar/Reusables/components/ProfileIcon";
+import { ProfileIcon } from "../../../Reusables/components/ProfileIcon";
 import { useState } from "react";
 
 import "./adminScheduleModal.css";

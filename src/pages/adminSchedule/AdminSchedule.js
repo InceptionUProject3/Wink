@@ -1,24 +1,23 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
+
+import { StoreContext } from "../../components/authentication/StoreProvider";
+import { LoginContext } from "../../components/authentication/LoginProvider";
 
 import Schedule from "../../components/admin/schedule/Schedule";
 import Sidebar from "../../components/admin/schedule/sidebar/Sidebar";
-import setPositionList from "../../components/calendar/Reusables/functions/setPositionList";
-import { StoreContext } from "../../components/authentication/StoreProvider";
-import { LoginContext } from "../../components/authentication/LoginProvider";
+import setPositionList from "../../components/Reusables/functions/setPositionList";
 
 import "./adminSchedule.css";
 
 const AdminSchedule = () => {
-  const [startWeeks, setStartWeeks] = useState();
-  const [selectedStart, setSelectedStart] = useState();
-  const [selectedDate, setSelectedDate] = useState();
-  const [positions, setPositions] = useState();
   const [schedules, setSchedules] = useState();
-  const [filters, setFilters] = useState();
-  const [userList, setUserList] = useState([]);
-  const [selectedEmp, setSelectedEmp] = useState("");
+  const [startDaysOfWeek, setStartDaysOfWeek] = useState();
+  const [selectedStart, setSelectedStart] = useState();
+  const [empList, setEmpList] = useState([]);
+  const [filters, setFilters] = useState({});
   const [schedModalOpen, setSchedModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState();
   const [selectedSched, setSelectedSched] = useState({
     User_idUser: "",
     Store_idStore: "",
@@ -27,17 +26,18 @@ const AdminSchedule = () => {
     workcode: 0,
   });
 
-
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  // console.log("This week start", startWeeks);
 
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  // const userTimeZone = moment.tz.guess();
-  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone);
-  const scheduleHrs = 18;
+  const [settingHrsObj, setSettingHrsObj] = useState({
+    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone), scheduleHrs: 18
+  });
+  // const startTimeOfDay = moment.tz("06:00", "HH:mm", storeTimeZone);
+  // const scheduleHrs = 18;
 
+  //Set an array with 4 consecutive Sundays for scheduling periods
   useEffect(() => {
     const setWeeksArray = () => {
       const startThisWeek = moment.tz(moment(), storeTimeZone).startOf("week");
@@ -46,23 +46,24 @@ const AdminSchedule = () => {
         const newWeekStart = startThisWeek?.clone().add(i, "weeks");
         weekArray.push(newWeekStart);
       }
-      // console.log('weekArray', weekArray)
-      setStartWeeks(weekArray);
+      //set variable startDaysOfWeek
+      setStartDaysOfWeek(weekArray);
+      //set initial period to this week.
       setSelectedStart(weekArray[0]);
     };
     setWeeksArray();
   }, []);
-  // console.log("selectedStart", selectedStart);
+
+  //Read scheudles
   useEffect(() => {
-    //read scheudles
     const fetchAllData = async () => {
       try {
         const startDay = selectedStart?.clone().format();
         const data = await fetch(
           `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
-          );
-          const scheduleData = await data.json();
-          console.log("fetching schedule data", scheduleData);
+        );
+        const scheduleData = await data.json();
+        console.log("fetching schedule data", scheduleData);
 
         const scheduleArray = [
           ...scheduleData.mySchedules,
@@ -77,62 +78,61 @@ const AdminSchedule = () => {
     selectedStart && fetchAllData();
   }, [selectedStart, schedModalOpen]);
 
-  useMemo(() => {
-    //set position List
-    const positionArray = setPositionList(schedules);
-    setPositions(positionArray);
-    //set userList
-    schedules?.map((sched) => {
-      const foundPos = positionArray.find(
-        (p) => sched.position === p.position
-      );
-
-      // console.log("pos color", positionColor);
-      setUserList((pre) => [
-        ...pre,
-        {
-          userId: sched.userId,
-          firstname: sched.firstname,
-          lastname: sched.lastname,
-          position: foundPos
-        },
-      ]);
-    });
-
-  }, [schedules]);
-
-  // console.log("position List and data", positions, schedules, userList);
-
+  //Set initial filter(employees, availability, positions) values
   useEffect(() => {
-    //Set filters
-    const positionArray = [];
-    positions?.map((p) => {
-      positionArray.push({ type: p.position, color: p.color, value: true });
-    });
-    // console.log("positionArray", positionArray);
-    const initialfilterObj = {
-      hours: [
-        { type: "> 30hrs", max:null, min: 30,value: true },
-        { type: "20hrs - 30hrs",max:30, min: 20, value: true },
-        { type: "< 20hrs",max:20, min: 0, value: true },
-      ],
-      positions: positionArray,
+    console.log("useEffect set initial filters");
+    //set position variables which List
+    const coleredPosArray = setPositionList(schedules);
+
+    const getInitialFilters = () => {
+      //Set position filter with boolean
+      const positionFilterArray = [];
+      coleredPosArray?.map((p) => {
+        return positionFilterArray.push({
+          type: p.type,
+          color: p.color,
+          value: true,
+        });
+      });
+      //add hours and selected employees filter with boolean
+      const initialfilterObj = {
+        hours: [
+          { type: "> 30hrs", max: null, min: 30, value: true },
+          { type: "20hrs - 30hrs", max: 30, min: 20, value: true },
+          { type: "< 20hrs", max: 20, min: 0, value: true },
+        ],
+        positions: positionFilterArray,
+        employees: [],
+      };
+      setFilters(() => initialfilterObj);
     };
-    // console.log('initial filter obj', initialfilterObj);
-    return setFilters(() => initialfilterObj);
-  }, [positions]);
+    //set EmployeeList for employee filter
+    const getEmployeeList = () => {
+      schedules?.map((sched) => {
+        const foundPos = coleredPosArray.find((p) => sched.position === p.type);
+        setEmpList((pre) => [
+          ...pre,
+          {
+            userId: sched.userId,
+            firstname: sched.firstname,
+            lastname: sched.lastname,
+            position: foundPos,
+          },
+        ]);
+      });
+    };
+    getInitialFilters();
+    getEmployeeList();
+  }, [schedules]);
 
   return (
     <div className="Admin-schedule">
       <div className="schedule-container">
         <Schedule
           selectedDay={selectedStart}
-          storeOpen={storeOpen}
-          scheduleHrs={scheduleHrs}
-          positions={positions}
+          settingHrsObj={settingHrsObj}
           schedules={schedules}
           filters={filters}
-          selectedEmp={selectedEmp}
           setSchedModalOpen={setSchedModalOpen}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
@@ -143,13 +143,12 @@ const AdminSchedule = () => {
       <div className="Side-bar-container">
         <Sidebar
           storeZone={storeTimeZone}
-          startWeeks={startWeeks}
+          startDaysOfWeek={startDaysOfWeek}
           selectedStart={selectedStart}
           setSelectedStart={setSelectedStart}
           filters={filters}
           setFilters={setFilters}
-          userList={userList}
-          setSelectedEmp={setSelectedEmp}
+          empList={empList}
         />
       </div>
     </div>

@@ -1,30 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
-import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/WeeklyCalendarHeader";
-import ClickableSchedules from "./scheduleTableBody/ClickableSchedules";
+import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/weeklyComponents/WeeklyCalendarHeader";
+import ClickableSchedules from "./scheduleComponents/ClickableSchedules";
+
+import ScheduleTableHeader from "./scheduleComponents/ScheduleTableHeader";
 
 import "./schedule.css";
-import ScheduleTableHeader from "./ScheduleTableHeader";
 
 const Schedule = (props) => {
   const {
     selectedDay,
-    scheduleHrs,
-    storeOpen,
     schedules,
-    positions,
     filters,
-    selectedEmp,
     setSchedModalOpen,
     selectedDate,
     setSelectedDate,
     selectedSched,
     setSelectedSched,
+    settingHrsObj
   } = props;
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const endDayOfWeek = selectedDay?.clone().endOf("week");
-  // const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
+  // const storeClose = startTimeOfDay?.clone().add(scheduleHrs, "hours");
   const [daysInWeek, setDaysInWeek] = useState();
   // console.log('schedules', schedules);
   useEffect(() => {
@@ -39,7 +37,9 @@ const Schedule = (props) => {
   // console.log("filter in scheudle component", filters)
   return (
     <div>
-      <WeeklyCalendarHeader storeOpen={storeOpen} scheduleHrs={scheduleHrs} />
+      <WeeklyCalendarHeader 
+      settingHrsObj={settingHrsObj}
+       />
       <div className="Admin-weekly-calendar">
         <div className="Weekly-header">
           <ScheduleTableHeader
@@ -52,13 +52,10 @@ const Schedule = (props) => {
           {schedules && (
             <ClickableSchedules
               schedules={schedules}
-              positions={positions}
               daysInWeek={daysInWeek}
-              storeOpen={storeOpen}
-              scheduleHrs={scheduleHrs}
+              settingHrsObj={settingHrsObj}
               timezone={storeTimeZone}
               filters={filters}
-              selectedEmp={selectedEmp}
               setSchedModalOpen={setSchedModalOpen}
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}

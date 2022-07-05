@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import moment from "moment";
-import ScheduleBar from "../../../calendar/Reusables/components/ScheduleBar";
+import ScheduleBar from "../../../Reusables/components/ScheduleBar";
 import { useEffect } from "react";
 import AdminScheduleModal from "./AdminScheduleModal";
 
 const ClickableScheduleBar = ({
   daysInWeek,
-  storeOpen,
-  scheduleHrs,
   timezone,
   employeeSched,
   position,
@@ -16,6 +14,7 @@ const ClickableScheduleBar = ({
   setSelectedDate,
   selectedSched,
   setSelectedSched,
+  settingHrsObj
 }) => {
   // console.log("schedules",schedules)
   // const [selectedDate, setSelectedDate] = useState();
@@ -27,9 +26,9 @@ const ClickableScheduleBar = ({
 
   useEffect(() => {
     const getTimeList = () => {
-      const timeOpen = storeOpen?.clone();
-      const timeArray = [storeOpen.format("hh:mm a")];
-      const iterTimes = (scheduleHrs * 60) / 15;
+      const timeOpen = settingHrsObj?.startTimeOfDay?.clone();
+      const timeArray = [settingHrsObj?.startTimeOfDay?.format("hh:mm a")];
+      const iterTimes = (settingHrsObj?.scheduleHrs * 60) / 15;
       // console.log("iteration time", scheduleHrs, iterTimes)
       for (let i = 0; i < iterTimes; i++) {
         timeArray.push(timeOpen?.add(15, "minutes").format("hh:mm a"));
@@ -65,19 +64,11 @@ const ClickableScheduleBar = ({
         };
       });
     }
-    // console.log('store open', storeOpen)
+    // console.log('store open', startTimeOfDay)
     // open modal
     setOpen(true);
   };
 
-  // useEffect(() => {
-  //   console.log("open has been changed");
-  //   const fetchDataAgain = () => {
-  //     setSchedModalOpen((pre) => !pre);
-  //   };
-  //   fetchDataAgain();
-  // }, [open]);
-  // console.log("selectedSched", selectedSched);
   const sendDelete = async (e, foundsched) => {
     e.stopPropagation();
     const pretendDelete = {
@@ -107,8 +98,8 @@ const ClickableScheduleBar = ({
         const oneDay = moment.tz(day, timezone);
         const dayStart = oneDay
           .clone()
-          .set({ h: storeOpen?.hour(), m: storeOpen?.minute() });
-        const dayEnd = dayStart.clone().add(scheduleHrs, "hours");
+          .set({ h: settingHrsObj?.startTimeOfDay?.hour(), m: settingHrsObj?.startTimeOfDay?.minute() });
+        const dayEnd = dayStart.clone().add(settingHrsObj?.scheduleHrs, "hours");
 
         const foundSched = employeeSched.schedules?.find(
           (sched) =>

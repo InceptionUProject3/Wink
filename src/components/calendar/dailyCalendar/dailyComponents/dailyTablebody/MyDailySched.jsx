@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProfileIcon } from '../../Reusables/components/ProfileIcon';
+import { ProfileIcon } from '../../../../Reusables/components/ProfileIcon';
 // import ScheduleBar from '../../Reusables/components/ScheduleBar';
 
 const MyDailySched = (props) => {
@@ -7,7 +7,7 @@ const MyDailySched = (props) => {
   // console.log("mySched", mySched)
   const findColor = () => {
     const myPositionObj = positions?.find(
-      (position) => mySched?.position === position.position
+      (position) => mySched?.position === position.type
     );
     const color = myPositionObj?.color;
     return color;

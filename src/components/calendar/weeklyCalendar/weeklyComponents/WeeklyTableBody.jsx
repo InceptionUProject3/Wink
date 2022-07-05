@@ -1,24 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-
-//fetch sheduleData for store
-// import mockScheduleData from "../mockScheduleData.json";
-
-// import moment from "moment";
-
 import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
-// import ScheduleBar from "../Reusables/components/ScheduleBar";
-import setPositionList from "../Reusables/functions/setPositionList";
-
-import { LoginContext } from "../../authentication/LoginProvider";
-import { StoreContext } from "../../authentication/StoreProvider";
+import setPositionList from "../../../Reusables/functions/setPositionList";
+import { LoginContext } from "../../../authentication/LoginProvider";
+import { StoreContext } from "../../../authentication/StoreProvider";
 
 const WeeklyTableBody = (props) => {
-  const { selectedDay, storeOpen, scheduleHrs, daysInWeek, timezone, filter } =
+  const { selectedDay, settingHrsObj, daysInWeek, timezone, filter } =
     props;
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  console.log("filter in table body", filter);
+  // console.log("filter in table body", filter);
 
   const [positions, setPositions] = useState();
   const [mySched, setMySched] = useState();
@@ -27,7 +19,7 @@ const WeeklyTableBody = (props) => {
 
   const startDay = selectedDay?.clone().startOf("week");
 
-  console.log("userid : ", userId, "storeid : ", storeId);
+  // console.log("userid : ", userId, "storeid : ", storeId);
 
   //set schdules & position colors
   useEffect(() => {
@@ -93,8 +85,7 @@ const WeeklyTableBody = (props) => {
           myProfile={mySched[0]}
           positions={positions}
           daysInWeek={daysInWeek}
-          storeOpen={storeOpen}
-          scheduleHrs={scheduleHrs}
+          settingHrsObj={settingHrsObj}
           timezone={timezone}
         />
       )}
@@ -104,8 +95,7 @@ const WeeklyTableBody = (props) => {
           schedules={filteredEmpSched}
           positions={positions}
           daysInWeek={daysInWeek}
-          storeOpen={storeOpen}
-          scheduleHrs={scheduleHrs}
+          settingHrsObj={settingHrsObj}
           timezone={timezone}
         />
       )}
