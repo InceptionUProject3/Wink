@@ -11,7 +11,7 @@ import HomePage from "./pages/homepage/HomePage";
 import Messaging from "./components/messaging/Messaging";
 import Chat from "./components/messaging/Chat";
 import MonthlyCalendar from "./components/calendar/monthlyCalendar/MonthlyCalendar";
-
+import DisplayHolidays from "./components/calendar/monthlyCalendar/DisplayHolidays"
 import Calendar from "./pages/calendar/Calendar";
 import Logout from "./components/authentication/Logout";
 import ProfileSelection from "./components/authentication/LocationSelection";
@@ -56,6 +56,8 @@ function App() {
 
               {/* admin route */}
               <Route path="/admin/schedule" element={<AdminSchedule />} />
+              
+              <Route path="/events" element={<DisplayHolidays />} />
             </Routes>
           </BrowserRouter>
         </StoreProvider>
