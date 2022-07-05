@@ -15,20 +15,20 @@ const DailyCalendarTable = (props) => {
     setSelectedDay,
     myDaySchedules,
     coworkerDaySchedules,
-    storeOpen,
-    scheduleHrs,
+    settingHrsObj,
+    timezone
   } = props;
 
   // const userId = useContext(LoginContext).user?.id || 9;
 
   const dayStart = selectedDay
     ?.clone()
-    .set({ h: storeOpen.hour(), m: storeOpen.minute() });
-  const dayEnd = dayStart?.clone().add(scheduleHrs, "hours");
+    .set({ h: settingHrsObj?.startTimeOfDay.hour(), m: settingHrsObj?.startTimeOfDay.minute() });
+  const dayEnd = dayStart?.clone().add(settingHrsObj?.scheduleHrs, "hours");
   // console.log("Daily: day start and end", selectedDay, dayStart, dayEnd, storeOpen, scheduleHrs)
   const displayTimes = () => {
     const timeArray = [];
-    const iterTimes = scheduleHrs + 2;
+    const iterTimes = settingHrsObj?.scheduleHrs + 2;
 
     for (let i = 0; i < iterTimes; i = i + 2) {
       timeArray.push(dayStart?.clone().add(i, "hours").format("h:mm a"));
@@ -79,7 +79,7 @@ const DailyCalendarTable = (props) => {
         <div className="Time-header">{displayTimes()}</div>
       </div>
       <div className="Table-body-container">
-        <TableGrid hrs={scheduleHrs} />
+        <TableGrid hrs={settingHrsObj?.scheduleHrs} />
         {myDaySchedules&& (
           <MyDailySched
             mySched={myDaySchedules[0]}

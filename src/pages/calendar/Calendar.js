@@ -29,8 +29,11 @@ const Calendar = () => {
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const userTimeZone = moment.tz.guess();
   //  console.log(userTimeZone)
-  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
-  const scheduleHrs = 18;
+  const [settingHrsObj, setSettingHrsObj] = useState({
+    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone), scheduleHrs: 18
+  });
+  // const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
+  // const scheduleHrs = 18;
 
   return (
     <div className="Calendars">
@@ -49,7 +52,7 @@ const Calendar = () => {
                 <MonthlyCalendar
                   today={selectedDay}
                   setToday={setSelectedDay}
-                  scheduleHrs={scheduleHrs}
+                  scheduleHrs={settingHrsObj.scheduleHrs}
                 />
               }
             />
@@ -59,9 +62,9 @@ const Calendar = () => {
                 <WeeklyCalendar
                   selectedDay={selectedDay}
                   setSelectedDay={setSelectedDay}
-                  storeOpen={storeOpen}
-                  scheduleHrs={scheduleHrs}
+                  settingHrsObj={settingHrsObj}
                   filter={filter}
+                  timeZone={userTimeZone}
                 />
               }
             />
@@ -72,8 +75,8 @@ const Calendar = () => {
                 <DailyCalendar
                   selectedDay={selectedDay}
                   setSelectedDay={setSelectedDay}
-                  storeOpen={storeOpen}
-                  scheduleHrs={scheduleHrs}
+                  settingHrsObj={settingHrsObj}
+                  timeZone={userTimeZone}
                 />
               }
             />

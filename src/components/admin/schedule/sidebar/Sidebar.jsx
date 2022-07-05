@@ -1,4 +1,3 @@
-
 import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
@@ -17,9 +16,9 @@ const Sidebar = (props) => {
     filters,
     setFilters,
     empList,
-    setSelectedEmp,
   } = props;
 
+  //Display scheduling periods in sidebar
   const displayWeekList = () => {
     return startDaysOfWeek?.map((weekStart, i) => {
       const endWeek = weekStart.clone().endOf("week").format("MMM Do");
@@ -31,21 +30,21 @@ const Sidebar = (props) => {
       );
     });
   };
-  // console.log('filters', filters)
+
+  //Period onClick Event
   const updateDate = (e) => {
     const { value } = e.target;
     const momentValue = moment.tz(value, "MMM Do", storeZone);
-    // console.log("value", momentValue)
     setSelectedStart(() => momentValue);
   };
 
+  //Userfilter onChange Event
   const updateUserFilter = (e, newVal) => {
-    // const value = e.target;
-    const userId = newVal;
-    // console.log("userids", newVal);
-    setSelectedEmp(() => userId);
+    const empProfiles = newVal;
+    setFilters((pre) => {
+      return { ...pre, employees: empProfiles };
+    });
   };
-  // console.log("Changed filters", filters);
 
   return (
     <div className="Side-bar">
@@ -59,7 +58,10 @@ const Sidebar = (props) => {
           {displayWeekList()}
         </select>
       </div>
-      <div className="userFilter" style={{display: "flex", flexDirection: "column" }}>
+      <div
+        className="userFilter"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <div className="filters-title">Filters:</div>
         <div className="filters">
           <div className="user-filter">
@@ -69,22 +71,22 @@ const Sidebar = (props) => {
                 `${empList.firstname}, ${empList.lastname}`
               }
               options={empList}
-              sx={{ width: 300}}
+              sx={{ width: 300 }}
               isOptionEqualToValue={(option, value) =>
                 option.firstname === value.firstname
               }
               filterSelectedOptions
               noOptionsText={"No employee found"}
               renderOption={(props, empList) => {
-                // console.log('empList',empList)
+                console.log('empList',empList)
                 return (
                   <Box
                     {...props}
                     key={empList.userId}
-                    sx={{ display: "flex", flexDirection: "row", gap:'5%'}}
+                    sx={{ display: "flex", flexDirection: "row", gap: "5%" }}
                   >
                     <ProfileIcon
-                      profile={empList.position}
+                      profile={empList}
                       color={empList.position.color}
                     />
                     <div>
@@ -94,7 +96,11 @@ const Sidebar = (props) => {
                 );
               }}
               renderInput={(params) => (
-                <TextField {...params} label="Search employees" variant="outlined" />
+                <TextField
+                  {...params}
+                  label="Search employees"
+                  variant="outlined"
+                />
               )}
               onChange={(e, newVal) => updateUserFilter(e, newVal)}
             />

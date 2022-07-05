@@ -5,7 +5,7 @@ import groupByPosition from '../../../../Reusables/functions/groupByPosition'
 import ProfileSmall from "../../../../Reusables/components/ProfileSmall";
 
 const DisplayOthersSched = (props) => {
-  const { schedules, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
+  const { schedules, positions, daysInWeek, settingHrsObj, timezone } = props;
 // console.log("all", cowokerProfs, positions, daysInWeek, storeOpen, storeClose)
   const [groupedProfs, setGroupedProfs] = useState();
 
@@ -19,7 +19,7 @@ const DisplayOthersSched = (props) => {
   return (
     <>
       {positions?.map((position, i) => {
-        const empInPositon = groupedProfs && groupedProfs[position.position];
+        const empInPositon = groupedProfs && groupedProfs[position.type];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
             return (
@@ -27,8 +27,7 @@ const DisplayOthersSched = (props) => {
                 <ProfileSmall emp={emp} position={position} i={i} index={index} />
                 <WeeklySchedBar
                   daysInWeek={daysInWeek}
-                  storeOpen={storeOpen}
-                  scheduleHrs={scheduleHrs}
+                  settingHrsObj={settingHrsObj}
                   schedules={emp.schedules}
                   timezone={timezone}
                 />

@@ -10,21 +10,15 @@ import moment from "moment";
 import { LoginContext } from "../../authentication/LoginProvider";
 
 const DailyCalendar = (props) => {
-  const { selectedDay, setSelectedDay } = props;
+  const { selectedDay, setSelectedDay,settingHrsObj, timeZone } = props;
 
   //positon is set this level component to apply same color in child components
   const [positions, setPositions] = useState();
   const [myDaySchedules, setMyDaySchedules] = useState();
   const [coworkerDaySchedules, setCoworkerDaySchedules] = useState();
+
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
   const userId = useContext(LoginContext).user?.id || 9;
-
-  const storeTimeZone =
-    useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  const userTimeZone = moment.tz.guess();
-  //  console.log(userTimeZone)
-  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
-  const scheduleHrs = 18;
 
   useEffect(() => {
     const getAllSchedules = async () => {
@@ -40,7 +34,6 @@ const DailyCalendar = (props) => {
 
         setMyDaySchedules(() => res.mySchedules);
         setCoworkerDaySchedules(() => res.coworkersSchedules);
-        // console.log("here");
 
         const positionArray = setPositionList([
           ...res.mySchedules,
@@ -65,8 +58,8 @@ const DailyCalendar = (props) => {
         setSelectedDay={setSelectedDay}
         myDaySchedules={myDaySchedules}
         coworkerDaySchedules={coworkerDaySchedules}
-        storeOpen={storeOpen}
-        scheduleHrs={scheduleHrs}
+        settingHrsObj={settingHrsObj}
+        timezone={timeZone}
       />
     </div>
   );

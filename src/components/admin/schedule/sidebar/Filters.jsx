@@ -56,7 +56,7 @@ const Filters = (props) => {
       <div className="hours-container">
         <label>Availabilty</label>
         <div className="hours">
-          {filters?.hours.map((hr) => {
+          {filters?.hours?.map((hr) => {
             const checked = hr.value;
             return (
               <button
@@ -74,9 +74,9 @@ const Filters = (props) => {
       <div className="positions-container">
         <label>Positions</label>
         <div className="positions">
-          {filters?.positions.map((p) => {
+          {filters?.positions?.map((p) => {
             const checked = p.value;
-            // console.log("color", p.color);
+
             return (
               <button
                 style={{
@@ -84,7 +84,6 @@ const Filters = (props) => {
                   border: checked ? "none" : `2px solid #${p.color}`,
                   color: checked ? "white" : "#5a5a5a",
                 }}
-                // {...checked&&style={{backgroundColor:"white"}}}
                 className={`filterPos ${p.type} ${checked}`}
                 name={p.type}
                 value={p.value}

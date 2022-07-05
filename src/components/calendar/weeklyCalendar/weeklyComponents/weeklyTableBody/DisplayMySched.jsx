@@ -4,8 +4,8 @@ import WeeklySchedBar from "./WeeklySchedBar";
 import ProfileBig from "../../../../Reusables/components/ProfileBig";
 
 const DisplayMySched = (props) => {
-  const { myProfile, positions, daysInWeek, storeOpen, scheduleHrs, timezone } = props;
-  const myPosition= positions.find((e)=>e.position===myProfile.position);
+  const { myProfile, positions, daysInWeek,settingHrsObj, timezone } = props;
+  const myPosition= positions.find((e)=>e.type===myProfile.position);
   // console.log(daysInWeek)
 
   // console.log('my schedules', myProfile, myPosition)
@@ -15,8 +15,7 @@ const DisplayMySched = (props) => {
 
       <WeeklySchedBar
         daysInWeek={daysInWeek}
-        storeOpen={storeOpen}
-        scheduleHrs={scheduleHrs}
+        settingHrsObj={settingHrsObj}
         schedules={myProfile?.schedules}
         timezone={timezone}
       />
