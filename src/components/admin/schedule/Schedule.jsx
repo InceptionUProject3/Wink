@@ -26,6 +26,7 @@ const Schedule = (props) => {
   const [daysInWeek, setDaysInWeek] = useState();
   // console.log('schedules', schedules);
   useEffect(() => {
+    console.log("Days in week array set")
     const weekArray = [];
     for (let i = 0; i < endDayOfWeek?.diff(selectedDay, "days") + 1; i++) {
       weekArray.push(selectedDay?.clone().add(i, "days").format());

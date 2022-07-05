@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
 } from "@mui/material";
 import moment from "moment";
@@ -29,6 +30,7 @@ const AdminScheduleModal = ({
   const [onlyStarttime, setOnlyStarttime] = useState();
   const [message, setMessage] = useState();
   const [vacEndDates, setVacEndDates] = useState();
+  
 
   useEffect(() => {
     const getVacDateList = () => {
@@ -75,10 +77,8 @@ const AdminScheduleModal = ({
       return { ...pre, endtime: newDate.format() };
     });
   };
-useEffect(()=>{
-  console.log("changed schedule", selectedSched);
-  console.log("changed date", selectedDate);
-},[selectedSched])
+ 
+
 
   const updateWorkcode = (e) => {
     const { name, value } = e.target;
@@ -106,11 +106,13 @@ useEffect(()=>{
       starttime: "",
       endtime: "",
       workcode: 0,
+      archived: false
     });
     setOpen(false);
     setMessage();
   };
 
+  
   const sendEvent = async () => {
     try {
       //Check if all fields are filled

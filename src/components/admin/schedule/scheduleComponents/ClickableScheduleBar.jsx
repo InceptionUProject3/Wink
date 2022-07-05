@@ -3,6 +3,7 @@ import moment from "moment";
 import ScheduleBar from "../../../Reusables/components/ScheduleBar";
 import { useEffect } from "react";
 import AdminScheduleModal from "./AdminScheduleModal";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 const ClickableScheduleBar = ({
   daysInWeek,
@@ -18,7 +19,7 @@ const ClickableScheduleBar = ({
 }) => {
   const [timeList, setTimeList] = useState();
   const [open, setOpen] = useState(false);
-
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   useEffect(() => {
     const getTimeList = () => {
       const timeOpen = settingHrsObj?.startTimeOfDay?.clone();
@@ -37,6 +38,7 @@ const ClickableScheduleBar = ({
   // console.log("selected date is set to", selectedDate)
   // set initial values for schedule modal
   const scheduleAction = (e, day, foundSched) => {
+    console.log("initalzing schedule data to be sent")
     //set Date
     const dayClicked = moment.tz(day, timezone);
     setSelectedDate(() => {
@@ -62,8 +64,7 @@ const ClickableScheduleBar = ({
           Store_idStore: employeeSched.storeId,
           starttime: "",
           endtime: "",
-          // starttime: moment.tz(day, timezone),
-          // endtime: moment.tz(day, timezone),
+          archived: false
         };
       });
     }
@@ -72,13 +73,42 @@ const ClickableScheduleBar = ({
     setOpen(true);
   };
 
-  const sendDelete = async (e, foundsched) => {
-    console.log("Deleting schedule");
-    e.stopPropagation();
+const onClickDelete =(e, foundSched)=>{
+  e.stopPropagation();
+  setSelectedSched(foundSched)
+  setConfirmModalOpen(true);
+}
+
+  const deleteConfirmModal =()=>{
+
+    return (<Dialog
+    open={confirmModalOpen}
+    onClose={()=>setConfirmModalOpen(false)}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+  >
+    <DialogTitle id="alert-dialog-title">Confirm your request</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        Your shift swap request will be sent for .
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={()=>setConfirmModalOpen(false)}>Cancel</Button>
+      <Button onClick={sendDelete} autoFocus>
+        Confirm
+      </Button>
+    </DialogActions>
+  </Dialog>)
+    
+    
+  }
+  const sendDelete = async () => {
+    console.log("Archiving schedule");
+    // e.stopPropagation();
     const pretendDelete = {
-      ...foundsched,
-      starttime: "0",
-      endtime: "0",
+      ...selectedSched,
+      archived: true
     };
 
     const dataToSend = JSON.stringify(pretendDelete);
@@ -91,10 +121,12 @@ const ClickableScheduleBar = ({
       console.log(await response.json());
     }
     setSchedModalOpen((pre) => !pre);
+    setConfirmModalOpen(false);
   };
 
   return (
     <>
+      {confirmModalOpen&&deleteConfirmModal()}
       {daysInWeek?.map((day, i) => {
         //need to change to store hrs
         const today = moment.tz(moment(), timezone);
@@ -146,10 +178,11 @@ const ClickableScheduleBar = ({
               >
                 <button
                   className="delete"
-                  onClick={(e) => sendDelete(e, foundSched)}
+                  onClick={(e)=> onClickDelete(e, foundSched)}
                 >
                   x
                 </button>
+                {/* {confirmModalOpen&&openDeleteConfirm(e, foundSched)} */}
                 <ScheduleBar
                   dayStart={dayStart}
                   dayEnd={dayEnd}

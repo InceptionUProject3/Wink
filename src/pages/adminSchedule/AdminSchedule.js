@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import moment from "moment";
 
 import { StoreContext } from "../../components/authentication/StoreProvider";
@@ -112,6 +112,7 @@ const AdminSchedule = () => {
     };
     //set EmployeeList for employee filter
     const getEmployeeList = () => {
+      console.log("get employee list")
       schedules?.map((sched) => {
         const foundPos = coleredPosArray.find((p) => sched.position === p.type);
         setEmpList((pre) => [
