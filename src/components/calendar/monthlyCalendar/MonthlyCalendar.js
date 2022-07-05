@@ -13,7 +13,7 @@ import DisplayMonthlySched from "./DisplayMonthlySched";
 const MonthlyCalendar = (props) => {
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  const { today, setToday, storeOpen, scheduleHrs,timezone } = props;
+  const { today, setToday, storeOpen, scheduleHrs, timezone } = props;
 
   // console.log("positions",positions)
 
@@ -35,9 +35,10 @@ const MonthlyCalendar = (props) => {
   const [monthsArray, setMonthsArray] = useState();
   const [addEvent, setAddEvent] = useState();
   const [myMonSched, setMonSched] = useState();
+  const [holidaysOfMonth, setholidaysOfMonth] = useState();
   const storeClose = storeOpen?.clone().add(scheduleHrs, "hours");
   const startOfMonth = today?.clone().startOf("months");
-  const endOfMonth = today?.clone().startOf("months");
+  const endOfMonth = today?.clone().endOf("months");
   // console.log("startOfMonth",startOfMonth)
 
   useEffect(() => {
@@ -62,6 +63,21 @@ const MonthlyCalendar = (props) => {
   }, [today, storeId]);
 
   //console.log("my month Schedule", myMonSched )
+
+  useEffect(() => {
+    const getMonHolidays = async () => {
+      const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
+      const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
+      //console.log("startOfHoliday   endOfHoliday",startOfMonth,endOfMonth)
+      const res = await fetch(
+        `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
+      );
+      const holidaysData = await res.json();
+      console.log("holidaysData", holidaysData);
+      setholidaysOfMonth(() => startOfMonth);
+    };
+    startOfMonth && getMonHolidays();
+  }, []);
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -103,8 +119,6 @@ const MonthlyCalendar = (props) => {
     setMonthsArray(monthArray);
   }, [theDate]);
 
-
-
   return (
     <div>
       <div>
@@ -119,43 +133,44 @@ const MonthlyCalendar = (props) => {
 
           <br />
 
-            <div></div>
-            {myMonSched && (
-              <DisplayMonthlySched
+          <div></div>
+          {myMonSched && (
+            <DisplayMonthlySched
               myProfile={userId && myMonSched[0]}
               storeOpen={storeOpen}
               monthsArray={monthsArray}
               scheduleHrs={scheduleHrs}
-              timezone={timezone} />
-            )}
+              timezone={timezone}
+            />
+          )}
           <div className="mainGridStyle">
             {monthsArray?.map((day, index) => {
-              
               return (
                 <div className="eventDiv" key={`day ${index}`}>
-              
                   <div className="eventDivDiv">
                     <AddEvent addEvent={addEvent} />
                   </div>
                   <div className="Empty-div"></div>
-                  
+
                   <div className="text">{day.value}</div>
                   <div className="monthlyShedule">
-                    
-                    {myMonSched?.map((schedule,index) => {
-                      const starttime = moment(schedule.starttime).format("h:mm a")
-                      const endtime = moment(schedule.endtime).format("h:mm a")
-                      const scheduleDate = moment(schedule.starttime).date()
+                    {myMonSched?.map((schedule, index) => {
+                      const starttime = moment(schedule.starttime).format(
+                        "h:mm a"
+                      );
+                      const endtime = moment(schedule.endtime).format("h:mm a");
+                      const scheduleDate = moment(schedule.starttime).date();
                       //console.log("starttime", starttime)
                       //console.log("scheduleDate,schedule.starttime  ", scheduleDate, schedule.starttime)
-                      if(scheduleDate === day.value){
-                        return <div>{starttime} - { endtime}</div>
+                      if (scheduleDate === day.value) {
+                        return (
+                          <div>
+                            {starttime} - {endtime}
+                          </div>
+                        );
                       }
                     })}
-                    
                   </div>
-
-
                 </div>
               );
             })}
