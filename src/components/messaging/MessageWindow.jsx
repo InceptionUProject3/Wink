@@ -8,11 +8,11 @@ import { useLocation } from "react-router-dom";
 import theme from "../utils/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import shadows from "@mui/material/styles/shadows";
+import { AiFillCheckCircle } from "react-icons/ai";
 // import socketIOClient from "socket.io-client";
 
 // const SOCKET_SERVER_URL = "http://localhost:4000";
 // const socket = socketIOClient(SOCKET_SERVER_URL);
-
 
 const MessageWindow = () => {
   const authContext = useContext(LoginContext);
@@ -23,7 +23,6 @@ const MessageWindow = () => {
   const [receiver, setReceiver] = useState("");
   const [seconds, setSeconds] = useState(0);
   const location = useLocation();
- 
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,7 +40,7 @@ const MessageWindow = () => {
           store: user.Store_idStore,
           receiver: location.state.profile.User_idUser,
         };
-        console.log("sending message request: " , chat);
+        console.log("sending message request: ", chat);
         const data = JSON.stringify(chat);
         const response = await fetch("/api/getconversation", {
           method: "POST",
@@ -74,17 +73,17 @@ const MessageWindow = () => {
   //     receiver: location.state.profile.User_idUser,
   //   };
   //   socket.emit("chat", chat);
-    
+
   // }, []);
 
-  useEffect(() => {
-  socket.on("emitting messages", (message) => {
-      
-    console.log("emit message", message);
-    setMessages(...messages, message);
-  }
-  );
-  }, []);
+  // useEffect(() => {
+  // socket.on("emitting messages", (message) => {
+
+  //   console.log("emit message", message);
+  //   setMessages(...messages, message);
+  // }
+  // );
+  // }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -164,6 +163,20 @@ const MessageWindow = () => {
                     }}
                   >
                     {message.chat}
+                  </div>
+                  <div>
+                     
+                      <AiFillCheckCircle
+                        style={{
+                          color: "#00b3b4",
+                          marginLeft: "1%",
+                          marginTop: "1%",
+                          marginBottom: "1%",
+                        }}
+                      />
+                    ) : (
+                      <div></div>
+                    )}
                   </div>
                 </ListItem>
               );
