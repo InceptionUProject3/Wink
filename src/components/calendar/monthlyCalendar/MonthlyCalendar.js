@@ -36,6 +36,7 @@ const MonthlyCalendar = (props) => {
   const [holidaysOfMonth, setholidaysOfMonth] = useState();
   const startOfMonth = today?.clone().startOf("months");
   const endOfMonth = today?.clone().endOf("months");
+
   // console.log("startOfMonth",startOfMonth)
 
   useEffect(() => {
@@ -61,6 +62,8 @@ const MonthlyCalendar = (props) => {
 
   useEffect(() => {
     const getMonHolidays = async () => {
+      const startOfMonth = today?.clone().startOf("months");
+      const endOfMonth = today?.clone().endOf("months");
       const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
       const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
       //console.log("startOfHoliday   endOfHoliday",startOfMonth,endOfMonth)
@@ -69,10 +72,12 @@ const MonthlyCalendar = (props) => {
       );
       const holidaysData = await res.json();
       console.log("holidaysData", holidaysData);
-      setholidaysOfMonth(() => startOfMonth);
+      setholidaysOfMonth(() => holidaysData);
     };
+    
     startOfMonth && getMonHolidays();
-  }, []);
+  }, [today]);
+  //console.log("holidaysOfMonth",holidaysOfMonth)
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -117,7 +122,7 @@ const MonthlyCalendar = (props) => {
   return (
     <div>
       <div>
-        <Container alignContent={"center"}>
+        <Container sx = {{alignContent:"center"}}>
           <br />
           <MonthlyCalendarHeader
             weekdayHeaders={weekdayHeaders}
@@ -154,14 +159,22 @@ const MonthlyCalendar = (props) => {
                       }
                     })}
                   </div>
-                  {/* <div>
-                    {holidaysOfMonth?.map((holiday,index) =>{
-                      const data = holiday[0]
-                      console.log("data", data)
+                  <div>
+                    {holidaysOfMonth?.holidayData.map((holiday,index) =>{
+                      const data = moment(holiday.event_date).date()
+                      //const data = holiday[0]
+                      if(data === day.value){
+                        return (
+                         <div>
+                          {holiday.nameEn}
+                         </div>
+                        )
+                      }
+                      //console.log("data", data)
                     })}
                       
                     
-                  </div> */}
+                  </div>
                 </div>
               );
             })}
