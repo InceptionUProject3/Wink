@@ -1,21 +1,29 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
+import { MessageContext } from "./MessageContext";
 import { List, ListItem, ListItemText, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { useLocation } from "react-router-dom";
 import theme from "../utils/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import shadows from "@mui/material/styles/shadows";
+// import socketIOClient from "socket.io-client";
+
+// const SOCKET_SERVER_URL = "http://localhost:4000";
+// const socket = socketIOClient(SOCKET_SERVER_URL);
+
 
 const MessageWindow = () => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
+  const socket = useContext(MessageContext).socketRef;
   const user = storeContext.store;
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState("");
   const [seconds, setSeconds] = useState(0);
   const location = useLocation();
+ 
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,7 +41,7 @@ const MessageWindow = () => {
           store: user.Store_idStore,
           receiver: location.state.profile.User_idUser,
         };
-        console.log("sending message request: " + chat);
+        console.log("sending message request: " , chat);
         const data = JSON.stringify(chat);
         const response = await fetch("/api/getconversation", {
           method: "POST",
@@ -47,6 +55,7 @@ const MessageWindow = () => {
           const theMessages = JSON.parse(await response.text());
           // console.log("we have the messages", theMessages);
           setMessages(theMessages);
+          socket.emit("chat", chat);
         } else {
           console.log("failed to get message");
           setMessages([]);
@@ -56,7 +65,26 @@ const MessageWindow = () => {
       }
     };
     getMessages(user);
-  }, [seconds]);
+  }, []);
+
+  // useEffect(() => {
+  //   const chat = {
+  //     user: user.User_idUser,
+  //     store: user.Store_idStore,
+  //     receiver: location.state.profile.User_idUser,
+  //   };
+  //   socket.emit("chat", chat);
+    
+  // }, []);
+
+  useEffect(() => {
+  socket.on("emitting messages", (message) => {
+      
+    console.log("emit message", message);
+    setMessages(...messages, message);
+  }
+  );
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
