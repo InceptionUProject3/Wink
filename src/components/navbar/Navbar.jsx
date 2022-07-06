@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./NavBar.css";
 import wink from "../../images/wink.logo.png";
 import { Link, NavLink } from "react-router-dom";
+import  Notification  from "../messaging/Notification";
 
 import { LoginContext } from "../authentication/LoginProvider";
 import { StoreContext } from "../authentication/StoreProvider";
@@ -63,7 +64,7 @@ const Navbar = () => {
                   })}
                   to="/coworkers"
                 >
-                  MESSENGER
+                  MESSENGER <Notification />
                 </NavLink>
               </p>
             </li>
