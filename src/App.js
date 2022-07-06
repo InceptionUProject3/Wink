@@ -22,42 +22,47 @@ import MessageWindow from "./components/messaging/MessageWindow";
 import Messenger from "./pages/messanger/Messenger";
 
 import AdminSchedule from "./pages/adminSchedule/AdminSchedule";
+import MessageProvider, { MessageContext } from "./components/messaging/MessageContext";
 
 const SERVER = "http://localhost:4000";
 
 function App() {
-  var socket = socketClient(SERVER);
-  socket.on("connection", () => {
-    console.log(`I'm connected with the back-end`);
-  });
+  // var socket = socketClient(SERVER);
+  // socket.on("connection", () => {
+  //   console.log(`I'm connected with the back-end`);
+  // });
+  // const [socket, setSocket] = useState(socket);
+
   return (
     <div className="App">
       <LoginProvider>
         <StoreProvider>
-          <BrowserRouter>
-            <Navbar />
-            <Routes>
-              {/* <Route path="/location" element={<Location />} /> */}
-              <Route path="/selection" element={<ProfileSelection />} />
+          <MessageProvider>
+            <BrowserRouter>
+              <Navbar />
+              <Routes>
+                {/* <Route path="/location" element={<Location />} /> */}
+                <Route path="/selection" element={<ProfileSelection />} />
 
-              <Route path="/coworkers" element={<FindCoworkers />} />
+                <Route path="/coworkers" element={<FindCoworkers />} />
 
-              <Route path="/messenger" element={<Messenger />} />
+                <Route path="/messenger" element={<Messenger />} />
 
-              <Route
-                path="/calendar"
-                element={<Navigate replace to="/calendar/weekly" />}
-              />
-              <Route path="/calendar/*" element={<Calendar />} />
-              <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
+                <Route
+                  path="/calendar"
+                  element={<Navigate replace to="/calendar/weekly" />}
+                />
+                <Route path="/calendar/*" element={<Calendar />} />
+                <Route path="/monthlyCalendar" element={<MonthlyCalendar />} />
 
-              <Route path="/" element={<LoginForm />} />
-              <Route path="/logout" element={<Logout />} />
+                <Route path="/" element={<LoginForm />} />
+                <Route path="/logout" element={<Logout />} />
 
-              {/* admin route */}
-              <Route path="/admin/schedule" element={<AdminSchedule />} />
-            </Routes>
-          </BrowserRouter>
+                {/* admin route */}
+                <Route path="/admin/schedule" element={<AdminSchedule />} />
+              </Routes>
+            </BrowserRouter>
+          </MessageProvider>
         </StoreProvider>
       </LoginProvider>
     </div>
