@@ -17,7 +17,7 @@ const ClickableSchedules = (props) => {
     setSelectedSched,
     settingHrsObj
   } = props;
-  // console.log("all", schedules, positions, daysInWeek, startTimeOfDay, storeClose)
+  
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState([]);
   const [filteredEmpSched, setFilteredEmpSched] = useState([]);
@@ -25,7 +25,6 @@ const ClickableSchedules = (props) => {
   //filter update
   //Fiilter availability
   useEffect(() => {
-    console.log("appling filteres")
     const getFilteredHrs = () => {
       const filterHrs = filters?.hours;
       const newSched = [];
@@ -69,7 +68,6 @@ const ClickableSchedules = (props) => {
 
   //filter employees with employee filter
   useEffect(() => {
-    console.log("Appling employee filter")
     const searchEmp = () => {
       const filteredEmps = filters?.employees;
       //If there is no filtered employees, return all employees
@@ -89,7 +87,6 @@ const ClickableSchedules = (props) => {
 
   //after all filters applied, group schedule by positions.
   useEffect(() => {
-    console.log("grouping schedules by position")
     const groupedObj = groupByPosition(filteredEmpSched);
     setGroupedProfs(() => groupedObj);
   }, [filteredEmpSched]);
@@ -118,7 +115,6 @@ const ClickableSchedules = (props) => {
         const empInPositon = groupedProfs && groupedProfs[position.type];
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
-            console.log('employee schedule mapped to display')
             const calcHrsinWeek = calculateWeekHrs(emp);
             const schedHrsinWeek = emp.availability.availHrsinWeek;
             return (

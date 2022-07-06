@@ -22,11 +22,10 @@ const Schedule = (props) => {
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const endDayOfWeek = selectedDay?.clone().endOf("week");
-  // const storeClose = startTimeOfDay?.clone().add(scheduleHrs, "hours");
+
   const [daysInWeek, setDaysInWeek] = useState();
-  // console.log('schedules', schedules);
+
   useEffect(() => {
-    console.log("Days in week array set")
     const weekArray = [];
     for (let i = 0; i < endDayOfWeek?.diff(selectedDay, "days") + 1; i++) {
       weekArray.push(selectedDay?.clone().add(i, "days").format());
@@ -34,8 +33,6 @@ const Schedule = (props) => {
     return setDaysInWeek(weekArray);
   }, [selectedDay]);
 
-  // console.log("daysInweek", daysInWeek);
-  // console.log("filter in scheudle component", filters)
   return (
     <div>
       <WeeklyCalendarHeader 

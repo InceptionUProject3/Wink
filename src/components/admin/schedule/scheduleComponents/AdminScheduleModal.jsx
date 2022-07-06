@@ -116,14 +116,13 @@ const AdminScheduleModal = ({
   const sendEvent = async () => {
     try {
       //Check if all fields are filled
-      // console.log("selectedSched", selectedSched);
       const isNull = Object.values(selectedSched).some((value) => {
         if (value === null || value === "") {
           return true;
         }
         return false;
       });
-      // console.log('isnull?', isNull)
+
       if (isNull) return setMessage("All fields need to be filled.");
 
       if (selectedSched.idSchedule) {
@@ -161,7 +160,7 @@ const AdminScheduleModal = ({
       console.log("Saving schedule action is failed.");
     }
   };
-  // console.log("selectedDay", selectedDate);
+
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
       <DialogTitle>

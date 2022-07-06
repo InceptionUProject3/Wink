@@ -84,7 +84,6 @@ const AdminSchedule = () => {
 
   //Set initial filter(employees, availability, positions) values
   useEffect(() => {
-    console.log("useEffect set initial filters");
     //set position variables which List
     const coleredPosArray = setPositionList(schedules);
 
