@@ -165,7 +165,7 @@ const MessageWindow = () => {
                     {message.chat}
                   </div>
                   <div>
-                     
+                    {message.read_receits === true ? (
                       <AiFillCheckCircle
                         style={{
                           color: "#00b3b4",
