@@ -15,21 +15,34 @@ const ClickableSchedules = (props) => {
     setSelectedDate,
     selectedSched,
     setSelectedSched,
-    settingHrsObj
+    settingHrsObj,
   } = props;
-  
+
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState([]);
-  const [filteredEmpSched, setFilteredEmpSched] = useState([]);
+  const [filteredEmpSched, setFilteredEmpSched] = useState(schedules);
 
   //filter update
-  //Fiilter availability
   useEffect(() => {
+    //update filtered Employee schedules by searched employees 
+    const filteredEmpSchedArray = [];
+    const searchEmp = () => {
+      const filteredEmps = filters?.employees;
+      schedules?.map((sched) => {
+        filteredEmps?.map((e) => {
+          if (sched.userId === e.userId) {
+            filteredEmpSchedArray.push(sched);
+          }
+        });
+      });
+    };
+    searchEmp();
+    //update filtered Employee schedules by availabilty.
     const getFilteredHrs = () => {
       const filterHrs = filters?.hours;
       const newSched = [];
       filterHrs?.map((avail) => {
-        const foundSched = schedules?.filter((sched) => {
+        const foundSched = filteredEmpSchedArray?.filter((sched) => {
           const availinWeek = sched.availability.availHrsinWeek;
           if (avail.value) {
             if (avail.min && avail.max) {
@@ -45,45 +58,24 @@ const ClickableSchedules = (props) => {
         });
         return newSched.push(...foundSched);
       });
+      //set filteredEmpSched to one applied availability and searched filters
       return setFilteredEmpSched(() => newSched);
     };
+    getFilteredHrs();
 
     const getFilteredPos = () => {
-      
       const positionFilterArr = filters?.positions;
       const newPosition = [];
-      positionFilterArr?.map((p)=>{
-        if(p.value){
+      positionFilterArr?.map((p) => {
+        if (p.value) {
           // console.log("position filter", p)
           newPosition.push(p);
         }
-      })
-      return setFilteredPos(()=>newPosition)
-    };
-
-    getFilteredHrs();
-    getFilteredPos();
-    
-  }, [schedules, filters]);
-
-  //filter employees with employee filter
-  useEffect(() => {
-    const searchEmp = () => {
-      const filteredEmps = filters?.employees;
-      //If there is no filtered employees, return all employees
-      if (filteredEmps?.length === 0) return;
-      //filtering schedules for filtered employees
-      setFilteredEmpSched([]);
-      schedules?.map((sched) => {
-        filteredEmps?.map((e) => {
-          if (sched.userId === e.userId) {
-            setFilteredEmpSched((pre) => [...pre, sched]);
-          }
-        });
       });
+      return setFilteredPos(() => newPosition);
     };
-    searchEmp();
-  }, [schedules, filters]);
+    getFilteredPos();
+  }, [filters]);
 
   //after all filters applied, group schedule by positions.
   useEffect(() => {
@@ -102,8 +94,8 @@ const ClickableSchedules = (props) => {
         const from = moment(sched.starttime);
         calcHrsinWeek +=
           Math.round((moment(to - from).unix() / 60 / 60) * 100) / 100;
-      }else{
-        console.log('Vacation schedule will not be calculated.')
+      } else {
+        console.log("Vacation schedule will not be calculated.");
       }
     });
     return calcHrsinWeek;

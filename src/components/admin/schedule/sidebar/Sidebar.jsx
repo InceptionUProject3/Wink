@@ -43,7 +43,7 @@ const Sidebar = (props) => {
   };
 
   const displayedPeriod = useMemo(() => {
-    console.log("expansive calc")
+    console.log("expansive calc");
     const start = selectedPeriodStart?.format("YYYY-MM-DD");
     const end = selectedPeriodStart
       ?.clone()
@@ -79,9 +79,15 @@ const Sidebar = (props) => {
   //Userfilter onChange Event
   const updateUserFilter = (e, newVal) => {
     const empProfiles = newVal;
-    setFilters((pre) => {
-      return { ...pre, employees: empProfiles };
-    });
+    if (empProfiles.length===0) {
+      setFilters((pre) => {
+        return { ...pre, employees: empList };
+      });
+    } else {
+      setFilters((pre) => {
+        return { ...pre, employees: empProfiles };
+      });
+    }
   };
 
   return (
@@ -128,7 +134,7 @@ const Sidebar = (props) => {
               filterSelectedOptions
               noOptionsText={"No employee found"}
               renderOption={(props, empList) => {
-                console.log("empList", empList);
+                // console.log("empList", empList);
                 return (
                   <Box
                     {...props}
@@ -138,8 +144,9 @@ const Sidebar = (props) => {
                     <ProfileIcon
                       profile={empList}
                       color={empList.position.color}
+                      key={empList.userId}
                     />
-                    <div>
+                    <div key={`names ${empList.userId}`}>
                       {empList.firstname}, {empList.lastname}
                     </div>
                   </Box>

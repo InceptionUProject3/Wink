@@ -56,7 +56,7 @@ const Filters = (props) => {
       <div className="hours-container">
         <label>Availabilty</label>
         <div className="hours">
-          {filters?.hours?.map((hr) => {
+          {filters?.hours?.map((hr, i) => {
             const checked = hr.value;
             return (
               <button
@@ -64,6 +64,7 @@ const Filters = (props) => {
                 name={hr.type}
                 value={hr.value}
                 onClick={onClickHrs}
+                key={`filterHrs ${i}`}
               >
                 {hr.type}
               </button>
@@ -74,7 +75,7 @@ const Filters = (props) => {
       <div className="positions-container">
         <label>Positions</label>
         <div className="positions">
-          {filters?.positions?.map((p) => {
+          {filters?.positions?.map((p, i) => {
             const checked = p.value;
 
             return (
@@ -88,6 +89,7 @@ const Filters = (props) => {
                 name={p.type}
                 value={p.value}
                 onClick={onClickPos}
+                key={`filterPos ${i}`}
               >
                 {p.type}
               </button>

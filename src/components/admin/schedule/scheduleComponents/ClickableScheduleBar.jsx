@@ -95,14 +95,6 @@ const ClickableScheduleBar = ({
             moment.tz(sched.starttime, timezone) < dayEnd
         );
 
-        // if (oneDay < today) {
-        //   return (
-        //     <div
-        //       className="Schedule non-clickable"
-        //       key={`emptySched ${i}`}
-        //     ></div>
-        //   );
-        // } else if (oneDay >= today) {
           if (foundSched === undefined) {
             return (
               <div
@@ -147,7 +139,7 @@ const ClickableScheduleBar = ({
               </div>
             );
           }
-        // }
+     
       })}
       <AdminScheduleModal
         employeeSched={employeeSched}

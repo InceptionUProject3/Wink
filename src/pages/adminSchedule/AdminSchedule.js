@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import moment from "moment";
 
 import { StoreContext } from "../../components/authentication/StoreProvider";
@@ -88,9 +88,33 @@ const AdminSchedule = () => {
   useEffect(() => {
     //set position variables which List
     const coleredPosArray = setPositionList(schedules);
-
+    //set EmployeeList for employee filter
+    const employeeList =[]
+    const getEmployeeList = () => {
+      schedules?.map((sched) => {
+        const foundPos = coleredPosArray.find((p) => sched.position === p.type);
+        employeeList.push({
+              userId: sched.userId,
+              firstname: sched.firstname,
+              lastname: sched.lastname,
+              position: foundPos,
+            })
+        // setEmpList((pre) => [
+        //   ...pre,
+        //   {
+        //     userId: sched.userId,
+        //     firstname: sched.firstname,
+        //     lastname: sched.lastname,
+        //     position: foundPos,
+        //   },
+        // ]);
+      });
+    };
+    getEmployeeList();
+    console.log("emp list1", employeeList)
+    setEmpList(()=>employeeList)
+    //Set position filter with boolean
     const getInitialFilters = () => {
-      //Set position filter with boolean
       const positionFilterArray = [];
       coleredPosArray?.map((p) => {
         return positionFilterArray.push({
@@ -99,6 +123,7 @@ const AdminSchedule = () => {
           value: true,
         });
       });
+      console.log("emp list", employeeList)
       //add hours and selected employees filter with boolean
       const initialfilterObj = {
         hours: [
@@ -107,28 +132,13 @@ const AdminSchedule = () => {
           { type: "< 20hrs", max: 20, min: 0, value: true },
         ],
         positions: positionFilterArray,
-        employees: [],
+        employees: employeeList,
       };
       setFilters(() => initialfilterObj);
     };
-    //set EmployeeList for employee filter
-    const getEmployeeList = () => {
-      console.log("get employee list");
-      schedules?.map((sched) => {
-        const foundPos = coleredPosArray.find((p) => sched.position === p.type);
-        setEmpList((pre) => [
-          ...pre,
-          {
-            userId: sched.userId,
-            firstname: sched.firstname,
-            lastname: sched.lastname,
-            position: foundPos,
-          },
-        ]);
-      });
-    };
+    
+    
     getInitialFilters();
-    getEmployeeList();
   }, [schedules]);
 
   return (
