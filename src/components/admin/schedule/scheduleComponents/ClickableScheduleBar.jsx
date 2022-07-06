@@ -95,20 +95,20 @@ const ClickableScheduleBar = ({
             moment.tz(sched.starttime, timezone) < dayEnd
         );
 
-        if (oneDay < today) {
-          return (
-            <div
-              className="Schedule non-clickable"
-              key={`emptySched ${i}`}
-            ></div>
-          );
-        } else if (oneDay >= today) {
+        // if (oneDay < today) {
+        //   return (
+        //     <div
+        //       className="Schedule non-clickable"
+        //       key={`emptySched ${i}`}
+        //     ></div>
+        //   );
+        // } else if (oneDay >= today) {
           if (foundSched === undefined) {
             return (
               <div
-                className="Schedule clickable"
+                className={(oneDay > today)?"Schedule clickable":"Schedule non-clickable"}
                 key={`emptySched ${i}`}
-                onClick={(e) => scheduleAction(e, day, foundSched)}
+                onClick={(e) => (oneDay > today)&&scheduleAction(e, day, foundSched)}
               ></div>
             );
           } else if (foundSched) {
@@ -119,17 +119,17 @@ const ClickableScheduleBar = ({
 
             return (
               <div
-                onClick={(e) => scheduleAction(e, day, foundSched)}
+                onClick={(e) => (oneDay > today)&&scheduleAction(e, day, foundSched)}
                 key={`Sched ${foundSched?.idSchedule} ${i}`}
-                className="Schedule clickable"
+                className={(oneDay > today)?"Schedule clickable":"Schedule non-clickable"}
                 id={foundSched?.idSchedule}
               >
-                <button
+                {(oneDay > today)&&<button
                   className="delete"
                   onClick={(e) => onClickDelete(e, foundSched)}
                 >
                   x
-                </button>
+                </button>}
 
                 <ScheduleBar
                   dayStart={dayStart}
@@ -147,7 +147,7 @@ const ClickableScheduleBar = ({
               </div>
             );
           }
-        }
+        // }
       })}
       <AdminScheduleModal
         employeeSched={employeeSched}

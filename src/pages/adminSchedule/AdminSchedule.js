@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 
 import { StoreContext } from "../../components/authentication/StoreProvider";
@@ -11,12 +11,25 @@ import setPositionList from "../../components/Reusables/functions/setPositionLis
 import "./adminSchedule.css";
 
 const AdminSchedule = () => {
+  const userId = useContext(LoginContext).user?.id || 9;
+  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
+  
+  const storeTimeZone =
+    useContext(StoreContext).store?.store.timeZone || "America/New_York";
+
   const [schedules, setSchedules] = useState();
   const [startDaysOfWeek, setStartDaysOfWeek] = useState();
   const [selectedStart, setSelectedStart] = useState();
   const [empList, setEmpList] = useState([]);
   const [filters, setFilters] = useState({});
   const [schedModalOpen, setSchedModalOpen] = useState(false);
+  const [settingHrsObj, setSettingHrsObj] = useState({
+    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone),
+    scheduleHrs: 18,
+  });
+  const [selectedPeriodStart, setSelectedPeriodStart] = useState(
+    moment.tz(moment(), storeTimeZone).startOf("week")
+  );
   const [selectedDate, setSelectedDate] = useState({
     starttime: moment(),
     endtime: moment(),
@@ -29,22 +42,11 @@ const AdminSchedule = () => {
     workcode: 0,
   });
 
-  const userId = useContext(LoginContext).user?.id || 9;
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-
-  const storeTimeZone =
-    useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  const [settingHrsObj, setSettingHrsObj] = useState({
-    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone),
-    scheduleHrs: 18,
-  });
-  // const startTimeOfDay = moment.tz("06:00", "HH:mm", storeTimeZone);
-  // const scheduleHrs = 18;
 
   //Set an array with 4 consecutive Sundays for scheduling periods
   useEffect(() => {
     const setWeeksArray = () => {
-      const startThisWeek = moment.tz(moment(), storeTimeZone).startOf("week");
+      const startThisWeek = selectedPeriodStart;
       const weekArray = [];
       for (let i = 0; i < 4; i++) {
         const newWeekStart = startThisWeek?.clone().add(i, "weeks");
@@ -56,7 +58,7 @@ const AdminSchedule = () => {
       setSelectedStart(weekArray[0]);
     };
     setWeeksArray();
-  }, []);
+  }, [selectedPeriodStart]);
 
   //Read scheudles
   useEffect(() => {
@@ -111,7 +113,7 @@ const AdminSchedule = () => {
     };
     //set EmployeeList for employee filter
     const getEmployeeList = () => {
-      console.log("get employee list")
+      console.log("get employee list");
       schedules?.map((sched) => {
         const foundPos = coleredPosArray.find((p) => sched.position === p.type);
         setEmpList((pre) => [
@@ -153,6 +155,9 @@ const AdminSchedule = () => {
           filters={filters}
           setFilters={setFilters}
           empList={empList}
+          selectedPeriodStart={selectedPeriodStart}
+          setSelectedPeriodStart={setSelectedPeriodStart}
+          storeTimeZone={storeTimeZone}
         />
       </div>
     </div>
