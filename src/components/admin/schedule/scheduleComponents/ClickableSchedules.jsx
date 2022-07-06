@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../Reusables/components/ProfileSmall";
@@ -17,7 +17,7 @@ const ClickableSchedules = (props) => {
     setSelectedSched,
     settingHrsObj
   } = props;
-  // console.log("all", schedules, positions, daysInWeek, startTimeOfDay, storeClose)
+  
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState([]);
   const [filteredEmpSched, setFilteredEmpSched] = useState([]);
@@ -25,7 +25,6 @@ const ClickableSchedules = (props) => {
   //filter update
   //Fiilter availability
   useEffect(() => {
-
     const getFilteredHrs = () => {
       const filterHrs = filters?.hours;
       const newSched = [];
@@ -50,11 +49,12 @@ const ClickableSchedules = (props) => {
     };
 
     const getFilteredPos = () => {
+      
       const positionFilterArr = filters?.positions;
       const newPosition = [];
       positionFilterArr?.map((p)=>{
         if(p.value){
-          console.log("position filter", p)
+          // console.log("position filter", p)
           newPosition.push(p);
         }
       })
@@ -113,7 +113,6 @@ const ClickableSchedules = (props) => {
     <>
       {filteredPos?.map((position, i) => {
         const empInPositon = groupedProfs && groupedProfs[position.type];
-        console.log('filteredpos i', filteredPos, groupedProfs)
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
             const calcHrsinWeek = calculateWeekHrs(emp);

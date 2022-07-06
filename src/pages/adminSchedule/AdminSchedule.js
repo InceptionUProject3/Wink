@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import moment from "moment";
 
 import { StoreContext } from "../../components/authentication/StoreProvider";
@@ -17,7 +17,10 @@ const AdminSchedule = () => {
   const [empList, setEmpList] = useState([]);
   const [filters, setFilters] = useState({});
   const [schedModalOpen, setSchedModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState({
+    starttime: moment(),
+    endtime: moment(),
+  });
   const [selectedSched, setSelectedSched] = useState({
     User_idUser: "",
     Store_idStore: "",
@@ -32,7 +35,8 @@ const AdminSchedule = () => {
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const [settingHrsObj, setSettingHrsObj] = useState({
-    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone), scheduleHrs: 18
+    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone),
+    scheduleHrs: 18,
   });
   // const startTimeOfDay = moment.tz("06:00", "HH:mm", storeTimeZone);
   // const scheduleHrs = 18;
@@ -80,7 +84,6 @@ const AdminSchedule = () => {
 
   //Set initial filter(employees, availability, positions) values
   useEffect(() => {
-    console.log("useEffect set initial filters");
     //set position variables which List
     const coleredPosArray = setPositionList(schedules);
 
@@ -108,6 +111,7 @@ const AdminSchedule = () => {
     };
     //set EmployeeList for employee filter
     const getEmployeeList = () => {
+      console.log("get employee list")
       schedules?.map((sched) => {
         const foundPos = coleredPosArray.find((p) => sched.position === p.type);
         setEmpList((pre) => [

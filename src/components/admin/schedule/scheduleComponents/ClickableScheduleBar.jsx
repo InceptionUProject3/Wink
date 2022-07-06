@@ -3,6 +3,7 @@ import moment from "moment";
 import ScheduleBar from "../../../Reusables/components/ScheduleBar";
 import { useEffect } from "react";
 import AdminScheduleModal from "./AdminScheduleModal";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
 const ClickableScheduleBar = ({
   daysInWeek,
@@ -14,44 +15,44 @@ const ClickableScheduleBar = ({
   setSelectedDate,
   selectedSched,
   setSelectedSched,
-  settingHrsObj
+  settingHrsObj,
 }) => {
-  // console.log("schedules",schedules)
-  // const [selectedDate, setSelectedDate] = useState();
   const [timeList, setTimeList] = useState();
   const [open, setOpen] = useState(false);
-  // const [workHrsinWeek, setWorkHrsinWeek] = useState();
-
-  // console.log("ININ")
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     const getTimeList = () => {
       const timeOpen = settingHrsObj?.startTimeOfDay?.clone();
       const timeArray = [settingHrsObj?.startTimeOfDay?.format("hh:mm a")];
       const iterTimes = (settingHrsObj?.scheduleHrs * 60) / 15;
-      // console.log("iteration time", scheduleHrs, iterTimes)
       for (let i = 0; i < iterTimes; i++) {
         timeArray.push(timeOpen?.add(15, "minutes").format("hh:mm a"));
       }
       setTimeList(() => timeArray);
-      // console.log("times", timeArray)
     };
     getTimeList();
   }, []);
 
+  // console.log("selected date is set to", selectedDate)
+  // set initial values for schedule modal
   const scheduleAction = (e, day, foundSched) => {
-    // set initial values for schedule modal
     //set Date
-    setSelectedDate(() => moment.tz(day, timezone));
+    const dayClicked = moment.tz(day, timezone);
+    setSelectedDate(() => {
+      return {
+        starttime: dayClicked,
+        endtime: dayClicked,
+      };
+    });
     //set Schedule
     if (foundSched) {
-      console.log("edit on", foundSched);
+      console.log("Modal - editing schedule", foundSched);
       setSelectedSched(() => foundSched);
-      console.log("selected schedule after click", selectedSched);
     } else {
       setSelectedSched((pre) => {
         console.log(
-          "create on user where id, storeid are",
+          "Modal - creating schedule",
           employeeSched.userId,
           employeeSched.storeId
         );
@@ -59,47 +60,34 @@ const ClickableScheduleBar = ({
           ...pre,
           User_idUser: employeeSched.userId,
           Store_idStore: employeeSched.storeId,
-          starttime: moment.tz(day, timezone),
-          endtime: moment.tz(day, timezone),
+          starttime: "",
+          endtime: "",
+          archived: false,
         };
       });
     }
-    // console.log('store open', startTimeOfDay)
     // open modal
     setOpen(true);
   };
 
-  const sendDelete = async (e, foundsched) => {
+  const onClickDelete = (e, foundSched) => {
     e.stopPropagation();
-    const pretendDelete = {
-      ...foundsched,
-      starttime: "0",
-      endtime: "0",
-    };
-    console.log("editing(deleting) schedule on ", pretendDelete, new Date("0"));
-    // console.log("editing schedule... on ", moment(0).utc().format());
-    const dataToSend = JSON.stringify(pretendDelete);
-    const response = await fetch(`/api/schedule/scheduling`, {
-      method: "PATCH",
-      headers: { "content-Type": "application/json" },
-      body: dataToSend,
-    });
-    if (response.status === 200) {
-      console.log(await response.json());
-    }
-    setSchedModalOpen((pre) => !pre);
+    setSelectedSched(foundSched);
+    setConfirmModalOpen(true);
   };
 
   return (
     <>
       {daysInWeek?.map((day, i) => {
-        //need to change to store hrs
         const today = moment.tz(moment(), timezone);
         const oneDay = moment.tz(day, timezone);
-        const dayStart = oneDay
+        const dayStart = oneDay.clone().set({
+          h: settingHrsObj?.startTimeOfDay?.hour(),
+          m: settingHrsObj?.startTimeOfDay?.minute(),
+        });
+        const dayEnd = dayStart
           .clone()
-          .set({ h: settingHrsObj?.startTimeOfDay?.hour(), m: settingHrsObj?.startTimeOfDay?.minute() });
-        const dayEnd = dayStart.clone().add(settingHrsObj?.scheduleHrs, "hours");
+          .add(settingHrsObj?.scheduleHrs, "hours");
 
         const foundSched = employeeSched.schedules?.find(
           (sched) =>
@@ -129,9 +117,6 @@ const ClickableScheduleBar = ({
             const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
             const newTo = schedTo < dayEnd ? schedTo : dayEnd;
 
-            // CalcHrsinWeek += Math.round(moment(schedTo - schedFrom).unix()/60/60 );
-            // console.log("workingHrs", workingHrs)
-
             return (
               <div
                 onClick={(e) => scheduleAction(e, day, foundSched)}
@@ -141,10 +126,11 @@ const ClickableScheduleBar = ({
               >
                 <button
                   className="delete"
-                  onClick={(e) => sendDelete(e, foundSched)}
+                  onClick={(e) => onClickDelete(e, foundSched)}
                 >
                   x
                 </button>
+
                 <ScheduleBar
                   dayStart={dayStart}
                   dayEnd={dayEnd}
@@ -174,6 +160,15 @@ const ClickableScheduleBar = ({
         setOpen={setOpen}
         timeList={timeList}
         setSchedModalOpen={setSchedModalOpen}
+        setSelectedDate={setSelectedDate}
+      />
+      <DeleteConfirmModal
+        selectedSched={selectedSched}
+        employeeSched={employeeSched}
+        confirmModalOpen={confirmModalOpen}
+        setConfirmModalOpen={setConfirmModalOpen}
+        setSchedModalOpen={setSchedModalOpen}
+        timezone={timezone}
       />
     </>
   );
