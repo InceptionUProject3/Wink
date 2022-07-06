@@ -23,25 +23,43 @@ const MessageProvider = (props) => {
     console.log("useEffect");
     const socket = socketClient(SERVER);
     setSocketRef(socket);
+
     socket.on("connect", () => {
       console.log(`I'm connected with the back-end`);
-     
+    //   socket.join("rabbit");
     });
+    
     socket.on("disconnect", () => {
         console.log(`I'm disconnected with the back-end`);
+
+
     })
+    socket.on("joined", (data) => {
+        console.log(`I'm joined with the back-end`, data);
+    }
+  )
     return () => {
         socket.removeAllListeners();
         socket.disconnect();
     }}
+
     , []);
 
     useEffect(() => {
         if (storeContext.store && socketRef) {
-      console.log( "socket join", storeContext.store.User_idUser);
-      socketRef.emit("join", storeContext.store.User_idUser);
+            let data = "socket"
+                // user: storeContext.store.User_idUser,
+                // store: storeContext.store.Store_idStore,
+
+            
+      console.log( "socket join", data);
+      socketRef.emit("join", data);
+  
     }},
     [storeContext.store, socketRef]);
+
+ 
+
     
 
     // useEffect(() => {

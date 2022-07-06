@@ -18,6 +18,7 @@ const MessageWindow = () => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
   const socket = useContext(MessageContext).socketRef;
+  // console.log("this is the sockete", socket)
   const user = storeContext.store;
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState("");
@@ -35,11 +36,13 @@ const MessageWindow = () => {
 
   useEffect(() => {
     socket.on("notification", (data) => {
+      console.log("received notification", data);
       setNotification(true);
     });
   }, []);
-
+console.log(notification);
   useEffect(() => {
+    
     const getMessages = async () => {
       try {
         const chat = {
