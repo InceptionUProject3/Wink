@@ -23,6 +23,7 @@ const MessageWindow = () => {
   const [receiver, setReceiver] = useState("");
   const [seconds, setSeconds] = useState(0);
   const location = useLocation();
+  const [notification, setNotification] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,6 +31,12 @@ const MessageWindow = () => {
       // console.log(seconds);
       // console.log("receiver is", location.state.profile.User_idUser);
     }, 5000);
+  }, []);
+
+  useEffect(() => {
+    socket.on("notification", (data) => {
+      setNotification(true);
+    });
   }, []);
 
   useEffect(() => {
@@ -54,6 +61,7 @@ const MessageWindow = () => {
           const theMessages = JSON.parse(await response.text());
           // console.log("we have the messages", theMessages);
           setMessages(theMessages);
+          setNotification(false);
           socket.emit("chat", chat);
         } else {
           console.log("failed to get message");
@@ -64,7 +72,7 @@ const MessageWindow = () => {
       }
     };
     getMessages(user);
-  }, []);
+  }, [notification]);
 
   // useEffect(() => {
   //   const chat = {
@@ -142,6 +150,20 @@ const MessageWindow = () => {
                     >
                       {message.chat}
                     </div>
+                    <div>
+                    {message.read_receits === true ? (
+                      <AiFillCheckCircle
+                        style={{
+                          color: "#00b3b4",
+                          marginLeft: "1%",
+                          marginTop: "1%",
+                          marginBottom: "1%",
+                        }}
+                      />
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
                   </div>
                 </ListItem>
               ) : (
@@ -164,20 +186,7 @@ const MessageWindow = () => {
                   >
                     {message.chat}
                   </div>
-                  <div>
-                    {message.read_receits === true ? (
-                      <AiFillCheckCircle
-                        style={{
-                          color: "#00b3b4",
-                          marginLeft: "1%",
-                          marginTop: "1%",
-                          marginBottom: "1%",
-                        }}
-                      />
-                    ) : (
-                      <div></div>
-                    )}
-                  </div>
+                 
                 </ListItem>
               );
             })
