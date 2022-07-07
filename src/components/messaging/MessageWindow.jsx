@@ -1,31 +1,39 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
-import { List, ListItem, ListItemText, Grid } from "@mui/material";
+import { MessageContext } from "./MessageContext";
+import { List, ListItem, ListItemText } from "@mui/material";
 import { Box } from "@mui/system";
 import { useLocation } from "react-router-dom";
 import theme from "../utils/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
-import shadows from "@mui/material/styles/shadows";
+
+import { AiFillCheckCircle } from "react-icons/ai";
+
 
 const MessageWindow = () => {
   const authContext = useContext(LoginContext);
   const storeContext = useContext(StoreContext);
+  const socket = useContext(MessageContext).socketRef;
+
   const user = storeContext.store;
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState("");
   const [seconds, setSeconds] = useState(0);
   const location = useLocation();
+  const [notification, setNotification] = useState(false);
+
+
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((seconds) => seconds + 1);
-      // console.log(seconds);
-      // console.log("receiver is", location.state.profile.User_idUser);
-    }, 5000);
+    socket.on("notification", (data) => {
+      console.log("received notification", data);
+      setNotification(true);
+    });
   }, []);
-
+console.log(notification);
   useEffect(() => {
+    
     const getMessages = async () => {
       try {
         const chat = {
@@ -33,7 +41,7 @@ const MessageWindow = () => {
           store: user.Store_idStore,
           receiver: location.state.profile.User_idUser,
         };
-        console.log("sending message request: " + chat);
+        console.log("sending message request: ", chat);
         const data = JSON.stringify(chat);
         const response = await fetch("/api/getconversation", {
           method: "POST",
@@ -46,7 +54,10 @@ const MessageWindow = () => {
           console.log(response);
           const theMessages = JSON.parse(await response.text());
           // console.log("we have the messages", theMessages);
+      
           setMessages(theMessages);
+          setNotification(false);
+          socket.emit("chat", chat);
         } else {
           console.log("failed to get message");
           setMessages([]);
@@ -56,7 +67,8 @@ const MessageWindow = () => {
       }
     };
     getMessages(user);
-  }, [seconds]);
+  }, [notification]);
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -89,11 +101,7 @@ const MessageWindow = () => {
               // console.log("this is the return message", message);
               return message.sender === user.User_idUser ? (
                 <ListItem key={index}>
-                  {/* <ListItemText
-                  primary={message.chat}
-                  align="right"
-                  sx={{ display: 'flex-end', border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%' , ml: '50%'   }}
-                /> */}
+        
                   <div
                     style={{
                       display: "flex",
@@ -115,16 +123,25 @@ const MessageWindow = () => {
                     >
                       {message.chat}
                     </div>
+                    <div>
+                    {message.read_receits === true ? (
+                      <AiFillCheckCircle
+                        style={{
+                          color: "#00b3b4",
+                          marginLeft: "1%",
+                          marginTop: "1%",
+                          marginBottom: "1%",
+                        }}
+                      />
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
                   </div>
                 </ListItem>
               ) : (
                 <ListItem key={index}>
-                  {/* <ListItemText
-                  primary={message.chat}
-                  align="left"
                   
-                  sx={{ border: 1, borderColor: '#00b3b4', borderRadius: 1 ,color: '#00b3b4', maxWidth: '50%', padding: '1%', overflow: 'wrap', backgroundColor: 'pink' }}
-                /> */}
                   <div
                     style={{
                       border: "1px solid #00b3b4",
@@ -137,6 +154,7 @@ const MessageWindow = () => {
                   >
                     {message.chat}
                   </div>
+                 
                 </ListItem>
               );
             })

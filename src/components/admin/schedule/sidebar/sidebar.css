@@ -6,14 +6,54 @@
   
     /* align-items: flex-start; */
 }
+.Side-bar>.Period-container{
+    display: flex;
+    flex-direction: column;
+}
+.Side-bar>.Period-container>.RangeNrefresh-container{
+    display: flex;
+    position: relative;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+    font-size: 0.8em;
 
-.Side-bar>.Date-choice-box {
+}
+.Side-bar>.Period-container>.RangeNrefresh-container>.Range-container{
+    display: flex;
+    flex-direction: row;
+    margin: 0.5rem 0;
+    justify-content: center;
+    align-items: center;
+    gap:0.5rem;
+    
+}
+.Side-bar>.Period-container>.RangeNrefresh-container> svg{
+    position: absolute;
+    right:0;
+    height: 31px;
+   
+}
+.Side-bar>.Period-container>.RangeNrefresh-container> svg:hover{
+    cursor: pointer;
+   
+}
+.Side-bar>.Period-container>.RangeNrefresh-container>.Range-container>.Range-buttons{
+   color: var(--wink-color);
+}
+.Side-bar>.Period-container>.RangeNrefresh-container>.Range-container>.Range-buttons:hover{
+    cursor: pointer;
+ }
+
+.Side-bar>.Period-container>.Range-container>.Range{
+    width: fit-content;
+}
+.Side-bar>.Period-container>.Date-choice-box {
     display: flex;
     align-items: center;
     gap: 1em;
 }
 
-.Side-bar>.Date-choice-box>select{
+.Side-bar>.Period-container>.Date-choice-box>select{
     width: 80%;
     height: 2.3rem;
     font-size: 1.2em;

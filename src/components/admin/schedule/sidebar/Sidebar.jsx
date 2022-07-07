@@ -1,7 +1,15 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
-import React from "react";
+import React, { useMemo } from "react";
+import { useCallback } from "react";
+import { useState } from "react";
+import { IconContext } from "react-icons";
+import {
+  MdOutlineArrowBackIos,
+  MdOutlineArrowForwardIos,
+} from "react-icons/md";
+import { TbRefresh } from "react-icons/tb";
 import { ProfileIcon } from "../../../Reusables/components/ProfileIcon";
 import Filters from "./Filters";
 
@@ -16,6 +24,9 @@ const Sidebar = (props) => {
     filters,
     setFilters,
     empList,
+    setSelectedPeriodStart,
+    selectedPeriodStart,
+    storeTimeZone,
   } = props;
 
   //Display scheduling periods in sidebar
@@ -31,6 +42,33 @@ const Sidebar = (props) => {
     });
   };
 
+  const displayedPeriod = useMemo(() => {
+    console.log("expansive calc");
+    const start = selectedPeriodStart?.format("YYYY-MM-DD");
+    const end = selectedPeriodStart
+      ?.clone()
+      .add(4, "weeks")
+      .subtract(1, "days")
+      .format("YYYY-MM-DD");
+    return (
+      <div className="Range">
+        {start} ~ {end}
+      </div>
+    );
+  }, [selectedPeriodStart]);
+
+  const moveToPreFour = () => {
+    setSelectedPeriodStart((pre) => pre?.clone().subtract(4, "weeks"));
+  };
+
+  const moveToNextFour = () => {
+    setSelectedPeriodStart((pre) => pre?.clone().add(4, "weeks"));
+  };
+
+  const onClickRefresh = () => {
+    setSelectedPeriodStart(moment.tz(moment(), storeTimeZone).startOf("week"));
+  };
+
   //Period onClick Event
   const updateDate = (e) => {
     const { value } = e.target;
@@ -41,22 +79,40 @@ const Sidebar = (props) => {
   //Userfilter onChange Event
   const updateUserFilter = (e, newVal) => {
     const empProfiles = newVal;
-    setFilters((pre) => {
-      return { ...pre, employees: empProfiles };
-    });
+    if (empProfiles.length===0) {
+      setFilters((pre) => {
+        return { ...pre, employees: empList };
+      });
+    } else {
+      setFilters((pre) => {
+        return { ...pre, employees: empProfiles };
+      });
+    }
   };
 
   return (
     <div className="Side-bar">
-      <div className="Date-choice-box">
-        <label>Period:</label>
-        <select
-          name="startDate"
-          onChange={updateDate}
-          value={moment(selectedStart)?.format("MMM Do")}
-        >
-          {displayWeekList()}
-        </select>
+      <div className="Period-container">
+        <div className="RangeNrefresh-container">
+          <div className="Range-container">
+            <IconContext.Provider value={{ className: "Range-buttons" }}>
+              <MdOutlineArrowBackIos onClick={moveToPreFour} />
+              {displayedPeriod}
+              <MdOutlineArrowForwardIos onClick={moveToNextFour} />
+            </IconContext.Provider>
+          </div>
+          <TbRefresh onClick={onClickRefresh} />
+        </div>
+        <div className="Date-choice-box">
+          <label>Period:</label>
+          <select
+            name="startDate"
+            onChange={updateDate}
+            value={moment(selectedStart)?.format("MMM Do")}
+          >
+            {displayWeekList()}
+          </select>
+        </div>
       </div>
       <div
         className="userFilter"
@@ -78,7 +134,7 @@ const Sidebar = (props) => {
               filterSelectedOptions
               noOptionsText={"No employee found"}
               renderOption={(props, empList) => {
-                console.log('empList',empList)
+                // console.log("empList", empList);
                 return (
                   <Box
                     {...props}
@@ -88,8 +144,9 @@ const Sidebar = (props) => {
                     <ProfileIcon
                       profile={empList}
                       color={empList.position.color}
+                      key={empList.userId}
                     />
-                    <div>
+                    <div key={`names ${empList.userId}`}>
                       {empList.firstname}, {empList.lastname}
                     </div>
                   </Box>

@@ -11,12 +11,26 @@ import setPositionList from "../../components/Reusables/functions/setPositionLis
 import "./adminSchedule.css";
 
 const AdminSchedule = () => {
+  const userId = useContext(LoginContext).user?.id || 9;
+  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
+  
+  const storeTimeZone =
+    useContext(StoreContext).store?.store.timeZone || "America/New_York";
+  const userPriviliage = useContext(StoreContext).store?.UserProfile_idUserProfile
+
   const [schedules, setSchedules] = useState();
   const [startDaysOfWeek, setStartDaysOfWeek] = useState();
   const [selectedStart, setSelectedStart] = useState();
   const [empList, setEmpList] = useState([]);
   const [filters, setFilters] = useState({});
   const [schedModalOpen, setSchedModalOpen] = useState(false);
+  const [settingHrsObj, setSettingHrsObj] = useState({
+    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone),
+    scheduleHrs: 18,
+  });
+  const [selectedPeriodStart, setSelectedPeriodStart] = useState(
+    moment.tz(moment(), storeTimeZone).startOf("week")
+  );
   const [selectedDate, setSelectedDate] = useState({
     starttime: moment(),
     endtime: moment(),
@@ -29,22 +43,11 @@ const AdminSchedule = () => {
     workcode: 0,
   });
 
-  const userId = useContext(LoginContext).user?.id || 9;
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-
-  const storeTimeZone =
-    useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  const [settingHrsObj, setSettingHrsObj] = useState({
-    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone),
-    scheduleHrs: 18,
-  });
-  // const startTimeOfDay = moment.tz("06:00", "HH:mm", storeTimeZone);
-  // const scheduleHrs = 18;
-
+console.log("context", useContext(LoginContext).user, useContext(StoreContext).store )
   //Set an array with 4 consecutive Sundays for scheduling periods
   useEffect(() => {
     const setWeeksArray = () => {
-      const startThisWeek = moment.tz(moment(), storeTimeZone).startOf("week");
+      const startThisWeek = selectedPeriodStart;
       const weekArray = [];
       for (let i = 0; i < 4; i++) {
         const newWeekStart = startThisWeek?.clone().add(i, "weeks");
@@ -56,7 +59,7 @@ const AdminSchedule = () => {
       setSelectedStart(weekArray[0]);
     };
     setWeeksArray();
-  }, []);
+  }, [selectedPeriodStart]);
 
   //Read scheudles
   useEffect(() => {
@@ -86,9 +89,24 @@ const AdminSchedule = () => {
   useEffect(() => {
     //set position variables which List
     const coleredPosArray = setPositionList(schedules);
-
+    //set EmployeeList for employee filter
+    const employeeList =[]
+    const getEmployeeList = () => {
+      schedules?.map((sched) => {
+        const foundPos = coleredPosArray.find((p) => sched.position === p.type);
+        employeeList.push({
+              userId: sched.userId,
+              firstname: sched.firstname,
+              lastname: sched.lastname,
+              position: foundPos,
+            })
+      });
+    };
+    getEmployeeList();
+    console.log("emp list1", employeeList)
+    setEmpList(()=>employeeList)
+    //Set position filter with boolean
     const getInitialFilters = () => {
-      //Set position filter with boolean
       const positionFilterArray = [];
       coleredPosArray?.map((p) => {
         return positionFilterArray.push({
@@ -97,6 +115,7 @@ const AdminSchedule = () => {
           value: true,
         });
       });
+      console.log("emp list", employeeList)
       //add hours and selected employees filter with boolean
       const initialfilterObj = {
         hours: [
@@ -105,28 +124,13 @@ const AdminSchedule = () => {
           { type: "< 20hrs", max: 20, min: 0, value: true },
         ],
         positions: positionFilterArray,
-        employees: [],
+        employees: employeeList,
       };
       setFilters(() => initialfilterObj);
     };
-    //set EmployeeList for employee filter
-    const getEmployeeList = () => {
-      console.log("get employee list")
-      schedules?.map((sched) => {
-        const foundPos = coleredPosArray.find((p) => sched.position === p.type);
-        setEmpList((pre) => [
-          ...pre,
-          {
-            userId: sched.userId,
-            firstname: sched.firstname,
-            lastname: sched.lastname,
-            position: foundPos,
-          },
-        ]);
-      });
-    };
+    
+    
     getInitialFilters();
-    getEmployeeList();
   }, [schedules]);
 
   return (
@@ -153,6 +157,9 @@ const AdminSchedule = () => {
           filters={filters}
           setFilters={setFilters}
           empList={empList}
+          selectedPeriodStart={selectedPeriodStart}
+          setSelectedPeriodStart={setSelectedPeriodStart}
+          storeTimeZone={storeTimeZone}
         />
       </div>
     </div>
