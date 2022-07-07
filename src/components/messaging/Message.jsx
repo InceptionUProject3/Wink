@@ -8,10 +8,6 @@ import theme from "../utils/muiTheme";
 import { useLocation } from "react-router-dom";
 import { MessageContext } from "./MessageContext";
 
-import socketIOClient from "socket.io-client";
-
-// const SOCKET_SERVER_URL = "http://localhost:4000";
-// const socket = socketIOClient(SOCKET_SERVER_URL);
 
 const Message = () => {
   const authContext = useContext(LoginContext);
@@ -20,7 +16,7 @@ const Message = () => {
 
   const [message, setMessage] = useState("");
   const location = useLocation();
-  // const socket = authContext.socket;
+
   const socket = useContext(MessageContext).socketRef;
 
   const sendMessage = async (message) => {

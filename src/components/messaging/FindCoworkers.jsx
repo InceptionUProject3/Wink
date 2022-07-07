@@ -7,7 +7,7 @@ import {
   ListItem,
   ListItemText,
   ListItemButton,
-  ListItemIcon,
+ 
   Collapse,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -105,22 +105,3 @@ const FindCoworkers = (props) => {
 
 export default FindCoworkers;
 
-{
-  /* <div>
-      <h1>Find coworkers</h1>
-     
-      <div>
-        {coworkers ? (
-          coworkers.map((profile, index) => {
-            return (
-              <div key={index} className="user">
-                <div>{profile.user.firstname} {profile.user.lastname}, {profile.userprofile.name} </div>
-              </div>
-            );
-          })
-        ) : (
-          <div>Loading...</div>
-        )}
-      </div>
-    </div> */
-}

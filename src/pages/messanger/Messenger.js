@@ -15,12 +15,6 @@ const Messenger = () => {
   const [receiver, setReceiver] = useState("");
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //     if (location.state) {
-  //         setReceiver(location.state.profile.User_idUser);
-  //         console.log("logging location", location.state);
-  //     }
-  // }, [location.state]);
 
   return (
     <div
@@ -54,8 +48,7 @@ const Messenger = () => {
       }}onClick={() => navigate("/coworkers")} size={40} />
         <h2 >  {location.state.profile.user.firstname}{" "}
         {location.state.profile.user.lastname}</h2>
-        {/* {location.state.profile.user.firstname}{" "}
-        {location.state.profile.user.lastname} */}
+
       </div>
       <MessageWindow
         setReceiver={location.state.profile.User_idUser}

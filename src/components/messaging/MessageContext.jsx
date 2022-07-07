@@ -44,7 +44,7 @@ const MessageProvider = (props) => {
     }}
 
     , []);
-
+// This needs to be updated to use the user data for the socket
     useEffect(() => {
         if (storeContext.store && socketRef) {
             let data = "socket"
@@ -58,30 +58,11 @@ const MessageProvider = (props) => {
     }},
     [storeContext.store, socketRef]);
 
- 
 
-    
-
-    // useEffect(() => {
-    //     setUser(storeContext.store)
-    //     console.log("emmit user", user)
-    //     if (user) {
-    //     socketRef.emit("user", (user) => {
-    //         console.log("emmit", user);
-    //     }
-    //     );
-    // }}
-    // , [storeContext.store, socketRef]);
-
-    
-    //   socket.on("receiver messages", (data) => {"
-    //   setSocketRef(socket);
-    //   }, []));    ;
     const children = props.children;
     const theValues = { socketRef };
     return (
       <MessageContext.Provider value={theValues}>
-        <div>hey look at me :P</div>
         {children}
       </MessageContext.Provider>
     );
