@@ -53,6 +53,7 @@ const Calendar = () => {
                   today={selectedDay}
                   setToday={setSelectedDay}
                   scheduleHrs={settingHrsObj.scheduleHrs}
+                  timezone={userTimeZone}
                 />
               }
             />
