@@ -81,7 +81,7 @@ const MessageProvider = (props) => {
     const theValues = { socketRef };
     return (
       <MessageContext.Provider value={theValues}>
-        <div>hey look at me :P</div>
+        {/* <div>hey look at me :P</div> */}
         {children}
       </MessageContext.Provider>
     );

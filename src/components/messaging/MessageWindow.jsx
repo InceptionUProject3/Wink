@@ -63,6 +63,7 @@ console.log(notification);
           console.log(response);
           const theMessages = JSON.parse(await response.text());
           // console.log("we have the messages", theMessages);
+      
           setMessages(theMessages);
           setNotification(false);
           socket.emit("chat", chat);

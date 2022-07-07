@@ -6,6 +6,9 @@ import  Notification  from "../messaging/Notification";
 
 import { LoginContext } from "../authentication/LoginProvider";
 import { StoreContext } from "../authentication/StoreProvider";
+import { Badge } from "@mui/material";
+import theme from "../utils/muiTheme";
+import { ThemeProvider } from "@mui/material/styles";
 
 const Navbar = () => {
   const auth = useContext(LoginContext);
@@ -38,7 +41,30 @@ const Navbar = () => {
           </div>
         </ul>
         <ul>
+          
+
           {loggedInUser && (
+            <li>      <ThemeProvider theme={theme}>
+              <Badge badgeContent={<Notification />} color='primary' anchorOrigin={{
+    vertical: 'top',
+    horizontal: 'left',
+  }}>
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
+                  to="/coworkers"
+                >
+                  MESSENGER 
+                </NavLink>
+              </p>
+              </Badge>
+              </ThemeProvider>
+            </li>
+          )}
+{loggedInUser && (
             <li>
               <p className="menu">
                 <NavLink
@@ -53,23 +79,6 @@ const Navbar = () => {
               </p>
             </li>
           )}
-
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/coworkers"
-                >
-                  MESSENGER <Notification />
-                </NavLink>
-              </p>
-            </li>
-          )}
-
           <li>
             <p>
               <div>
