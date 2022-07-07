@@ -27,10 +27,10 @@ const setPositionList = (data) => {
   let newPositonArray = [];
   orderedPositionList?.forEach((pos, i) => {
     if (colorList[i]) {
-      newPositonArray.push({ position: pos, color: colorList[i] });
+      newPositonArray.push({ type: pos, color: colorList[i] });
     } else {
       newPositonArray.push({
-        position: pos,
+        type: pos,
         color: colorList[i % colorList.length],
       });
     }

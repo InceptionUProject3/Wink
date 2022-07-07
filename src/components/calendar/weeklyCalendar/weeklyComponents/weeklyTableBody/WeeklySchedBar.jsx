@@ -1,11 +1,10 @@
 import React from "react";
 import moment from "moment";
-import ScheduleBar from "../../Reusables/components/ScheduleBar";
+import ScheduleBar from "../../../../Reusables/components/ScheduleBar";
 
 const WeeklySchedBar = ({
   daysInWeek,
-  storeOpen,
-  scheduleHrs,
+  settingHrsObj,
   schedules,
   timezone,
 }) => {
@@ -17,8 +16,8 @@ const WeeklySchedBar = ({
     const oneDay = moment.tz(day, timezone);
     const dayStart = oneDay
       .clone()
-      .set({ h: storeOpen?.hour(), m: storeOpen?.minute() });
-    const dayEnd = dayStart.clone().add(scheduleHrs, "hours");
+      .set({ h: settingHrsObj?.startTimeOfDay?.hour(), m: settingHrsObj?.startTimeOfDay?.minute() });
+    const dayEnd = dayStart.clone().add(settingHrsObj?.scheduleHrs, "hours");
 
     const foundSched = schedules?.find(
       (sched) =>

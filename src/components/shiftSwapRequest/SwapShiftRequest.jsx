@@ -2,12 +2,13 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { LoginContext } from "../../authentication/LoginProvider";
-import { StoreContext } from "../../authentication/StoreProvider";
+import { LoginContext } from "../authentication/LoginProvider";
+import { StoreContext } from "../authentication/StoreProvider";
 import ConfirmModals from "./ConfirmModals";
-import "./swapShiftModal.css";
 
-const SwapShiftModal = (props) => {
+import "./swapShiftRequest.css";
+
+const SwapShiftRequest = (props) => {
   const { setOpenModal } = props;
   const storeId = useContext(StoreContext).store?.Store_idStore;
   const userId = useContext(LoginContext).user?.id;
@@ -134,4 +135,4 @@ const SwapShiftModal = (props) => {
   );
 };
 
-export default SwapShiftModal;
+export default SwapShiftRequest;

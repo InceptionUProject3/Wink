@@ -6,7 +6,7 @@ import {
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 
-import DisplayDaysinWeek from "../Reusables/components/DisplayDaysinWeek";
+import DisplayDaysinWeek from "../../../Reusables/components/DisplayDaysinWeek";
 
 const WeeklyTableHeader = (props) => {
 

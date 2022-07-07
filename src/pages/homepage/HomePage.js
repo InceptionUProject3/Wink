@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { useState, useContext } from "react";
-import TodayButton from "../../components/calendar/Reusables/components/TodayButton";
+import TodayButton from "../../components/Reusables/components/TodayButton";
 import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
 import ChatPopup from "../../components/messaging/ChatPopup";
 
