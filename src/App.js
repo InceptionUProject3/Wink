@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import socketClient from "socket.io-client";
+
 import LoginForm from "./components/authentication/LoginForm";
 
 import RequireAuth from "./components/authentication/RequireAuth";
@@ -9,7 +9,7 @@ import LoginProvider from "./components/authentication/LoginProvider";
 
 import HomePage from "./pages/homepage/HomePage";
 import Messaging from "./components/messaging/Messaging";
-import Chat from "./components/messaging/Chat";
+
 import MonthlyCalendar from "./components/calendar/monthlyCalendar/MonthlyCalendar";
 
 import Calendar from "./pages/calendar/Calendar";
@@ -27,12 +27,7 @@ import MessageProvider, { MessageContext } from "./components/messaging/MessageC
 const SERVER = "http://localhost:4000";
 
 function App() {
-  // var socket = socketClient(SERVER);
-  // socket.on("connection", () => {
-  //   console.log(`I'm connected with the back-end`);
-  // });
-  // const [socket, setSocket] = useState(socket);
-
+  
   return (
     <div className="App">
       <LoginProvider>

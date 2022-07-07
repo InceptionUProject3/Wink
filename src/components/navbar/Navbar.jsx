@@ -17,9 +17,7 @@ const Navbar = () => {
   const loggedInUser = auth.user;
   const loggedInStore = store.store;
 
-  // const theStore = loggedInStore.store;
-  // console.log("navbar", theStore);
-  // const loading = auth.loading;
+
   return (
     <div className="navbar">
       <div className="container">
