@@ -72,7 +72,16 @@ const MonthlyCalendar = (props) => {
       );
       const holidaysData = await res.json();
       console.log("holidaysData", holidaysData);
-      setholidaysOfMonth(() => holidaysData);
+      const newHoliday = []
+      holidaysData?.holidayData.map((holiday)=>{
+        const newdate= moment.tz(holiday.event_date, 'UTC').format('YYYY-MM-DD')
+        newHoliday.push({date:newdate, name: holiday.nameEn})
+        console.log("holiday", newdate)
+      
+      })
+      console.log("newHoliday", newHoliday)
+
+      setholidaysOfMonth(() => newHoliday);
     };
     
     startOfMonth && getMonHolidays();
@@ -148,8 +157,9 @@ const MonthlyCalendar = (props) => {
                       );
                       const endtime = moment(schedule.endtime).format("h:mm a");
                       const scheduleDate = moment(schedule.starttime).date();
+
                       //console.log("starttime", starttime)
-                      //console.log("scheduleDate,schedule.starttime  ", scheduleDate, schedule.starttime)
+                      //console.log("scheduleDate,schedule.starttime  ", scheduleDate)
                       if (scheduleDate === day.value) {
                         return (
                           <div key={index}>
@@ -160,13 +170,14 @@ const MonthlyCalendar = (props) => {
                     })}
                   </div>
                   <div>
-                    {holidaysOfMonth?.holidayData.map((holiday,index) =>{
-                      const data = moment(holiday.event_date).date()
+                    {holidaysOfMonth?.map((holiday,index) =>{
+                      const data = moment(holiday.date,("YYYY-MM-DD")).date()
                       //const data = holiday[0]
+                      console.log("data",moment(holiday.date,("YYYY-MM-DD")))
                       if(data === day.value){
                         return (
-                         <div>
-                          {holiday.nameEn}
+                         <div className="holidays">
+                          {holiday.name}
                          </div>
                         )
                       }
