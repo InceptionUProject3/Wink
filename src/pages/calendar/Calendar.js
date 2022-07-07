@@ -7,14 +7,14 @@ import MonthlyCalendar from "../../components/calendar/monthlyCalendar/MonthlyCa
 import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
 import DailyCalendar from "../../components/calendar/dailyCalendar/DailyCalendar";
 
-import "./calendar.css";
-import ViewButtons from "../../components/calendar/Reusables/components/ViewButtons";
-import TodayButton from "../../components/calendar/Reusables/components/TodayButton";
-import RequestSwapBtn from "../../components/calendar/Reusables/components/RequestSwapBtn";
+import ViewButtons from "../../components/Reusables/components/ViewButtons";
+import TodayButton from "../../components/Reusables/components/TodayButton";
+import RequestSwapBtn from "../../components/Reusables/components/RequestSwapBtn";
 import { StoreContext } from "../../components/authentication/StoreProvider";
-import SwapShiftModal from "../../components/calendar/shiftSwapModal/SwapShiftModal";
+import SwapShiftRequest from "../../components/shiftSwapRequest/SwapShiftRequest";
 import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilters";
 
+import "./calendar.css";
 
 const Calendar = () => {
   const [filter, setFilter] = useState("All");
@@ -29,8 +29,11 @@ const Calendar = () => {
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const userTimeZone = moment.tz.guess();
   //  console.log(userTimeZone)
-  const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
-  const scheduleHrs = 18;
+  const [settingHrsObj, setSettingHrsObj] = useState({
+    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone), scheduleHrs: 18
+  });
+  // const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
+  // const scheduleHrs = 18;
 
   return (
     <div className="Calendars">
@@ -49,7 +52,7 @@ const Calendar = () => {
                 <MonthlyCalendar
                   today={selectedDay}
                   setToday={setSelectedDay}
-                  scheduleHrs={scheduleHrs}
+                  scheduleHrs={settingHrsObj.scheduleHrs}
                 />
               }
             />
@@ -59,9 +62,9 @@ const Calendar = () => {
                 <WeeklyCalendar
                   selectedDay={selectedDay}
                   setSelectedDay={setSelectedDay}
-                  storeOpen={storeOpen}
-                  scheduleHrs={scheduleHrs}
+                  settingHrsObj={settingHrsObj}
                   filter={filter}
+                  timeZone={userTimeZone}
                 />
               }
             />
@@ -72,8 +75,8 @@ const Calendar = () => {
                 <DailyCalendar
                   selectedDay={selectedDay}
                   setSelectedDay={setSelectedDay}
-                  storeOpen={storeOpen}
-                  scheduleHrs={scheduleHrs}
+                  settingHrsObj={settingHrsObj}
+                  timeZone={userTimeZone}
                 />
               }
             />
@@ -82,7 +85,7 @@ const Calendar = () => {
       </div>
       {openModal && (
         <div className="Side-modal-container">
-          <SwapShiftModal setOpenModal={setOpenModal} />
+          <SwapShiftRequest setOpenModal={setOpenModal} />
         </div>
       )}
     </div>

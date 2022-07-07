@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ProfileIcon } from "../../Reusables/components/ProfileIcon";
+import { ProfileIcon } from "../../../../Reusables/components/ProfileIcon";
 
 const OthersDailyScheds = (props) => {
   const { othersScheds, positions, displaySched } = props;
@@ -27,16 +27,16 @@ const OthersDailyScheds = (props) => {
       }, initialVal);
     };
     const groupedObj = groupByPosition();
-    console.log("ordered", groupedObj)
+    // console.log("ordered", groupedObj)
     setGroupedScheds(() => groupedObj);
   }, [othersScheds]);
 
   return (
     <>
       {positions?.map((position, i) => {
-        const empInPosition = groupedScheds && groupedScheds[position.position];
+        const empInPosition = groupedScheds && groupedScheds[position.type];
         if (empInPosition) {
-          console.log('others day positon', position)
+          // console.log('others day positon', position)
           return empInPosition?.map((sched, index) => {
             return (<React.Fragment key={`OtherDaySched ${i} ${index} `}>
               <div

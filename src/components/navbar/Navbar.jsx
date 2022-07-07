@@ -16,7 +16,9 @@ const Navbar = () => {
 
   const loggedInUser = auth.user;
   const loggedInStore = store.store;
-
+  const isAdmin =
+    loggedInStore?.UserProfile_idUserProfile === 1000 ||
+    loggedInStore?.UserProfile_idUserProfile === 1002;
 
   return (
     <div className="navbar">
@@ -73,6 +75,23 @@ const Navbar = () => {
                   to="/calendar"
                 >
                   CALENDAR
+                </NavLink>
+              </p>
+            </li>
+          )}
+
+        
+          {loggedInUser && isAdmin && (
+            <li>
+              <p className="menu">
+                <NavLink
+                  style={({ isActive }) => ({
+                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                    opacity: isActive ? 1 : "",
+                  })}
+                  to="/admin/schedule"
+                >
+                  SCHEDULE
                 </NavLink>
               </p>
             </li>

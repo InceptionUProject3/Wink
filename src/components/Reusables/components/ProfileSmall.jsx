@@ -7,8 +7,8 @@ const ProfileSmall = ({ emp, position, i, index,calcHrsinWeek,schedHrsinWeek }) 
     <div className="WeeklyCal-Profiles others" key={`profile ${i} ${index}`}>
       {index === 0 && (
         <div className="title" key={`position ${i}`}>
-          <ProfileIcon profile={emp} color={position.color} />
-          <div className="name">{position.position}</div>
+          <ProfileIcon profile={emp} color={position.color}/>
+          <div className="name">{position.type}</div>
         </div>
       )}
       <div className="profile" key={`profile ${index}`}>

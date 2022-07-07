@@ -1,9 +1,16 @@
-
 import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
-import React from "react";
-import { ProfileIcon } from "../../../calendar/Reusables/components/ProfileIcon";
+import React, { useMemo } from "react";
+import { useCallback } from "react";
+import { useState } from "react";
+import { IconContext } from "react-icons";
+import {
+  MdOutlineArrowBackIos,
+  MdOutlineArrowForwardIos,
+} from "react-icons/md";
+import { TbRefresh } from "react-icons/tb";
+import { ProfileIcon } from "../../../Reusables/components/ProfileIcon";
 import Filters from "./Filters";
 
 import "./sidebar.css";
@@ -11,17 +18,20 @@ import "./sidebar.css";
 const Sidebar = (props) => {
   const {
     storeZone,
-    startWeeks,
+    startDaysOfWeek,
     setSelectedStart,
     selectedStart,
     filters,
     setFilters,
-    userList,
-    setSelectedEmp,
+    empList,
+    setSelectedPeriodStart,
+    selectedPeriodStart,
+    storeTimeZone,
   } = props;
 
+  //Display scheduling periods in sidebar
   const displayWeekList = () => {
-    return startWeeks?.map((weekStart, i) => {
+    return startDaysOfWeek?.map((weekStart, i) => {
       const endWeek = weekStart.clone().endOf("week").format("MMM Do");
       const startWeek = weekStart.format("MMM Do");
       return (
@@ -31,70 +41,123 @@ const Sidebar = (props) => {
       );
     });
   };
-  // console.log('filters', filters)
+
+  const displayedPeriod = useMemo(() => {
+    console.log("expansive calc");
+    const start = selectedPeriodStart?.format("YYYY-MM-DD");
+    const end = selectedPeriodStart
+      ?.clone()
+      .add(4, "weeks")
+      .subtract(1, "days")
+      .format("YYYY-MM-DD");
+    return (
+      <div className="Range">
+        {start} ~ {end}
+      </div>
+    );
+  }, [selectedPeriodStart]);
+
+  const moveToPreFour = () => {
+    setSelectedPeriodStart((pre) => pre?.clone().subtract(4, "weeks"));
+  };
+
+  const moveToNextFour = () => {
+    setSelectedPeriodStart((pre) => pre?.clone().add(4, "weeks"));
+  };
+
+  const onClickRefresh = () => {
+    setSelectedPeriodStart(moment.tz(moment(), storeTimeZone).startOf("week"));
+  };
+
+  //Period onClick Event
   const updateDate = (e) => {
     const { value } = e.target;
     const momentValue = moment.tz(value, "MMM Do", storeZone);
-    // console.log("value", momentValue)
     setSelectedStart(() => momentValue);
   };
 
+  //Userfilter onChange Event
   const updateUserFilter = (e, newVal) => {
-    // const value = e.target;
-    const userId = newVal;
-    // console.log("userids", newVal);
-    setSelectedEmp(() => userId);
+    const empProfiles = newVal;
+    if (empProfiles.length===0) {
+      setFilters((pre) => {
+        return { ...pre, employees: empList };
+      });
+    } else {
+      setFilters((pre) => {
+        return { ...pre, employees: empProfiles };
+      });
+    }
   };
-  // console.log("Changed filters", filters);
 
   return (
     <div className="Side-bar">
-      <div className="Date-choice-box">
-        <label>Period:</label>
-        <select
-          name="startDate"
-          onChange={updateDate}
-          value={moment(selectedStart)?.format("MMM Do")}
-        >
-          {displayWeekList()}
-        </select>
+      <div className="Period-container">
+        <div className="RangeNrefresh-container">
+          <div className="Range-container">
+            <IconContext.Provider value={{ className: "Range-buttons" }}>
+              <MdOutlineArrowBackIos onClick={moveToPreFour} />
+              {displayedPeriod}
+              <MdOutlineArrowForwardIos onClick={moveToNextFour} />
+            </IconContext.Provider>
+          </div>
+          <TbRefresh onClick={onClickRefresh} />
+        </div>
+        <div className="Date-choice-box">
+          <label>Period:</label>
+          <select
+            name="startDate"
+            onChange={updateDate}
+            value={moment(selectedStart)?.format("MMM Do")}
+          >
+            {displayWeekList()}
+          </select>
+        </div>
       </div>
-      <div className="userFilter" style={{display: "flex", flexDirection: "column" }}>
+      <div
+        className="userFilter"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <div className="filters-title">Filters:</div>
         <div className="filters">
           <div className="user-filter">
             <Autocomplete
               multiple
-              getOptionLabel={(userList) =>
-                `${userList.firstname}, ${userList.lastname}`
+              getOptionLabel={(empList) =>
+                `${empList.firstname}, ${empList.lastname}`
               }
-              options={userList}
-              sx={{ width: 300}}
+              options={empList}
+              sx={{ width: 300 }}
               isOptionEqualToValue={(option, value) =>
                 option.firstname === value.firstname
               }
               filterSelectedOptions
               noOptionsText={"No employee found"}
-              renderOption={(props, userList) => {
-                // console.log('userList',userList)
+              renderOption={(props, empList) => {
+                // console.log("empList", empList);
                 return (
                   <Box
                     {...props}
-                    key={userList.userId}
-                    sx={{ display: "flex", flexDirection: "row", gap:'5%'}}
+                    key={empList.userId}
+                    sx={{ display: "flex", flexDirection: "row", gap: "5%" }}
                   >
                     <ProfileIcon
-                      profile={userList.position}
-                      color={userList.position.color}
+                      profile={empList}
+                      color={empList.position.color}
+                      key={empList.userId}
                     />
-                    <div>
-                      {userList.firstname}, {userList.lastname}
+                    <div key={`names ${empList.userId}`}>
+                      {empList.firstname}, {empList.lastname}
                     </div>
                   </Box>
                 );
               }}
               renderInput={(params) => (
-                <TextField {...params} label="Search employees" variant="outlined" />
+                <TextField
+                  {...params}
+                  label="Search employees"
+                  variant="outlined"
+                />
               )}
               onChange={(e, newVal) => updateUserFilter(e, newVal)}
             />

@@ -11,7 +11,7 @@ import HomePage from "./pages/homepage/HomePage";
 import Messaging from "./components/messaging/Messaging";
 
 import MonthlyCalendar from "./components/calendar/monthlyCalendar/MonthlyCalendar";
-
+// import DisplayHolidays from "./components/calendar/monthlyCalendar/DisplayHolidays"
 import Calendar from "./pages/calendar/Calendar";
 import Logout from "./components/authentication/Logout";
 import ProfileSelection from "./components/authentication/LocationSelection";
@@ -23,6 +23,7 @@ import Messenger from "./pages/messanger/Messenger";
 
 import AdminSchedule from "./pages/adminSchedule/AdminSchedule";
 import MessageProvider, { MessageContext } from "./components/messaging/MessageContext";
+import PrivateRoute from "./components/authentication/PrivateRoute";
 
 const SERVER = "http://localhost:4000";
 
@@ -53,10 +54,12 @@ function App() {
                 <Route path="/" element={<LoginForm />} />
                 <Route path="/logout" element={<Logout />} />
 
-                {/* admin route */}
-                <Route path="/admin/schedule" element={<AdminSchedule />} />
-              </Routes>
-            </BrowserRouter>
+              {/* admin route */}
+              <Route path="/admin/schedule" mustBeAdmin element={<PrivateRoute element={<AdminSchedule />}/>} />
+              
+              {/* <Route path="/events" element={<DisplayHolidays />} /> */}
+            </Routes>
+          </BrowserRouter>
           </MessageProvider>
         </StoreProvider>
       </LoginProvider>
