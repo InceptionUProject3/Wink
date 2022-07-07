@@ -16,7 +16,6 @@ const AdminSchedule = () => {
   
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  const userPriviliage = useContext(StoreContext).store?.UserProfile_idUserProfile
 
   const [schedules, setSchedules] = useState();
   const [startDaysOfWeek, setStartDaysOfWeek] = useState();
@@ -43,7 +42,7 @@ const AdminSchedule = () => {
     workcode: 0,
   });
 
-console.log("context", useContext(LoginContext).user, useContext(StoreContext).store )
+// console.log("context", useContext(LoginContext).user, useContext(StoreContext).store )
   //Set an array with 4 consecutive Sundays for scheduling periods
   useEffect(() => {
     const setWeeksArray = () => {

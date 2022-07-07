@@ -23,6 +23,7 @@ const ConfirmModals = (props) => {
       headers: { "content-Type": "application/json" },
       body: dataToSend,
     });
+    
     if (response.status === 200) {
       console.log("success");
 

@@ -14,12 +14,6 @@ const WeeklyCalendar = (props) => {
   const { selectedDay, setSelectedDay,filter,settingHrsObj, timeZone } = props;
   const [daysInWeek, setDaysInWeek] = useState();
 
-  // const storeTimeZone =
-  //   useContext(StoreContext).store?.store.timeZone || "America/New_York";
-  // const userTimeZone = moment.tz.guess();
-  // const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
-  // const scheduleHrs = 18;
-
   useEffect(() => {
     const startDayOfWeek = selectedDay?.clone().startOf("week");
     const endDayOfWeek = selectedDay?.clone().endOf("week");

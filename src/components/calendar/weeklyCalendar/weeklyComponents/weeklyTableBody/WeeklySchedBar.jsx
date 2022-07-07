@@ -10,7 +10,6 @@ const WeeklySchedBar = ({
 }) => {
   // const timezone = "America/New_York";
 
-  // console.log("all", daysInWeek, storeOpen, timezone, schedules);
   return daysInWeek?.map((day, i) => {
     //need to change to store hrs
     const oneDay = moment.tz(day, timezone);
@@ -34,6 +33,7 @@ const WeeklySchedBar = ({
         );
       } else if (foundSched) {
         const schedFrom = moment.tz(foundSched.starttime,timezone);
+        console.log("found", foundSched.starttime, schedFrom)
         const schedTo = moment.tz(foundSched.endtime,timezone);
         const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
         const newTo = schedTo < dayEnd ? schedTo : dayEnd;
