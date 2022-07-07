@@ -29,7 +29,7 @@ const MonthlyCalendarHeader = (props) => {
 
   return (
     <div>
-      <div className="test">
+      <div className="headerDisplay">
         <IconContext.Provider value={{ className: "buttons" }}>
           <MdOutlineArrowBackIos onClick={getPreMonth} />
           <div className="MonthInHeader">{today?.format("MMM YYYY")}</div>
