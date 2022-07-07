@@ -22,6 +22,7 @@ import MessageWindow from "./components/messaging/MessageWindow";
 import Messenger from "./pages/messanger/Messenger";
 
 import AdminSchedule from "./pages/adminSchedule/AdminSchedule";
+import PrivateRoute from "./components/authentication/PrivateRoute";
 
 const SERVER = "http://localhost:4000";
 
@@ -55,7 +56,7 @@ function App() {
               <Route path="/logout" element={<Logout />} />
 
               {/* admin route */}
-              <Route path="/admin/schedule" element={<AdminSchedule />} />
+              <Route path="/admin/schedule" mustBeAdmin element={<PrivateRoute element={<AdminSchedule />}/>} />
               
               {/* <Route path="/events" element={<DisplayHolidays />} /> */}
             </Routes>

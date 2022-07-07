@@ -9,7 +9,7 @@ const WeeklyTableBody = (props) => {
   const { selectedDay, settingHrsObj, daysInWeek, timezone, filter } =
     props;
   const userId = useContext(LoginContext).user?.id || 9;
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
+  const storeId = useContext(StoreContext).store?.Store_idStore ||1;
   // console.log("filter in table body", filter);
 
   const [positions, setPositions] = useState();
