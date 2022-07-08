@@ -18,7 +18,7 @@ const ConfirmModals = (props) => {
     e.preventDefault();
 
     const dataToSend = JSON.stringify(request);
-    const response = await fetch(`/api/schedule/shiftswap`, {
+    const response = await fetch(`/api/swapShift/swapShiftRequest`, {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: dataToSend,

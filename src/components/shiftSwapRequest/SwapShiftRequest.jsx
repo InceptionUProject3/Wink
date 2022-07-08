@@ -20,7 +20,7 @@ const SwapShiftRequest = (props) => {
     storeId: storeId,
     date: "",
     reason: "",
-    swapAvailable: {},
+    swapAvailableId: "",
   });
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const SwapShiftRequest = (props) => {
       try {
         const data = await fetch(
           // `/api/schedule/shiftswap?storeId=${storeId}&myId=${userId}&from=${today}`
-          `/api/schedule/shiftswap?storeId=1&myId=9&from=${today}`
+          `/api/swapShift/swapShiftRequest?storeId=${storeId}&myId=${userId}&from=${today}`
         );
         const dataObj = await data.json();
         console.log("data", dataObj);
@@ -49,14 +49,16 @@ const SwapShiftRequest = (props) => {
   const updateReq = (e) => {
     const { name, value, type, checked } = e.target;
     setRequest((pre) => {
-      if (type === "checkbox") {
+      if (type === "radio") {
+        console.log('radio', name)
         return {
           ...pre,
-          swapAvailable: { ...pre.swapAvailable, [name]: checked },
+          // swapAvailableId: {id:name,boolean:false},
+          swapAvailableId: name*1,
         };
       }else if(name==="date"){
         const idNDate = value.split('/')
-        return {...pre, scheduleId: idNDate[0],[name]:idNDate[1]}
+        return {...pre, scheduleId: idNDate[0]*1,[name]:idNDate[1]}
       } 
       else {
         console.log("value", value)
@@ -82,10 +84,10 @@ const SwapShiftRequest = (props) => {
         >
           <option value="">--Select date--</option>
           {mySchedules?.schedules.length ? (
-            mySchedules.schedules.map((sched) => {
+            mySchedules.schedules.map((sched, i) => {
               const option = moment(sched.starttime).format("ddd, MMM Do");
               if (sched.workcode === 0) {
-                return <option value={`${sched.idSchedule}/${option}`}>{option}</option>;
+                return <option key={`swapAvailDate ${i}`} value={`${sched.idSchedule}/${option}`}>{option}</option>;
               }
             })
           ) : (
@@ -102,28 +104,33 @@ const SwapShiftRequest = (props) => {
           rows="10"
           onChange={updateReq}
           value={request?.reason}
+          maxLength="200"
         />
       </div>
       <div className="Schedules-container">
         <label htmlFor="schedules">
-          Choose available shifts (optional):{" "}
+          Choose the best available shift (optional):{" "}
         </label>
         <div className="Container">
           {swapList?.map((sched) => {
-            return sched.schedules.map((s) => {
+            return sched.schedules.map((s, i) => {
+              
               return (
-                <div className="Schedule-conatiner">
+                <div className="Schedule-conatiner" key={`swapAvail-container ${i}`}>
                   <input
-                    type="checkbox"
+                    type="radio"
                     name={s.idSchedule}
                     onChange={updateReq}
-                    checked={request.swapAvailable[s.idSchedule] || false}
+                    value={request.swapAvailableId}
+                    key={`swapAvailList ${i}`}
+                    // checked={request.swapAvailable.boolean || false}
+                    checked={request.swapAvailableId===s.idSchedule}
                   />
-                  <label htmlFor={s.idSchedule} className="Schedule-label">
-                    <span>
+                  <label htmlFor={s.idSchedule} className="Schedule-label" key={`swapAvaillable ${i}`}>
+                    <span key={`swapAvailstart ${i}`}>
                       {moment(s.starttime).format("ddd, MMM Do h:mm a")} -
                     </span>
-                    <span> {moment(s.endtime).format("h:mm a")} </span>
+                    <span key={`swapAvailend ${i}`}> {moment(s.endtime).format("h:mm a")} </span>
                   </label>
                 </div>
               );
