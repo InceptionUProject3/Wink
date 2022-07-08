@@ -78,7 +78,7 @@ const successClose=()=>{
         <DialogTitle id="alert-dialog-title">Success</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          Your request has been sent. You can check request status in ___
+          Your request has been sent. You can check your request status in messenger.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -33,7 +33,7 @@ const WeeklySchedBar = ({
         );
       } else if (foundSched) {
         const schedFrom = moment.tz(foundSched.starttime,timezone);
-        console.log("found", foundSched.starttime, schedFrom)
+        // console.log("found", foundSched.starttime, schedFrom)
         const schedTo = moment.tz(foundSched.endtime,timezone);
         const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
         const newTo = schedTo < dayEnd ? schedTo : dayEnd;
