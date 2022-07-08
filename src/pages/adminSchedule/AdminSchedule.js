@@ -13,7 +13,7 @@ import "./adminSchedule.css";
 const AdminSchedule = () => {
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  
+
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
 
@@ -21,8 +21,13 @@ const AdminSchedule = () => {
   const [startDaysOfWeek, setStartDaysOfWeek] = useState();
   const [selectedStart, setSelectedStart] = useState();
   const [empList, setEmpList] = useState([]);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    hours: [],
+    positions: [],
+    employees: [],
+  });
   const [schedModalOpen, setSchedModalOpen] = useState(false);
+  const [resetFilter, setResetFilter] = useState(false);
   const [settingHrsObj, setSettingHrsObj] = useState({
     startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone),
     scheduleHrs: 18,
@@ -42,7 +47,7 @@ const AdminSchedule = () => {
     workcode: 0,
   });
 
-// console.log("context", useContext(LoginContext).user, useContext(StoreContext).store )
+  // console.log("context", useContext(LoginContext).user, useContext(StoreContext).store )
   //Set an array with 4 consecutive Sundays for scheduling periods
   useEffect(() => {
     const setWeeksArray = () => {
@@ -66,7 +71,7 @@ const AdminSchedule = () => {
       try {
         const startDay = selectedStart?.clone().format();
         const data = await fetch(
-          `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
+          `/api/schedule/weekly?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
         );
         const scheduleData = await data.json();
         console.log("fetching schedule data", scheduleData);
@@ -84,26 +89,49 @@ const AdminSchedule = () => {
     selectedStart && fetchAllData();
   }, [selectedStart, schedModalOpen]);
 
-  //Set initial filter(employees, availability, positions) values
   useEffect(() => {
-    //set position variables which List
     const coleredPosArray = setPositionList(schedules);
     //set EmployeeList for employee filter
-    const employeeList =[]
+    const employeeList = [];
     const getEmployeeList = () => {
       schedules?.map((sched) => {
         const foundPos = coleredPosArray.find((p) => sched.position === p.type);
         employeeList.push({
-              userId: sched.userId,
-              firstname: sched.firstname,
-              lastname: sched.lastname,
-              position: foundPos,
-            })
+          userId: sched.userId,
+          firstname: sched.firstname,
+          lastname: sched.lastname,
+          position: foundPos,
+        });
       });
     };
     getEmployeeList();
-    console.log("emp list1", employeeList)
-    setEmpList(()=>employeeList)
+    // console.log("emp list1", employeeList)
+    setEmpList(() => employeeList);
+    setFilters((pre) => {
+      return { ...pre, employees: employeeList };
+    });
+  },[schedules]);
+
+  //Set initial filter(employees, availability, positions) values
+  useEffect(() => {
+    //set position variables which List
+    const coleredPosArray = setPositionList(schedules);
+    // //set EmployeeList for employee filter
+    // const employeeList =[]
+    // const getEmployeeList = () => {
+    //   schedules?.map((sched) => {
+    //     const foundPos = coleredPosArray.find((p) => sched.position === p.type);
+    //     employeeList.push({
+    //           userId: sched.userId,
+    //           firstname: sched.firstname,
+    //           lastname: sched.lastname,
+    //           position: foundPos,
+    //         })
+    //   });
+    // };
+    // getEmployeeList();
+    // // console.log("emp list1", employeeList)
+    // setEmpList(()=>employeeList)
     //Set position filter with boolean
     const getInitialFilters = () => {
       const positionFilterArray = [];
@@ -114,7 +142,7 @@ const AdminSchedule = () => {
           value: true,
         });
       });
-      console.log("emp list", employeeList)
+      // console.log("emp list", employeeList)
       //add hours and selected employees filter with boolean
       const initialfilterObj = {
         hours: [
@@ -123,14 +151,15 @@ const AdminSchedule = () => {
           { type: "< 20hrs", max: 20, min: 0, value: true },
         ],
         positions: positionFilterArray,
-        employees: employeeList,
+        // employees: employeeList,
       };
-      setFilters(() => initialfilterObj);
+      setFilters((pre) => {
+        return { ...pre, ...initialfilterObj };
+      });
     };
-    
-    
+
     getInitialFilters();
-  }, [schedules]);
+  }, [schedules, resetFilter]);
 
   return (
     <div className="Admin-schedule">
@@ -159,6 +188,7 @@ const AdminSchedule = () => {
           selectedPeriodStart={selectedPeriodStart}
           setSelectedPeriodStart={setSelectedPeriodStart}
           storeTimeZone={storeTimeZone}
+          setResetFilter={setResetFilter}
         />
       </div>
     </div>

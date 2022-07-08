@@ -26,7 +26,7 @@ const DailyCalendar = (props) => {
         const day = selectedDay.clone().format("YYYY-MM-DD");
         // console.log('selectedday', day)
         const schedules = await fetch(
-          `/api/schedule/day?storeId=${storeId}&userId=${userId}&day=${day}`
+          `/api/schedule/daily?storeId=${storeId}&userId=${userId}&day=${day}`
         );
 
         const res = await schedules.json();

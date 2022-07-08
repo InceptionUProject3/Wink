@@ -1,7 +1,8 @@
 import React from "react";
+import { TbRefresh } from "react-icons/tb";
 
 const Filters = (props) => {
-  const { filters, setFilters } = props;
+  const { filters, setFilters, setResetFilter } = props;
 
   const onClickHrs = (e) => {
     const { name } = e.target;
@@ -52,7 +53,11 @@ const Filters = (props) => {
   };
 
   return (
-    <>
+    <div className="filters">
+      <div className="filters-refreshNtitle">
+        <div className="filters-title">Filters:</div>
+        <TbRefresh onClick={() => setResetFilter((pre) => !pre)} />
+      </div>
       <div className="hours-container">
         <label>Availabilty</label>
         <div className="hours">
@@ -97,7 +102,7 @@ const Filters = (props) => {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

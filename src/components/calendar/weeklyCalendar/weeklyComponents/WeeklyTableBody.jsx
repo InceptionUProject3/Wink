@@ -30,7 +30,7 @@ const WeeklyTableBody = (props) => {
         //need to fetch schedule with priod from server
         const weekStart = startDay?.clone().format();
         const res = await fetch(
-          `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${weekStart}`
+          `/api/schedule/weekly?storeId=${storeId}&userId=${userId}&startDay=${weekStart}`
         );
         const scheduleData = await res.json();
           
