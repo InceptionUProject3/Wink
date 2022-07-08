@@ -45,7 +45,7 @@ const WeeklyTableBody = (props) => {
           ]);
         setPositions(positionArray);
       } catch (err) {
-        console.log("failed to fetch schedule data", err);
+        console.log("Failed to fetch schedule data", err);
         setMySched(() => null);
         setCoworkersSched(() => null);
       }

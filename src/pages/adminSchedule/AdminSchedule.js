@@ -74,7 +74,7 @@ const AdminSchedule = () => {
           `/api/schedule/weekly?storeId=${storeId}&userId=${userId}&startDay=${startDay}`
         );
         const scheduleData = await data.json();
-        console.log("fetching schedule data", scheduleData);
+        console.log("Fetched weekly schedule data", scheduleData);
 
         const scheduleArray = [
           ...scheduleData.mySchedules,
@@ -82,7 +82,7 @@ const AdminSchedule = () => {
         ];
         setSchedules(() => scheduleArray);
       } catch (err) {
-        console.log("failed to fetch schedule data", err);
+        console.log("Failed to fetch schedule data", err);
         setSchedules(() => null);
       }
     };
@@ -116,22 +116,7 @@ const AdminSchedule = () => {
   useEffect(() => {
     //set position variables which List
     const coleredPosArray = setPositionList(schedules);
-    // //set EmployeeList for employee filter
-    // const employeeList =[]
-    // const getEmployeeList = () => {
-    //   schedules?.map((sched) => {
-    //     const foundPos = coleredPosArray.find((p) => sched.position === p.type);
-    //     employeeList.push({
-    //           userId: sched.userId,
-    //           firstname: sched.firstname,
-    //           lastname: sched.lastname,
-    //           position: foundPos,
-    //         })
-    //   });
-    // };
-    // getEmployeeList();
-    // // console.log("emp list1", employeeList)
-    // setEmpList(()=>employeeList)
+    
     //Set position filter with boolean
     const getInitialFilters = () => {
       const positionFilterArray = [];
@@ -142,7 +127,6 @@ const AdminSchedule = () => {
           value: true,
         });
       });
-      // console.log("emp list", employeeList)
       //add hours and selected employees filter with boolean
       const initialfilterObj = {
         hours: [

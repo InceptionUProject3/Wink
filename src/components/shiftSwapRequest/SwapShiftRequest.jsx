@@ -30,15 +30,14 @@ const SwapShiftRequest = (props) => {
     const getMySchedules = async () => {
       try {
         const data = await fetch(
-          // `/api/schedule/shiftswap?storeId=${storeId}&myId=${userId}&from=${today}`
           `/api/swapShift/swapShiftRequest?storeId=${storeId}&myId=${userId}&from=${today}`
         );
         const dataObj = await data.json();
-        console.log("data", dataObj);
+        console.log("Fetched schedules for shift swap", dataObj);
         setMySchdules(() => dataObj.mySchedules);
         setSwapList(() => dataObj.schedulestoSwap);
       } catch (err) {
-        console.log("failed to fetch my schedule data", err);
+        console.log("Failed to fetch schedules for shift swap", err);
         setMySchdules(() => null);
       }
     };
@@ -47,13 +46,12 @@ const SwapShiftRequest = (props) => {
 
 
   const updateReq = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
     setRequest((pre) => {
       if (type === "radio") {
         console.log('radio', name)
         return {
           ...pre,
-          // swapAvailableId: {id:name,boolean:false},
           swapAvailableId: name*1,
         };
       }else if(name==="date"){
@@ -66,9 +64,6 @@ const SwapShiftRequest = (props) => {
       }
     });
   };
-
-  // console.log("swap", swapList)
-  console.log("Request to send", request);
 
   return (
     <div className="Shiftswap">
@@ -123,7 +118,6 @@ const SwapShiftRequest = (props) => {
                     onChange={updateReq}
                     value={request.swapAvailableId}
                     key={`swapAvailList ${i}`}
-                    // checked={request.swapAvailable.boolean || false}
                     checked={request.swapAvailableId===s.idSchedule}
                   />
                   <label htmlFor={s.idSchedule} className="Schedule-label" key={`swapAvaillable ${i}`}>

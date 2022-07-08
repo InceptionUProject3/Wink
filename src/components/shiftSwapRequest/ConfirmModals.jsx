@@ -13,25 +13,29 @@ const ConfirmModals = (props) => {
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [message, setMessage] = useState();
-  
+
   const submitAction = async (e) => {
     e.preventDefault();
 
-    const dataToSend = JSON.stringify(request);
-    const response = await fetch(`/api/swapShift/swapShiftRequest`, {
-      method: "POST",
-      headers: { "content-Type": "application/json" },
-      body: dataToSend,
-    });
-    
-    if (response.status === 200) {
-      console.log("success");
+    try {
+      const dataToSend = JSON.stringify(request);
+      const response = await fetch(`/api/swapShift/swapShiftRequest`, {
+        method: "POST",
+        headers: { "content-Type": "application/json" },
+        body: dataToSend,
+      });
 
-     
-      setConfirmModalOpen(false);
-      setSuccessModalOpen(true)
+      if (response.status === 200) {
+        console.log("Succeed to submit your request");
+
+        setConfirmModalOpen(false);
+        setSuccessModalOpen(true);
+      }
+    } catch (err) {
+      console.log("Failed to submit your request");
     }
   };
+
   const buttonOnclick = (e) => {
     if (!request.date) {
       return setMessage("Date is required");
@@ -39,20 +43,23 @@ const ConfirmModals = (props) => {
     if (!request.reason) {
       return setMessage("Reason is required");
     }
-    
+
     setConfirmModalOpen(true);
   };
-const successClose=()=>{
+  
+  const successClose = () => {
     setOpenModal(false);
+  };
 
-}
   return (
     <div className="Modal">
-      <button className='Request-btn' onClick={buttonOnclick}>Send request</button>
+      <button className="Request-btn" onClick={buttonOnclick}>
+        Send request
+      </button>
       <div className="Message">{message && message}</div>
       <Dialog
         open={confirmModalOpen}
-        onClose={()=>setConfirmModalOpen(false)}
+        onClose={() => setConfirmModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -63,7 +70,7 @@ const successClose=()=>{
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>setConfirmModalOpen(false)}>Cancel</Button>
+          <Button onClick={() => setConfirmModalOpen(false)}>Cancel</Button>
           <Button onClick={submitAction} autoFocus>
             Confirm
           </Button>
@@ -71,14 +78,15 @@ const successClose=()=>{
       </Dialog>
       <Dialog
         open={successModalOpen}
-        onClose={()=>setSuccessModalOpen(false)}
+        onClose={() => setSuccessModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">Success</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          Your request has been sent. You can check your request status in messenger.
+            Your request has been sent. You can check your request status in
+            messenger.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

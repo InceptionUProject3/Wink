@@ -30,7 +30,7 @@ const DailyCalendar = (props) => {
         );
 
         const res = await schedules.json();
-        console.log("response schedules", res);
+        console.log("Fetched daily schedules", res);
 
         setMyDaySchedules(() => res.mySchedules);
         setCoworkerDaySchedules(() => res.coworkersSchedules);
@@ -41,7 +41,7 @@ const DailyCalendar = (props) => {
         ]);
         setPositions(() => positionArray);
       } catch (err) {
-        console.log("Failed to fetch day schedules", err);
+        console.log("Failed to fetch daily schedules", err);
         setMyDaySchedules(() => null);
         setCoworkerDaySchedules(() => null);
       }
