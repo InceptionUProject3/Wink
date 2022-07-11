@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
 import { MessageContext } from "./MessageContext";
@@ -22,7 +22,7 @@ const MessageWindow = () => {
   const [seconds, setSeconds] = useState(0);
   const location = useLocation();
   const [notification, setNotification] = useState(false);
-
+  const bottomRef = useRef(null);
 
 
   useEffect(() => {
@@ -68,6 +68,11 @@ console.log(notification);
     };
     getMessages(user);
   }, [notification]);
+
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [notification, messages]);
 
 
   return (
@@ -137,6 +142,7 @@ console.log(notification);
                       <div></div>
                     )}
                   </div>
+                  <div ref={bottomRef} />
                   </div>
                 </ListItem>
               ) : (
