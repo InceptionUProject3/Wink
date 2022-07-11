@@ -127,7 +127,7 @@ const AdminScheduleModal = ({
 
       if (selectedSched.idSchedule) {
         //edit schedule
-        console.log("editing schedule... on ", selectedSched);
+        console.log("editing schedule... ", selectedSched);
         const dataToSend = JSON.stringify(selectedSched);
         const response = await fetch(`/api/schedule/scheduling`, {
           method: "PATCH",
@@ -135,7 +135,7 @@ const AdminScheduleModal = ({
           body: dataToSend,
         });
         if (response.status === 200) {
-          console.log(await response.json());
+          console.log("Succeed in editing schedule");
 
           resetEvent();
         }
@@ -149,7 +149,7 @@ const AdminScheduleModal = ({
           body: dataToSend,
         });
         if (response.status === 200) {
-          console.log(await response.json());
+          console.log("Succeed in creating schedule");
           resetEvent();
         }
       }
@@ -157,7 +157,7 @@ const AdminScheduleModal = ({
       setOpen(false);
       setMessage();
     } catch (err) {
-      console.log("Saving schedule action is failed.");
+      console.log("Failed to save data");
     }
   };
 

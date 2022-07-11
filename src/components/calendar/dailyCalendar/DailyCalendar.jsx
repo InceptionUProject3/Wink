@@ -26,11 +26,11 @@ const DailyCalendar = (props) => {
         const day = selectedDay.clone().format("YYYY-MM-DD");
         // console.log('selectedday', day)
         const schedules = await fetch(
-          `/api/schedule/day?storeId=${storeId}&userId=${userId}&day=${day}`
+          `/api/schedule/daily?storeId=${storeId}&userId=${userId}&day=${day}`
         );
 
         const res = await schedules.json();
-        console.log("response schedules", res);
+        console.log("Fetched daily schedules", res);
 
         setMyDaySchedules(() => res.mySchedules);
         setCoworkerDaySchedules(() => res.coworkersSchedules);
@@ -41,7 +41,7 @@ const DailyCalendar = (props) => {
         ]);
         setPositions(() => positionArray);
       } catch (err) {
-        console.log("Failed to fetch day schedules", err);
+        console.log("Failed to fetch daily schedules", err);
         setMyDaySchedules(() => null);
         setCoworkerDaySchedules(() => null);
       }

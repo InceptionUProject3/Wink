@@ -2,8 +2,6 @@ import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
 import React, { useMemo } from "react";
-import { useCallback } from "react";
-import { useState } from "react";
 import { IconContext } from "react-icons";
 import {
   MdOutlineArrowBackIos,
@@ -27,6 +25,7 @@ const Sidebar = (props) => {
     setSelectedPeriodStart,
     selectedPeriodStart,
     storeTimeZone,
+    setResetFilter
   } = props;
 
   //Display scheduling periods in sidebar
@@ -43,7 +42,7 @@ const Sidebar = (props) => {
   };
 
   const displayedPeriod = useMemo(() => {
-    console.log("expansive calc");
+    // console.log("expansive calc");
     const start = selectedPeriodStart?.format("YYYY-MM-DD");
     const end = selectedPeriodStart
       ?.clone()
@@ -65,7 +64,7 @@ const Sidebar = (props) => {
     setSelectedPeriodStart((pre) => pre?.clone().add(4, "weeks"));
   };
 
-  const onClickRefresh = () => {
+  const refreshPeriod = () => {
     setSelectedPeriodStart(moment.tz(moment(), storeTimeZone).startOf("week"));
   };
 
@@ -90,6 +89,7 @@ const Sidebar = (props) => {
     }
   };
 
+
   return (
     <div className="Side-bar">
       <div className="Period-container">
@@ -101,7 +101,7 @@ const Sidebar = (props) => {
               <MdOutlineArrowForwardIos onClick={moveToNextFour} />
             </IconContext.Provider>
           </div>
-          <TbRefresh onClick={onClickRefresh} />
+          <TbRefresh onClick={refreshPeriod} />
         </div>
         <div className="Date-choice-box">
           <label>Period:</label>
@@ -118,8 +118,7 @@ const Sidebar = (props) => {
         className="userFilter"
         style={{ display: "flex", flexDirection: "column" }}
       >
-        <div className="filters-title">Filters:</div>
-        <div className="filters">
+        
           <div className="user-filter">
             <Autocomplete
               multiple
@@ -162,9 +161,9 @@ const Sidebar = (props) => {
               onChange={(e, newVal) => updateUserFilter(e, newVal)}
             />
           </div>
-          <Filters filters={filters} setFilters={setFilters} />
+          <Filters filters={filters} setFilters={setFilters} setResetFilter={setResetFilter}/>
         </div>
-      </div>
+      
     </div>
   );
 };

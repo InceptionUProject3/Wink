@@ -53,6 +53,7 @@ const ClickableScheduleBar = ({
       setSelectedSched((pre) => {
         console.log(
           "Modal - creating schedule",
+          employeeSched,
           employeeSched.userId,
           employeeSched.storeId
         );

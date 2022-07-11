@@ -16,7 +16,7 @@
     margin-bottom: 0.5rem;
     justify-content: center;
     font-size: 0.8em;
-
+    
 }
 .Side-bar>.Period-container>.RangeNrefresh-container>.Range-container{
     display: flex;
@@ -68,12 +68,12 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    /* justify-content: flex-start; */
+    width: 95%;
     align-items: flex-start;
 }
-.userFilter>.filters-title{
+/* .userFilter>.filters-title{
     margin: 0;
-}
+} */
 
 .userFilter>.filters{
     display: flex;
@@ -100,7 +100,14 @@
     gap:0.2em;
     
 }
-
+.filters>.filters-refreshNtitle{
+    flex-direction: row;
+    justify-content: space-between;
+}
+.filters>.filters-refreshNtitle>svg{
+    cursor: pointer;
+    font-size:0.8em;
+}
 .filters button{
     border-radius: 0.4rem;
     height: 1.8em;
@@ -120,14 +127,14 @@
 }
 
 
-.filters>.user-filter{
+.userFilter>.user-filter{
     width: 100%;  
 }
- .filters>.user-filter>div{
+.userFilter>.user-filter>div{
     width: 100%;  
 } 
 
-.filters>.user-filter>div>div>div>div>button{
+.userFilter>.user-filter>div>div>div>div>button{
     height: 100%;
  }  
 

@@ -4,6 +4,7 @@ import DisplayMySched from "./weeklyTableBody/DisplayMySched";
 import setPositionList from "../../../Reusables/functions/setPositionList";
 import { LoginContext } from "../../../authentication/LoginProvider";
 import { StoreContext } from "../../../authentication/StoreProvider";
+import moment from "moment";
 
 const WeeklyTableBody = (props) => {
   const { selectedDay, settingHrsObj, daysInWeek, timezone, filter } =
@@ -19,7 +20,7 @@ const WeeklyTableBody = (props) => {
 
   const startDay = selectedDay?.clone().startOf("week");
 
-  // console.log("userid : ", userId, "storeid : ", storeId);
+
 
   //set schdules & position colors
   useEffect(() => {
@@ -29,10 +30,10 @@ const WeeklyTableBody = (props) => {
         //need to fetch schedule with priod from server
         const weekStart = startDay?.clone().format();
         const res = await fetch(
-          `/api/schedule/week?storeId=${storeId}&userId=${userId}&startDay=${weekStart}`
+          `/api/schedule/weekly?storeId=${storeId}&userId=${userId}&startDay=${weekStart}`
         );
         const scheduleData = await res.json();
-
+          
         setMySched(() => scheduleData.mySchedules);
         setCoworkersSched(() => scheduleData.coworkersSchedules);
         //enable this line chduleData
@@ -44,7 +45,7 @@ const WeeklyTableBody = (props) => {
           ]);
         setPositions(positionArray);
       } catch (err) {
-        console.log("failed to fetch schedule data", err);
+        console.log("Failed to fetch schedule data", err);
         setMySched(() => null);
         setCoworkersSched(() => null);
       }
