@@ -7,7 +7,9 @@ import {
   DialogTitle,
 } from "@mui/material";
 import moment from "moment";
-import React from "react";
+import React, { useContext } from "react";
+import { LoginContext } from "../../../authentication/LoginProvider";
+import { StoreContext } from "../../../authentication/StoreProvider";
 
 const DeleteConfirmModal = ({
   confirmModalOpen,
@@ -17,6 +19,9 @@ const DeleteConfirmModal = ({
   employeeSched,
   timezone,
 }) => {
+  const storeId = useContext(StoreContext).store?.Store_idStore;
+  const userId = useContext(LoginContext).user?.id;
+
   const sendDelete = async () => {
     console.log("Archiving schedule");
 
@@ -25,7 +30,10 @@ const DeleteConfirmModal = ({
       archived: true,
     };
 
-    const dataToSend = JSON.stringify(pretendDelete);
+    const dataToSend = JSON.stringify({
+      user: { User_idUser: userId, Store_idStore: storeId },
+      data: pretendDelete,
+    });
     const response = await fetch(`/api/schedule/scheduling`, {
       method: "PATCH",
       headers: { "content-Type": "application/json" },
@@ -33,6 +41,8 @@ const DeleteConfirmModal = ({
     });
     if (response.status === 200) {
       console.log(await response.json());
+    } else if (response.status === 403) {
+      console.log("Message", (await response.json()).message);
     }
     setSchedModalOpen((pre) => !pre);
     setConfirmModalOpen(false);

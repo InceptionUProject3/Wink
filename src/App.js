@@ -55,7 +55,8 @@ function App() {
                 <Route path="/logout" element={<Logout />} />
 
               {/* admin route */}
-              <Route path="/admin/schedule" mustBeAdmin element={<PrivateRoute element={<AdminSchedule />}/>} />
+              {/* <Route path="/admin/schedule" mustBeAdmin element={<PrivateRoute element={<AdminSchedule />}/>} /> */}
+              <Route path="/admin/schedule" element={<AdminSchedule />} />
               
               {/* <Route path="/events" element={<DisplayHolidays />} /> */}
             </Routes>
