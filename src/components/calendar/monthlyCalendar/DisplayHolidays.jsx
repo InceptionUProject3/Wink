@@ -17,7 +17,7 @@ const DisplayHolidays = (props) => {
       const endOfMonth = today?.clone().endOf("months");
       const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
       const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
-      //console.log("startOfHoliday   endOfHoliday",startOfMonth,endOfMonth)
+      //console.log("startOfHoliday   startOfMonth",startOfHoliday,startOfMonth)
       const res = await fetch(
         `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
       );
@@ -48,7 +48,7 @@ const DisplayHolidays = (props) => {
         //console.log("data",moment(holiday.date,("YYYY-MM-DD")))
         if (data === day.value) {
           //console.log("final destination", holiday.name )
-          return <div className="holidays">{holiday.name}</div>;
+          return <div className="holidays" key={index}>{holiday.name} </div>;
         }
         //console.log("data", data)
       })}
