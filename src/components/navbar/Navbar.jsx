@@ -81,7 +81,8 @@ const Navbar = () => {
           )}
 
         
-          {loggedInUser && isAdmin && (
+          {/* {loggedInUser && isAdmin && ( */}
+          {loggedInUser && (
             <li>
               <p className="menu">
                 <NavLink

@@ -111,7 +111,7 @@ const AdminSchedule = () => {
       return { ...pre, employees: employeeList };
     });
   },[schedules]);
-
+  console.log("schedules", schedules)
   //Set initial filter(employees, availability, positions) values
   useEffect(() => {
     //set position variables which List
