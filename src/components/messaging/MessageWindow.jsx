@@ -33,13 +33,20 @@ const MessageWindow = () => {
   }, []);
 console.log(notification);
   useEffect(() => {
+    const receiver = location.state.profile ? (
+      location.state.profile.User_idUser
+    ) : (
+      location.state.message.sender
+    );
+
     
     const getMessages = async () => {
+      console.log("location.state.message", location.state.message);
       try {
         const chat = {
           user: user.User_idUser,
           store: user.Store_idStore,
-          receiver: location.state.profile.User_idUser,
+          receiver: receiver,
         };
         console.log("sending message request: ", chat);
         const data = JSON.stringify(chat);
@@ -51,7 +58,7 @@ console.log(notification);
           body: data,
         });
         if (response.status === 200) {
-          console.log(response);
+          console.log("this is the message window response", response);
           const theMessages = JSON.parse(await response.text());
           // console.log("we have the messages", theMessages);
       
