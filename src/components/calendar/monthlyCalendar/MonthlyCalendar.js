@@ -36,6 +36,7 @@ const MonthlyCalendar = (props) => {
   const [holidaysOfMonth, setholidaysOfMonth] = useState();
   const startOfMonth = today?.clone().startOf("months");
   const endOfMonth = today?.clone().endOf("months");
+  // console.log("firstDayOfMonth", firstDayOfMonth)
 
   // console.log("startOfMonth",startOfMonth)
 
@@ -48,6 +49,7 @@ const MonthlyCalendar = (props) => {
     });
 
     const paddingDays = weekdayHeaders.indexOf(dateString.split(", ")[0]);
+    // console.log("paddingDays", paddingDays)
     const endPaddingDays = 7 - ((paddingDays + daysInMonth) % 7);
     let monthArray = [];
 
@@ -77,7 +79,7 @@ const MonthlyCalendar = (props) => {
     }
 
     setMonthsArray(monthArray);
-  }, [theDate]);
+  }, [today]);
 
   return (
     <div>
@@ -96,7 +98,10 @@ const MonthlyCalendar = (props) => {
               return (
                 <div className="eventDiv" key={`day ${index}`}>
                   <div className="eventDivDiv">
-                    <AddEvent addEvent={addEvent} />
+                    <AddEvent 
+                    addEvent={addEvent}
+                    today={today}
+                    setAddEvent={setAddEvent} />
                   </div>
                   <div className="Empty-div"></div>
 
