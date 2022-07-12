@@ -24,6 +24,7 @@ import Messenger from "./pages/messanger/Messenger";
 import AdminSchedule from "./pages/adminSchedule/AdminSchedule";
 import MessageProvider, { MessageContext } from "./components/messaging/MessageContext";
 import PrivateRoute from "./components/authentication/PrivateRoute";
+import Contacts from "./pages/messanger/Contacts";
 
 const SERVER = "http://localhost:4000";
 
@@ -40,7 +41,7 @@ function App() {
                 {/* <Route path="/location" element={<Location />} /> */}
                 <Route path="/selection" element={<ProfileSelection />} />
 
-                <Route path="/coworkers" element={<FindCoworkers />} />
+                <Route path="/coworkers" element={<Contacts/>} />
 
                 <Route path="/messenger" element={<Messenger />} />
 
