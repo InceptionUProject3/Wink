@@ -1,5 +1,6 @@
-import { List, ListItem } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../authentication/StoreProvider";
 import { MessageContext } from "./MessageContext";
 
@@ -7,6 +8,7 @@ const Unread = () => {
   const storeContext = useContext(StoreContext);
   const user = storeContext.store;
   const [unread, setUnread] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUnread = async (theUser) => {
@@ -66,8 +68,16 @@ const Unread = () => {
           unread.map((message) => {
             return (
               <ListItem>
-                {message.user_messages_senderTouser.firstname}{" "}
-                {message.user_messages_senderTouser.lastname}
+                <ListItemButton
+                  onClick={() => navigate("/messenger", { state: { message } })}
+                >
+                  <ListItemText
+                    primary={message.user_messages_senderTouser.firstname}
+                  />
+                  <ListItemText
+                    primary={message.user_messages_senderTouser.lastname}
+                  />
+                </ListItemButton>
               </ListItem>
             );
           })
