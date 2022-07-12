@@ -36,6 +36,9 @@ function App() {
           <MessageProvider>
             <BrowserRouter>
               <Navbar />
+              
+
+              
               <Routes>
                 {/* <Route path="/location" element={<Location />} /> */}
                 <Route path="/selection" element={<ProfileSelection />} />
@@ -60,6 +63,7 @@ function App() {
               
               {/* <Route path="/events" element={<DisplayHolidays />} /> */}
             </Routes>
+            
           </BrowserRouter>
           </MessageProvider>
         </StoreProvider>

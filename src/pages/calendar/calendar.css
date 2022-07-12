@@ -5,25 +5,33 @@
 .Calendars-container{
     display: flex;
     flex-direction: column;
-    margin-top: 3.7rem;
     width: 100%;
-    padding: 7em;
-     border-radius: 3.5em;
-     min-width: 36em;
+    padding: 4%;
+     /* min-width: 36em; */
      gap:1em;
 }
 
 .Calendars-container>.Calendar-header{
     display: flex;
+    flex-direction: column;
+   gap:1em;
+}
+.Calendars-container>.Calendar-header>.Calendar-buttons{
+    display: flex;
     flex-direction: row;
+    /* align-self: stretch; */
     /* justify-content: right; */
-    gap:3em;  
+    gap:2em;  
     align-items: center;
 }
 
-.Calendar-header>.View-buttons{
+.Calendar-header>.Calendar-buttons>.View-buttons{
     margin-left: auto;
 
+}
+.Calendar-header>.Display-filters-container{
+    align-self: flex-start;
+    color:var(--font-darkgrey)
 }
 .Side-modal-container{
     flex:1;

@@ -31,7 +31,7 @@ const DailyCalendarTable = (props) => {
     const iterTimes = settingHrsObj?.scheduleHrs + 2;
 
     for (let i = 0; i < iterTimes; i = i + 2) {
-      timeArray.push(dayStart?.clone().add(i, "hours").format("h:mm a"));
+      timeArray.push(dayStart?.clone().add(i, "hours").format("ha"));
     }
     // console.log("timeArray", timeArray)
     return timeArray.map((time) => <div>{time}</div>);

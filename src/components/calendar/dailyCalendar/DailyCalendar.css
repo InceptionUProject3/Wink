@@ -1,6 +1,6 @@
 .DailyCal-container{
     color: var(--font-darkgrey);
-    margin-top:5em;
+    margin-top:7%;
 }
 
 .DailyCal-container>.Weekly-summary-container{
@@ -51,7 +51,7 @@
 }
 
 .DailyCal-container>.Table-container{
-    margin-top: 5em;
+    /* margin-top: 5em; */
     height: 100%; 
     width: 100%;
     background-color: white;
@@ -62,8 +62,9 @@
 }
 .Table-container>.Table-header{
     width: 100%;
-    padding-bottom: 4em;
+    padding-bottom: 5%;
     font-weight: bold;
+    white-space: nowrap;
     color: var(--wink-color)
 }
 .Table-header>.Header-container{
@@ -75,9 +76,7 @@
     width: 80%;
     margin: 0 auto;
 }
-.Header-container>.DayInHeader{
-    width: 15%;
-}
+
 
 .Table-container>.Time-header-container{
     width: 100%;
