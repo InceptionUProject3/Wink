@@ -6,7 +6,7 @@ import "./DailyCalendar.css";
 import setPositionList from "../../Reusables/functions/setPositionList";
 import { useContext } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
-import moment from "moment";
+// import moment from "moment";
 import { LoginContext } from "../../authentication/LoginProvider";
 
 const DailyCalendar = (props) => {

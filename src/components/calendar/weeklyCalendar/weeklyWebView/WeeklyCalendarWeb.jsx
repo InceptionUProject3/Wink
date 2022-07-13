@@ -3,15 +3,17 @@ import moment from "moment";
 
 import WeeklyTableHeader from "./weeklyComponents/WeeklyTableHeader";
 import WeeklyTableBody from "./weeklyComponents/WeeklyTableBody";
-import WeeklyCalendarHeader from "./weeklyComponents/WeeklyCalendarHeader";
+import WeeklyCalendarHeader from "../../../Reusables/components/CalendarHeaderInfo";
 
-import { StoreContext } from "../../authentication/StoreProvider";
+// import { StoreContext } from "../../authentication/StoreProvider";
 
 import "./WeeklyCalendar.css";
+import DisplayDaysinWeek from "../../../Reusables/components/DisplayDaysinWeek";
 
-const WeeklyCalendar = (props) => {
+const WeeklyCalendarWeb = (props) => {
   //selectedDay is a standard day
   const { selectedDay, setSelectedDay,filter,settingHrsObj, timeZone } = props;
+
   const [daysInWeek, setDaysInWeek] = useState();
 
   useEffect(() => {
@@ -31,9 +33,8 @@ const WeeklyCalendar = (props) => {
         <WeeklyTableHeader
           selectedDay={selectedDay}
           setSelectedDay={setSelectedDay}
-          daysInWeek={daysInWeek}
         />
-
+        <DisplayDaysinWeek daysInWeek={daysInWeek} timezone={timeZone} />
         <WeeklyTableBody
           selectedDay={selectedDay}
           settingHrsObj={settingHrsObj}
@@ -46,4 +47,4 @@ const WeeklyCalendar = (props) => {
   );
 };
 
-export default WeeklyCalendar;
+export default WeeklyCalendarWeb;

@@ -1,14 +1,14 @@
 import moment from "moment";
 import React, { useState, useContext } from "react";
 import TodayButton from "../../components/Reusables/components/TodayButton";
-import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
+import WeeklyCalendar from "../../components/calendar/weeklyCalendar/weeklyWebView/WeeklyCalendarWeb";
 import ChatPopup from "../../components/messaging/ChatPopup";
 
 import PersonalTasks from "../../components/tasks/PersonalTasks";
 import Training from "../../components/training/Training";
 import "./homepage.css";
 import { StoreContext } from "../../components/authentication/StoreProvider";
-import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilters";
+import WeeklyFilters from "../../components/calendar/weeklyCalendar/weeklyWebView/WeeklyFilters";
 
 const HomePage = () => {
 const storeContext = useContext(StoreContext);

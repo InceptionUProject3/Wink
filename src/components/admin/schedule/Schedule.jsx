@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
-import WeeklyCalendarHeader from "../../calendar/weeklyCalendar/weeklyComponents/WeeklyCalendarHeader";
+import CalendarHeaderInfo from "../../Reusables/components/CalendarHeaderInfo";
 import ClickableSchedules from "./scheduleComponents/ClickableSchedules";
 
 import ScheduleTableHeader from "./scheduleComponents/ScheduleTableHeader";
@@ -35,7 +35,7 @@ const Schedule = (props) => {
 
   return (
     <div>
-      <WeeklyCalendarHeader 
+      <CalendarHeaderInfo
       settingHrsObj={settingHrsObj}
        />
       <div className="Admin-weekly-calendar">

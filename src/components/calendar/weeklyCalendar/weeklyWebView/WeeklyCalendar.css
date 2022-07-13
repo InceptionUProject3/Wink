@@ -1,6 +1,6 @@
 
 
-.Table-info-header{
+/* .Table-info-header{
     display: flex;
     flex-direction: column;
     gap: 0.5em;
@@ -48,7 +48,7 @@
     align-self: start;
     display: flex;
     gap: 0.4em;
-}
+} */
 .Weekly-calendar{
     display: grid;
     grid-template-columns: 1fr repeat(7,minmax(4.4em,1fr));

@@ -1,7 +1,9 @@
 import React from "react";
 import { VscCircleFilled } from "react-icons/vsc";
 
-const WeeklyCalendarHeader = (props) => {
+import "./style/calendarHeaderInfo.css"
+
+const CalendarHeaderInfo = (props) => {
   const { startTimeOfDay, scheduleHrs } = props.settingHrsObj;
   const storeClose = startTimeOfDay?.clone().add(scheduleHrs, "hours");
 
@@ -38,4 +40,4 @@ const WeeklyCalendarHeader = (props) => {
   );
 };
 
-export default WeeklyCalendarHeader;
+export default CalendarHeaderInfo;
