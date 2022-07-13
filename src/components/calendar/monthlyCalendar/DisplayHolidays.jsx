@@ -11,33 +11,33 @@ const DisplayHolidays = (props) => {
     endOfMonth,
   } = props;
   //console.log("startOfMonth",startOfMonth )
-  useEffect(() => {
-    const getMonHolidays = async () => {
-      const startOfMonth = today?.clone().startOf("months");
-      const endOfMonth = today?.clone().endOf("months");
-      const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
-      const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
-      //console.log("startOfHoliday   startOfMonth",startOfHoliday,startOfMonth)
-      const res = await fetch(
-        `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
-      );
-      const holidaysData = await res.json();
-      //console.log("holidaysData", holidaysData);
-      const newHoliday = [];
-      holidaysData?.holidayData.map((holiday) => {
-        const newdate = moment
-          .tz(holiday.event_date, "UTC")
-          .format("YYYY-MM-DD");
-        newHoliday.push({ date: newdate, name: holiday.nameEn });
-        //console.log("holiday", newdate)
-      });
-      //console.log("newHoliday", newHoliday)
+  // useEffect(() => {
+  //   const getMonHolidays = async () => {
+  //     const startOfMonth = today?.clone().startOf("months");
+  //     const endOfMonth = today?.clone().endOf("months");
+  //     const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
+  //     const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
+  //     console.log("startOfHoliday   startOfMonth",startOfHoliday,startOfMonth)
+  //     const res = await fetch(
+  //       `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
+  //     );
+  //     const holidaysData = await res.json();
+  //     //console.log("holidaysData", holidaysData);
+  //     const newHoliday = [];
+  //     holidaysData?.holidayData.map((holiday) => {
+  //       const newdate = moment
+  //         .tz(holiday.event_date, "UTC")
+  //         .format("YYYY-MM-DD");
+  //       newHoliday.push({ date: newdate, name: holiday.nameEn });
+  //       //console.log("holiday", newdate)
+  //     });
+  //     console.log("newHoliday", newHoliday)
 
-      setholidaysOfMonth(() => newHoliday);
-    };
+  //     setholidaysOfMonth( newHoliday);
+  //   };
 
-    startOfMonth && getMonHolidays();
-  }, [today]);
+  //   startOfMonth && getMonHolidays();
+  // }, [today]);
   //console.log("holidaysOfMonth",holidaysOfMonth)
 
   return (

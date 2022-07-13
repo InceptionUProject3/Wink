@@ -7,6 +7,17 @@ import { LoginContext } from "../../authentication/LoginProvider";
 import { StoreContext } from "../../authentication/StoreProvider";
 import DisplayHolidays from "./DisplayHolidays";
 import MonthlySchedBar from "./MonthlySchedBar";
+import moment from "moment";
+
+const weekdayHeaders = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 const MonthlyCalendar = (props) => {
   const userId = useContext(LoginContext).user?.id || 9;
@@ -15,30 +26,82 @@ const MonthlyCalendar = (props) => {
 
   // console.log("positions",positions)
 
-  const weekdayHeaders = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  
 
   const [theDate, setDate] = useState(new Date());
   const month = theDate.getMonth();
   const year = theDate.getFullYear();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfMonth = new Date(year, month, 1);
+  //const firstDayOfMonth = new Date(year, month, 1);
+  const [firstDayOfMonth, setFirstDayOfMonth] = useState(
+    new Date(year, month, 1)
+  );
   const [monthsArray, setMonthsArray] = useState();
   const [addEvent, setAddEvent] = useState(false);
   const [myMonSched, setMonSched] = useState();
   const [holidaysOfMonth, setholidaysOfMonth] = useState();
-  const startOfMonth = today?.clone().startOf("months");
-  const endOfMonth = today?.clone().endOf("months");
-  // console.log("firstDayOfMonth", firstDayOfMonth)
+  const [startOfMonth, setStartOfMonth] = useState();
+  //const startOfMonth = today?.clone().startOf("month");
+  const endOfMonth = today?.clone().endOf("month");
+  //console.log("month", month)
 
-  // console.log("startOfMonth",startOfMonth)
+  useEffect(() => {
+    const start = today?.clone().startOf("month");
+    setFirstDayOfMonth(new Date(year, month, 1));
+    setStartOfMonth(start);
+  }, [today, month, year]);
+  //console.log("startOfMonth", startOfMonth);
+
+  useEffect(() => {
+    const getAllSchedules = async () => {
+      try {
+        const monthStart = startOfMonth.clone().format("YYYY-MM-DD");
+        //console.log("today, startOfMonth", today, startOfMonth);
+        const res = await fetch(
+          `/api/schedule/monthly?storeId=${storeId}&userId=${userId}&startOfMonth=${monthStart}`
+        );
+        const scheduleData = await res.json();
+        //console.log('fetched data', scheduleData)
+        setMonSched(() => scheduleData.mySchedules[0].schedules);
+      } catch (err) {
+        console.log("failed to fetch schedule data", err);
+        setMonSched(() => null);
+      }
+    };
+    startOfMonth && getAllSchedules();
+  }, [today, storeId,startOfMonth,userId]);
+
+  useEffect(() => {
+    const getMonHolidays = async () => {
+      const startOfMonth = today?.clone().startOf("months");
+      const endOfMonth = today?.clone().endOf("months");
+      const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
+      const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
+      console.log(
+        "startOfHoliday   startOfMonth",
+        startOfHoliday,
+        startOfMonth
+      );
+      const res = await fetch(
+        `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
+      );
+      const holidaysData = await res.json();
+      //console.log("holidaysData", holidaysData);
+      const newHoliday = [];
+      holidaysData?.holidayData.map((holiday) => {
+        const newdate = moment
+          .tz(holiday.event_date, "UTC")
+          .format("YYYY-MM-DD");
+        newHoliday.push({ date: newdate, name: holiday.nameEn });
+        //console.log("holiday", newdate)
+      });
+      console.log("newHoliday", newHoliday);
+
+      setholidaysOfMonth(newHoliday);
+    };
+
+    startOfMonth && getMonHolidays();
+  }, [today,startOfMonth]);
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -52,7 +115,7 @@ const MonthlyCalendar = (props) => {
     // console.log("paddingDays", paddingDays)
     const endPaddingDays = 7 - ((paddingDays + daysInMonth) % 7);
     let monthArray = [];
-
+    //console.log("days in month", daysInMonth);
     for (let i = 1; i <= paddingDays + daysInMonth; i++) {
       const dayString = `${month + 1}/${i - paddingDays}/${year}`;
       if (i > paddingDays) {
@@ -79,8 +142,9 @@ const MonthlyCalendar = (props) => {
     }
 
     setMonthsArray(monthArray);
-  }, [today]);
+  }, [today, firstDayOfMonth,daysInMonth,month,year]);
 
+  // daysInMonth,month,weekdayHeaders,year
   return (
     <div>
       <div>
@@ -98,10 +162,12 @@ const MonthlyCalendar = (props) => {
               return (
                 <div className="eventDiv" key={`day ${index}`}>
                   <div className="eventDivDiv">
-                    <AddEvent 
-                    addEvent={addEvent}
-                    today={today}
-                    setAddEvent={setAddEvent} />
+                    <AddEvent
+                      addEvent={addEvent}
+                      today={today}
+                      setAddEvent={setAddEvent}
+                      holidaysOfMonth={holidaysOfMonth}
+                    />
                   </div>
                   <div className="Empty-div"></div>
 

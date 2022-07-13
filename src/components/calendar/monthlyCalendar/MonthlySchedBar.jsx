@@ -3,24 +3,24 @@ import React, { useEffect } from "react";
 
 const MonthlySchedBar = (props) => {
   const {startOfMonth,storeId,userId,setMonSched,myMonSched,today,day} = props
-  useEffect(() => {
-    const getAllSchedules = async () => {
-      try {
-        const monthStart = startOfMonth.clone().format("YYYY-MM-DD");
-        //console.log("today, startOfMonth", today, startOfMonth);
-        const res = await fetch(
-          `/api/schedule/monthly?storeId=${storeId}&userId=${userId}&startOfMonth=${monthStart}`
-        );
-        const scheduleData = await res.json();
-        //console.log('fetched data', scheduleData)
-        setMonSched(() => scheduleData.mySchedules[0].schedules);
-      } catch (err) {
-        console.log("failed to fetch schedule data", err);
-        setMonSched(() => null);
-      }
-    };
-    startOfMonth && getAllSchedules();
-  }, [today, storeId]);
+  // useEffect(() => {
+  //   const getAllSchedules = async () => {
+  //     try {
+  //       const monthStart = startOfMonth.clone().format("YYYY-MM-DD");
+  //       //console.log("today, startOfMonth", today, startOfMonth);
+  //       const res = await fetch(
+  //         `/api/schedule/monthly?storeId=${storeId}&userId=${userId}&startOfMonth=${monthStart}`
+  //       );
+  //       const scheduleData = await res.json();
+  //       //console.log('fetched data', scheduleData)
+  //       setMonSched(() => scheduleData.mySchedules[0].schedules);
+  //     } catch (err) {
+  //       console.log("failed to fetch schedule data", err);
+  //       setMonSched(() => null);
+  //     }
+  //   };
+  //   startOfMonth && getAllSchedules();
+  // }, [today, storeId]);
 
   //console.log("my month Schedule", myMonSched);
 
