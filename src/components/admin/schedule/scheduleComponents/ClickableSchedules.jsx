@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../Reusables/components/ProfileSmall";
@@ -20,6 +20,7 @@ const ClickableSchedules = (props) => {
 
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState([]);
+  console.log('schedules', schedules)
   const [filteredEmpSched, setFilteredEmpSched] = useState(schedules);
 
   //filter update
@@ -43,7 +44,8 @@ const ClickableSchedules = (props) => {
       const newSched = [];
       filterHrs?.map((avail) => {
         const foundSched = filteredEmpSchedArray?.filter((sched) => {
-          const availinWeek = sched.availability.availHrsinWeek;
+          const availinWeek = sched.availability?.availHrsinWeek;
+          if(!availinWeek) return true
           if (avail.value) {
             if (avail.min && avail.max) {
               return availinWeek >= avail.min && availinWeek < avail.max;
@@ -79,6 +81,7 @@ const ClickableSchedules = (props) => {
 
   //after all filters applied, group schedule by positions.
   useEffect(() => {
+    
     const groupedObj = groupByPosition(filteredEmpSched);
     setGroupedProfs(() => groupedObj);
   }, [filteredEmpSched]);
@@ -105,10 +108,11 @@ const ClickableSchedules = (props) => {
     <>
       {filteredPos?.map((position, i) => {
         const empInPositon = groupedProfs && groupedProfs[position.type];
+        // console.log("employee",empInPositon)
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
             const calcHrsinWeek = calculateWeekHrs(emp);
-            const schedHrsinWeek = emp.availability.availHrsinWeek;
+            const schedHrsinWeek = emp.availability?.availHrsinWeek;
             return (
               <React.Fragment key={`OtherScheds ${i} ${index}`}>
                 <ProfileSmall

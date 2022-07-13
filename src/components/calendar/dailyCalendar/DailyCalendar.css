@@ -1,6 +1,6 @@
 .DailyCal-container{
     color: var(--font-darkgrey);
-    margin-top:5em;
+    margin-top:7%;
 }
 
 .DailyCal-container>.Weekly-summary-container{
@@ -51,19 +51,21 @@
 }
 
 .DailyCal-container>.Table-container{
-    margin-top: 5em;
+    /* margin-top: 5em; */
     height: 100%; 
     width: 100%;
     background-color: white;
-    border-radius: 3em;
+    /* border-radius: 3em; */
     display: flex;
+   /* margin: 0 auto; */
     flex-direction: column;
 
 }
 .Table-container>.Table-header{
     width: 100%;
-    padding-bottom: 4em;
+    padding-bottom: 5%;
     font-weight: bold;
+    white-space: nowrap;
     color: var(--wink-color)
 }
 .Table-header>.Header-container{
@@ -75,12 +77,11 @@
     width: 80%;
     margin: 0 auto;
 }
-.Header-container>.DayInHeader{
-    width: 15%;
-}
+
 
 .Table-container>.Time-header-container{
     width: 100%;
+    overflow: hidden;
 }
 .Table-container>.Time-header-container>.Time-header{
     display: grid;
@@ -91,12 +92,14 @@
 }
 .Table-container>.Time-header-container>.Time-header>div{
     font-size: 10%;
+    overflow: hidden;
 }
 
 .Table-container>.Table-body-container{
     display: grid;
     grid-template-columns: 20% 1fr;
-    grid-template-rows: repeat(auto-fit, minmax(1em, 1fr));
+    /* grid-template-rows: repeat(auto-fit, minmax(1em, 1fr)); */
+    grid-auto-rows: 1fr;
     position: relative;
     padding-top: 1em;
     width: 90%;
@@ -126,11 +129,32 @@
     align-items: center;
     justify-content: center;
     gap:1em;
-    height: 2em;
-    padding: 5% 15% ;
+    /* height: 2em; */
+    padding: 5% 5% ;
     font-size: 0.75em;
-    width: 70%;
+    /* width: 70%; */
     
+}
+@media screen and (max-width:677px) {
+    .Table-container>.Table-body-container{
+        
+        grid-template-columns: 35% 1fr;}
+        .Table-body-container>.gridLines{
+            left:35%;
+            width: 65%;
+        }
+    .Time-header{
+        margin-left: 32% !important;
+        width: 65% !important;
+        
+    }    
+    
+   
+   .profile-container{
+
+       flex-direction: column !important;
+       gap:0.2em !important;
+   }
 }
 .profile-container.my>.name{
 font-weight: bold;
@@ -172,8 +196,8 @@ font-weight: bold;
     position: absolute;
     top: 2em;
     width: 100%;
-    height: 2em;
+    height: fit-content;
     font-size: 0.8em;
-    background-color: white;
+    /* background-color: white; */
     white-space: nowrap;
 }

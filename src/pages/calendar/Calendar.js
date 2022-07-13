@@ -1,5 +1,5 @@
-import React, { useContext,  useState } from "react";
-import { Route, Routes, useLocation} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import moment from "moment";
 import "moment-timezone";
 
@@ -19,18 +19,19 @@ import "./calendar.css";
 const Calendar = () => {
   const [filter, setFilter] = useState("All");
   const filterList = ["All", "My Position", "Working"];
-// console.log("filter in calendar", filter)
+  // console.log("filter in calendar", filter)
   const [selectedDay, setSelectedDay] = useState(moment());
   const [openModal, setOpenModal] = useState(false);
 
-  const calendar = useLocation()?.pathname.split('/').pop();
-  console.log("calendar", calendar)
+  const calendar = useLocation()?.pathname.split("/").pop();
+  console.log("calendar", calendar);
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const userTimeZone = moment.tz.guess();
   //  console.log(userTimeZone)
   const [settingHrsObj, setSettingHrsObj] = useState({
-    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone), scheduleHrs: 18
+    startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone),
+    scheduleHrs: 18,
   });
   // const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
   // const scheduleHrs = 18;
@@ -39,10 +40,18 @@ const Calendar = () => {
     <div className="Calendars">
       <div className="Calendars-container">
         <div className="Calendar-header">
-          <RequestSwapBtn setOpenModal={setOpenModal} />
-          {calendar==="weekly"&&<WeeklyFilters filter={filter} setFilter={setFilter} filterList={filterList} />}
-          <ViewButtons />
-          <TodayButton setSelectedDay={setSelectedDay} />
+          <div className="Calendar-buttons">
+            <RequestSwapBtn setOpenModal={setOpenModal} />
+            <ViewButtons />
+            <TodayButton setSelectedDay={setSelectedDay} />
+          </div>
+            {calendar === "weekly" && (
+              <WeeklyFilters
+                filter={filter}
+                setFilter={setFilter}
+                filterList={filterList}
+              />
+            )}
         </div>
         <div className="Calendar-view">
           <Routes>

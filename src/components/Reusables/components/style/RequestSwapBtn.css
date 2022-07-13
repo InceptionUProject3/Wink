@@ -1,6 +1,7 @@
 .swapshift{
     
     height: 2.1rem;
+    /* height: fit-content; */
     width: 5rem;
     border: none;
     border-radius: 0.5rem;
@@ -10,7 +11,7 @@
     font-weight: bold;
        /* font-stretch:ultra-condensed; */
        /* box-shadow: var(--button-shadow); */
-    font-size: 0.7em;
+    font-size: 0.6em;
     cursor: pointer;
 }  
     .swapshift:active{
