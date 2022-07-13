@@ -46,16 +46,27 @@ const Messenger = () => {
         {" "}
         <BiArrowBack style={{ position: "absolute", left: "0vw" 
       }}onClick={() => navigate("/coworkers")} size={40} />
-        <h2 >  {location.state.profile.user.firstname}{" "}
-        {location.state.profile.user.lastname}</h2>
+      {location.state.profile? (
+       <h2>  {location.state.profile.user.firstname} {" "} 
+       {location.state.profile.user.lastname} </h2>
+      )  : ( <h2>{location.state.message.user_messages_senderTouser.firstname}{" "}
+      {location.state.message.user_messages_senderTouser.lastname}</h2>)
+      }
 
       </div>
+
+        
+
       <MessageWindow
-        setReceiver={location.state.profile.User_idUser}
+        setReceiver={location.state.profile ? (
+          location.state.profile.User_idUser ) : (
+            location.state.message.receiver)}
         style={{ display: "flex" }}
       />
       <Message
-        receiver={location.state.profile.User_idUser}
+        receiver={location.state.profile ? (
+          location.state.profile.User_idUser ) : (
+            location.state.message.receiver)}
         style={{ marginBottom: "5vh" }}
       />
     </div>

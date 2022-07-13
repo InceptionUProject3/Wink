@@ -7,12 +7,18 @@ import {
   DialogTitle,
 } from "@mui/material";
 import React, { useState } from "react";
+import { MessageContext } from "../messaging/MessageContext";
+import { StoreContext } from "../authentication/StoreProvider";
+import { useContext } from "react";
+
 
 const ConfirmModals = (props) => {
   const { request, setOpenModal } = props;
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [message, setMessage] = useState();
+  const socket = useContext(MessageContext).socketRef;
+  const user = useContext(StoreContext).store;
 
   const submitAction = async (e) => {
     e.preventDefault();
@@ -27,7 +33,18 @@ const ConfirmModals = (props) => {
       });
 
       if (response.status === 200) {
-        console.log("Succeed to submit your request");
+        // const shiftMessage = {
+        //   sender: req.body.sender,
+        //   receiver: req.body.receiver,
+        //   chat: req.body.chat,
+        //   user_id: req.body.sender,
+        //   user_privilages: 1002,
+        //   msg_timeStamp: new Date(),
+        //   store: req.body.store,
+        //   read_receits: false,
+        // }
+        console.log("Succeed to submit your request", user);
+        // socket.emit("shiftswap", request);
 
         setConfirmModalOpen(false);
         setSuccessModalOpen(true);
