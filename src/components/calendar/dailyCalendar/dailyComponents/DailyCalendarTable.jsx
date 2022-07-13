@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import DailyTableBody from "./DailyTableBody";
 import { DailyTableHeader } from "./DailyTableHeader";
 
@@ -19,7 +19,17 @@ const DailyCalendarTable = (props) => {
     timezone,
   } = props;
 
+  const [width, setWidth] = useState(window.innerWidth)
   // const userId = useContext(LoginContext).user?.id || 9;
+useEffect(()=>{
+  function handleResize(){
+    setWidth(window.innerWidth);
+  }
+  window.addEventListener('resize', handleResize);
+  return ()=>{
+    window.removeEventListener('resize', handleResize);
+  }
+})
 
   const dayStart = selectedDay
     ?.clone()
@@ -29,26 +39,31 @@ const DailyCalendarTable = (props) => {
     });
   const dayEnd = dayStart?.clone().add(settingHrsObj?.scheduleHrs, "hours");
   // console.log("Daily: day start and end", selectedDay, dayStart, dayEnd, storeOpen, scheduleHrs)
+
   const displayTimes = () => {
     const timeArray = [];
     const iterTimes = settingHrsObj?.scheduleHrs + 2;
-    const { innerWidth: width } = window;
-    console.log("width", width);
-    for (let i = 0; i < iterTimes; i = i + 2) {
-      timeArray.push(dayStart?.clone().add(i, "hours").format("ha"));
-    }
-    // if (width > 677) {
+    
+    //mobile view
+    if (width <= 677) {
+      
+      for (let i = 0; i < iterTimes; i = i + 2) {
+        timeArray.push(dayStart?.clone().add(i, "hours").format("hh"));
+      }
+      return timeArray.map((time, i) => {
+        // if ((i + 1) % 2 === 1) {
+          return <div className={`time num${(i + 1) % 2}`}>{time}</div>;
+        // }
+      });
+    }else {
+      for (let i = 0; i < iterTimes; i = i + 2) {
+        timeArray.push(dayStart?.clone().add(i, "hours").format("ha"));
+      }
       return timeArray.map((time, i) => (
         <div className={`time num${(i + 1) % 2}`}>{time}</div>
       ));
-    // }
-    //  else {
-      // return timeArray.map((time, i) => {
-      //   if ((i + 1) % 2 === 1) {
-      //     return <div className={`time num${(i + 1) % 2}`}>{time}</div>;
-      //   }
-      // });
-    // }
+      
+    }
 
     //   // console.log("timeArray", timeArray)
   };

@@ -21,6 +21,7 @@ const SwapShiftRequest = (props) => {
     date: "",
     reason: "",
     swapAvailableId: "",
+    approved:false
   });
 
   useEffect(() => {

@@ -19,6 +19,7 @@ const ConfirmModals = (props) => {
 
     try {
       const dataToSend = JSON.stringify(request);
+      console.log('request to send', dataToSend)
       const response = await fetch(`/api/swapShift/swapShiftRequest`, {
         method: "POST",
         headers: { "content-Type": "application/json" },
@@ -62,6 +63,7 @@ const ConfirmModals = (props) => {
         onClose={() => setConfirmModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        maxWidth='md'
       >
         <DialogTitle id="alert-dialog-title">Confirm your request</DialogTitle>
         <DialogContent>
@@ -81,6 +83,7 @@ const ConfirmModals = (props) => {
         onClose={() => setSuccessModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        maxWidth='md'
       >
         <DialogTitle id="alert-dialog-title">Success</DialogTitle>
         <DialogContent>

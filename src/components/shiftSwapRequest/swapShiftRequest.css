@@ -1,3 +1,37 @@
+@media screen and (max-width:700px) {
+    .Shiftswap{
+        padding:5% !important;
+        font-size: 14px !important;
+    }
+    .Shiftswap>.Modal{
+        
+        gap:0 !important;
+        margin-bottom: 3% !important;
+    }
+    .date>.Day-lists{
+        width: 80%;
+        height: 1.4rem !important;
+        font-size: 1rem !important;
+        border: 1.5px solid var(--wink-color) !important;
+        /* border-radius: 0.3em; */
+    }
+    .Shiftswap>.Reason-container{
+        margin-top: 3% !important;
+    }
+    .Shiftswap>.Reason-container>label{
+    margin-bottom:3% !important;
+    }
+    .Shiftswap>.Reason-container>.Reason-box{
+        height: 2rem;
+    }
+    .Shiftswap>.Modal>.Request-btn{
+        
+        
+        height: 1.5rem !important;
+        
+    }
+}
+
 button{
     cursor: pointer;
 }
@@ -64,7 +98,7 @@ button{
 }
 .Shiftswap>.Reason-container>label{
 margin-right:auto;
-padding-bottom:1rem;
+margin-bottom:1rem;
 }
 .Shiftswap>.Reason-container>.Reason-box{
     border: 1px solid var(--grid-color);
