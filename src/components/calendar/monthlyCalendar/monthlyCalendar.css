@@ -1,3 +1,15 @@
+
+ .addEventModal{
+    width: 200px;
+    height: 200px;
+    border-color: 2px black;
+    background-color: var(--wink-color-light);
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 100;
+ }
+
 .text{
     position:relative
   }
@@ -48,7 +60,7 @@
 }
 
 .addEventButton {
-    
+    position: relative;
     position:center;
     height: 12px ;
     width: 12px;
@@ -78,6 +90,7 @@
     border: none;
     color: white ;
     font-weight:900;
+   
 }
 
 .holidays {
@@ -124,5 +137,3 @@
     grid-template-columns: repeat(7,1fr);
     
   };
-
- 
