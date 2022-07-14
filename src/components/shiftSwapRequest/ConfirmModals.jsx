@@ -44,7 +44,7 @@ const ConfirmModals = (props) => {
              const shiftMessage = {
           sender: messageData.userId,
           receiver: admins,
-          chat: messageData.reason,
+          chat: "New time off request for " + messageData.date + ": " + messageData.reason,
           user_id: messageData.userId,
           user_privilages: 1002,
           msg_timeStamp: new Date(),
