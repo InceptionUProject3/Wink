@@ -60,5 +60,24 @@
     .card>.second-column>.hours{
         color: var(--font-darkgrey)
     }
-    
+    .card-vac{
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column ;
+        box-shadow: var(--background-shadow);
+        height: 15vw;
+        width: 100%;
+        border-radius: 2rem;
+        align-items: center;
+        justify-content: center;
+        padding: 5%;
+    }
+    .card-vac>.first-row{
+        display: flex;
+        flex-direction: row;
+    }
+    .text-highlight{
+        color: var(--wink-color)
+    }
 }
