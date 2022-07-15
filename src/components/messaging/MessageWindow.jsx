@@ -167,7 +167,7 @@ console.log(notification);
                   >
                     {message.chat}
                   </div>
-                 
+                  <div ref={bottomRef} />
                 </ListItem>
               );
             })
