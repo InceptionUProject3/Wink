@@ -126,6 +126,15 @@ const Navbar = () => {
             </p>
           </li>
         </ul>
+        {loggedInUser && (
+        <Badge
+                  badgeContent={<Notification />}
+                  color="primary"
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
         <div className="hamburger" onClick={handleClick}>
           {click ? (
             <FaRegTimesCircle className="icon" />
@@ -133,6 +142,10 @@ const Navbar = () => {
             <HiOutlineMenuAlt4 className="icon" />
           )}
         </div>
+        </Badge>
+        )}
+        
+
       </div>
     </div>
   );

@@ -140,7 +140,7 @@ ul {
   .hamburger {
     display: block;
     position: relative;
-    margin-right: 5%;
+    /* margin-right: 10%; */
     
   }
   .navbar .container {
