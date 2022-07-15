@@ -3,6 +3,7 @@ import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../Reusables/components/ProfileSmall";
 import moment from "moment";
+import calculateWeekHrs from "../../../Reusables/functions/calculateWeekHrs";
 
 const ClickableSchedules = (props) => {
   const {
@@ -86,23 +87,23 @@ const ClickableSchedules = (props) => {
     setGroupedProfs(() => groupedObj);
   }, [filteredEmpSched]);
 
-  //function to calculate scheduled hrs in week for each employees
-  const calculateWeekHrs = (emp) => {
-    let calcHrsinWeek = 0;
-    const foundEmpScheds = emp.schedules;
-    foundEmpScheds?.map((sched) => {
-      //only work schedule will be added.
-      if (sched.workcode === 0) {
-        const to = moment(sched.endtime);
-        const from = moment(sched.starttime);
-        calcHrsinWeek +=
-          Math.round((moment(to - from).unix() / 60 / 60) * 100) / 100;
-      } else {
-        console.log("Vacation schedule will not be calculated.");
-      }
-    });
-    return calcHrsinWeek;
-  };
+  // //function to calculate scheduled hrs in week for each employees
+  // const calculateWeekHrs = (emp) => {
+  //   let calcHrsinWeek = 0;
+  //   const foundEmpScheds = emp.schedules;
+  //   foundEmpScheds?.map((sched) => {
+  //     //only work schedule will be added.
+  //     if (sched.workcode === 0) {
+  //       const to = moment(sched.endtime);
+  //       const from = moment(sched.starttime);
+  //       calcHrsinWeek +=
+  //         Math.round((moment(to - from).unix() / 60 / 60) * 100) / 100;
+  //     } else {
+  //       console.log("Vacation schedule will not be calculated.");
+  //     }
+  //   });
+  //   return calcHrsinWeek;
+  // };
 
   return (
     <>

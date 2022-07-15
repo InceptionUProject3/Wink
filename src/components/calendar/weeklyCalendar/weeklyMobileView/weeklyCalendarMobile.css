@@ -5,25 +5,68 @@
          gap:10%;
          /* color: var(--font-darkgrey); */
         }
-    .Weekly-calendar-container-mobile>.period{
+    .Weekly-calendar-container-mobile>.WeeklyCal-header>.period-container{
+        display: flex;
+        flex-direction: column;
+        /* gap: 3%; */
+        justify-content: center;
+        /* margin-top: 3%; */
+        color: var(--font-darkgrey);
+        font-size: 0.8rem;
+    }
+    .Weekly-calendar-container-mobile>.WeeklyCal-header>.period-container>.period{
         display: flex;
         flex-direction: row;
-        gap: 3%;
-        justify-content: center;
-        margin-top: 3%;
-        color: var(--font-darkgrey);
+        color: var(--wink-color);
+        font-weight: bold;
+        font-size: 1rem;
     }
+
     .Cards_container{
         margin: 10% 5%;
         display: flex;
         flex-direction: column;
-        gap:1em;
+        gap:calc(1rem + 5vw);
+    }
+    .Summary_card{
+        display: flex;
+        box-shadow: var(--background-shadow);
+        height: 20vw;
+        /* width: 100%; */
+        border-radius: 1rem;
+        align-items: center;
+        /* background-color: var(--wink-color); */
+        /* color: white; */
+        flex-direction: column;
+        padding:3%;
+        justify-content: center;
+    }
+    .Summary_card>.position{
+        display: flex;
+        flex-direction: row;
+        font-size: calc(0.6rem + 2vw);
+        min-height: fit-content;
+        gap:1rem;
+        align-items: center;
+        margin-bottom: 3%;
+        /* align-self: center; */
+    }
+    .Summary_card>.row{
+        color:var(--font-darkgrey);
+        font-size: calc(0.4rem + 2vw);
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        /* width: 80% */
+    }
+    .Summary_card>.WeeklyCal-Profiles>.profile{
+        padding: 0;
     }
     .Cards_container>.Schedule{
         /* margin: 5%; */
         display: flex;
         flex-direction: column;
-        gap:1em;
+        gap:calc(0.1rem + 4vw)
        
     }
     .Cards_container>.Schedule>.title{  
@@ -40,6 +83,7 @@
         width: 100%;
         border-radius: 1rem;
         align-items: center;
+        font-size: calc(0.3rem + 2vw);
         /* padding: 5%; */
         
     }
@@ -49,7 +93,7 @@
     
     .card>.first-column{
         flex:1;
-        font-size: 1rem;
+        font-size: calc(0.5rem + 2vw);
         font-weight: bold;
         margin: 5% 2.5% 5% 5%;
         position: relative;
@@ -95,24 +139,18 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
-        padding: 5% 5% 5% 2.5%;
+        padding: 3% 3% 3% 1.5%;
         
     }
-    /* .card>.today-second-column{
-        background-color:var(--wink-color-light);
-        flex:2;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        padding: 5% 5% 5% 2.5%;
+    /* .card>.second-column>.card_text{
+        overflow-wrap:normal
         
-    } */
+    }  */
     .card>.second-column>.hours{
         color: var(--font-darkgrey)
     }
     .card-vac{
-        font-size: 1rem;
+        font-size: calc(0.6rem + 1.5vw);
         font-weight: bold;
         display: flex;
         flex-direction: column ;
@@ -122,13 +160,16 @@
         border-radius: 1rem;
         align-items: center;
         justify-content: center;
-        padding: 5%;
+        padding: 3%;
     }
     .card-vac>.first-row{
         display: flex;
         flex-direction: row;
+        font-weight: bold;
+        /* color: var(--font-darkgrey); */
     }
     .text-highlight{
-        color: var(--wink-color)
+        /* color: var(--wink-color) */
+        /* font-weight: bold; */
     }
 }
