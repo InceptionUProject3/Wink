@@ -31,10 +31,13 @@ const ConfirmModals = (props) => {
         headers: { "content-Type": "application/json" },
         body: dataToSend,
       });
-
+      
       if (response.status === 200) {
         socket.emit("findStoreAdmins", dataToSend);
         let messageData = JSON.parse(dataToSend);
+       
+        console.log('Here you are,Luke!,', messageData.preferedSched)
+        
         socket.on("storeAdmins", (data) => {
           // console.log("storeAdmins", data);
           const admins = data.map((admin) => {

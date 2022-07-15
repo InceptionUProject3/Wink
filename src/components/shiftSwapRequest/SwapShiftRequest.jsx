@@ -21,6 +21,7 @@ const SwapShiftRequest = (props) => {
     date: "",
     reason: "",
     swapAvailableId: null,
+    preferedSched:"",
     approved:false
   });
 
@@ -47,13 +48,15 @@ const SwapShiftRequest = (props) => {
 
 
   const updateReq = (e) => {
-    const { name, value, type } = e.target;
+   
+    const { name, value, type, id } = e.target;
     setRequest((pre) => {
       if (type === "radio") {
-        console.log('radio', name)
+        console.log('radio', id)
         return {
           ...pre,
           swapAvailableId: name*1,
+          preferedSched:id,
         };
       }else if(name==="date"){
         const idNDate = value.split('/')
@@ -119,6 +122,7 @@ const SwapShiftRequest = (props) => {
                     onChange={updateReq}
                     value={request.swapAvailableId}
                     key={`swapAvailList ${i}`}
+                    id={`${moment(s.starttime).format("ddd, MMM Do h:mm a")} - ${moment(s.endtime).format("h:mm a")}`}
                     checked={request.swapAvailableId===s.idSchedule}
                   />
                   <label htmlFor={s.idSchedule} className="Schedule-label" key={`swapAvaillable ${i}`}>
