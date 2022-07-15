@@ -1,16 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./NavBar.css";
 import wink from "../../images/wink.logo.png";
 import { Link, NavLink } from "react-router-dom";
-import  Notification  from "../messaging/Notification";
+import Notification from "../messaging/Notification";
 
 import { LoginContext } from "../authentication/LoginProvider";
 import { StoreContext } from "../authentication/StoreProvider";
 import { Badge } from "@mui/material";
 import theme from "../utils/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
+import { HiOutlineMenuAlt4 } from "react-icons/hi";
+import { FaRegTimesCircle } from "react-icons/fa";
 
 const Navbar = () => {
+  const [click, setClick] = useState(false);
+  const handleClick = () => setClick(!click);
+
   const auth = useContext(LoginContext);
   const store = useContext(StoreContext);
 
@@ -40,31 +45,36 @@ const Navbar = () => {
             )}
           </div>
         </ul>
-        <ul>
-          
-
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
           {loggedInUser && (
-            <li>      <ThemeProvider theme={theme}>
-              <Badge badgeContent={<Notification />} color='primary' anchorOrigin={{
-    vertical: 'top',
-    horizontal: 'left',
-  }}>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/coworkers"
+            <li>
+              {" "}
+              <ThemeProvider theme={theme}>
+                <Badge
+                  badgeContent={<Notification />}
+                  color="primary"
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
                 >
-                  MESSENGER 
-                </NavLink>
-              </p>
-              </Badge>
+                  <p className="menu">
+                    <NavLink
+                      style={({ isActive }) => ({
+                        borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                        opacity: isActive ? 1 : "",
+                      })}
+                      to="/coworkers"
+                      onClick={handleClick}
+                    >
+                      MESSENGER
+                    </NavLink>
+                  </p>
+                </Badge>
               </ThemeProvider>
             </li>
           )}
-{loggedInUser && (
+          {loggedInUser && (
             <li>
               <p className="menu">
                 <NavLink
@@ -73,6 +83,7 @@ const Navbar = () => {
                     opacity: isActive ? 1 : "",
                   })}
                   to="/calendar"
+                  onClick={handleClick}
                 >
                   CALENDAR
                 </NavLink>
@@ -80,7 +91,6 @@ const Navbar = () => {
             </li>
           )}
 
-        
           {/* {loggedInUser && isAdmin && ( */}
           {loggedInUser && (
             <li>
@@ -91,6 +101,7 @@ const Navbar = () => {
                     opacity: isActive ? 1 : "",
                   })}
                   to="/admin/schedule"
+                  onClick={handleClick}
                 >
                   SCHEDULE
                 </NavLink>
@@ -102,12 +113,12 @@ const Navbar = () => {
               <div>
                 {" "}
                 {!loggedInUser && (
-                  <Link to="/">
+                  <Link to="/" onClick={handleClick}>
                     <button className="btn">Login</button>
                   </Link>
                 )}
                 {loggedInUser && (
-                  <Link to="/logout">
+                  <Link to="/logout" onClick={handleClick}>
                     <button className="btn">Logout</button>
                   </Link>
                 )}
@@ -115,6 +126,13 @@ const Navbar = () => {
             </p>
           </li>
         </ul>
+        <div className="hamburger" onClick={handleClick}>
+          {click ? (
+            <FaRegTimesCircle className="icon" />
+          ) : (
+            <HiOutlineMenuAlt4 className="icon" />
+          )}
+        </div>
       </div>
     </div>
   );
