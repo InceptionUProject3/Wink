@@ -1,15 +1,26 @@
 
  .addEventModal{
-    width: 200px;
-    height: 200px;
-    border-color: 2px black;
-    background-color: var(--wink-color-light);
-    position: absolute;
-    top:0;
-    left:0;
-    z-index: 100;
- }
-
+    display: flex;
+     width: 200px;
+     height: 200px;
+     border-color: 2px black;
+     background-color: var(--wink-color-light);
+     position: absolute;
+     top:0;
+     left:0;
+     z-index: 100;
+    }
+    
+.eventclose {
+      right: 0%;
+      width: fit-content;
+      position: absolute;
+      background-color: transparent;
+      border: none;
+      color:var(--fond-darkgrey);
+      z-index:1
+  }
+  
 .text{
     position:relative
   }
@@ -137,3 +148,4 @@
     grid-template-columns: repeat(7,1fr);
     
   };
+
