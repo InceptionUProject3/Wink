@@ -53,6 +53,12 @@ const ConfirmModals = (props) => {
         }
         console.log("shiftMessage", shiftMessage)
         socket.emit("shiftSwapMessage", shiftMessage);
+        let notify = {
+          user: admins,
+          store: messageData.storeId,
+        }
+        console.log("sending notification", notify);
+        socket.emit("notify", notify);
 
         });
 
