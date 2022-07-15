@@ -48,6 +48,7 @@ const WeeklyCalendarMobile = (props) => {
       {daysInWeek && getPeriod()}
       <CalendarBodyMobile
       selectedDay={selectedDay}
+      setSelectedDay={setSelectedDay}
       daysInWeek={daysInWeek}
       timezone={timeZone}
       settingHrsObj={settingHrsObj}/>
