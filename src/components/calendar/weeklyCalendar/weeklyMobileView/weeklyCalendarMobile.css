@@ -3,7 +3,7 @@
         font-size: 1.5rem;
         justify-content: center;
          gap:10%;
-         color: var(--font-darkgrey);
+         /* color: var(--font-darkgrey); */
         }
     .Weekly-calendar-container-mobile>.period{
         display: flex;
@@ -29,36 +29,106 @@
     .Cards_container>.Schedule>.title{  
         font-weight: bold;
     }
+    .Cards_container>.Schedule>.title-today{  
+        font-weight: bold;
+        color: var(--wink-color);
+    }
     .card{
         display: flex;
         box-shadow: var(--background-shadow);
-        height: 30vw;
+        height: 25vw;
         width: 100%;
-        border-radius: 2rem;
+        border-radius: 1rem;
         align-items: center;
-        padding: 5%;
+        /* padding: 5%; */
         
     }
+    .no-message{
+        color: var(--font-darkgrey);
+    }
+    
     .card>.first-column{
         flex:1;
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-weight: bold;
+        margin: 5% 2.5% 5% 5%;
+        position: relative;
     }
+    .card>.first-column>.deco-circle{
+        position: absolute;
+        /* margin: 0 auto; */
+        width: 3.3rem;
+        height: 3.3rem;
+        border-radius: 3rem;
+        left:50%; 
+        top:50%;
+        transform: translate(-50%, -50%);
+        /* background-color: var(--wink-color-light); */
+        border: 2px solid var(--wink-color-light);
+        z-index: -1;
+    }
+    /* .card>.today-first-column{
+        /* background-color:var(--wink-color-light); */
+        /* flex:1;
+        font-size: 1.3rem;
+        font-weight: bold; */
+        /* height: 100%; */
+        /* border-radius:1rem 0 0 1rem ;
+        padding: 5% 2.5% 5% 5%; 
+        
+    } */
     .card>.first-column>.day{
         color:var(--wink-color);
         
     }
+    /* .card>.today-first-column>.today-day{
+        color:white;
+        
+    }
+    .card>.today-first-column>.today-date{
+        color:var()
+        
+    } */
     .card>.second-column{
         flex:2;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
-        padding: 0 5%;
+        padding: 5% 5% 5% 2.5%;
         
     }
+    /* .card>.today-second-column{
+        background-color:var(--wink-color-light);
+        flex:2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 5% 5% 5% 2.5%;
+        
+    } */
     .card>.second-column>.hours{
         color: var(--font-darkgrey)
     }
-    
+    .card-vac{
+        font-size: 1rem;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column ;
+        box-shadow: var(--background-shadow);
+        height: 10vw;
+        width: 100%;
+        border-radius: 1rem;
+        align-items: center;
+        justify-content: center;
+        padding: 5%;
+    }
+    .card-vac>.first-row{
+        display: flex;
+        flex-direction: row;
+    }
+    .text-highlight{
+        color: var(--wink-color)
+    }
 }
