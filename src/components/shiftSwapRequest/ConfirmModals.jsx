@@ -33,14 +33,38 @@ const ConfirmModals = (props) => {
       });
 
       if (response.status === 200) {
+        socket.emit("findStoreAdmins", dataToSend);
+        let messageData = JSON.parse(dataToSend);
+        socket.on("storeAdmins", (data) => {
+          // console.log("storeAdmins", data);
+          const admins = data.map((admin) => {
+            return admin.User_idUser})
+            console.log("admins", admins)
+            console.log(messageData)
+             const shiftMessage = {
+          sender: messageData.userId,
+          receiver: admins,
+          chat: "New time off request for " + messageData.date + ": " + messageData.reason,
+          user_id: messageData.userId,
+          user_privilages: 1002,
+          msg_timeStamp: new Date(),
+          store: messageData.storeId,
+          read_receits: false,
+        }
+        console.log("shiftMessage", shiftMessage)
+        socket.emit("shiftSwapMessage", shiftMessage);
+
+        });
+
+
         // const shiftMessage = {
-        //   sender: req.body.sender,
+        //   sender: dataToSend.userID,
         //   receiver: req.body.receiver,
-        //   chat: req.body.chat,
-        //   user_id: req.body.sender,
+        //   chat: dataToSend.reason,
+        //   user_id: dataToSend.userID,
         //   user_privilages: 1002,
         //   msg_timeStamp: new Date(),
-        //   store: req.body.store,
+        //   store: dataToSend.storeId,
         //   read_receits: false,
         // }
         console.log("Succeed to submit your request", user);

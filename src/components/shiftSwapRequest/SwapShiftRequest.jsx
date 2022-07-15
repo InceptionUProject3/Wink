@@ -20,7 +20,7 @@ const SwapShiftRequest = (props) => {
     storeId: storeId,
     date: "",
     reason: "",
-    swapAvailableId: "",
+    swapAvailableId: null,
     approved:false
   });
 

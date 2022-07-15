@@ -9,7 +9,7 @@
     .Side-modal-container{
         position:sticky;
         position: -webkit-sticky;
-        /* bottom: 0; */
+        bottom: 0;
 
         /* height: 200px !important; */
         overflow: scroll;

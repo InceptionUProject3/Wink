@@ -6,13 +6,12 @@ import {
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 
-import DisplayDaysinWeek from "../../../Reusables/components/DisplayDaysinWeek";
 
 const WeeklyTableHeader = (props) => {
 
-  const { selectedDay, setSelectedDay, daysInWeek } = props;
+  const { selectedDay, setSelectedDay } = props;
   const selectDayInHeader = selectedDay?.format("MMM YYYY");
-  const userTimeZone = moment.tz.guess();
+  // const userTimeZone = moment.tz.guess();
 
   const moveToPreWeek = () => {
     setSelectedDay((pre) => pre?.clone().subtract(7, "days"));
@@ -32,7 +31,7 @@ const WeeklyTableHeader = (props) => {
         </IconContext.Provider>
       </div>
 
-      <DisplayDaysinWeek daysInWeek={daysInWeek} timezone={userTimeZone} />
+      
    </>
   );
 };

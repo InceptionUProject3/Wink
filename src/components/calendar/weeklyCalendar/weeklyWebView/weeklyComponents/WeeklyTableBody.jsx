@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
-import setPositionList from "../../../Reusables/functions/setPositionList";
-import { LoginContext } from "../../../authentication/LoginProvider";
-import { StoreContext } from "../../../authentication/StoreProvider";
+import setPositionList from "../../../../Reusables/functions/setPositionList";
+import { LoginContext } from "../../../../authentication/LoginProvider";
+import { StoreContext } from "../../../../authentication/StoreProvider";
 import moment from "moment";
 
 const WeeklyTableBody = (props) => {

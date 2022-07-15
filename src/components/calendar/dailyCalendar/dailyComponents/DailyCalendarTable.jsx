@@ -21,6 +21,7 @@ const DailyCalendarTable = (props) => {
 
   const [width, setWidth] = useState(window.innerWidth)
   // const userId = useContext(LoginContext).user?.id || 9;
+  //resize event listener
 useEffect(()=>{
   function handleResize(){
     setWidth(window.innerWidth);

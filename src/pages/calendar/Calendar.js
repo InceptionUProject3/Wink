@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import moment from "moment";
 import "moment-timezone";
 
 import MonthlyCalendar from "../../components/calendar/monthlyCalendar/MonthlyCalendar";
-import WeeklyCalendar from "../../components/calendar/weeklyCalendar/WeeklyCalendar";
+import WeeklyCalendarWeb from "../../components/calendar/weeklyCalendar/weeklyWebView/WeeklyCalendarWeb";
+import WeeklyCalendarMobile from "../../components/calendar/weeklyCalendar/weeklyMobileView/WeeklyCalendarMobile";
 import DailyCalendar from "../../components/calendar/dailyCalendar/DailyCalendar";
 
 import ViewButtons from "../../components/Reusables/components/ViewButtons";
@@ -12,9 +13,11 @@ import TodayButton from "../../components/Reusables/components/TodayButton";
 import RequestSwapBtn from "../../components/Reusables/components/RequestSwapBtn";
 import { StoreContext } from "../../components/authentication/StoreProvider";
 import SwapShiftRequest from "../../components/shiftSwapRequest/SwapShiftRequest";
-import WeeklyFilters from "../../components/calendar/weeklyCalendar/WeeklyFilters";
+import WeeklyFilters from "../../components/calendar/weeklyCalendar/weeklyWebView/WeeklyFilters";
 
 import "./calendar.css";
+import ViewButtonsMobile from "../../components/Reusables/components/ViewButtons_mobile";
+import CalendarHeaderInfo from "../../components/Reusables/components/CalendarHeaderInfo";
 
 const Calendar = () => {
   const [filter, setFilter] = useState("All");
@@ -35,9 +38,20 @@ const Calendar = () => {
   });
   // const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
   // const scheduleHrs = 18;
+  const [width, setWidth] = useState(window.innerWidth);
+  // const userId = useContext(LoginContext).user?.id || 9;
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
 
-  return (
-    <div className="Calendars">
+  const webViewCals = () => {
+    return (
       <div className="Calendars-container">
         <div className="Calendar-header">
           <div className="Calendar-buttons">
@@ -45,13 +59,13 @@ const Calendar = () => {
             <ViewButtons />
             <TodayButton setSelectedDay={setSelectedDay} />
           </div>
-            {calendar === "weekly" && (
-              <WeeklyFilters
-                filter={filter}
-                setFilter={setFilter}
-                filterList={filterList}
-              />
-            )}
+          {calendar === "weekly" && (
+            <WeeklyFilters
+              filter={filter}
+              setFilter={setFilter}
+              filterList={filterList}
+            />
+          )}
         </div>
         <div className="Calendar-view">
           <Routes>
@@ -69,7 +83,7 @@ const Calendar = () => {
             <Route
               path="/weekly"
               element={
-                <WeeklyCalendar
+                <WeeklyCalendarWeb
                   selectedDay={selectedDay}
                   setSelectedDay={setSelectedDay}
                   settingHrsObj={settingHrsObj}
@@ -93,6 +107,61 @@ const Calendar = () => {
           </Routes>
         </div>
       </div>
+    );
+  };
+
+  const mobileViewCals = () => {
+    return (
+      <div className="Calendars-container">
+        <div className="Calendar-header">
+          <div className="Calendar-buttons">
+            <RequestSwapBtn setOpenModal={setOpenModal} />
+            <ViewButtonsMobile />
+            <TodayButton setSelectedDay={setSelectedDay} />
+          </div>
+          {/* {calendar === "weekly" && (
+        <WeeklyFilters
+          filter={filter}
+          setFilter={setFilter}
+          filterList={filterList}
+        />
+      )} */}
+        </div>
+        <CalendarHeaderInfo settingHrsObj={settingHrsObj} />
+        <div className="Calendar-view">
+          <Routes>
+            <Route
+              path="/weekly"
+              element={
+                <WeeklyCalendarMobile
+                  selectedDay={selectedDay}
+                  setSelectedDay={setSelectedDay}
+                  settingHrsObj={settingHrsObj}
+                  timeZone={userTimeZone}
+                />
+              }
+            />
+
+            <Route
+              path="/daily"
+              element={
+                <DailyCalendar
+                  selectedDay={selectedDay}
+                  setSelectedDay={setSelectedDay}
+                  settingHrsObj={settingHrsObj}
+                  timeZone={userTimeZone}
+                />
+              }
+            />
+          </Routes>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="Calendars">
+      {width >= 700 ? webViewCals() : mobileViewCals()}
       {openModal && (
         <div className="Side-modal-container">
           <SwapShiftRequest setOpenModal={setOpenModal} />
