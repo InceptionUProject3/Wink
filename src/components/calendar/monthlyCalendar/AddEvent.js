@@ -58,19 +58,18 @@ e.preventDefault();
           <button className="eventclose" onClick={() => setOpen(false)}>
             x
           </button>
-          <FormControl  onClick={(e)=>addEventData(e)}>
+          <form  onClick={(e)=>addEventData(e)}>
             <label for="eventDate">Event Date:</label>
             {/*<input type="text" id="date" name="eventDate" onChange={changeDate} value={eventDate}/>*/}
             <div>{day.date}</div>
-            <br />
-            <br />
-            {/* <label for="eventName">Event Name:</label>
-            <input type="text" id="name" name="eventName"  onChange={changeName} value={eventName}/> */}
-            <TextField label={'Event Name'} id="event-name" margin="dense" />
+           
+            <label for="eventName">Event Name:</label>
+            <input type="text" id="name" name="eventName"  onChange={changeName} value={eventName}/>
+            {/* <TextField label={'Event Name'} id="event-name" margin="dense" /> */}
             <br />
             <br />
             <input type="submit" value="Submit" />
-          </FormControl>
+          </form>
         </div>
       )}
     </div>
