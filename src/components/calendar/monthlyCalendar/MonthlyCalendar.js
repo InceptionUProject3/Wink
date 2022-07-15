@@ -22,11 +22,9 @@ const weekdayHeaders = [
 const MonthlyCalendar = (props) => {
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  const { today, setToday, storeOpen, scheduleHrs, timezone } = props;
+  const { today, setToday } = props;
 
   // console.log("positions",positions)
-
-  
 
   const [theDate, setDate] = useState(new Date());
   const month = theDate.getMonth();
@@ -69,7 +67,7 @@ const MonthlyCalendar = (props) => {
       }
     };
     startOfMonth && getAllSchedules();
-  }, [today, storeId,startOfMonth,userId]);
+  }, [today, storeId, startOfMonth, userId]);
 
   useEffect(() => {
     const getMonHolidays = async () => {
@@ -77,11 +75,11 @@ const MonthlyCalendar = (props) => {
       const endOfMonth = today?.clone().endOf("months");
       const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
       const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
-      console.log(
-        "startOfHoliday   startOfMonth",
-        startOfHoliday,
-        startOfMonth
-      );
+      // console.log(
+      //   "startOfHoliday   startOfMonth",
+      //   startOfHoliday,
+      //   startOfMonth
+      // );
       const res = await fetch(
         `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
       );
@@ -95,13 +93,13 @@ const MonthlyCalendar = (props) => {
         newHoliday.push({ date: newdate, name: holiday.nameEn });
         //console.log("holiday", newdate)
       });
-      console.log("newHoliday", newHoliday);
+      //console.log("newHoliday", newHoliday);
 
       setholidaysOfMonth(newHoliday);
     };
 
     startOfMonth && getMonHolidays();
-  }, [today,startOfMonth]);
+  }, [today, startOfMonth]);
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -142,7 +140,7 @@ const MonthlyCalendar = (props) => {
     }
 
     setMonthsArray(monthArray);
-  }, [today, firstDayOfMonth,daysInMonth,month,year]);
+  }, [today, firstDayOfMonth, daysInMonth, month, year]);
 
   // daysInMonth,month,weekdayHeaders,year
   return (
@@ -167,6 +165,7 @@ const MonthlyCalendar = (props) => {
                       today={today}
                       setAddEvent={setAddEvent}
                       holidaysOfMonth={holidaysOfMonth}
+                      day={day}
                     />
                   </div>
                   <div className="Empty-div"></div>
