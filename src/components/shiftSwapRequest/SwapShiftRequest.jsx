@@ -56,7 +56,7 @@ const SwapShiftRequest = (props) => {
         return {
           ...pre,
           swapAvailableId: name*1,
-          preferedSched:id,
+          preferedSched: " in exchange for " + id,
         };
       }else if(name==="date"){
         const idNDate = value.split('/')
