@@ -4,7 +4,7 @@ import { FaCircle } from "react-icons/fa";
 
 export const ProfileIcon = (props) => {
   const { profile, color} = props;
-  
+  // console.log('props', profile, color)
   return (
     <>
       <div className="icon" >

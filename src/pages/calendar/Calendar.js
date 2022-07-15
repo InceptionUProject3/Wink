@@ -136,7 +136,7 @@ const Calendar = () => {
         />
       )} */}
         </div>
-        <CalendarHeaderInfo settingHrsObj={settingHrsObj} />
+        {calendar === "daily" && ( <CalendarHeaderInfo settingHrsObj={settingHrsObj} /> )}
         <div className="Calendar-view">
           <Routes>
             <Route
