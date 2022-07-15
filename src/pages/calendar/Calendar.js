@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 import moment from "moment";
 import "moment-timezone";
 
@@ -27,7 +28,8 @@ const Calendar = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const calendar = useLocation()?.pathname.split("/").pop();
-  console.log("calendar", calendar);
+  const navigate = useNavigate();
+  // console.log("calendar", calendar);
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
   const userTimeZone = moment.tz.guess();
@@ -113,10 +115,17 @@ const Calendar = () => {
   const mobileViewCals = () => {
     return (
       <div className="Calendars-container">
+        {calendar === "daily" && (
+          <BiArrowBack
+            style={{ color: 'var(--wink-color)'}}
+            onClick={() => navigate("/calendar/weekly")}
+            size={35}
+          />
+        )}
         <div className="Calendar-header">
           <div className="Calendar-buttons">
             <RequestSwapBtn setOpenModal={setOpenModal} />
-            <ViewButtonsMobile />
+            {/* <ViewButtonsMobile /> */}
             <TodayButton setSelectedDay={setSelectedDay} />
           </div>
           {/* {calendar === "weekly" && (
