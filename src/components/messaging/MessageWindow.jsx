@@ -166,6 +166,10 @@ console.log(notification);
                     }}
                   >
                     {message.chat}
+                    {message.unapproved_swap ? (
+                      <button>Approve</button> ) : (
+                        <div></div>
+                      )}
                   </div>
                   <div ref={bottomRef} />
                 </ListItem>
