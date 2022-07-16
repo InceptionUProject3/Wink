@@ -33,7 +33,10 @@ const ConfirmModals = (props) => {
       });
       
       if (response.status === 200) {
+        console.log('response', response)
         socket.emit("findStoreAdmins", dataToSend);
+        const theRequest = JSON.parse(await response.text());
+        console.log("we have the message", theRequest);
         let messageData = JSON.parse(dataToSend);
        
         console.log('Here you are,Luke!,', messageData.preferedSched)
@@ -53,6 +56,7 @@ const ConfirmModals = (props) => {
           msg_timeStamp: new Date(),
           store: messageData.storeId,
           read_receits: false,
+          shift_swap_id: theRequest.idShiftSwap
         }
         console.log("shiftMessage", shiftMessage)
         socket.emit("shiftSwapMessage", shiftMessage);
@@ -65,17 +69,6 @@ const ConfirmModals = (props) => {
 
         });
 
-
-        // const shiftMessage = {
-        //   sender: dataToSend.userID,
-        //   receiver: req.body.receiver,
-        //   chat: dataToSend.reason,
-        //   user_id: dataToSend.userID,
-        //   user_privilages: 1002,
-        //   msg_timeStamp: new Date(),
-        //   store: dataToSend.storeId,
-        //   read_receits: false,
-        // }
         console.log("Succeed to submit your request", user);
         // socket.emit("shiftswap", request);
 
@@ -83,6 +76,7 @@ const ConfirmModals = (props) => {
         setSuccessModalOpen(true);
       }
     } catch (err) {
+      console.log("error submitting request", err);
       console.log("Failed to submit your request");
     }
   };
