@@ -26,6 +26,7 @@ const Navbar = () => {
     loggedInStore?.UserProfile_idUserProfile === 1002;
 
   return (
+    <ThemeProvider theme={theme}>
     <div className="navbar">
       <div className="container">
         <ul>
@@ -49,7 +50,7 @@ const Navbar = () => {
           {loggedInUser && (
             <li>
               {" "}
-              <ThemeProvider theme={theme}>
+              {/* <ThemeProvider theme={theme}> */}
                 <Badge
                   badgeContent={<Notification />}
                   color="primary"
@@ -71,7 +72,7 @@ const Navbar = () => {
                     </NavLink>
                   </p>
                 </Badge>
-              </ThemeProvider>
+              {/* </ThemeProvider> */}
             </li>
           )}
           {loggedInUser && (
@@ -127,7 +128,9 @@ const Navbar = () => {
           </li>
         </ul>
         {loggedInUser && (
-        <Badge
+        
+        <div className="hamburger" onClick={handleClick}>
+          <Badge
                   badgeContent={<Notification />}
                   color="primary"
                   anchorOrigin={{
@@ -135,19 +138,20 @@ const Navbar = () => {
                     horizontal: "left",
                   }}
                 >
-        <div className="hamburger" onClick={handleClick}>
           {click ? (
             <FaRegTimesCircle className="icon" />
           ) : (
             <HiOutlineMenuAlt4 className="icon" />
           )}
+          </Badge>
         </div>
-        </Badge>
+        
         )}
         
 
       </div>
     </div>
+    </ThemeProvider>
   );
 };
 
