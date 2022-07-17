@@ -81,6 +81,35 @@ console.log(notification);
     bottomRef.current?.scrollIntoView({behavior: 'smooth'});
   }, [notification, messages]);
 
+  const approve = async (shiftSwap) => {
+    try {
+      const data = {
+        shiftSwap: shiftSwap.shift_swap_id,
+      }
+      console.log("sending approve request", data);
+      const response = await fetch("/api/approveShiftSwap", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.status === 200) {
+        console.log("shift swap approved");
+        socket.emit("notify", shiftSwap);
+      } else {
+        console.log("failed to approve shift swap");
+      }
+    } catch (err) {
+      console.log("error approving shift swap", err);
+    }
+  }
+
+
+
+
+  
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -166,9 +195,9 @@ console.log(notification);
                     }}
                   >
                     {message.chat}
-                    {message.unapproved_swap ? (
-                      <button>Approve</button> ) : (
-                        <div></div>
+                    {message.unapproved_swap === true ? (
+                      <button onClick={() => approve(message)}>Approve</button> ) : (
+                        <div> Shift swap approved </div>
                       )}
                   </div>
                   <div ref={bottomRef} />
