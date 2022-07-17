@@ -56,7 +56,8 @@ const ConfirmModals = (props) => {
           msg_timeStamp: new Date(),
           store: messageData.storeId,
           read_receits: false,
-          shift_swap_id: theRequest.idShiftSwap
+          shift_swap_id: theRequest.idShiftSwap,
+          unapproved_swap: true
         }
         console.log("shiftMessage", shiftMessage)
         socket.emit("shiftSwapMessage", shiftMessage);
