@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
 import { useNavigate } from "react-router-dom";
+import ContactsIcon from '@mui/icons-material/Contacts';
 import {
   List,
   ListItem,
@@ -57,11 +58,12 @@ const FindCoworkers = (props) => {
  
 
   return (
-    <Box style={{marginTop: '10vh'}}>
+    <Box >
       <List>
         <ListItem divider>
           <ListItemButton onClick={handleCollapse}>
-            <ListItemText primary={"Contacts"} />
+            <ContactsIcon />
+            <ListItemText primary={"Contacts"} style={{display: "flex", }} />
           </ListItemButton>
         </ListItem>
       </List>
