@@ -12,6 +12,8 @@ import {
   Collapse,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { ThemeProvider } from '@emotion/react';
+import theme  from '../utils/muiTheme';
 
 const FindCoworkers = (props) => {
   const authContext = useContext(LoginContext);
@@ -59,11 +61,12 @@ const FindCoworkers = (props) => {
 
   return (
     <Box >
+      <ThemeProvider theme={theme}>
       <List>
         <ListItem divider>
           <ListItemButton onClick={handleCollapse}>
-            <ContactsIcon />
-            <ListItemText primary={"Contacts"} style={{display: "flex", }} />
+            <ContactsIcon style={{color: "#00b3b4"}}/>
+            <ListItemText primary={"Contacts"} style={{display: "flex", color: "#00b3b4", font: "bold" }} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -76,7 +79,7 @@ const FindCoworkers = (props) => {
                 <ListItem
                 key={index}
                   divider
-                  sx={{ width: "50vw", display: "flex", flexDirection: "column" }}
+                  sx={{ width: "50vw", display: "flex", flexDirection: "column",  color: "#00b3b4" }}
                 >
                   <ListItemButton
                     key={index}
@@ -87,6 +90,7 @@ const FindCoworkers = (props) => {
                   >
                     <ListItemText
                      key={index}
+
                       primary={`${profile.user.firstname}  ${profile.user.lastname}`}
                       secondary={profile.userprofile.name}
                     />
@@ -101,6 +105,7 @@ const FindCoworkers = (props) => {
           )}
         </List>
       </Collapse>
+      </ThemeProvider>
     </Box>
   );
 };
