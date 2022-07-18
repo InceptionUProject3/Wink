@@ -9,8 +9,7 @@ import { StoreContext } from "../authentication/StoreProvider";
 import { Badge } from "@mui/material";
 import theme from "../utils/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
-import { HiOutlineMenuAlt4 } from "react-icons/hi";
-import { FaRegTimesCircle } from "react-icons/fa";
+import { BiMenuAltLeft, BiMenu } from "react-icons/bi";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
@@ -27,30 +26,30 @@ const Navbar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <div className="navbar">
-      <div className="container">
-        <ul>
-          <h1>
-            <img className="wink" src={wink} alt="" width="50" />
-          </h1>
-          <div>
+      <div className="navbar">
+        <div className="container">
+          <ul>
+            <h1>
+              <img className="wink" src={wink} alt="" width="50" />
+            </h1>
+            <div>
+              {loggedInUser && (
+                <h4 className="navbar-welcome">
+                  Welcome {loggedInUser.firstname}
+                </h4>
+              )}
+              {loggedInStore && loggedInUser && (
+                <h4 className="navbar-welcome">
+                  <Link to="/selection">{loggedInStore.store.name}</Link>
+                </h4>
+              )}
+            </div>
+          </ul>
+          <ul className={click ? "nav-menu active" : "nav-menu"}>
             {loggedInUser && (
-              <h4 className="navbar-welcome">
-                Welcome {loggedInUser.firstname}
-              </h4>
-            )}
-            {loggedInStore && loggedInUser && (
-              <h4 className="navbar-welcome">
-                <Link to="/selection">{loggedInStore.store.name}</Link>
-              </h4>
-            )}
-          </div>
-        </ul>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
-          {loggedInUser && (
-            <li>
-              {" "}
-              {/* <ThemeProvider theme={theme}> */}
+              <li>
+                {" "}
+                {/* <ThemeProvider theme={theme}> */}
                 <Badge
                   badgeContent={<Notification />}
                   color="primary"
@@ -72,85 +71,87 @@ const Navbar = () => {
                     </NavLink>
                   </p>
                 </Badge>
-              {/* </ThemeProvider> */}
-            </li>
-          )}
-          {loggedInUser && (
-            <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/calendar"
-                  onClick={handleClick}
-                >
-                  CALENDAR
-                </NavLink>
-              </p>
-            </li>
-          )}
+                {/* </ThemeProvider> */}
+              </li>
+            )}
+            {loggedInUser && (
+              <li>
+                <p className="menu">
+                  <NavLink
+                    style={({ isActive }) => ({
+                      borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                      opacity: isActive ? 1 : "",
+                    })}
+                    to="/calendar"
+                    onClick={handleClick}
+                  >
+                    CALENDAR
+                  </NavLink>
+                </p>
+              </li>
+            )}
 
-          {/* {loggedInUser && isAdmin && ( */}
-          {loggedInUser && (
+            {/* {loggedInUser && isAdmin && ( */}
+            {loggedInUser && (
+              <li>
+                <p className="menu">
+                  <NavLink
+                    style={({ isActive }) => ({
+                      borderBottom: isActive ? "#00b3b4 solid 2px" : "",
+                      opacity: isActive ? 1 : "",
+                    })}
+                    to="/admin/schedule"
+                    onClick={handleClick}
+                  >
+                    SCHEDULE
+                  </NavLink>
+                </p>
+              </li>
+            )}
             <li>
-              <p className="menu">
-                <NavLink
-                  style={({ isActive }) => ({
-                    borderBottom: isActive ? "#00b3b4 solid 2px" : "",
-                    opacity: isActive ? 1 : "",
-                  })}
-                  to="/admin/schedule"
-                  onClick={handleClick}
-                >
-                  SCHEDULE
-                </NavLink>
+              <p>
+                <div>
+                  {" "}
+                  {!loggedInUser && (
+                    <Link to="/" onClick={handleClick}>
+                      <button className="btn">Login</button>
+                    </Link>
+                  )}
+                  {loggedInUser && (
+                    <Link to="/logout" onClick={handleClick}>
+                      <button className="btn">Logout</button>
+                    </Link>
+                  )}
+                </div>
               </p>
             </li>
-          )}
-          <li>
-            <p>
-              <div>
-                {" "}
-                {!loggedInUser && (
-                  <Link to="/" onClick={handleClick}>
-                    <button className="btn">Login</button>
-                  </Link>
+          </ul>
+          {loggedInUser && (
+            <div
+              className="hamburger"
+              onClick={handleClick}
+              style={{
+                marginBottom: "1rem",
+              }}
+            >
+              <Badge
+                badgeContent={<Notification />}
+                color="primary"
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                {click ? (
+                  <BiMenuAltLeft className="icon" size={50} />
+                ) : (
+                  <BiMenu className="icon" size={50} />
                 )}
-                {loggedInUser && (
-                  <Link to="/logout" onClick={handleClick}>
-                    <button className="btn">Logout</button>
-                  </Link>
-                )}
-              </div>
-            </p>
-          </li>
-        </ul>
-        {loggedInUser && (
-        
-        <div className="hamburger" onClick={handleClick}>
-          <Badge
-                  badgeContent={<Notification />}
-                  color="primary"
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                >
-          {click ? (
-            <FaRegTimesCircle className="icon" />
-          ) : (
-            <HiOutlineMenuAlt4 className="icon" />
+              </Badge>
+            </div>
           )}
-          </Badge>
         </div>
-        
-        )}
-        
-
       </div>
-    </div>
     </ThemeProvider>
   );
 };
