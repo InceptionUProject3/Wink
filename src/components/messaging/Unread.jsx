@@ -62,7 +62,7 @@ const Unread = () => {
 
   return (
     <div>
-      <div>Unread</div>
+      <h3 style={{color: "#00b3b4"}}>Unread Messages</h3>
       <List>
         {unread ? (
           unread.map((message) => {
