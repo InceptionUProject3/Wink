@@ -44,8 +44,10 @@ const LoginForm = () => {
   };
 
   return (
-    <Container sx={{ mt: 10 }}>
+    <Container sx={{ mt: "30vh" }}>
       <ThemeProvider theme={theme}>
+   <h1 style={{color: "#00b3b4"}}>Sign in</h1>
+   <h3 style={{color: "#00b3b4"}}>Sign in to see your schedule!</h3>
         <Box
           display="flex"
           flexDirection="column"
