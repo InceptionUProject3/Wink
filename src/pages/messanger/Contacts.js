@@ -3,10 +3,14 @@ import FindCoworkers from '../../components/messaging/FindCoworkers'
 import Unread from '../../components/messaging/Unread'
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
+import { ThemeProvider } from '@emotion/react';
+import theme  from '../../components/utils/muiTheme';
 
 const Contacts = () => {
   return (
+    
     <Container sx={{ mt: "30vh" }}>
+      <ThemeProvider theme={theme}>
      <Box
           display="flex"
           flexDirection="column"
@@ -17,6 +21,7 @@ const Contacts = () => {
     <FindCoworkers/>
     <Unread/>
     </Box>
+    </ThemeProvider>
     </Container>
   )
 }

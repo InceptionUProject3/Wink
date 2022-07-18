@@ -69,14 +69,14 @@ const FindCoworkers = (props) => {
       </List>
 
       <Collapse in={open}>
-        <List sx={{ width: 300, display: "flex", flexDirection: "column" }}>
+        <List sx={{ width: "50vw", display: "flex", flexDirection: "column" }}>
           {coworkers ? (
             coworkers.map((profile, index) => {
               return (
                 <ListItem
                 key={index}
                   divider
-                  sx={{ width: 300, display: "flex", flexDirection: "column" }}
+                  sx={{ width: "50vw", display: "flex", flexDirection: "column" }}
                 >
                   <ListItemButton
                     key={index}
