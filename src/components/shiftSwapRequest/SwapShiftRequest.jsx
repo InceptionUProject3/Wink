@@ -14,8 +14,7 @@ const SwapShiftRequest = (props) => {
   const userId = useContext(LoginContext).user?.id;
   const [mySchedules, setMySchdules] = useState();
   const [swapList, setSwapList] = useState();
-
-  const [request, setRequest] = useState({
+  const initialState = {
     userId: userId,
     storeId: storeId,
     date: "",
@@ -23,7 +22,9 @@ const SwapShiftRequest = (props) => {
     swapAvailableId: null,
     preferedSched:"",
     approved:false
-  });
+  }
+
+  const [request, setRequest] = useState(initialState);
 
   useEffect(() => {
     const today = moment().format("YYYY-MM-DD");
@@ -69,10 +70,15 @@ const SwapShiftRequest = (props) => {
     });
   };
 
+  const resetRequest = () => {
+    console.log("reset request");
+    setRequest(initialState);
+  }
+
   return (
     <div className="Shiftswap">
       <button className="close" onClick={()=>setOpenModal(false)}>x</button>
-      <ConfirmModals request={request} setOpenModal={setOpenModal} />
+      <ConfirmModals request={request} setOpenModal={setOpenModal} resetRequest={resetRequest} />
       <div className="date">
         <label htmlFor="date">*Date: </label>
         <select

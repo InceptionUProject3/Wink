@@ -11,9 +11,8 @@ import { MessageContext } from "../messaging/MessageContext";
 import { StoreContext } from "../authentication/StoreProvider";
 import { useContext } from "react";
 
-
 const ConfirmModals = (props) => {
-  const { request, setOpenModal } = props;
+  const { request, setOpenModal, resetRequest } = props;
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [message, setMessage] = useState();
@@ -21,53 +20,60 @@ const ConfirmModals = (props) => {
   const user = useContext(StoreContext).store;
 
   const submitAction = async (e) => {
+    
     e.preventDefault();
 
     try {
       const dataToSend = JSON.stringify(request);
-      console.log('request to send', dataToSend)
+      console.log("request to send", dataToSend);
       const response = await fetch(`/api/swapShift/swapShiftRequest`, {
         method: "POST",
         headers: { "content-Type": "application/json" },
         body: dataToSend,
       });
-      
+
       if (response.status === 200) {
-        console.log('response', response)
+        console.log("response", response);
         socket.emit("findStoreAdmins", dataToSend);
         const theRequest = JSON.parse(await response.text());
         console.log("we have the message", theRequest);
         let messageData = JSON.parse(dataToSend);
-       
-        console.log('Here you are,Luke!,', messageData.preferedSched)
-        
-        socket.on("storeAdmins", (data) => {
-          // console.log("storeAdmins", data);
-          const admins = data.map((admin) => {
-            return admin.User_idUser})
-            console.log("admins", admins)
-            console.log(messageData)
-             const shiftMessage = {
-          sender: messageData.userId,
-          receiver: admins,
-          chat: "New time off request for " + messageData.date + messageData.preferedSched + ": " + messageData.reason,
-          user_id: messageData.userId,
-          user_privilages: 1002,
-          msg_timeStamp: new Date(),
-          store: messageData.storeId,
-          read_receits: false,
-          shift_swap_id: theRequest.idShiftSwap,
-          unapproved_swap: true
-        }
-        console.log("shiftMessage", shiftMessage)
-        socket.emit("shiftSwapMessage", shiftMessage);
-        let notify = {
-          user: admins,
-          store: messageData.storeId,
-        }
-        console.log("sending notification", notify);
-        socket.emit("notify", notify);
 
+        console.log("Here you are,Luke!,", messageData.preferedSched);
+
+        socket.on("storeAdmins", (data) => {
+          // console.log("storeID", socket.id);
+          const admins = data.map((admin) => {
+            return admin.User_idUser;
+          });
+          console.log("admins", admins);
+          console.log(messageData);
+          const shiftMessage = {
+            sender: messageData.userId,
+            receiver: admins,
+            chat:
+              "New time off request for " +
+              messageData.date +
+              messageData.preferedSched +
+              ": " +
+              messageData.reason,
+            user_id: messageData.userId,
+            user_privilages: 1002,
+            msg_timeStamp: new Date(),
+            store: messageData.storeId,
+            read_receits: false,
+            shift_swap_id: theRequest.idShiftSwap,
+            unapproved_swap: true,
+          };
+          console.log("shiftMessage", shiftMessage);
+          socket.emit("shiftSwapMessage", shiftMessage);
+          let notify = {
+            user: admins,
+            store: messageData.storeId,
+          };
+          console.log("sending notification", notify);
+          socket.emit("notify", notify);
+          socket.off("storeAdmins");
         });
 
         console.log("Succeed to submit your request", user);
@@ -75,6 +81,7 @@ const ConfirmModals = (props) => {
 
         setConfirmModalOpen(false);
         setSuccessModalOpen(true);
+        resetRequest();
       }
     } catch (err) {
       console.log("error submitting request", err);
@@ -92,7 +99,7 @@ const ConfirmModals = (props) => {
 
     setConfirmModalOpen(true);
   };
-  
+
   const successClose = () => {
     setOpenModal(false);
   };
@@ -108,7 +115,7 @@ const ConfirmModals = (props) => {
         onClose={() => setConfirmModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        maxWidth='md'
+        maxWidth="md"
       >
         <DialogTitle id="alert-dialog-title">Confirm your request</DialogTitle>
         <DialogContent>
@@ -128,7 +135,7 @@ const ConfirmModals = (props) => {
         onClose={() => setSuccessModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        maxWidth='md'
+        maxWidth="md"
       >
         <DialogTitle id="alert-dialog-title">Success</DialogTitle>
         <DialogContent>
