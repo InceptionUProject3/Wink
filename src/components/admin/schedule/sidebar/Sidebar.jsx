@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import moment from "moment";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IconContext } from "react-icons";
 import {
   MdOutlineArrowBackIos,
@@ -10,7 +10,7 @@ import {
 import { TbRefresh } from "react-icons/tb";
 import { ProfileIcon } from "../../../Reusables/components/ProfileIcon";
 import Filters from "./Filters";
-
+import { IoIosArrowUp } from "react-icons/io";
 import "./sidebar.css";
 
 const Sidebar = (props) => {
@@ -25,10 +25,14 @@ const Sidebar = (props) => {
     setSelectedPeriodStart,
     selectedPeriodStart,
     storeTimeZone,
-    setResetFilter
+    setResetFilter,
+    width,
   } = props;
-
+  const [clicked, setClicked] = useState(false);
   //Display scheduling periods in sidebar
+  useEffect(() => {
+    width > 1000 && setClicked(true);
+  }, [width]);
   const displayWeekList = () => {
     return startDaysOfWeek?.map((weekStart, i) => {
       const endWeek = weekStart.clone().endOf("week").format("MMM Do");
@@ -78,8 +82,8 @@ const Sidebar = (props) => {
   //Userfilter onChange Event
   const updateUserFilter = (e, newVal) => {
     const empProfiles = newVal;
-    console.log("newVal",newVal)
-    if (empProfiles.length===0) {
+    console.log("newVal", newVal);
+    if (empProfiles.length === 0) {
       setFilters((pre) => {
         return { ...pre, employees: empList };
       });
@@ -89,7 +93,9 @@ const Sidebar = (props) => {
       });
     }
   };
-
+  const updateClassName = () => {
+    setClicked((pre) => !pre);
+  };
 
   return (
     <div className="Side-bar">
@@ -115,56 +121,68 @@ const Sidebar = (props) => {
           </select>
         </div>
       </div>
-      <div
-        className="userFilter"
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        
-          <div className="user-filter">
-            <Autocomplete
-              multiple
-              getOptionLabel={(empList) =>
-                `${empList.firstname}, ${empList.lastname}`
-              }
-              options={empList}
-              sx={{ width: 300 }}
-              isOptionEqualToValue={(option, value) =>
-                option.firstname === value.firstname
-              }
-              filterSelectedOptions
-              noOptionsText={"No employee found"}
-              renderOption={(props, empList) => {
-                // console.log("empList", empList);
-                return (
-                  <Box
-                    {...props}
-                    key={empList.userId}
-                    sx={{ display: "flex", flexDirection: "row", gap: "5%" }}
-                  >
-                    <ProfileIcon
-                      profile={empList}
-                      color={empList.position.color}
+      <div className="all-filters">
+        <div className="filter-label">
+          <div className="filters-title">Filters:</div>
+          <div className={`toggle-button ${clicked}`} onClick={updateClassName}>
+            <IoIosArrowUp />
+          </div>
+        </div>
+        {clicked && (
+          <div
+            className="userFilter"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <div className="user-filter">
+              <Autocomplete
+                multiple
+                getOptionLabel={(empList) =>
+                  `${empList.firstname}, ${empList.lastname}`
+                }
+                options={empList}
+                sx={{ width: 300 }}
+                isOptionEqualToValue={(option, value) =>
+                  option.firstname === value.firstname
+                }
+                filterSelectedOptions
+                noOptionsText={"No employee found"}
+                renderOption={(props, empList) => {
+                  // console.log("empList", empList);
+                  return (
+                    <Box
+                      {...props}
                       key={empList.userId}
-                    />
-                    <div key={`names ${empList.userId}`}>
-                      {empList.firstname}, {empList.lastname}
-                    </div>
-                  </Box>
-                );
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Search employees"
-                  variant="outlined"
-                />
-              )}
-              onChange={(e, newVal) => updateUserFilter(e, newVal)}
+                      sx={{ display: "flex", flexDirection: "row", gap: "5%" }}
+                    >
+                      <ProfileIcon
+                        profile={empList}
+                        color={empList.position.color}
+                        key={empList.userId}
+                      />
+                      <div key={`names ${empList.userId}`}>
+                        {empList.firstname}, {empList.lastname}
+                      </div>
+                    </Box>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Search employees"
+                    variant="outlined"
+                  />
+                )}
+                onChange={(e, newVal) => updateUserFilter(e, newVal)}
+              />
+            </div>
+            <Filters
+              filters={filters}
+              setFilters={setFilters}
+              setResetFilter={setResetFilter}
             />
           </div>
-          <Filters filters={filters} setFilters={setFilters} setResetFilter={setResetFilter}/>
-        </div>
-      
+        )}
+      </div>
     </div>
   );
 };

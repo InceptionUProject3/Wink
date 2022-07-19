@@ -123,7 +123,6 @@ const CalendarBodyMobile = ({
         {myWorkSched?.some((sched) => sched.schedule === true) ? (
           myWorkSched?.map((sched, i) => {
             if (sched.schedule) {
-              console.log("sched", sched);
               return (
                 <div
                   key={`Sched ${myWorkSched?.scheduleId} ${i}`}
