@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../authentication/StoreProvider";
 import { LoginContext } from "../authentication/LoginProvider";
 import { useNavigate } from "react-router-dom";
+import ContactsIcon from '@mui/icons-material/Contacts';
 import {
   List,
   ListItem,
@@ -11,6 +12,8 @@ import {
   Collapse,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { ThemeProvider } from '@emotion/react';
+import theme  from '../utils/muiTheme';
 
 const FindCoworkers = (props) => {
   const authContext = useContext(LoginContext);
@@ -57,24 +60,26 @@ const FindCoworkers = (props) => {
  
 
   return (
-    <Box style={{marginTop: '10vh'}}>
+    <Box >
+      <ThemeProvider theme={theme}>
       <List>
         <ListItem divider>
           <ListItemButton onClick={handleCollapse}>
-            <ListItemText primary={"Contacts"} />
+            <ContactsIcon style={{color: "#00b3b4"}}/>
+            <ListItemText primary={"Contacts"} style={{display: "flex", color: "#00b3b4", font: "bold" }} />
           </ListItemButton>
         </ListItem>
       </List>
 
       <Collapse in={open}>
-        <List sx={{ width: 300, display: "flex", flexDirection: "column" }}>
+        <List sx={{ width: "50vw", display: "flex", flexDirection: "column" }}>
           {coworkers ? (
             coworkers.map((profile, index) => {
               return (
                 <ListItem
                 key={index}
                   divider
-                  sx={{ width: 300, display: "flex", flexDirection: "column" }}
+                  sx={{ width: "50vw", display: "flex", flexDirection: "column",  color: "#00b3b4" }}
                 >
                   <ListItemButton
                     key={index}
@@ -85,6 +90,7 @@ const FindCoworkers = (props) => {
                   >
                     <ListItemText
                      key={index}
+
                       primary={`${profile.user.firstname}  ${profile.user.lastname}`}
                       secondary={profile.userprofile.name}
                     />
@@ -99,6 +105,7 @@ const FindCoworkers = (props) => {
           )}
         </List>
       </Collapse>
+      </ThemeProvider>
     </Box>
   );
 };
