@@ -78,6 +78,7 @@ const Sidebar = (props) => {
   //Userfilter onChange Event
   const updateUserFilter = (e, newVal) => {
     const empProfiles = newVal;
+    console.log("newVal",newVal)
     if (empProfiles.length===0) {
       setFilters((pre) => {
         return { ...pre, employees: empList };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 
 import { StoreContext } from "../../components/authentication/StoreProvider";
@@ -92,8 +92,8 @@ const AdminSchedule = () => {
   useEffect(() => {
     const coleredPosArray = setPositionList(schedules);
     //set EmployeeList for employee filter
-    const employeeList = [];
     const getEmployeeList = () => {
+      const employeeList = [];
       schedules?.map((sched) => {
         const foundPos = coleredPosArray.find((p) => sched.position === p.type);
         employeeList.push({
@@ -103,22 +103,24 @@ const AdminSchedule = () => {
           position: foundPos,
         });
       });
+      setEmpList(() => employeeList);
+      setFilters((pre) => {
+        return { ...pre, employees: employeeList };
+      });
     };
-    getEmployeeList();
-    // console.log("emp list1", employeeList)
-    setEmpList(() => employeeList);
-    setFilters((pre) => {
-      return { ...pre, employees: employeeList };
-    });
-  },[schedules]);
-  console.log("schedules", schedules)
+    filters?.employees.length === 0
+      ? getEmployeeList()
+      : setFilters((pre) => {
+          return { ...pre, employees: pre.employees };
+        });
+  }, [schedules]);
+
   //Set initial filter(employees, availability, positions) values
   useEffect(() => {
-    //set position variables which List
+    //set position variables
     const coleredPosArray = setPositionList(schedules);
-    
     //Set position filter with boolean
-    const getInitialFilters = () => {
+    const getInitialPositions = () => {
       const positionFilterArray = [];
       coleredPosArray?.map((p) => {
         return positionFilterArray.push({
@@ -127,22 +129,29 @@ const AdminSchedule = () => {
           value: true,
         });
       });
-      //add hours and selected employees filter with boolean
-      const initialfilterObj = {
-        hours: [
-          { type: "> 30hrs", max: null, min: 30, value: true },
-          { type: "20hrs - 30hrs", max: 30, min: 20, value: true },
-          { type: "< 20hrs", max: 20, min: 0, value: true },
-        ],
-        positions: positionFilterArray,
-        // employees: employeeList,
-      };
       setFilters((pre) => {
-        return { ...pre, ...initialfilterObj };
+        return { ...pre, positions: positionFilterArray };
       });
     };
-
-    getInitialFilters();
+    //add hours with boolean
+    const getInitialHrs = () => {
+      const initialhrsArray = [
+        { type: "> 30hrs", max: null, min: 30, value: true },
+        { type: "20hrs - 30hrs", max: 30, min: 20, value: true },
+        { type: "< 20hrs", max: 20, min: 0, value: true },
+      ];
+      setFilters((pre) => {
+        return { ...pre, hours: initialhrsArray };
+      });
+    };
+    // setInitialvalue only when rendered first and refresh button clicked.
+    if (filters?.positions.length === 0 || resetFilter) {
+      getInitialPositions();
+    }
+    if (filters?.hours.length === 0 || resetFilter) {
+      getInitialHrs();
+    }
+    setResetFilter(false);
   }, [schedules, resetFilter]);
 
   return (

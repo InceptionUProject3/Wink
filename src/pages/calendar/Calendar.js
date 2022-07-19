@@ -117,7 +117,7 @@ const Calendar = () => {
       <div className="Calendars-container">
         {calendar === "daily" && (
           <BiArrowBack
-            style={{ color: 'var(--wink-color)'}}
+            style={{ color: "var(--wink-color)" }}
             onClick={() => navigate("/calendar/weekly")}
             size={35}
           />
@@ -125,18 +125,12 @@ const Calendar = () => {
         <div className="Calendar-header">
           <div className="Calendar-buttons">
             <RequestSwapBtn setOpenModal={setOpenModal} />
-            {/* <ViewButtonsMobile /> */}
             <TodayButton setSelectedDay={setSelectedDay} />
           </div>
-          {/* {calendar === "weekly" && (
-        <WeeklyFilters
-          filter={filter}
-          setFilter={setFilter}
-          filterList={filterList}
-        />
-      )} */}
         </div>
-        {calendar === "daily" && ( <CalendarHeaderInfo settingHrsObj={settingHrsObj} /> )}
+        {calendar === "daily" && (
+          <CalendarHeaderInfo settingHrsObj={settingHrsObj} />
+        )}
         <div className="Calendar-view">
           <Routes>
             <Route

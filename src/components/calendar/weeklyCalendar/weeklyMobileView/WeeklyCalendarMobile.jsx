@@ -25,7 +25,6 @@ const WeeklyCalendarMobile = (props) => {
 
   return (
     <div className="Weekly-calendar-container-mobile">
-      {/* <div className="Weekly-calendar-mobile"> */}
       <HeaderMobile
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
@@ -40,20 +39,7 @@ const WeeklyCalendarMobile = (props) => {
         timezone={timeZone}
         settingHrsObj={settingHrsObj}
       />
-      {/* <WeeklyTableHeader
-          selectedDay={selectedDay}
-          setSelectedDay={setSelectedDay}
-          daysInWeek={daysInWeek}
-        /> */}
-
-      {/* <WeeklyTableBody
-          selectedDay={selectedDay}
-          settingHrsObj={settingHrsObj}
-          daysInWeek={daysInWeek}
-          timezone={timeZone}
-          filter={filter}
-        /> */}
-      {/* </div> */}
+      
     </div>
   );
 };

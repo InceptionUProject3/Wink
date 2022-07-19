@@ -5,7 +5,7 @@ import { StoreContext } from "../../../../authentication/StoreProvider";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { ProfileIcon } from "../../../../Reusables/components/ProfileIcon";
-import calculateWeekHrs from "../../../../Reusables/functions/calculateWeekHrs"
+import calculateWeekHrs from "../../../../Reusables/functions/calculateWeekHrs";
 import findDaySchedule from "../../../../Reusables/functions/findDaySchedule";
 const CalendarBodyMobile = ({
   selectedDay,
@@ -18,10 +18,10 @@ const CalendarBodyMobile = ({
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
 
-  const [myWorkRawSched, setMyWorkRawSched]=useState();
+  const [myWorkRawSched, setMyWorkRawSched] = useState();
   const [myWorkSched, setMyWorkSched] = useState();
   const [myVacSched, setMyVacSched] = useState();
-  // const [workDaySched, setWorkDaySched] = useState([]);
+
   const [todayWorkSched, setTodayWorkSched] = useState();
   const [position, setPosition] = useState();
   //set schdules & position colors
@@ -41,8 +41,12 @@ const CalendarBodyMobile = ({
           "fetched my schedules",
           scheduleData?.myAllSchedules[0]?.schedules
         );
-        setMyWorkRawSched(() => scheduleData?.myAllSchedules[0]?.schedules?.workScheds);
-        setMyVacSched(() => scheduleData?.myAllSchedules[0]?.schedules?.vacScheds);
+        setMyWorkRawSched(
+          () => scheduleData?.myAllSchedules[0]?.schedules?.workScheds
+        );
+        setMyVacSched(
+          () => scheduleData?.myAllSchedules[0]?.schedules?.vacScheds
+        );
         const todayData = scheduleData?.myTodayWorkSched[0];
         setTodayWorkSched(() => {
           return {
@@ -68,8 +72,13 @@ const CalendarBodyMobile = ({
 
   //set schedule data array to be displayed
   useEffect(() => {
-    const scheduleArray = findDaySchedule(daysInWeek,myWorkRawSched, timezone, settingHrsObj);
-  //  console.log('shceudle array', scheduleArray)
+    const scheduleArray = findDaySchedule(
+      daysInWeek,
+      myWorkRawSched,
+      timezone,
+      settingHrsObj
+    );
+    //  console.log('shceudle array', scheduleArray)
     setMyWorkSched(scheduleArray);
   }, [daysInWeek, settingHrsObj, myWorkRawSched, timezone]);
 
@@ -102,18 +111,17 @@ const CalendarBodyMobile = ({
         <div className="row">
           <div className="label">Scheduled Hrs : </div>&nbsp;
           <div className="scheduled-Hrs">
-            {calculateWeekHrs(myWorkRawSched?.workScheds)}/{todayWorkSched?.availHrs || 0} hrs
+            {calculateWeekHrs(myWorkRawSched)}/{todayWorkSched?.availHrs || 0}{" "}
+            hrs
           </div>
         </div>
-      
       </div>
-    
+
       <div className="Schedule">
         <div className="title">Weekly Schedules</div>
 
-        {myWorkSched?.some(sched=>sched.schedule===true)? (
+        {myWorkSched?.some((sched) => sched.schedule === true) ? (
           myWorkSched?.map((sched, i) => {
-            
             if (sched.schedule) {
               console.log("sched", sched);
               return (
@@ -167,9 +175,7 @@ const CalendarBodyMobile = ({
                     </span>
                     <span>{endDay.format("Do")}</span>
                   </div>
-                 
                 </div>
-               
               </div>
             );
           })

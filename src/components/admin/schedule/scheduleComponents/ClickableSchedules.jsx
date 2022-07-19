@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ClickableScheduleBar from "./ClickableScheduleBar";
 import groupByPosition from "../../../Reusables/functions/groupByPosition";
 import ProfileSmall from "../../../Reusables/components/ProfileSmall";
-import moment from "moment";
 import calculateWeekHrs from "../../../Reusables/functions/calculateWeekHrs";
 
 const ClickableSchedules = (props) => {
@@ -21,7 +20,7 @@ const ClickableSchedules = (props) => {
 
   const [groupedProfs, setGroupedProfs] = useState();
   const [filteredPos, setFilteredPos] = useState([]);
-  console.log('schedules', schedules)
+  // console.log('schedules', schedules)
   const [filteredEmpSched, setFilteredEmpSched] = useState(schedules);
 
   //filter update
@@ -39,6 +38,7 @@ const ClickableSchedules = (props) => {
       });
     };
     searchEmp();
+    console.log('filteredEmpSchedArray', filteredEmpSched)
     //update filtered Employee schedules by availabilty.
     const getFilteredHrs = () => {
       const filterHrs = filters?.hours;
