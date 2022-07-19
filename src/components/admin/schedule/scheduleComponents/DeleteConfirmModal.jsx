@@ -25,17 +25,12 @@ const DeleteConfirmModal = ({
   const sendDelete = async () => {
     console.log("Archiving schedule");
 
-    const pretendDelete = {
-      ...selectedSched,
-      archived: true,
-    };
-
     const dataToSend = JSON.stringify({
       user: { User_idUser: userId, Store_idStore: storeId },
-      data: pretendDelete,
+      data: selectedSched.idSchedule,
     });
     const response = await fetch(`/api/schedule/scheduling`, {
-      method: "PATCH",
+      method: "DELETE",
       headers: { "content-Type": "application/json" },
       body: dataToSend,
     });
@@ -60,7 +55,7 @@ const DeleteConfirmModal = ({
         <DialogContentText id="alert-dialog-description">
           Are you sure you want to delete schedule for{" "}
           {employeeSched?.firstname}, {employeeSched?.lastname} on{" "}
-          {moment.tz(selectedSched?.starttime, timezone).format("MMM Do")}
+          {moment.tz(selectedSched?.day, timezone).format("MMM Do")}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

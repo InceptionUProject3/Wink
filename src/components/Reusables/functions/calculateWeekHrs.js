@@ -3,7 +3,7 @@ import moment from "moment";
 const calculateWeekHrs = (emp) => {
     let calcHrsinWeek = 0;
     const foundEmpScheds = emp?.schedules||emp;
-    console.log(foundEmpScheds)
+    // console.log(foundEmpScheds)
     foundEmpScheds?.map((sched) => {
       //only work schedule will be added.
       if (sched.workcode === 0) {

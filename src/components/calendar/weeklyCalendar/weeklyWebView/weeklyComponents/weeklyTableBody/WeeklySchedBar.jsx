@@ -1,57 +1,41 @@
-import React from "react";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
 import ScheduleBar from "../../../../../Reusables/components/ScheduleBar";
+import findDaySchedule from '../../../../../Reusables/functions/findDaySchedule'
 
-const WeeklySchedBar = ({
-  daysInWeek,
-  settingHrsObj,
-  schedules,
-  timezone,
-}) => {
-  // const timezone = "America/New_York";
+const WeeklySchedBar = ({ daysInWeek, settingHrsObj, schedules, timezone }) => {
+  const [eachDayScheds, setEachDayScheds] = useState();
+ 
+  //set schedule data array to be displayed
+  useEffect(() => {
+    const weekSchedArray = findDaySchedule(daysInWeek, schedules, timezone, settingHrsObj);
+    console.log("weekSched", weekSchedArray);
+    setEachDayScheds(weekSchedArray);
+  }, [daysInWeek, settingHrsObj, schedules, timezone]);
 
-  return daysInWeek?.map((day, i) => {
-    //need to change to store hrs
-    const oneDay = moment.tz(day, timezone);
-    const dayStart = oneDay
-      .clone()
-      .set({ h: settingHrsObj?.startTimeOfDay?.hour(), m: settingHrsObj?.startTimeOfDay?.minute() });
-    const dayEnd = dayStart.clone().add(settingHrsObj?.scheduleHrs, "hours");
-
-    const foundSched = schedules?.find(
-      (sched) =>
-        moment.tz(sched.endtime, timezone) > dayStart &&
-        moment.tz(sched.starttime, timezone) < dayEnd
-    );
-    
-    if (foundSched === undefined) {
+  return eachDayScheds?.map((sched, i) => {
+    // console.log("mapped sched", sched);
+    if (!sched.schedule) {
       return (
         <div
-        className="Schedule"
-        key={`emptySched ${schedules?.scheduleId} ${i}`}
+          className="Schedule"
+          key={`emptySched ${sched?.scheduleId} ${i}`}
         ></div>
-        );
-      } else if (foundSched) {
-        const schedFrom = moment.tz(foundSched.starttime,timezone);
-        // console.log("found", foundSched.starttime, schedFrom)
-        const schedTo = moment.tz(foundSched.endtime,timezone);
-        const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
-        const newTo = schedTo < dayEnd ? schedTo : dayEnd;
-        // console.log("foundSched", schedFrom, schedTo, dayStart, dayEnd);
-
+      );
+    } else if (sched.schedule) {
+      // console.log("returns schedule", sched)
       return (
-        <div key={`Sched ${schedules?.scheduleId} ${i}`} className="Schedule">
+        <div key={`Sched ${sched?.scheduleId} ${i}`} className="Schedule">
           <ScheduleBar
-            dayStart={dayStart}
-            dayEnd={dayEnd}
-            newFrom={newFrom}
-            newTo={newTo}
-            schedObj={foundSched}
+            dayStart={sched.dayStart}
+            dayEnd={sched.dayEnd}
+            newFrom={sched.newFrom}
+            newTo={sched.newTo}
+            workcode={sched.workcode}
             timezone={timezone}
           />
-          {foundSched.workcode === 0 && (
+          {sched.workcode === 0 && (
             <div className="text">
-              {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}
+              {sched.newFrom?.format("h:mma")}-{sched.newTo?.format("h:mma")}
             </div>
           )}
         </div>

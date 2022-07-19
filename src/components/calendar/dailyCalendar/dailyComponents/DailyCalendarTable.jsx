@@ -91,7 +91,7 @@ useEffect(()=>{
               dayEnd={dayEnd}
               newFrom={newFrom}
               newTo={newTo}
-              schedObj={sched}
+              workcode={sched?.workcode}
               profIndex={index}
               schedIndex={i}
             />

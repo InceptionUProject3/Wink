@@ -64,10 +64,10 @@
     background-color: white;
    z-index: 499;
 }
-.Calendars-container>.Calendar-header{
-    margin: 0 5%;
-}
-.Calendar-buttons>.today{
-    margin-left: auto;
 
+@media screen and (max-width:700px) {
+    .Calendar-buttons>.today{
+        margin-left: auto;
+    
+    }
 }

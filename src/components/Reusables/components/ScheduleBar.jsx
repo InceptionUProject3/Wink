@@ -4,10 +4,10 @@ import moment from "moment";
 import "./style/scheduleBar.css";
 
 const ScheduleBar = (props) => {
-  const { dayStart, dayEnd, newFrom, newTo, schedObj, schedIndex, profIndex,timezone } =
+  const { dayStart, dayEnd, newFrom, newTo, workcode, schedIndex, profIndex,timezone } =
     props;
   const [timeDisplay, setTimeDisplay] = useState(-1);
-  //  console.log(dayStart, dayEnd)
+  //  console.log("all",dayStart, dayEnd, newFrom, newTo, workcode, schedIndex, profIndex,timezone )
   //Divide maxmum of Bar every 15min
   const barLength = Math.round(moment(dayEnd - dayStart).unix() / 60 / 15);
 
@@ -18,7 +18,7 @@ const ScheduleBar = (props) => {
   const hrs =
     Math.round((moment(newTo - newFrom).unix() / 60 / 60) * 100) / 100;
 
-  if (schedObj.workcode === 0) {
+  if (workcode === 0) {
     return (
       <>
         <div
@@ -41,7 +41,7 @@ const ScheduleBar = (props) => {
         </div>
       </>
     );
-  } else if (schedObj.workcode === 1) {
+  } else if (workcode === 1) {
     return (
       <>
         <div

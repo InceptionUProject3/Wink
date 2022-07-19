@@ -4,6 +4,7 @@ import ScheduleBar from "../../../Reusables/components/ScheduleBar";
 import { useEffect } from "react";
 import AdminScheduleModal from "./AdminScheduleModal";
 import DeleteConfirmModal from "./DeleteConfirmModal";
+import findDaySchedule from "../../../Reusables/functions/findDaySchedule";
 
 const ClickableScheduleBar = ({
   daysInWeek,
@@ -20,7 +21,7 @@ const ClickableScheduleBar = ({
   const [timeList, setTimeList] = useState();
   const [open, setOpen] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
-
+  const [daySchedsForWeek, setDaySchedsForWeek] = useState();
   useEffect(() => {
     const getTimeList = () => {
       const timeOpen = settingHrsObj?.startTimeOfDay?.clone();
@@ -36,19 +37,30 @@ const ClickableScheduleBar = ({
 
   // console.log("selected date is set to", selectedDate)
   // set initial values for schedule modal
-  const scheduleAction = (e, day, foundSched) => {
+  const scheduleAction = (e, sched) => {
     //set Date
-    const dayClicked = moment.tz(day, timezone);
+    console.log("scheduleAction", e, sched);
+    // const dayClicked = moment.tz(day, timezone);
     setSelectedDate(() => {
       return {
-        starttime: dayClicked,
-        endtime: dayClicked,
+        starttime: sched.day,
+        endtime: sched.day,
       };
     });
     //set Schedule
-    if (foundSched) {
-      console.log("Modal - editing schedule", foundSched);
-      setSelectedSched(() => foundSched);
+    if (sched.schedule) {
+      console.log("Modal - editing schedule", sched);
+      setSelectedSched(() => {
+        return {
+          idSchedule: sched.idSchedule,
+          User_idUser: employeeSched.userId,
+          Store_idStore: employeeSched.storeId,
+          starttime: sched.newFrom.format(),
+          endtime: sched.newTo.format(),
+          workcode:0,
+          archived: false,
+        };
+      });
     } else {
       setSelectedSched((pre) => {
         console.log(
@@ -58,11 +70,11 @@ const ClickableScheduleBar = ({
           employeeSched.storeId
         );
         return {
-          ...pre,
           User_idUser: employeeSched.userId,
           Store_idStore: employeeSched.storeId,
           starttime: "",
           endtime: "",
+          workcode:0,
           archived: false,
         };
       });
@@ -76,71 +88,71 @@ const ClickableScheduleBar = ({
     setSelectedSched(foundSched);
     setConfirmModalOpen(true);
   };
-
+  useEffect(() => {
+    const scheduleArray = findDaySchedule(
+      daysInWeek,
+      employeeSched.schedules,
+      timezone,
+      settingHrsObj
+    );
+    //  console.log('shceudle array', scheduleArray)
+    setDaySchedsForWeek(scheduleArray);
+  }, [daysInWeek, settingHrsObj, employeeSched, timezone]);
   return (
     <>
-      {daysInWeek?.map((day, i) => {
-        const today = moment.tz(moment(), timezone);
-        const oneDay = moment.tz(day, timezone);
-        const dayStart = oneDay.clone().set({
-          h: settingHrsObj?.startTimeOfDay?.hour(),
-          m: settingHrsObj?.startTimeOfDay?.minute(),
-        });
-        const dayEnd = dayStart
-          .clone()
-          .add(settingHrsObj?.scheduleHrs, "hours");
-
-        const foundSched = employeeSched.schedules?.find(
-          (sched) =>
-            moment.tz(sched.endtime, timezone) > dayStart &&
-            moment.tz(sched.starttime, timezone) < dayEnd
-        );
-
-          if (foundSched === undefined) {
-            return (
-              <div
-                className={(oneDay > today)?"Schedule clickable":"Schedule non-clickable"}
-                key={`emptySched ${i}`}
-                onClick={(e) => (oneDay > today)&&scheduleAction(e, day, foundSched)}
-              ></div>
-            );
-          } else if (foundSched) {
-            const schedFrom = moment.tz(foundSched.starttime, timezone);
-            const schedTo = moment.tz(foundSched.endtime, timezone);
-            const newFrom = schedFrom > dayStart ? schedFrom : dayStart;
-            const newTo = schedTo < dayEnd ? schedTo : dayEnd;
-
-            return (
-              <div
-                onClick={(e) => (oneDay > today)&&scheduleAction(e, day, foundSched)}
-                key={`Sched ${foundSched?.idSchedule} ${i}`}
-                className={(oneDay > today)?"Schedule clickable":"Schedule non-clickable"}
-                id={foundSched?.idSchedule}
-              >
-                {(oneDay > today)&&<button
+      {daySchedsForWeek?.map((sched, i) => {
+        const today = moment.tz(moment(), timezone).startOf("day");
+        // console.log("mapped sched", sched.day, today);
+        if (!sched.schedule) {
+          return (
+            <div
+            className={
+              sched.day > today
+                ? "Schedule clickable"
+                : "Schedule non-clickable"
+            }
+              key={`emptySched ${sched?.scheduleId} ${i}`}
+              onClick={(e) => sched.day > today && scheduleAction(e, sched)}
+            ></div>
+          );
+        } else if (sched.schedule) {
+          // console.log("returns schedule", sched)
+          return (
+            <div
+              onClick={(e) => sched.day > today && scheduleAction(e, sched)}
+              key={`Sched ${sched?.idSchedule} ${i}`}
+              className={
+                sched.day > today
+                  ? "Schedule clickable"
+                  : "Schedule non-clickable"
+              }
+              id={sched?.idSchedule}
+            >
+              {sched.day > today && (
+                <button
                   className="delete"
-                  onClick={(e) => onClickDelete(e, foundSched)}
+                  onClick={(e) => onClickDelete(e, sched)}
                 >
                   x
-                </button>}
-
-                <ScheduleBar
-                  dayStart={dayStart}
-                  dayEnd={dayEnd}
-                  newFrom={newFrom}
-                  newTo={newTo}
-                  schedObj={foundSched}
-                  timezone={timezone}
-                />
-                {foundSched.workcode === 0 && (
-                  <div className="text">
-                    {newFrom?.format("h:mm a")}-{newTo?.format("h:mm a")}
-                  </div>
-                )}
-              </div>
-            );
-          }
-     
+                </button>
+              )}
+              <ScheduleBar
+                dayStart={sched.dayStart}
+                dayEnd={sched.dayEnd}
+                newFrom={sched.newFrom}
+                newTo={sched.newTo}
+                workcode={sched.workcode}
+                timezone={timezone}
+              />
+              {sched.workcode === 0 && (
+                <div className="text">
+                  {sched.newFrom?.format("h:mma")}-
+                  {sched.newTo?.format("h:mma")}
+                </div>
+              )}
+            </div>
+          );
+        }
       })}
       <AdminScheduleModal
         employeeSched={employeeSched}
