@@ -4,7 +4,7 @@ import moment from "moment";
 import "./style/scheduleBar.css";
 
 const ScheduleBar = (props) => {
-  const { dayStart, dayEnd, newFrom, newTo, workcode, schedIndex, profIndex,timezone } =
+  const { dayStart, dayEnd, newFrom, newTo, workcode, schedIndex, profIndex,timezone} =
     props;
   const [timeDisplay, setTimeDisplay] = useState(-1);
   //  console.log("all",dayStart, dayEnd, newFrom, newTo, workcode, schedIndex, profIndex,timezone )
@@ -31,7 +31,7 @@ const ScheduleBar = (props) => {
             onMouseEnter={() => setTimeDisplay(`${profIndex} ${schedIndex}`)}
             onMouseLeave={() => setTimeDisplay(-1)}
           >
-            <p className="hours">{hrs}hrs</p>
+            <p className="hours"><span className="number">{hrs}</span><span className="unit">hrs</span></p>
             {profIndex && timeDisplay === `${profIndex} ${schedIndex}` && (
               <div className="text">
                 {newFrom?.format("h:mma")}-{newTo?.format("h:mma")}

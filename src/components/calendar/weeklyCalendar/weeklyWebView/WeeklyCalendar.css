@@ -1,3 +1,9 @@
+.Weekly-calendar-container{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+
 .Weekly-calendar{
     display: grid;
     grid-template-columns: 1fr repeat(7,minmax(4.4em,1fr));

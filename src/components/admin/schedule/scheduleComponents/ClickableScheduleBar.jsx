@@ -107,28 +107,28 @@ const ClickableScheduleBar = ({
           return (
             <div
             className={
-              sched.day > today
+              sched.day >= today
                 ? "Schedule clickable"
                 : "Schedule non-clickable"
             }
               key={`emptySched ${sched?.scheduleId} ${i}`}
-              onClick={(e) => sched.day > today && scheduleAction(e, sched)}
+              onClick={(e) => sched.day >= today && scheduleAction(e, sched)}
             ></div>
           );
         } else if (sched.schedule) {
           // console.log("returns schedule", sched)
           return (
             <div
-              onClick={(e) => sched.day > today && scheduleAction(e, sched)}
+              onClick={(e) => sched.day >= today && scheduleAction(e, sched)}
               key={`Sched ${sched?.idSchedule} ${i}`}
               className={
-                sched.day > today
+                sched.day >= today
                   ? "Schedule clickable"
                   : "Schedule non-clickable"
               }
               id={sched?.idSchedule}
             >
-              {sched.day > today && (
+              {sched.day >= today && (
                 <button
                   className="delete"
                   onClick={(e) => onClickDelete(e, sched)}
@@ -143,6 +143,7 @@ const ClickableScheduleBar = ({
                 newTo={sched.newTo}
                 workcode={sched.workcode}
                 timezone={timezone}
+                // displayHrs={false}
               />
               {sched.workcode === 0 && (
                 <div className="text">
