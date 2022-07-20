@@ -142,6 +142,13 @@
         padding: 3% 3% 3% 1.5%;
         
     }
+    .second-column>.block{
+        color:var(--warning-color);
+        font-size: 0.8rem;
+    }
+    .second-column>.block>p{
+        margin:0;
+    }
     /* .card>.second-column>.card_text{
         overflow-wrap:normal
         

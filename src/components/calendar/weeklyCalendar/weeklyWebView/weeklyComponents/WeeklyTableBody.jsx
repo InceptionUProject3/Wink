@@ -7,7 +7,7 @@ import { StoreContext } from "../../../../authentication/StoreProvider";
 import moment from "moment";
 
 const WeeklyTableBody = (props) => {
-  const { selectedDay, settingHrsObj, daysInWeek, timezone, filter } =
+  const { selectedDay, settingHrsObj, daysInWeek, timezone, filter,openModal } =
     props;
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore ||1;
@@ -16,6 +16,7 @@ const WeeklyTableBody = (props) => {
   const [positions, setPositions] = useState();
   const [mySched, setMySched] = useState();
   const [cowokersSched, setCoworkersSched] = useState();
+  const [swapReqScheds, setSwapReqScheds]= useState();
   const [filteredEmpSched, setFilteredEmpSched] = useState();
 
   const startDay = selectedDay?.clone().startOf("week");
@@ -36,6 +37,7 @@ const WeeklyTableBody = (props) => {
           
         setMySched(() => scheduleData.mySchedules);
         setCoworkersSched(() => scheduleData.coworkersSchedules);
+        // setSwapReqScheds(()=>scheduleData.swapReqSchedules)
         //enable this line chduleData
         const positionArray =
           scheduleData &&
@@ -51,8 +53,8 @@ const WeeklyTableBody = (props) => {
       }
     };
     startDay && getAllSchedules();
-  }, [selectedDay, storeId]);
-
+  }, [selectedDay, storeId,openModal]);
+// console.log('swapreqScheds', swapReqScheds)
   useEffect(() => {
     const applyFilter = () => {
       // console.log("filter", filter, filter==="All");
@@ -88,6 +90,7 @@ const WeeklyTableBody = (props) => {
           daysInWeek={daysInWeek}
           settingHrsObj={settingHrsObj}
           timezone={timezone}
+          swapReqScheds={swapReqScheds}
         />
       )}
 

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import ScheduleBar from "../../../../../Reusables/components/ScheduleBar";
 import findDaySchedule from '../../../../../Reusables/functions/findDaySchedule'
 
-const WeeklySchedBar = ({ daysInWeek, settingHrsObj, schedules, timezone }) => {
+const WeeklySchedBar = ({ daysInWeek, settingHrsObj, schedules, timezone,swapReqScheds }) => {
   const [eachDayScheds, setEachDayScheds] = useState();
  
   //set schedule data array to be displayed
   useEffect(() => {
     const weekSchedArray = findDaySchedule(daysInWeek, schedules, timezone, settingHrsObj);
-    console.log("weekSched", weekSchedArray);
+    // console.log("weekSched", weekSchedArray);
     setEachDayScheds(weekSchedArray);
   }, [daysInWeek, settingHrsObj, schedules, timezone]);
 
@@ -25,6 +25,8 @@ const WeeklySchedBar = ({ daysInWeek, settingHrsObj, schedules, timezone }) => {
       // console.log("returns schedule", sched)
       return (
         <div key={`Sched ${sched?.scheduleId} ${i}`} className="Schedule">
+          {sched.swapRequested&&<div className="block"><p className="block-text">Swap Requested</p></div>}
+          {/* {sched.swapRequested&&sched.swapApproved&&<div className="block"><p className="block-text">Swap Approved</p></div>} */}
           <ScheduleBar
             dayStart={sched.dayStart}
             dayEnd={sched.dayEnd}

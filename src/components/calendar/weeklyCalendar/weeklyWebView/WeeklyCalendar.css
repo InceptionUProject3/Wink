@@ -168,7 +168,16 @@
     align-items: center;
     /* min-height: 3.7em; */
 }
-
+.Schedule>.block{
+    position: absolute;
+    z-index: 1000;
+    background-color: var(--grid-color);
+    color: white;
+    width: calc(100%);
+    height: calc(100% - 0.3em);
+    font-weight: bold;
+    top:0.3em;
+}
 .Schedule>.Full-bar{
     
     height: 1.7em; 

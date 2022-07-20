@@ -12,7 +12,7 @@ import DisplayDaysinWeek from "../../../Reusables/components/DisplayDaysinWeek";
 
 const WeeklyCalendarWeb = (props) => {
   //selectedDay is a standard day
-  const { selectedDay, setSelectedDay,filter,settingHrsObj, timeZone } = props;
+  const { selectedDay, setSelectedDay,filter,settingHrsObj, timeZone ,openModal} = props;
 
   const [daysInWeek, setDaysInWeek] = useState();
 
@@ -41,6 +41,7 @@ const WeeklyCalendarWeb = (props) => {
           daysInWeek={daysInWeek}
           timezone={timeZone}
           filter={filter}
+          openModal={openModal}
         />
       </div>
     </div>

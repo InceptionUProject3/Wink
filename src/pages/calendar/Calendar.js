@@ -91,6 +91,7 @@ const Calendar = () => {
                   settingHrsObj={settingHrsObj}
                   filter={filter}
                   timeZone={userTimeZone}
+                  openModal={openModal}
                 />
               }
             />
@@ -103,6 +104,7 @@ const Calendar = () => {
                   setSelectedDay={setSelectedDay}
                   settingHrsObj={settingHrsObj}
                   timeZone={userTimeZone}
+                  openModal={openModal}
                 />
               }
             />

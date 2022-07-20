@@ -134,6 +134,7 @@ const CalendarBodyMobile = ({
                     <div className="date">{sched.day.format("Do")}</div>
                   </div>
                   <div className="second-column">
+                  {sched.swapRequested&&<div className="block"><p className="block-text">Swap Requested</p></div>}
                     <div className="card_text">
                       {sched.newFrom?.format("h:mma")}&nbsp;~&nbsp;
                       {sched.newTo?.format("h:mma (z)")}
