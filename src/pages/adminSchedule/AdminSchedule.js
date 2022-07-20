@@ -46,6 +46,17 @@ const AdminSchedule = () => {
     endtime: "",
     workcode: 0,
   });
+  const [width, setWidth] = useState(window.innerWidth);
+  // const userId = useContext(LoginContext).user?.id || 9;
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
 
   // console.log("context", useContext(LoginContext).user, useContext(StoreContext).store )
   //Set an array with 4 consecutive Sundays for scheduling periods
@@ -154,8 +165,8 @@ const AdminSchedule = () => {
     setResetFilter(false);
   }, [schedules, resetFilter]);
 
-  return (
-    <div className="Admin-schedule">
+  return (width >=700 ?  
+    (<div className="Admin-schedule">
       <div className="schedule-container">
         <Schedule
           selectedDay={selectedStart}
@@ -167,6 +178,7 @@ const AdminSchedule = () => {
           setSelectedDate={setSelectedDate}
           selectedSched={selectedSched}
           setSelectedSched={setSelectedSched}
+          width={width}
         />
       </div>
       <div className="Side-bar-container">
@@ -182,9 +194,10 @@ const AdminSchedule = () => {
           setSelectedPeriodStart={setSelectedPeriodStart}
           storeTimeZone={storeTimeZone}
           setResetFilter={setResetFilter}
+          width={width}
         />
       </div>
-    </div>
+    </div>):(<div>mobile is not available for scheduling. Please, use tablet or pc.</div>)
   );
 };
 

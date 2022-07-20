@@ -34,7 +34,7 @@ const Schedule = (props) => {
   }, [selectedDay]);
 
   return (
-    <div>
+    <div className="Scheduling">
       <CalendarHeaderInfo
       settingHrsObj={settingHrsObj}
        />

@@ -1,6 +1,6 @@
 .Admin-weekly-calendar>.Weekly-header{
     display: grid;
-    grid-template-columns: repeat(8,minmax(100px,1fr));
+    grid-template-columns: repeat(8,minmax(50px,1fr));
     grid-template-rows: auto;
 }
 
@@ -11,13 +11,13 @@
     padding: 0.3em 0.3em 2em 0.3rem;
     font-weight: bold;
     font-size: large;
-    color:var(--wink-color-light)
+    color:var(--wink-color)
 }
 .Weekly-header>.days{
     grid-column: 1/-1;
     grid-row:2;
     display: grid;
-   grid-template-columns: repeat(8,minmax(100px,1fr));
+   grid-template-columns: repeat(8,minmax(50px,1fr));
    border-bottom: 0.5px solid var(--grid-color);
    border-left: 0.5px solid var(--grid-color);
 }
@@ -27,7 +27,7 @@
 }
 .Admin-weekly-calendar>.Schedules{
     display: grid;
-    grid-template-columns: repeat(8,minmax(100px,1fr));
+    grid-template-columns: repeat(8,minmax(50px,1fr));
     grid-template-rows: auto;
     border-left: 0.5px solid var(--grid-color);
 }
@@ -59,4 +59,10 @@
 }
 .Admin-weekly-calendar>.Schedules>.Schedule:hover>.delete{
     visibility: visible
+}
+.Scheduling{
+margin: 2rem 0rem;
+}
+@media  only screen and (max-width:1000px) {
+
 }
