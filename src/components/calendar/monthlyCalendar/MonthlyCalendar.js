@@ -22,7 +22,7 @@ const weekdayHeaders = [
 const MonthlyCalendar = (props) => {
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  const { today, setToday } = props;
+  const { today, setToday, open} = props;
 
   // console.log("positions",positions)
 
@@ -75,11 +75,7 @@ const MonthlyCalendar = (props) => {
       const endOfMonth = today?.clone().endOf("months");
       const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
       const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
-      // console.log(
-      //   "startOfHoliday   startOfMonth",
-      //   startOfHoliday,
-      //   startOfMonth
-      // );
+    
       const res = await fetch(
         `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
       );
@@ -93,13 +89,13 @@ const MonthlyCalendar = (props) => {
         newHoliday.push({ date: newdate, name: holiday.nameEn });
         //console.log("holiday", newdate)
       });
-      //console.log("newHoliday", newHoliday);
+      
 
       setholidaysOfMonth(newHoliday);
     };
-
+    console.log("newHoliday", holidaysOfMonth);
     startOfMonth && getMonHolidays();
-  }, [today, startOfMonth]);
+  }, [today, startOfMonth, open]);
 
   useEffect(() => {
     const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
@@ -165,6 +161,7 @@ const MonthlyCalendar = (props) => {
                       today={today}
                       setAddEvent={setAddEvent}
                       holidaysOfMonth={holidaysOfMonth}
+                      setholidaysOfMonth={setholidaysOfMonth}
                       day={day}
                     />
                   </div>
