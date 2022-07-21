@@ -8,7 +8,7 @@ const ProfileBig = ({profile, position}) => {
 
         <div className="title">
           <div className="iconNme">
-            <ProfileIcon profile={profile} color={position?.color} />
+            <ProfileIcon position={position} />
             <div className="me">me</div>
           </div>
           <div className="position">{profile?.type}</div>

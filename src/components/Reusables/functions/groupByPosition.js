@@ -1,13 +1,13 @@
 const groupByPosition = (schedules) => {
     const initialVal = {};
     return schedules?.reduce((acc, current) => {
-      if (!acc[current.position]) {
-        acc[current.position] = [];
+      if (!acc[current.positionId]) {
+        acc[current.positionId] = [];
       }
 
-      acc[current.position].push(current);
+      acc[current.positionId].push(current);
       //order emplyees in every group
-      acc[current.position]?.sort((a, b) =>
+      acc[current.positionId]?.sort((a, b) =>
         a.firstname > b.firstname ? 1 : -1
       );
 

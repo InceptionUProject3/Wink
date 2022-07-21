@@ -96,7 +96,7 @@ const Sidebar = (props) => {
   const updateClassName = () => {
     setClicked((pre) => !pre);
   };
-
+console.log('emplist', empList)
   return (
     <div className="Side-bar">
       <div className="Period-container">
@@ -155,9 +155,8 @@ const Sidebar = (props) => {
                       sx={{ display: "flex", flexDirection: "row", gap: "5%" }}
                     >
                       <ProfileIcon
-                        profile={empList}
-                        color={empList.position.color}
-                        key={empList.userId}
+                        position= {empList.position}
+                        // key={empList.userId}
                       />
                       <div key={`names ${empList.userId}`}>
                         {empList.firstname}, {empList.lastname}

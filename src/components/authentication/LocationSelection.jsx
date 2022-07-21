@@ -5,6 +5,7 @@ import Location from "./Location";
 import { StoreContext } from "./StoreProvider";
 import "./LocationSelection.css";
 import LocationFilters from "./LocationFilters";
+import setPositionColorList from "../Reusables/functions/setPositionColorList";
 
 
 const LocationSelection = (props) => {
@@ -51,7 +52,21 @@ const LocationSelection = (props) => {
     
   }, [searchTerm, allStores, state]);
 
-  const profiles = (profile) => {
+  const profiles = async(profile) => {
+    
+    let dataToSend = JSON.stringify(profile);
+    // console.log("sending userId: " + userToSend);
+    const response = await fetch("/api/getAllPositions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: dataToSend,
+    });
+    const data = await response.json();
+    console.log("getting position", data);
+    const colorNpos = setPositionColorList(data);
+    storeContext.setPositions(colorNpos);
     storeContext.setStore(profile);
     navigate("/calendar");
     // console.log("the selected profile is", profile);

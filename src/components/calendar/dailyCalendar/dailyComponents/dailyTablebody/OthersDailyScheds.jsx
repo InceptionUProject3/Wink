@@ -1,40 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { StoreContext } from "../../../../authentication/StoreProvider";
 import { ProfileIcon } from "../../../../Reusables/components/ProfileIcon";
+import groupByPosition from "../../../../Reusables/functions/groupByPosition";
 
 const OthersDailyScheds = (props) => {
-  const { othersScheds, positions, displaySched } = props;
+  const { othersScheds, displaySched } = props;
   const [groupedScheds, setGroupedScheds] = useState();
+  const positions = useContext(StoreContext).positions;
 
   useEffect(() => {
-    const groupByPosition = () => {
-      const initialVal = {};
-      return othersScheds?.reduce((acc, current) => {
-        // console.log(current.firstname)
-        //filter empty schedules
-        if(current.schedules.length!==0){
-          
-          if (!acc[current.position]) {
-            acc[current.position] = [];
-          }
-          
-          acc[current.position].push(current);
-        }
-     
-        //order emplyees in every group
-        acc[current.position]?.sort((a,b)=>a.firstname>b.firstname?1:-1)
-        // console.log('after', acc[current.position])
-        return acc;
-      }, initialVal);
-    };
-    const groupedObj = groupByPosition();
-    // console.log("ordered", groupedObj)
+   
+    const groupedObj = groupByPosition(othersScheds);
+
     setGroupedScheds(() => groupedObj);
   }, [othersScheds]);
-
   return (
     <>
       {positions?.map((position, i) => {
-        const empInPosition = groupedScheds && groupedScheds[position.type];
+        const empInPosition = groupedScheds && groupedScheds[position.id];
+       
         if (empInPosition) {
           // console.log('others day positon', position)
           return empInPosition?.map((sched, index) => {
@@ -43,7 +27,7 @@ const OthersDailyScheds = (props) => {
                 className="profile-container others"
                 key={`day-profile ${i} ${index}`}
               >
-                <ProfileIcon profile={sched} color={position.color} />
+                <ProfileIcon position={position} />
                 <div className="name">
                   {sched?.firstname}, {sched?.lastname}
                 </div>

@@ -15,15 +15,16 @@ const CalendarBodyMobile = ({
   setSelectedDay,
 }) => {
   const navigate = useNavigate();
-  const userId = useContext(LoginContext).user?.id || 9;
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-
+  const userId = useContext(LoginContext).user?.id ;
+  const storeId = useContext(StoreContext).store?.Store_idStore;
+  const positions = useContext(StoreContext).positions;
+// console.log("store info", storeId, useContext(LoginContext))
   const [myWorkRawSched, setMyWorkRawSched] = useState();
   const [myWorkSched, setMyWorkSched] = useState();
   const [myVacSched, setMyVacSched] = useState();
-
+  const [position, setPosition] = useState({})
   const [todayWorkSched, setTodayWorkSched] = useState();
-  const [position, setPosition] = useState();
+  // const [position, setPosition] = useState();
   //set schdules & position colors
   useEffect(() => {
     // console.log("fetching useEffect");
@@ -48,20 +49,21 @@ const CalendarBodyMobile = ({
           () => scheduleData?.myAllSchedules[0]?.schedules?.vacScheds
         );
         const todayData = scheduleData?.myTodayWorkSched[0];
-        setTodayWorkSched(() => {
+        // console.log('today Data1', todayData)
+        todayData?.schedules[0]&&setTodayWorkSched(() => {
           return {
             ...todayData?.schedules[0],
-            availHrs: todayData?.availability.availHrsinWeek,
+            availHrs: todayData?.availability?.availHrsinWeek,
             firstname: todayData?.firstname,
             lastname: todayData?.lastname,
-            position: todayData?.position,
+            positionId: todayData?.positionId,
             starttime: moment.tz(todayData?.schedules[0].starttime, timezone),
             endtime: moment.tz(todayData?.schedules[0].endtime, timezone),
           };
         });
 
-        const positionArray = setPositionList(todayData?.schedules);
-        setPosition(() => positionArray[0]);
+        // const positionArray = setPositionList(todayData?.schedules);
+        // setPosition(() => positionArray[0]);
       } catch (err) {
         console.log("Failed to fetch schedule data", err);
         setMyWorkSched(() => null);
@@ -69,8 +71,12 @@ const CalendarBodyMobile = ({
     };
     selectedDay && getMySchedules();
   }, [selectedDay, storeId, userId]);
-
+// console.log('today Data', todayWorkSched)
   //set schedule data array to be displayed
+  useEffect(()=>{
+    setPosition(()=>positions.find((pos)=>todayWorkSched?.positionId===pos.id))
+  },[positions, todayWorkSched])
+  // console.log("position", position)
   useEffect(() => {
     const scheduleArray = findDaySchedule(
       daysInWeek,
@@ -92,7 +98,7 @@ const CalendarBodyMobile = ({
     <div className="Cards_container">
       <div className="Summary_card">
         <div className="position">
-          <ProfileIcon profile={todayWorkSched} color={position?.color} />
+          <ProfileIcon position={position} />
           <div className="name">
             {todayWorkSched?.firstname}, {todayWorkSched?.lastname}
           </div>
