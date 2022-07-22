@@ -21,20 +21,24 @@ const MonthlySchedBar = (props) => {
             </div>
           );
         }
-        console.log("day value", day.value);
+        //console.log("day value", day.value);
       })}
-      {vacMonSched?.map((vacation, index) => {
-        const vacDate = moment(vacation.starttime).format("DD");
-        if (vacDate === day.value) {
-          return (
-            <div key={index}>
-              <h3>On vacation</h3>
-            </div>
-          );
-        }
+      <div className="vacation">
+        {vacMonSched?.map((vacation, index) => {
+          const vacDate = moment(vacation.starttime).startOf("day")
+          const vacEndDate = moment(vacation.endtime).endOf("day")
+          console.log(" day. date", day.date)
+          const momentDay = moment(day.date,"MM/DD/YYYY")
+          console.log("momentDay", momentDay)
 
-        console.log("vacation", vacDate);
-      })}
+          //console.log(" vacDate and day.value and vacEndDate",vacDate, day.value, vacEndDate )
+          if (momentDay >= vacDate && momentDay <= vacEndDate) {
+            return <div key={index}>On vacation</div>;
+          }
+          
+          //console.log("vacation", vacDate);
+        })}
+      </div>
     </div>
   );
 };
