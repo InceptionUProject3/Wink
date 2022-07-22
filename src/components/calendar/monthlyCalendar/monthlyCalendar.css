@@ -6,10 +6,25 @@
      border-color: 2px black;
      background-color: var(--wink-color-light);
      position: absolute;
-     top:0;
-     left:0;
-     z-index: 100;
+     top:0%;
+     left:0%;
+     z-index: 1000;
+     border-radius: 9px
     }
+
+.eveDate{
+    color:rgba(16, 42, 75, 0.536);
+}
+
+.submitBtn{
+    background: white;
+    border: none;
+    color: black ;
+    font-weight:100;
+    padding: 7px;
+    transition: ease background-color 250ms;
+    border-radius: 3px;
+}
     
 .eventclose {
       right: 0%;
