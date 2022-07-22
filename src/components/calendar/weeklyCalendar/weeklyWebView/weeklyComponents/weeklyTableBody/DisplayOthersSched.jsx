@@ -20,7 +20,7 @@ const DisplayOthersSched = (props) => {
     <>
       {positions?.map((position, i) => {
         const empInPositon = groupedProfs && groupedProfs[position.id];
-        console.log("positions", groupedProfs, positions, empInPositon)
+        // console.log("positions", groupedProfs, positions, empInPositon)
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {
             return (
