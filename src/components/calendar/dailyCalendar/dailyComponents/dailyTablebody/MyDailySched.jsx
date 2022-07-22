@@ -1,23 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useContext } from 'react';
+import { StoreContext } from '../../../../authentication/StoreProvider';
 import { ProfileIcon } from '../../../../Reusables/components/ProfileIcon';
 // import ScheduleBar from '../../Reusables/components/ScheduleBar';
 
 const MyDailySched = (props) => {
-  const {mySched, positions, displaySched} = props;
-  // console.log("mySched", mySched)
-  const findColor = () => {
-    const myPositionObj = positions?.find(
-      (position) => mySched?.position === position.type
-    );
-    const color = myPositionObj?.color;
-    return color;
-  };
+  const {mySched, displaySched} = props;
+  const [position, setPosition] = useState({});
+  const positions = useContext(StoreContext).positions;
+
+  useEffect(()=>{
+    setPosition(()=>positions.find((pos)=>mySched?.positionId===pos.id))
+  },[positions, mySched])
 
   return (
     
     <>
       <div className='profile-container my'>
-        <ProfileIcon profile={mySched} color={findColor()}/>
+        <ProfileIcon position={position}/>
         <div className='name'>{mySched?.firstname}, {mySched?.lastname} (me)</div>
       </div>
      

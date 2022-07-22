@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import WeeklySchedBar from "./WeeklySchedBar";
 import ProfileBig from "../../../../../Reusables/components/ProfileBig";
+import { StoreContext } from "../../../../../authentication/StoreProvider";
 
 const DisplayMySched = (props) => {
-  const { myProfile, positions, daysInWeek,settingHrsObj, timezone,swapReqScheds } = props;
-  const myPosition= positions.find((e)=>e.type===myProfile.position);
-  // console.log(daysInWeek)
+  const { myProfile, daysInWeek, settingHrsObj, timezone, swapReqScheds } =
+    props;
+  const positions = useContext(StoreContext).positions;
+  const [position, setPosition] = useState();
 
-  // console.log('my schedules', myProfile, myPosition)
+  useEffect(() => {
+    setPosition(() =>
+      positions.find((pos) => myProfile?.positionId === pos.id)
+    );
+  }, [positions, myProfile]);
+
   return (
     <>
-      <ProfileBig profile={myProfile} position={myPosition}/>
+      <ProfileBig profile={myProfile} position={position} />
 
       <WeeklySchedBar
         daysInWeek={daysInWeek}

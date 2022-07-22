@@ -10,7 +10,6 @@ import TableGrid from "./TableGrid";
 
 const DailyCalendarTable = (props) => {
   const {
-    positions,
     selectedDay,
     setSelectedDay,
     myDaySchedules,
@@ -115,7 +114,6 @@ useEffect(()=>{
         {myDaySchedules && (
           <MyDailySched
             mySched={myDaySchedules[0]}
-            positions={positions}
             displaySched={displaySched}
           />
         )}
@@ -123,7 +121,6 @@ useEffect(()=>{
         {coworkerDaySchedules && (
           <OthersDailyScheds
             othersScheds={coworkerDaySchedules}
-            positions={positions}
             displaySched={displaySched}
           />
         )}

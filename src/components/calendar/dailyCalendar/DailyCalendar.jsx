@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DailyCalendarTable from "./dailyComponents/DailyCalendarTable";
 
 import "./DailyCalendar.css";
-import setPositionList from "../../Reusables/functions/setPositionList";
+
 import { useContext } from "react";
 import { StoreContext } from "../../authentication/StoreProvider";
 // import moment from "moment";
@@ -12,8 +12,6 @@ import { LoginContext } from "../../authentication/LoginProvider";
 const DailyCalendar = (props) => {
   const { selectedDay, setSelectedDay,settingHrsObj, timeZone } = props;
 
-  //positon is set this level component to apply same color in child components
-  const [positions, setPositions] = useState();
   const [myDaySchedules, setMyDaySchedules] = useState();
   const [coworkerDaySchedules, setCoworkerDaySchedules] = useState();
 
@@ -35,11 +33,6 @@ const DailyCalendar = (props) => {
         setMyDaySchedules(() => res.mySchedules);
         setCoworkerDaySchedules(() => res.coworkersSchedules);
 
-        const positionArray = setPositionList([
-          ...res.mySchedules,
-          ...res.coworkersSchedules,
-        ]);
-        setPositions(() => positionArray);
       } catch (err) {
         console.log("Failed to fetch daily schedules", err);
         setMyDaySchedules(() => null);
@@ -53,7 +46,6 @@ const DailyCalendar = (props) => {
     <div className="DailyCal-container">
     
       <DailyCalendarTable
-        positions={positions}
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
         myDaySchedules={myDaySchedules}

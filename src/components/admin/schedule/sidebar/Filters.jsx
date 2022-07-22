@@ -35,12 +35,14 @@ const Filters = (props) => {
     filters?.positions.map((pos) => {
       if (pos.type === name) {
         return newFilterArray.push({
+          id: pos.id,
           type: name,
           value: !pos.value,
           color: pos.color,
         });
       } else {
         return newFilterArray.push({
+          id: pos.id,
           type: pos.type,
           value: pos.value,
           color: pos.color,

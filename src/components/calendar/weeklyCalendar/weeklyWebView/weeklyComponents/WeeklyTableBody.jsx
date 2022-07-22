@@ -11,9 +11,10 @@ const WeeklyTableBody = (props) => {
     props;
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore ||1;
+ 
   // console.log("filter in table body", filter);
 
-  const [positions, setPositions] = useState();
+  // const [positions, setPositions] = useState();
   const [mySched, setMySched] = useState();
   const [cowokersSched, setCoworkersSched] = useState();
   const [swapReqScheds, setSwapReqScheds]= useState();
@@ -37,15 +38,7 @@ const WeeklyTableBody = (props) => {
           
         setMySched(() => scheduleData.mySchedules);
         setCoworkersSched(() => scheduleData.coworkersSchedules);
-        // setSwapReqScheds(()=>scheduleData.swapReqSchedules)
-        //enable this line chduleData
-        const positionArray =
-          scheduleData &&
-          setPositionList([
-            ...scheduleData.mySchedules,
-            ...scheduleData.coworkersSchedules,
-          ]);
-        setPositions(positionArray);
+  
       } catch (err) {
         console.log("Failed to fetch schedule data", err);
         setMySched(() => null);
@@ -86,7 +79,6 @@ const WeeklyTableBody = (props) => {
       {mySched && (
         <DisplayMySched
           myProfile={mySched[0]}
-          positions={positions}
           daysInWeek={daysInWeek}
           settingHrsObj={settingHrsObj}
           timezone={timezone}
@@ -97,7 +89,6 @@ const WeeklyTableBody = (props) => {
       {cowokersSched && (
         <DisplayOthersSched
           schedules={filteredEmpSched}
-          positions={positions}
           daysInWeek={daysInWeek}
           settingHrsObj={settingHrsObj}
           timezone={timezone}

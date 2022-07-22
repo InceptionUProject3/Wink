@@ -86,11 +86,11 @@ const ClickableSchedules = (props) => {
     const groupedObj = groupByPosition(filteredEmpSched);
     setGroupedProfs(() => groupedObj);
   }, [filteredEmpSched]);
-
+console.log('filtered pos', filteredPos)
   return (
     <>
       {filteredPos?.map((position, i) => {
-        const empInPositon = groupedProfs && groupedProfs[position.type];
+        const empInPositon = groupedProfs && groupedProfs[position.id];
         // console.log("employee",empInPositon)
         if (empInPositon) {
           return empInPositon?.map((emp, index) => {

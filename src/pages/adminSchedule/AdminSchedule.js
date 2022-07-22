@@ -13,7 +13,7 @@ import "./adminSchedule.css";
 const AdminSchedule = () => {
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-
+  const positions = useContext(StoreContext).positions;
   const storeTimeZone =
     useContext(StoreContext).store?.store.timeZone || "America/New_York";
 
@@ -101,12 +101,13 @@ const AdminSchedule = () => {
   }, [selectedStart, schedModalOpen]);
 
   useEffect(() => {
-    const coleredPosArray = setPositionList(schedules);
+    // const coleredPosArray = setPositionList(schedules);
     //set EmployeeList for employee filter
     const getEmployeeList = () => {
       const employeeList = [];
       schedules?.map((sched) => {
-        const foundPos = coleredPosArray.find((p) => sched.position === p.type);
+        const foundPos = positions.find((p) => sched.positionId === p.id);
+        console.log("sched",foundPos)
         employeeList.push({
           userId: sched.userId,
           firstname: sched.firstname,
@@ -129,21 +130,23 @@ const AdminSchedule = () => {
   //Set initial filter(employees, availability, positions) values
   useEffect(() => {
     //set position variables
-    const coleredPosArray = setPositionList(schedules);
+    // const coleredPosArray = setPositionList(schedules);
     //Set position filter with boolean
     const getInitialPositions = () => {
-      const positionFilterArray = [];
-      coleredPosArray?.map((p) => {
-        return positionFilterArray.push({
-          type: p.type,
-          color: p.color,
-          value: true,
-        });
-      });
+      // const positionFilterArray = [];
+      positions?.map((p) => p.value = true
+      //   return positionFilterArray.push({
+      //     type: p.type,
+      //     color: p.color,
+      //     value: true,
+      //   });
+      
+      );
       setFilters((pre) => {
-        return { ...pre, positions: positionFilterArray };
+        return { ...pre, positions: positions };
       });
     };
+    console.log('filtere', filters)
     //add hours with boolean
     const getInitialHrs = () => {
       const initialhrsArray = [
