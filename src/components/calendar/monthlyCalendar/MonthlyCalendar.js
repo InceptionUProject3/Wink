@@ -22,7 +22,7 @@ const weekdayHeaders = [
 const MonthlyCalendar = (props) => {
   const userId = useContext(LoginContext).user?.id || 9;
   const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  const { today, setToday, open} = props;
+  const { today, setToday, open } = props;
 
   // console.log("positions",positions)
 
@@ -39,6 +39,7 @@ const MonthlyCalendar = (props) => {
   const [myMonSched, setMonSched] = useState();
   const [holidaysOfMonth, setholidaysOfMonth] = useState();
   const [startOfMonth, setStartOfMonth] = useState();
+  const [vacMonSched, setVacMonSched] = useState();
   //const startOfMonth = today?.clone().startOf("month");
   const endOfMonth = today?.clone().endOf("month");
   //console.log("month", month)
@@ -59,8 +60,9 @@ const MonthlyCalendar = (props) => {
           `/api/schedule/monthly?storeId=${storeId}&userId=${userId}&startOfMonth=${monthStart}`
         );
         const scheduleData = await res.json();
-        //console.log('fetched data', scheduleData)
-        setMonSched(() => scheduleData.mySchedules[0].schedules);
+        console.log("fetched data", scheduleData);
+        setMonSched(() => scheduleData.mySchedules[0].schedules.workScheds);
+        setVacMonSched(() => scheduleData.mySchedules[0].schedules.vacScheds);
       } catch (err) {
         console.log("failed to fetch schedule data", err);
         setMonSched(() => null);
@@ -68,6 +70,7 @@ const MonthlyCalendar = (props) => {
     };
     startOfMonth && getAllSchedules();
   }, [today, storeId, startOfMonth, userId]);
+  console.log("stored data", myMonSched, vacMonSched);
 
   useEffect(() => {
     const getMonHolidays = async () => {
@@ -75,7 +78,7 @@ const MonthlyCalendar = (props) => {
       const endOfMonth = today?.clone().endOf("months");
       const startOfHoliday = startOfMonth.clone().format("YYYY-MM-DD");
       const endOfHoliday = endOfMonth.clone().format("YYYY-MM-DD");
-    
+
       const res = await fetch(
         `/api/events?startOfHoliday=${startOfHoliday}&endOfHoliday=${endOfHoliday}`
       );
@@ -89,7 +92,6 @@ const MonthlyCalendar = (props) => {
         newHoliday.push({ date: newdate, name: holiday.nameEn });
         //console.log("holiday", newdate)
       });
-      
 
       setholidaysOfMonth(newHoliday);
     };
@@ -177,6 +179,8 @@ const MonthlyCalendar = (props) => {
                     myMonSched={myMonSched}
                     today={today}
                     day={day}
+                    vacMonSched={vacMonSched}
+                    setVacMonSched={setVacMonSched}
                   />
                   <DisplayHolidays
                     today={today}
