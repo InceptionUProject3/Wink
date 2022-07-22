@@ -1,3 +1,13 @@
+.vacation {
+   
+  flex-direction: column ;
+  background-color: rgb(5, 5, 5);
+  border-radius: 5px;
+  color: rgb(242, 142, 142) ;
+  font-weight:200;
+  font-size: 10px;
+  bottom: 90%;
+}
 
  .addEventModal{
     display: flex;
@@ -15,6 +25,7 @@
 .eveDate{
     color:rgba(16, 42, 75, 0.536);
 }
+
 
 .submitBtn{
     background: white;
