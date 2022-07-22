@@ -112,7 +112,7 @@ const CalendarBodyMobile = ({
         </div>
         <div className="row">
           <div className="label">Today :</div>&nbsp;
-          {todayWorkSched.starttime ? (
+          {todayWorkSched?.starttime ? (
             <div className="Today-sched">
               {todayWorkSched.starttime?.format("h:mma")}&nbsp;~&nbsp;
               {todayWorkSched.endtime?.format("h:mma (z)")}
