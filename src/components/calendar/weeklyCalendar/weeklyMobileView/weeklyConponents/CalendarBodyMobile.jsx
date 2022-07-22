@@ -15,14 +15,14 @@ const CalendarBodyMobile = ({
   setSelectedDay,
 }) => {
   const navigate = useNavigate();
-  const userId = useContext(LoginContext).user?.id ;
+  const userId = useContext(LoginContext).user?.id;
   const storeId = useContext(StoreContext).store?.Store_idStore;
   const positions = useContext(StoreContext).positions;
-// console.log("store info", storeId, useContext(LoginContext))
+  // console.log("store info", storeId, useContext(LoginContext))
   const [myWorkRawSched, setMyWorkRawSched] = useState();
   const [myWorkSched, setMyWorkSched] = useState();
   const [myVacSched, setMyVacSched] = useState();
-  const [position, setPosition] = useState({})
+  const [position, setPosition] = useState({});
   const [todayWorkSched, setTodayWorkSched] = useState();
   // const [position, setPosition] = useState();
   //set schdules & position colors
@@ -40,7 +40,8 @@ const CalendarBodyMobile = ({
         const scheduleData = await res.json();
         console.log(
           "fetched my schedules",
-          scheduleData?.myAllSchedules[0]?.schedules
+          scheduleData?.myAllSchedules[0]?.schedules,
+          scheduleData?.myTodayWorkSched[0]
         );
         setMyWorkRawSched(
           () => scheduleData?.myAllSchedules[0]?.schedules?.workScheds
@@ -50,15 +51,19 @@ const CalendarBodyMobile = ({
         );
         const todayData = scheduleData?.myTodayWorkSched[0];
         // console.log('today Data1', todayData)
-        todayData?.schedules[0]&&setTodayWorkSched(() => {
+        setTodayWorkSched(() => {
           return {
-            ...todayData?.schedules[0],
+            ...(todayData?.schedules[0] && todayData?.schedules[0]),
             availHrs: todayData?.availability?.availHrsinWeek,
             firstname: todayData?.firstname,
             lastname: todayData?.lastname,
             positionId: todayData?.positionId,
-            starttime: moment.tz(todayData?.schedules[0].starttime, timezone),
-            endtime: moment.tz(todayData?.schedules[0].endtime, timezone),
+            starttime:
+              todayData?.schedules[0] &&
+              moment.tz(todayData?.schedules[0].starttime, timezone),
+            endtime:
+              todayData?.schedules[0] &&
+              moment.tz(todayData?.schedules[0].endtime, timezone),
           };
         });
 
@@ -71,11 +76,13 @@ const CalendarBodyMobile = ({
     };
     selectedDay && getMySchedules();
   }, [selectedDay, storeId, userId]);
-// console.log('today Data', todayWorkSched)
+  console.log("today Data", todayWorkSched);
   //set schedule data array to be displayed
-  useEffect(()=>{
-    setPosition(()=>positions.find((pos)=>todayWorkSched?.positionId===pos.id))
-  },[positions, todayWorkSched])
+  useEffect(() => {
+    setPosition(() =>
+      positions.find((pos) => todayWorkSched?.positionId === pos.id)
+    );
+  }, [positions, todayWorkSched]);
   // console.log("position", position)
   useEffect(() => {
     const scheduleArray = findDaySchedule(
@@ -105,7 +112,7 @@ const CalendarBodyMobile = ({
         </div>
         <div className="row">
           <div className="label">Today :</div>&nbsp;
-          {todayWorkSched ? (
+          {todayWorkSched?.starttime ? (
             <div className="Today-sched">
               {todayWorkSched.starttime?.format("h:mma")}&nbsp;~&nbsp;
               {todayWorkSched.endtime?.format("h:mma (z)")}
@@ -140,7 +147,11 @@ const CalendarBodyMobile = ({
                     <div className="date">{sched.day.format("Do")}</div>
                   </div>
                   <div className="second-column">
-                  {sched.swapRequested&&<div className="block"><p className="block-text">Swap Requested</p></div>}
+                    {sched.swapRequested && (
+                      <div className="block">
+                        <p className="block-text">Swap Requested</p>
+                      </div>
+                    )}
                     <div className="card_text">
                       {sched.newFrom?.format("h:mma")}&nbsp;~&nbsp;
                       {sched.newTo?.format("h:mma (z)")}

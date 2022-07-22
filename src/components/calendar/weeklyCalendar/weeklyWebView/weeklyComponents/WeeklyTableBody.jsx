@@ -56,7 +56,9 @@ const WeeklyTableBody = (props) => {
         return setFilteredEmpSched(() => cowokersSched);
       } else if (filter === "My Position") {
         const filteredByPosition = cowokersSched?.filter(
-          (sched) => sched.position === mySched[0].position
+          (sched) => {
+            console.log('filtererror', sched, mySched[0])
+            return sched.positionId === mySched[0].positionId}
         );
         console.log("filteredByposiotn", filteredByPosition);
         return setFilteredEmpSched(() => filteredByPosition);

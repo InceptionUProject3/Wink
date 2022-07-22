@@ -181,7 +181,7 @@ const AdminScheduleModal = ({
     <Dialog open={open} onClose={() => setOpen(false)}>
       <DialogTitle>
         <span>Scheduling for</span>
-        <ProfileIcon profile={employeeSched} color={position.color} />
+        <ProfileIcon position={position} />
         <div className="name">
           {employeeSched.firstname}, {employeeSched.lastname}
         </div>

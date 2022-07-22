@@ -18,7 +18,7 @@ const OthersDailyScheds = (props) => {
     <>
       {positions?.map((position, i) => {
         const empInPosition = groupedScheds && groupedScheds[position.id];
-       
+       console.log('empPos', groupedScheds)
         if (empInPosition) {
           // console.log('others day positon', position)
           return empInPosition?.map((sched, index) => {
