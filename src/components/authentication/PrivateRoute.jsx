@@ -12,8 +12,8 @@ const PrivateRoute = (props) => {
       loggedInStore?.UserProfile_idUserProfile === 1000 ||
       loggedInStore?.UserProfile_idUserProfile === 1002;
     const{ mustBeAdmin,element }= props
-    
-    if((isAdmin&&mustBeAdmin)||(loggedInUser&&!mustBeAdmin)){
+    console.log('isAdmin?', isAdmin, mustBeAdmin, loggedInUser&&!mustBeAdmin)
+    if((isAdmin&&mustBeAdmin)){
         return element
     }else{
         return <Navigate to="/"/>

@@ -1,28 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
-import setPositionList from "../../../../Reusables/functions/setPositionList";
 import { LoginContext } from "../../../../authentication/LoginProvider";
 import { StoreContext } from "../../../../authentication/StoreProvider";
-import moment from "moment";
+
 
 const WeeklyTableBody = (props) => {
   const { selectedDay, settingHrsObj, daysInWeek, timezone, filter,openModal } =
     props;
-  const userId = useContext(LoginContext).user?.id || 9;
-  const storeId = useContext(StoreContext).store?.Store_idStore ||1;
+  const userId = useContext(LoginContext).user?.id ;
+  const storeId = useContext(StoreContext).store?.Store_idStore ;
  
-  // console.log("filter in table body", filter);
 
-  // const [positions, setPositions] = useState();
   const [mySched, setMySched] = useState();
   const [cowokersSched, setCoworkersSched] = useState();
   const [swapReqScheds, setSwapReqScheds]= useState();
   const [filteredEmpSched, setFilteredEmpSched] = useState();
 
   const startDay = selectedDay?.clone().startOf("week");
-
-
 
   //set schdules & position colors
   useEffect(() => {
@@ -47,7 +42,7 @@ const WeeklyTableBody = (props) => {
     };
     startDay && getAllSchedules();
   }, [selectedDay, storeId,openModal]);
-// console.log('swapreqScheds', swapReqScheds)
+
   useEffect(() => {
     const applyFilter = () => {
       // console.log("filter", filter, filter==="All");

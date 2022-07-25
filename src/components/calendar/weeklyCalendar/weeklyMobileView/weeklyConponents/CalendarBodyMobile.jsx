@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from "react";
-import setPositionList from "../../../../Reusables/functions/setPositionList";
 import { LoginContext } from "../../../../authentication/LoginProvider";
 import { StoreContext } from "../../../../authentication/StoreProvider";
 import moment from "moment";
@@ -18,13 +17,13 @@ const CalendarBodyMobile = ({
   const userId = useContext(LoginContext).user?.id;
   const storeId = useContext(StoreContext).store?.Store_idStore;
   const positions = useContext(StoreContext).positions;
-  // console.log("store info", storeId, useContext(LoginContext))
+ 
   const [myWorkRawSched, setMyWorkRawSched] = useState();
   const [myWorkSched, setMyWorkSched] = useState();
   const [myVacSched, setMyVacSched] = useState();
   const [position, setPosition] = useState({});
   const [todayWorkSched, setTodayWorkSched] = useState();
-  // const [position, setPosition] = useState();
+
   //set schdules & position colors
   useEffect(() => {
     // console.log("fetching useEffect");
@@ -66,9 +65,6 @@ const CalendarBodyMobile = ({
               moment.tz(todayData?.schedules[0].endtime, timezone),
           };
         });
-
-        // const positionArray = setPositionList(todayData?.schedules);
-        // setPosition(() => positionArray[0]);
       } catch (err) {
         console.log("Failed to fetch schedule data", err);
         setMyWorkSched(() => null);
@@ -83,7 +79,7 @@ const CalendarBodyMobile = ({
       positions.find((pos) => todayWorkSched?.positionId === pos.id)
     );
   }, [positions, todayWorkSched]);
-  // console.log("position", position)
+
   useEffect(() => {
     const scheduleArray = findDaySchedule(
       daysInWeek,

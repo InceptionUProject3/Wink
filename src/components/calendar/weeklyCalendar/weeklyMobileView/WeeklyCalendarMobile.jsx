@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-// import { StoreContext } from "../../authentication/StoreProvider";
 import HeaderMobile from "./weeklyConponents/HeaderMobile";
 
 import "./weeklyCalendarMobile.css";

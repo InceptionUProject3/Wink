@@ -6,16 +6,15 @@ import { LoginContext } from "../../components/authentication/LoginProvider";
 
 import Schedule from "../../components/admin/schedule/Schedule";
 import Sidebar from "../../components/admin/schedule/sidebar/Sidebar";
-import setPositionList from "../../components/Reusables/functions/setPositionList";
 
 import "./adminSchedule.css";
 
 const AdminSchedule = () => {
-  const userId = useContext(LoginContext).user?.id || 9;
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
+  const userId = useContext(LoginContext).user?.id;
+  const storeId = useContext(StoreContext).store?.Store_idStore;
   const positions = useContext(StoreContext).positions;
   const storeTimeZone =
-    useContext(StoreContext).store?.store.timeZone || "America/New_York";
+    useContext(StoreContext).store?.store.timeZone;
 
   const [schedules, setSchedules] = useState();
   const [startDaysOfWeek, setStartDaysOfWeek] = useState();
@@ -107,7 +106,7 @@ const AdminSchedule = () => {
       const employeeList = [];
       schedules?.map((sched) => {
         const foundPos = positions.find((p) => sched.positionId === p.id);
-        console.log("sched",foundPos)
+        console.log("sched", foundPos);
         employeeList.push({
           userId: sched.userId,
           firstname: sched.firstname,
@@ -130,23 +129,14 @@ const AdminSchedule = () => {
   //Set initial filter(employees, availability, positions) values
   useEffect(() => {
     //set position variables
-    // const coleredPosArray = setPositionList(schedules);
     //Set position filter with boolean
     const getInitialPositions = () => {
-      // const positionFilterArray = [];
-      positions?.map((p) => p.value = true
-      //   return positionFilterArray.push({
-      //     type: p.type,
-      //     color: p.color,
-      //     value: true,
-      //   });
-      
-      );
+      positions?.map((p) => (p.value = true));
       setFilters((pre) => {
         return { ...pre, positions: positions };
       });
     };
-    console.log('filtere', filters)
+    console.log("filtere", filters);
     //add hours with boolean
     const getInitialHrs = () => {
       const initialhrsArray = [
@@ -168,8 +158,8 @@ const AdminSchedule = () => {
     setResetFilter(false);
   }, [schedules, resetFilter]);
 
-  return (width >=700 ?  
-    (<div className="Admin-schedule">
+  return width >= 700 ? (
+    <div className="Admin-schedule">
       <div className="schedule-container">
         <Schedule
           selectedDay={selectedStart}
@@ -200,7 +190,9 @@ const AdminSchedule = () => {
           width={width}
         />
       </div>
-    </div>):(<div>mobile is not available for scheduling. Please, use tablet or pc.</div>)
+    </div>
+  ) : (
+    <div>mobile is not available for scheduling. Please, use tablet or pc.</div>
   );
 };
 

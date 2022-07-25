@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
 
 import WeeklyTableHeader from "./weeklyComponents/WeeklyTableHeader";
 import WeeklyTableBody from "./weeklyComponents/WeeklyTableBody";
 import WeeklyCalendarHeader from "../../../Reusables/components/CalendarHeaderInfo";
-
-// import { StoreContext } from "../../authentication/StoreProvider";
+import DisplayDaysinWeek from "../../../Reusables/components/DisplayDaysinWeek";
 
 import "./WeeklyCalendar.css";
-import DisplayDaysinWeek from "../../../Reusables/components/DisplayDaysinWeek";
 
 const WeeklyCalendarWeb = (props) => {
   //selectedDay is a standard day

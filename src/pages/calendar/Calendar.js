@@ -4,21 +4,20 @@ import { BiArrowBack } from "react-icons/bi";
 import moment from "moment";
 import "moment-timezone";
 
+import { StoreContext } from "../../components/authentication/StoreProvider";
 import MonthlyCalendar from "../../components/calendar/monthlyCalendar/MonthlyCalendar";
 import WeeklyCalendarWeb from "../../components/calendar/weeklyCalendar/weeklyWebView/WeeklyCalendarWeb";
 import WeeklyCalendarMobile from "../../components/calendar/weeklyCalendar/weeklyMobileView/WeeklyCalendarMobile";
 import DailyCalendar from "../../components/calendar/dailyCalendar/DailyCalendar";
+import SwapShiftRequest from "../../components/shiftSwapRequest/SwapShiftRequest";
+import WeeklyFilters from "../../components/calendar/weeklyCalendar/weeklyWebView/WeeklyFilters";
 
 import ViewButtons from "../../components/Reusables/components/ViewButtons";
 import TodayButton from "../../components/Reusables/components/TodayButton";
 import RequestSwapBtn from "../../components/Reusables/components/RequestSwapBtn";
-import { StoreContext } from "../../components/authentication/StoreProvider";
-import SwapShiftRequest from "../../components/shiftSwapRequest/SwapShiftRequest";
-import WeeklyFilters from "../../components/calendar/weeklyCalendar/weeklyWebView/WeeklyFilters";
+import CalendarHeaderInfo from "../../components/Reusables/components/CalendarHeaderInfo";
 
 import "./calendar.css";
-import ViewButtonsMobile from "../../components/Reusables/components/ViewButtons_mobile";
-import CalendarHeaderInfo from "../../components/Reusables/components/CalendarHeaderInfo";
 
 const Calendar = () => {
   const [filter, setFilter] = useState("All");
@@ -31,17 +30,16 @@ const Calendar = () => {
   const navigate = useNavigate();
   // console.log("calendar", calendar);
   const storeTimeZone =
-    useContext(StoreContext).store?.store.timeZone || "America/New_York";
+    useContext(StoreContext).store?.store.timeZone;
   const userTimeZone = moment.tz.guess();
   //  console.log(userTimeZone)
   const [settingHrsObj, setSettingHrsObj] = useState({
     startTimeOfDay: moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone),
     scheduleHrs: 18,
   });
-  // const storeOpen = moment.tz("06:00", "HH:mm", storeTimeZone).tz(userTimeZone);
-  // const scheduleHrs = 18;
+
   const [width, setWidth] = useState(window.innerWidth);
-  // const userId = useContext(LoginContext).user?.id || 9;
+
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);

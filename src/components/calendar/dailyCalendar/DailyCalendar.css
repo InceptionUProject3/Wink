@@ -187,10 +187,9 @@ font-weight: bold;
 .Table-body-container>.schedules-container>.Schedule>.Full-bar{
     position: relative;
     height: 100%
-    
 }
 .schedules-container>.Schedule>.Full-bar>.Percentage-bar{
-    position: relative
+    /* position: relative */
 }
  .schedules-container>.Schedule>.Full-bar>.Percentage-bar>.text{
     position: absolute;

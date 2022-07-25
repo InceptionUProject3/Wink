@@ -15,8 +15,8 @@ const DailyCalendar = (props) => {
   const [myDaySchedules, setMyDaySchedules] = useState();
   const [coworkerDaySchedules, setCoworkerDaySchedules] = useState();
 
-  const storeId = useContext(StoreContext).store?.Store_idStore || 1;
-  const userId = useContext(LoginContext).user?.id || 9;
+  const storeId = useContext(StoreContext).store?.Store_idStore ;
+  const userId = useContext(LoginContext).user?.id ;
 
   useEffect(() => {
     const getAllSchedules = async () => {
