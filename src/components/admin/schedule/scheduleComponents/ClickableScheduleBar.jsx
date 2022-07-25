@@ -125,19 +125,19 @@ console.log('chaging', selectedSched)
             ></div>
           );
         } else if (sched.schedule) {
-          // console.log("returns schedule", sched)
+          console.log("returns schedule", sched.originalStart, now,sched.dayStart >= now )
           return (
             <div
-              onClick={(e) => sched.dayStart >= now && scheduleAction(e, sched)}
+              onClick={(e) => sched.originalStart >= now && scheduleAction(e, sched)}
               key={`Sched ${sched?.idSchedule} ${i}`}
               className={
-                sched.dayStart >= now
+                sched.originalStart >= now
                   ? "Schedule clickable"
                   : "Schedule non-clickable"
               }
               id={sched?.idSchedule}
             >
-              {sched.dayStart >= now && (
+              {sched.originalStart >= now && (
                 <button
                   className="delete"
                   onClick={(e) => onClickDelete(e, sched)}

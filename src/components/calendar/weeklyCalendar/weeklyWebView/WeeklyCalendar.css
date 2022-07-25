@@ -37,6 +37,8 @@
 }
 .WeeklyCal-header>.DayInHeader{
     width:7em;
+    color:var(--wink-color);
+    font-weight: bold;
 }
 
 
@@ -193,6 +195,8 @@
     min-height:6em;
     
 };  
-@media screen and (max-width:1000px) {
-   
+@media screen and (max-width:700px) {
+    .WeeklyCal-header{
+        gap:0;
+    }
 }
