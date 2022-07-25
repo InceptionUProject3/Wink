@@ -188,6 +188,15 @@
     align-items: center;
     height: 100%;
 }
+.all_button.true{
+    background-color:var(--wink-color);
+    color: aliceblue;
+}
+.all_button.false{
+    border: 2px solid var(--wink-color);
+    color:var(--font-darkgrey);
+    background-color: white;
+}
 
 @media  only screen and (max-width:1000px) {
     .Side-bar{
