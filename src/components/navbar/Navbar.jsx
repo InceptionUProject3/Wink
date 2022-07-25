@@ -91,8 +91,8 @@ const Navbar = () => {
               </li>
             )}
 
-            {/* {loggedInUser && isAdmin && ( */}
-            {loggedInUser && (
+            {loggedInUser && isAdmin && (
+            
               <li>
                 <p className="menu">
                   <NavLink
