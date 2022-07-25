@@ -36,6 +36,8 @@ const findDaySchedule = (daysInWeek, schedules, timezone, settingHrsObj) => {
         swapApproved: foundSched.approved,
         dayStart,
         dayEnd,
+        originalStart: schedFrom,
+        originalEnd: schedTo,
         newFrom,
         newTo,
         hrs,

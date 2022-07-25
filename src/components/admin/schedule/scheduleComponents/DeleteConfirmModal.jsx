@@ -15,29 +15,73 @@ const DeleteConfirmModal = ({
   confirmModalOpen,
   setConfirmModalOpen,
   selectedSched,
+  setSelectedSched,
   setSchedModalOpen,
   employeeSched,
   timezone,
 }) => {
   const storeId = useContext(StoreContext).store?.Store_idStore;
   const userId = useContext(LoginContext).user?.id;
-
+  const resetEvent = () => {
+    setSelectedSched({
+      User_idUser: "",
+      Store_idStore: "",
+      starttime: "",
+      endtime: "",
+      workcode: 0,
+      archived: false,
+    });
+  };
   const sendDelete = async () => {
     console.log("Archiving schedule");
+    const today = moment.tz(moment(), timezone).startOf("day");
+    //if vacation clicked, change starttime, otherwise, archeive
+    console.log(
+      "compare",
+      selectedSched,
+      today,
+      selectedSched.starttime <= today
+    );
+    if (selectedSched.originalStart <= selectedSched.day) {
+      console.log(
+        "change endtime",
+        today.subtract(1, "days").endOf("day").format()
+      );
+      const dataToSend = JSON.stringify({
+        user: { User_idUser: userId, Store_idStore: storeId },
+        data: {
+          ...selectedSched,
+          starttime: selectedSched.originalStart.format(),
+          endtime: selectedSched.day.subtract(1, "days").endOf("day").format(),
+        },
+      });
+      const response = await fetch(`/api/schedule/scheduling`, {
+        method: "PATCH",
+        headers: { "content-Type": "application/json" },
+        body: dataToSend,
+      });
+      if (response.status === 200) {
+        console.log("Succeed in editing schedule");
 
-    const dataToSend = JSON.stringify({
-      user: { User_idUser: userId, Store_idStore: storeId },
-      data: selectedSched.idSchedule,
-    });
-    const response = await fetch(`/api/schedule/scheduling`, {
-      method: "DELETE",
-      headers: { "content-Type": "application/json" },
-      body: dataToSend,
-    });
-    if (response.status === 200) {
-      console.log(await response.json());
-    } else if (response.status === 403) {
-      console.log("Message", (await response.json()).message);
+        resetEvent();
+      } else if (response.status === 403) {
+        console.log("Message", (await response.json()).message);
+      }
+    } else {
+      const dataToSend = JSON.stringify({
+        user: { User_idUser: userId, Store_idStore: storeId },
+        data: selectedSched.idSchedule,
+      });
+      const response = await fetch(`/api/schedule/scheduling`, {
+        method: "DELETE",
+        headers: { "content-Type": "application/json" },
+        body: dataToSend,
+      });
+      if (response.status === 200) {
+        console.log(await response.json());
+      } else if (response.status === 403) {
+        console.log("Message", (await response.json()).message);
+      }
     }
     setSchedModalOpen((pre) => !pre);
     setConfirmModalOpen(false);
