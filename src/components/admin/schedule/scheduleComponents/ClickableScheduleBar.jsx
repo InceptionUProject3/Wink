@@ -34,7 +34,9 @@ const ClickableScheduleBar = ({
     };
     getTimeList();
   }, []);
-
+useEffect(()=>{
+console.log('chaging', selectedSched)
+},[selectedSched])
   // console.log("selected date is set to", selectedDate)
   // set initial values for schedule modal
   const scheduleAction = (e, sched) => {
@@ -55,10 +57,16 @@ const ClickableScheduleBar = ({
           idSchedule: sched.idSchedule,
           User_idUser: employeeSched.userId,
           Store_idStore: employeeSched.storeId,
-          starttime: sched.newFrom.format(),
-          endtime: sched.newTo.format(),
-          workcode:0,
+          starttime: sched.originalStart.format(),
+          endtime: sched.originalEnd.format(),
+          workcode:sched.workcode,
           archived: false,
+        };
+      });
+      setSelectedDate(() => {
+        return {
+          starttime: sched.originalStart,
+          endtime: sched.originalEnd,
         };
       });
     } else {
@@ -101,8 +109,9 @@ const ClickableScheduleBar = ({
   return (
     <>
       {daySchedsForWeek?.map((sched, i) => {
-        const today = moment.tz(moment(), timezone).startOf("day");
-        // console.log("mapped sched", sched.day, today);
+        const now = moment.tz(moment(), timezone);
+        const today = moment.tz(moment(), timezone).startOf('day');
+        console.log("mapped sched", sched);
         if (!sched.schedule) {
           return (
             <div
@@ -119,16 +128,16 @@ const ClickableScheduleBar = ({
           // console.log("returns schedule", sched)
           return (
             <div
-              onClick={(e) => sched.day >= today && scheduleAction(e, sched)}
+              onClick={(e) => sched.dayStart >= now && scheduleAction(e, sched)}
               key={`Sched ${sched?.idSchedule} ${i}`}
               className={
-                sched.day >= today
+                sched.dayStart >= now
                   ? "Schedule clickable"
                   : "Schedule non-clickable"
               }
               id={sched?.idSchedule}
             >
-              {sched.day >= today && (
+              {sched.dayStart >= now && (
                 <button
                   className="delete"
                   onClick={(e) => onClickDelete(e, sched)}
@@ -170,6 +179,7 @@ const ClickableScheduleBar = ({
       />
       <DeleteConfirmModal
         selectedSched={selectedSched}
+        setSelectedSched={setSelectedSched}
         employeeSched={employeeSched}
         confirmModalOpen={confirmModalOpen}
         setConfirmModalOpen={setConfirmModalOpen}

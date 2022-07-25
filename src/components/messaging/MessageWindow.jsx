@@ -195,9 +195,10 @@ console.log(notification);
                     }}
                   >
                     {message.chat}
+                    {"  "}
                     {message.unapproved_swap === true ? (
                       <button onClick={() => approve(message)}>Approve</button> ) : (
-                        <div> Shift swap approved </div>
+                        <div></div>
                       )}
                   </div>
                   <div ref={bottomRef} />
