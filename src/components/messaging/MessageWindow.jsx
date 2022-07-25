@@ -195,6 +195,7 @@ console.log(notification);
                     }}
                   >
                     {message.chat}
+                    {"  "}
                     {message.unapproved_swap === true ? (
                       <button onClick={() => approve(message)}>Approve</button> ) : (
                         <div></div>

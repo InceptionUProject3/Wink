@@ -67,8 +67,9 @@ const Unread = () => {
         {unread ? (
           unread.map((message) => {
             return (
-              <ListItem>
+              <ListItem >
                 <ListItemButton
+                sx={{ border: "1px solid lightgrey", borderRadius: 1 }}
                   onClick={() => navigate("/messenger", { state: { message } })}
                 >
                   <ListItemText

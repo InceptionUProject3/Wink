@@ -27,9 +27,9 @@ const MonthlySchedBar = (props) => {
         {vacMonSched?.map((vacation, index) => {
           const vacDate = moment(vacation.starttime).startOf("day")
           const vacEndDate = moment(vacation.endtime).endOf("day")
-          console.log(" day. date", day.date)
+          //console.log(" day. date", day.date)
           const momentDay = moment(day.date,"MM/DD/YYYY")
-          console.log("momentDay", momentDay)
+          //console.log("momentDay", momentDay)
 
           //console.log(" vacDate and day.value and vacEndDate",vacDate, day.value, vacEndDate )
           if (momentDay >= vacDate && momentDay <= vacEndDate) {
