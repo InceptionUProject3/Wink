@@ -3,15 +3,16 @@ import DisplayOthersSched from "./weeklyTableBody/DisplayOthersSched";
 import DisplayMySched from "./weeklyTableBody/DisplayMySched";
 import { LoginContext } from "../../../../authentication/LoginProvider";
 import { StoreContext } from "../../../../authentication/StoreProvider";
+import { Store } from "@mui/icons-material";
 
 
 const WeeklyTableBody = (props) => {
   const { selectedDay, settingHrsObj, daysInWeek, timezone, filter,openModal } =
     props;
-  const userId = useContext(LoginContext).user?.id ;
+  const userId = useContext(StoreContext).store?.User_idUser;
   const storeId = useContext(StoreContext).store?.Store_idStore ;
  
-
+console.log('userContext', useContext(StoreContext).store)
   const [mySched, setMySched] = useState();
   const [cowokersSched, setCoworkersSched] = useState();
   const [swapReqScheds, setSwapReqScheds]= useState();
@@ -21,9 +22,9 @@ const WeeklyTableBody = (props) => {
 
   //set schdules & position colors
   useEffect(() => {
-    console.log("fetching useEffect")
     const getAllSchedules = async () => {
       try {
+        console.log("fetching useEffect", userId, storeId)
         //need to fetch schedule with priod from server
         const weekStart = startDay?.clone().format();
         const res = await fetch(

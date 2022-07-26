@@ -11,7 +11,6 @@ import { useEffect } from "react";
 
 const LoginForm = () => {
   const authContext = useContext(LoginContext);
-  const store = useContext(StoreContext).store;
   // const login = authContext.login;
 
   const [username, setUsername] = useState("");

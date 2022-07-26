@@ -11,7 +11,7 @@ import "./swapShiftRequest.css";
 const SwapShiftRequest = (props) => {
   const { setOpenModal } = props;
   const storeId = useContext(StoreContext).store?.Store_idStore;
-  const userId = useContext(LoginContext).user?.id;
+  const userId = useContext(StoreContext).store?.User_idUser;
   const [mySchedules, setMySchdules] = useState();
   const [swapList, setSwapList] = useState();
   const initialState = {

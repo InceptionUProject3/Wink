@@ -14,7 +14,7 @@ const CalendarBodyMobile = ({
   setSelectedDay,
 }) => {
   const navigate = useNavigate();
-  const userId = useContext(LoginContext).user?.id;
+  const userId = useContext(StoreContext).store?.User_idUser;
   const storeId = useContext(StoreContext).store?.Store_idStore;
   const positions = useContext(StoreContext).positions;
  

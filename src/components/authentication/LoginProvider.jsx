@@ -39,6 +39,7 @@ const LoginProvider = (props) => {
 
   const logout = () => {
     setUser(null);
+    localStorage.setItem('store', 'null')
   };
   const children = props.children;
   const theValues = { user, finishLogin, logout, loading };
