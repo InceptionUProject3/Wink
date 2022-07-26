@@ -109,7 +109,7 @@ console.log('chaging', selectedSched)
   return (
     <>
       {daySchedsForWeek?.map((sched, i) => {
-        const now = moment.tz(moment(), timezone);
+        // const now = moment.tz(moment(), timezone);
         const today = moment.tz(moment(), timezone).startOf('day');
         console.log("mapped sched", sched);
         if (!sched.schedule) {
@@ -125,19 +125,19 @@ console.log('chaging', selectedSched)
             ></div>
           );
         } else if (sched.schedule) {
-          console.log("returns schedule", sched.originalStart, now,sched.dayStart >= now )
+          // console.log("returns schedule", sched.originalStart, now,sched.dayStart >= now )
           return (
             <div
-              onClick={(e) => sched.originalStart >= now && scheduleAction(e, sched)}
+              onClick={(e) => sched.day>= today && scheduleAction(e, sched)}
               key={`Sched ${sched?.idSchedule} ${i}`}
               className={
-                sched.originalStart >= now
+                sched.day >= today
                   ? "Schedule clickable"
                   : "Schedule non-clickable"
               }
               id={sched?.idSchedule}
             >
-              {sched.originalStart >= now && (
+              {sched.day >= today && (
                 <button
                   className="delete"
                   onClick={(e) => onClickDelete(e, sched)}
