@@ -34,10 +34,7 @@ const ClickableScheduleBar = ({
     };
     getTimeList();
   }, []);
-useEffect(()=>{
-console.log('chaging', selectedSched)
-},[selectedSched])
-  // console.log("selected date is set to", selectedDate)
+
   // set initial values for schedule modal
   const scheduleAction = (e, sched) => {
     //set Date
@@ -73,9 +70,7 @@ console.log('chaging', selectedSched)
       setSelectedSched((pre) => {
         console.log(
           "Modal - creating schedule",
-          employeeSched,
-          employeeSched.userId,
-          employeeSched.storeId
+          employeeSched
         );
         return {
           User_idUser: employeeSched.userId,

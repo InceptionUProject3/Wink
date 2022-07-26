@@ -18,8 +18,8 @@ const StoreProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("positions", JSON.stringify(positions));
-    
   }, [positions]);
+
   const theValues = { store, setStore, positions, setPositions };
   return (
     <StoreContext.Provider value={theValues}>{children}</StoreContext.Provider>

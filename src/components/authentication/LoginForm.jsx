@@ -6,16 +6,20 @@ import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../utils/muiTheme";
 import { LoginContext } from "./LoginProvider";
+import { StoreContext } from "./StoreProvider";
+import { useEffect } from "react";
 
 const LoginForm = () => {
   const authContext = useContext(LoginContext);
-
+  const store = useContext(StoreContext).store;
   // const login = authContext.login;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+ useEffect(()=>{
+  localStorage.setItem('store','null')
+ },[]);
   const onFormSubmit = async () => {
     try {
       const user = { username: username, password: password };
@@ -33,6 +37,7 @@ const LoginForm = () => {
         console.log(response);
         const userData = JSON.parse(await response.text());
         authContext.finishLogin(userData);
+
         navigate("/selection");
       } else {
         alert("Login Failed");
