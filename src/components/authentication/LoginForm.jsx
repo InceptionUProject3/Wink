@@ -11,13 +11,15 @@ import { useEffect } from "react";
 
 const LoginForm = () => {
   const authContext = useContext(LoginContext);
+  const storeContext =useContext(StoreContext)
   // const login = authContext.login;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
  useEffect(()=>{
-  localStorage.setItem('store','null')
+  localStorage.setItem('store','null');
+  storeContext.setStore(null)
  },[]);
   const onFormSubmit = async () => {
     try {

@@ -9,6 +9,7 @@ const StoreProvider = ({ children }) => {
 
   const [store, setStore] = React.useState(() => {
     const localData = localStorage.getItem("store");
+    // console.log('brought data', localData)
     return localData ? JSON.parse(localData) : null;
   });
   const [positions, setPositions] = useState(() => {
@@ -18,8 +19,12 @@ const StoreProvider = ({ children }) => {
 
   useEffect(() => {
     // console.log('d',loggedInUser)
-    loggedInUser?.id ===store?.User_idUser&&
-    localStorage.setItem("store", JSON.stringify(store));
+    if(loggedInUser?.id ===store?.User_idUser){
+      console.log('taking user info to get store')
+      localStorage.setItem("store", JSON.stringify(store));
+    }else(
+      localStorage.setItem('store','null')
+    )
   }, [store,loggedInUser]);
 
   useEffect(() => {
